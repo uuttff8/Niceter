@@ -20,6 +20,8 @@
 		4E09AC1D240D81920028229C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC1C240D81920028229C /* Coordinator.swift */; };
 		4E09AC23240D82B30028229C /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC22240D82B30028229C /* Storyboarded.swift */; };
 		4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC26240D837D0028229C /* LoginAuthCoordinator.swift */; };
+		4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC2A240D8B240028229C /* RoundButton.swift */; };
+		4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		4E09AC1C240D81920028229C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4E09AC22240D82B30028229C /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		4E09AC26240D837D0028229C /* LoginAuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthCoordinator.swift; sourceTree = "<group>"; };
+		4E09AC2A240D8B240028229C /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,7 @@
 				4E09AC17240D81270028229C /* AppCoordinator.swift */,
 				4E09AC15240D80F50028229C /* Features */,
 				4E09AC19240D81770028229C /* Common */,
+				4E09AC29240D8B0C0028229C /* CustomViews */,
 				4E09AC1E240D82840028229C /* Utils */,
 				4E09AC28240D85340028229C /* Resources */,
 			);
@@ -173,6 +178,7 @@
 		4E09AC24240D835D0028229C /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				4E09AC2C240D8CA90028229C /* New Group */,
 				4E09AC25240D83630028229C /* LoginAuth */,
 			);
 			path = Login;
@@ -184,6 +190,7 @@
 				4E09ABE6240D7FA70028229C /* LoginAuthViewController.swift */,
 				4E09ABE8240D7FA70028229C /* LoginAuth.storyboard */,
 				4E09AC26240D837D0028229C /* LoginAuthCoordinator.swift */,
+				4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */,
 			);
 			path = LoginAuth;
 			sourceTree = "<group>";
@@ -197,6 +204,21 @@
 				4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4E09AC29240D8B0C0028229C /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				4E09AC2A240D8B240028229C /* RoundButton.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		4E09AC2C240D8CA90028229C /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,6 +352,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */,
+				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
