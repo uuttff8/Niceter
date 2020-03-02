@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABE2240D7FA70028229C /* AppDelegate.swift */; };
+		4E09ABE5240D7FA70028229C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABE4240D7FA70028229C /* SceneDelegate.swift */; };
+		4E09ABE7240D7FA70028229C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABE6240D7FA70028229C /* ViewController.swift */; };
+		4E09ABEA240D7FA70028229C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09ABE8240D7FA70028229C /* Main.storyboard */; };
+		4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */; };
+		4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E09ABEE240D7FA90028229C /* Assets.xcassets */; };
+		4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09ABF0240D7FA90028229C /* LaunchScreen.storyboard */; };
+		4E09ABFD240D7FA90028229C /* GittkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABFC240D7FA90028229C /* GittkerTests.swift */; };
+		4E09AC08240D7FA90028229C /* GittkerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC07240D7FA90028229C /* GittkerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4E09ABF9240D7FA90028229C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E09ABD7240D7FA70028229C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E09ABDE240D7FA70028229C;
+			remoteInfo = Gittker;
+		};
+		4E09AC04240D7FA90028229C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E09ABD7240D7FA70028229C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E09ABDE240D7FA70028229C;
+			remoteInfo = Gittker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4E09ABDF240D7FA70028229C /* Gittker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gittker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E09ABE2240D7FA70028229C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4E09ABE4240D7FA70028229C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		4E09ABE6240D7FA70028229C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4E09ABE9240D7FA70028229C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4E09ABEC240D7FA70028229C /* Gittker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gittker.xcdatamodel; sourceTree = "<group>"; };
+		4E09ABEE240D7FA90028229C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4E09ABF1240D7FA90028229C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4E09ABF3240D7FA90028229C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E09ABF8240D7FA90028229C /* GittkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GittkerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E09ABFC240D7FA90028229C /* GittkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerTests.swift; sourceTree = "<group>"; };
+		4E09ABFE240D7FA90028229C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E09AC03240D7FA90028229C /* GittkerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GittkerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E09AC07240D7FA90028229C /* GittkerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerUITests.swift; sourceTree = "<group>"; };
+		4E09AC09240D7FA90028229C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4E09ABDC240D7FA70028229C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E09ABF5240D7FA90028229C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E09AC00240D7FA90028229C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4E09ABD6240D7FA70028229C = {
+			isa = PBXGroup;
+			children = (
+				4E09ABE1240D7FA70028229C /* Gittker */,
+				4E09ABFB240D7FA90028229C /* GittkerTests */,
+				4E09AC06240D7FA90028229C /* GittkerUITests */,
+				4E09ABE0240D7FA70028229C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4E09ABE0240D7FA70028229C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4E09ABDF240D7FA70028229C /* Gittker.app */,
+				4E09ABF8240D7FA90028229C /* GittkerTests.xctest */,
+				4E09AC03240D7FA90028229C /* GittkerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E09ABE1240D7FA70028229C /* Gittker */ = {
+			isa = PBXGroup;
+			children = (
+				4E09ABE2240D7FA70028229C /* AppDelegate.swift */,
+				4E09ABE4240D7FA70028229C /* SceneDelegate.swift */,
+				4E09ABE6240D7FA70028229C /* ViewController.swift */,
+				4E09ABE8240D7FA70028229C /* Main.storyboard */,
+				4E09ABEE240D7FA90028229C /* Assets.xcassets */,
+				4E09ABF0240D7FA90028229C /* LaunchScreen.storyboard */,
+				4E09ABF3240D7FA90028229C /* Info.plist */,
+				4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */,
+			);
+			path = Gittker;
+			sourceTree = "<group>";
+		};
+		4E09ABFB240D7FA90028229C /* GittkerTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E09ABFC240D7FA90028229C /* GittkerTests.swift */,
+				4E09ABFE240D7FA90028229C /* Info.plist */,
+			);
+			path = GittkerTests;
+			sourceTree = "<group>";
+		};
+		4E09AC06240D7FA90028229C /* GittkerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4E09AC07240D7FA90028229C /* GittkerUITests.swift */,
+				4E09AC09240D7FA90028229C /* Info.plist */,
+			);
+			path = GittkerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4E09ABDE240D7FA70028229C /* Gittker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E09AC0C240D7FA90028229C /* Build configuration list for PBXNativeTarget "Gittker" */;
+			buildPhases = (
+				4E09ABDB240D7FA70028229C /* Sources */,
+				4E09ABDC240D7FA70028229C /* Frameworks */,
+				4E09ABDD240D7FA70028229C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gittker;
+			productName = Gittker;
+			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4E09ABF7240D7FA90028229C /* GittkerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E09AC0F240D7FA90028229C /* Build configuration list for PBXNativeTarget "GittkerTests" */;
+			buildPhases = (
+				4E09ABF4240D7FA90028229C /* Sources */,
+				4E09ABF5240D7FA90028229C /* Frameworks */,
+				4E09ABF6240D7FA90028229C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E09ABFA240D7FA90028229C /* PBXTargetDependency */,
+			);
+			name = GittkerTests;
+			productName = GittkerTests;
+			productReference = 4E09ABF8240D7FA90028229C /* GittkerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4E09AC02240D7FA90028229C /* GittkerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E09AC12240D7FA90028229C /* Build configuration list for PBXNativeTarget "GittkerUITests" */;
+			buildPhases = (
+				4E09ABFF240D7FA90028229C /* Sources */,
+				4E09AC00240D7FA90028229C /* Frameworks */,
+				4E09AC01240D7FA90028229C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E09AC05240D7FA90028229C /* PBXTargetDependency */,
+			);
+			name = GittkerUITests;
+			productName = GittkerUITests;
+			productReference = 4E09AC03240D7FA90028229C /* GittkerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4E09ABD7240D7FA70028229C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Anton Kuzmin";
+				TargetAttributes = {
+					4E09ABDE240D7FA70028229C = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					4E09ABF7240D7FA90028229C = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 4E09ABDE240D7FA70028229C;
+					};
+					4E09AC02240D7FA90028229C = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 4E09ABDE240D7FA70028229C;
+					};
+				};
+			};
+			buildConfigurationList = 4E09ABDA240D7FA70028229C /* Build configuration list for PBXProject "Gittker" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4E09ABD6240D7FA70028229C;
+			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4E09ABDE240D7FA70028229C /* Gittker */,
+				4E09ABF7240D7FA90028229C /* GittkerTests */,
+				4E09AC02240D7FA90028229C /* GittkerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4E09ABDD240D7FA70028229C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */,
+				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
+				4E09ABEA240D7FA70028229C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E09ABF6240D7FA90028229C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E09AC01240D7FA90028229C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4E09ABDB240D7FA70028229C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E09ABE7240D7FA70028229C /* ViewController.swift in Sources */,
+				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
+				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
+				4E09ABE5240D7FA70028229C /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E09ABF4240D7FA90028229C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E09ABFD240D7FA90028229C /* GittkerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E09ABFF240D7FA90028229C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E09AC08240D7FA90028229C /* GittkerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E09ABFA240D7FA90028229C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E09ABDE240D7FA70028229C /* Gittker */;
+			targetProxy = 4E09ABF9240D7FA90028229C /* PBXContainerItemProxy */;
+		};
+		4E09AC05240D7FA90028229C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E09ABDE240D7FA70028229C /* Gittker */;
+			targetProxy = 4E09AC04240D7FA90028229C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4E09ABE8240D7FA70028229C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E09ABE9240D7FA70028229C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4E09ABF0240D7FA90028229C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E09ABF1240D7FA90028229C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4E09AC0A240D7FA90028229C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4E09AC0B240D7FA90028229C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4E09AC0D240D7FA90028229C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				INFOPLIST_FILE = Gittker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Gittker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4E09AC0E240D7FA90028229C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				INFOPLIST_FILE = Gittker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Gittker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4E09AC10240D7FA90028229C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				INFOPLIST_FILE = GittkerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gittker.app/Gittker";
+			};
+			name = Debug;
+		};
+		4E09AC11240D7FA90028229C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				INFOPLIST_FILE = GittkerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gittker.app/Gittker";
+			};
+			name = Release;
+		};
+		4E09AC13240D7FA90028229C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				INFOPLIST_FILE = GittkerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Gittker;
+			};
+			name = Debug;
+		};
+		4E09AC14240D7FA90028229C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				INFOPLIST_FILE = GittkerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Gittker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4E09ABDA240D7FA70028229C /* Build configuration list for PBXProject "Gittker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E09AC0A240D7FA90028229C /* Debug */,
+				4E09AC0B240D7FA90028229C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E09AC0C240D7FA90028229C /* Build configuration list for PBXNativeTarget "Gittker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E09AC0D240D7FA90028229C /* Debug */,
+				4E09AC0E240D7FA90028229C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E09AC0F240D7FA90028229C /* Build configuration list for PBXNativeTarget "GittkerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E09AC10240D7FA90028229C /* Debug */,
+				4E09AC11240D7FA90028229C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E09AC12240D7FA90028229C /* Build configuration list for PBXNativeTarget "GittkerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E09AC13240D7FA90028229C /* Debug */,
+				4E09AC14240D7FA90028229C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4E09ABEC240D7FA70028229C /* Gittker.xcdatamodel */,
+			);
+			currentVersion = 4E09ABEC240D7FA70028229C /* Gittker.xcdatamodel */;
+			path = Gittker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 4E09ABD7240D7FA70028229C /* Project object */;
+}
