@@ -8,13 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginAuthViewController: UIViewController, Storyboarded {
 
+    weak var coordinator: LoginAuthCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        
+        
     }
-
-
 }
 
