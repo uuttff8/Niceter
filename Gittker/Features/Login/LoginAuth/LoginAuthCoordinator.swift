@@ -23,4 +23,10 @@ class LoginAuthCoordinator: Coordinator {
         navigationController?.pushViewController(vc, animated: true)
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
+    func showLoginWebView(host: String) {
+        let vc = LoginWebViewController(nibName: nil, bundle: nil)
+        vc.authProvider = host
+        navigationController?.present(vc, animated: true, completion: nil)
+    }
 }

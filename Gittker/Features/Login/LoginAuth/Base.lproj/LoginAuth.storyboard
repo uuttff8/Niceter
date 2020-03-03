@@ -35,6 +35,9 @@
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="gitLabButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QWB-6e-P4x"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFd-RQ-nxn" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="52" width="335" height="44"/>
@@ -42,7 +45,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="VQ7-Ld-0V6"/>
                                         </constraints>
-                                        <state key="normal" title="Sign in with GitLab">
+                                        <state key="normal" title="Sign in with GitHub">
                                             <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -50,6 +53,9 @@
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="gitHubButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9rY-ej-gfM"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8s-u4-iRN" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="104" width="335" height="44"/>
@@ -65,6 +71,9 @@
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="twitterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qqJ-oR-sU0"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

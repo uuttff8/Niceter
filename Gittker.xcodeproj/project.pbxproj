@@ -22,6 +22,7 @@
 		4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC26240D837D0028229C /* LoginAuthCoordinator.swift */; };
 		4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC2A240D8B240028229C /* RoundButton.swift */; };
 		4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */; };
+		4E09AC31240D906F0028229C /* ClearCookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC30240D906F0028229C /* ClearCookies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		4E09AC26240D837D0028229C /* LoginAuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC2A240D8B240028229C /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebViewController.swift; sourceTree = "<group>"; };
+		4E09AC30240D906F0028229C /* ClearCookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearCookies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 		4E09AC1E240D82840028229C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4E09AC2F240D90640028229C /* Logic */,
 				4E09AC21240D82A30028229C /* Protocols */,
 			);
 			path = Utils;
@@ -187,10 +190,10 @@
 		4E09AC25240D83630028229C /* LoginAuth */ = {
 			isa = PBXGroup;
 			children = (
+				4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */,
 				4E09ABE6240D7FA70028229C /* LoginAuthViewController.swift */,
 				4E09ABE8240D7FA70028229C /* LoginAuth.storyboard */,
 				4E09AC26240D837D0028229C /* LoginAuthCoordinator.swift */,
-				4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */,
 			);
 			path = LoginAuth;
 			sourceTree = "<group>";
@@ -219,6 +222,14 @@
 			children = (
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		4E09AC2F240D90640028229C /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				4E09AC30240D906F0028229C /* ClearCookies.swift */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,6 +367,7 @@
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
+				4E09AC31240D906F0028229C /* ClearCookies.swift in Sources */,
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
 				4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,

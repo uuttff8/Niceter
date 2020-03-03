@@ -16,6 +16,7 @@ class LoginAuthViewController: UIViewController, Storyboarded {
         .lightContent
     }
     
+    // MARK: - VC Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
@@ -23,8 +24,20 @@ class LoginAuthViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    }
+    
+    
+    // MARK: - Actions
+    @IBAction func gitLabButtonTapped(_ sender: RoundButton) {
+        coordinator?.showLoginWebView(host: "gitlab")
+    }
+    
+    @IBAction func gitHubButtonTapped(_ sender: RoundButton) {
+        coordinator?.showLoginWebView(host: "github")
+    }
+    
+    @IBAction func twitterButtonTapped(_ sender: RoundButton) {
+        coordinator?.showLoginWebView(host: "twitter")
     }
 }
 
