@@ -29,11 +29,29 @@ class MainTabBarController: UITabBarController {
         coordinator2.currentController?.tabBarItem = UITabBarItem(title: "ABOUT",
                                                                   image: nil,
                                                                   tag: 22)
+        
+        let navigationController3 = UINavigationController()
+        let coordinator3 = PeopleCoordinator(with: navigationController3)
+        coordinator3.tabController = self
+        coordinator3.currentController?.tabBarItem = UITabBarItem(title: "PEOPLE",
+                                                                  image: nil,
+                                                                  tag: 22)
+
+        
+        let navigationController4 = UINavigationController()
+        let coordinator4 = CommunitiesCoordinator(with: navigationController4)
+        coordinator4.tabController = self
+        coordinator4.currentController?.tabBarItem = UITabBarItem(title: "COMMUNITIES",
+                                                                  image: nil,
+                                                                  tag: 22)
+
 
 
         viewControllers = [
             coordinator1.currentController!,
-            coordinator2.currentController!
+            coordinator2.currentController!,
+            coordinator3.currentController!,
+            coordinator4.currentController!
         ]
 
         tabBar.barTintColor = UIColor.white
