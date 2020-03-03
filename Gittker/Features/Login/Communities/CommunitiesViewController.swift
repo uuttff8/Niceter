@@ -10,6 +10,8 @@ import UIKit
 
 class CommunitiesViewController: UIViewController, Storyboarded {
 
+    weak var coordinator: CommunitiesCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
