@@ -10,6 +10,10 @@ import UIKit
 
 enum AppStoryboards: String {
     case LoginAuth = "LoginAuth"
+    case Home = "Home"
+    case Search = "Search"
+    case People = "People"
+    case Communities = "Communities"
 }
 
 protocol Storyboarded {
@@ -30,6 +34,14 @@ extension Storyboarded where Self: UIViewController {
         // TODO(uuttff8): Refactor
         switch storyboardId {
         case .LoginAuth:
+            createStoryboard(storyboardId)
+        case .Communities:
+            createStoryboard(storyboardId)
+        case .Home:
+            createStoryboard(storyboardId)
+        case .People:
+            createStoryboard(storyboardId)
+        case .Search:
             createStoryboard(storyboardId)
         }
                 

@@ -10,17 +10,18 @@ import UIKit
 import WebKit
 
 class LoginWebViewController: UIViewController {
+    typealias JsonObject = [String : Any]
 
     var activityView: UIActivityIndicatorView?
 
-    
     open var authProvider: String?
     
     private var webView: WKWebView?
 
     private let host = "https://gitter.im"
-    private let OATHKEY = "bab3c21b76d47686e5b28792b9d17864d72c4878"
-    private let OAUTHSCOPE = "gittker://"
+    private let appSettings = AppSettingsSecret()
+//    private let OATHKEY = "bab3c21b76d47686e5b28792b9d17864d72c4878"
+//    private let OAUTHSCOPE = "gittker://"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,9 +69,10 @@ class LoginWebViewController: UIViewController {
     
     private func getAuthorisationUrl() -> URL {
         var components = URLComponents(string: "\(host)/login/oauth/authorize")!
+        
         var queryItems = [
-            URLQueryItem(name: "client_id", value: OATHKEY),
-            URLQueryItem(name: "redirect_uri", value: OAUTHSCOPE),
+            URLQueryItem(name: "client_id", value: appSettings.clientID),
+            URLQueryItem(name: "redirect_uri", value: appSettings.scope),
             URLQueryItem(name: "response_type", value: "code"),
             URLQueryItem(name: "action", value: "login"),
             URLQueryItem(name: "source", value: "ios_login-login")
@@ -98,26 +100,61 @@ extension LoginWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let url = navigationAction.request.url!
 
-        if (url.absoluteString.hasPrefix(OAUTHSCOPE)) {
+        if (url.absoluteString.hasPrefix(appSettings.scope)) {
             decisionHandler(.cancel)
+            
+            if let code = getCodeFromCallbackUrl(url) {
 
-//            if let code = getCodeFromCallbackUrl(url) {
-//
-//                exchangeTokens(code, completionHandler: { (accessToken) -> Void in
-//
-//                    self.getUserId(accessToken, completionHandler: { (userId) -> Void in
-//
-//                        LoginData().setLoggedIn(userId, withToken: accessToken)
-//                        NotificationCenter.default.post(name: Notification.Name(rawValue: TroupeAuthenticationReady), object: self)
-//                        self.showInitialViewController()
-//
-//                    })
-//
-//                })
-//
-//            }
+                exchangeTokens(code, completionHandler: { (accessToken) -> Void in
+
+                    self.getUserId(accessToken, completionHandler: { (userId) -> Void in
+
+                        // LoginData().setLoggedIn(userId, withToken: accessToken)
+                        // NotificationCenter.default.post(name: Notification.Name(rawValue: TroupeAuthenticationReady), object: self)
+                        self.showInitialViewController()
+
+                    })
+
+                })
+            }
         } else {
             decisionHandler(.allow)
         }
+    }
+    
+    private func getCodeFromCallbackUrl(_ url: URL) -> String? {
+        print(url)
+        return URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems?.filter({ (queryItem) -> Bool in
+            return queryItem.name == "code"
+        }).first?.value
+    }
+    
+    private func exchangeTokens(_ code: String, completionHandler: @escaping (_ accessToken: String) -> Void) {
+        let token = ExchangeToken(clientId: appSettings.clientID,
+                                  clientSecret: appSettings.clientIDSecret,
+                                  redirectUri: appSettings.scope,
+                                  grantType: "authorization_code",
+                                  code: code)
+        
+        GitterApi.init(accessToken: nil).exchangeToken(dataToken: token) { (token) in
+            completionHandler(token)
+        }
+    }
+
+    private func getUserId(_ accessToken: String, completionHandler: @escaping (_ userId: String) -> Void) {
+        let api = GitterApi(accessToken: accessToken)
+        api.getUserId { (user) in
+            guard let user = user else { print("BLYAAAA");return }
+            print(user.id)
+            completionHandler(user.id)
+        }
+    }
+
+    private func showInitialViewController() {
+        self.dismiss(animated: true, completion: {
+            let tabBar = MainTabBarCoordinator(navigationController: nil)
+            UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController = tabBar.currentController
+            tabBar.start()
+        })
     }
 }
