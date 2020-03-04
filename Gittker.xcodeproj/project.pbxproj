@@ -42,6 +42,7 @@
 		4E09AC6E240EE6C60028229C /* CommunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6D240EE6C60028229C /* CommunitiesViewController.swift */; };
 		4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */; };
 		4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC71240EE6DD0028229C /* Communities.storyboard */; };
+		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		4E09AC6D240EE6C60028229C /* CommunitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewController.swift; sourceTree = "<group>"; };
 		4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC71240EE6DD0028229C /* Communities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Communities.storyboard; sourceTree = "<group>"; };
+		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 		4E09AC25240D83630028229C /* LoginAuth */ = {
 			isa = PBXGroup;
 			children = (
+				4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */,
 				4E09AC2D240D8CDE0028229C /* LoginWebViewController.swift */,
 				4E09ABE6240D7FA70028229C /* LoginAuthViewController.swift */,
 				4E09ABE8240D7FA70028229C /* LoginAuth.storyboard */,
@@ -493,6 +496,7 @@
 			files = (
 				4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */,
 				4E09AC4C240EA68D0028229C /* NetModels.swift in Sources */,
+				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,

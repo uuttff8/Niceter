@@ -40,16 +40,13 @@ struct User: Codable {
     }
 }
 
-
-//struct User: Codable {
-//    let id: String
-//    let username: String
-//    let displayName: String
-//    let url: String
-//    let avatarUrl: String
-//    let avatarUrlSmall: String
-//    let avatarUrlMedium: String
-//    let providers: [String]
-//    let v: Int
-//    let gv: String
-//}
+// ["access_token": "xxxx", "token_type": Bearer]
+struct AccessToken: Codable {
+    let accessToken: String
+    let tokenType: String
+    
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+        case tokenType = "token_type"
+    }
+}
