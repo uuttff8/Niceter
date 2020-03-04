@@ -55,11 +55,9 @@ extension GitterApi {
         self.httpClient.post(url: URL(string: "\(GitterApiLinks.baseUrl + GitterApiLinks.exchangeToken.rawValue)")!, params: body!) { (res) in
             switch res {
             case .success(let data):
-                let respJson = try? JSONSerialization.jsonObject(with: data, options: [])
-                if let respDic = respJson as? [String: Any] {
-                    print(respDic)
-                    completion(respDic["access_token"] as! String)
-                }
+                let accessToken = try? JSONDecoder().decode(AccessToken.self, from: data).accessToken
+                guard let token = accessToken else { print("\(#line) and \(#file) Broken access token"); return }
+                completion(token)
             default: print("pizdec"); break
             }
         }
