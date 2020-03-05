@@ -21,11 +21,13 @@ class LoginAuthViewModel {
     func processAuthorisation(url: URL, completion: @escaping ((_ user: User) -> Void)) {
         if let code = getCodeFromCallbackUrl(url) {
             
-            exchangeTokens(code, completionHandler: { (accessToken) -> Void in
+            exchangeTokens(code, completionHandler: { (authAccessToken) -> Void in
                 
-                self.getUser(accessToken, completionHandler: { (gettedUser) -> Void in
-                    // TODO: authorize
-                    // LoginData().setLoggedIn(userId, withToken: accessToken)
+                LoginData.shared.accessToken = authAccessToken
+                
+                self.getUser(completionHandler: { (gettedUser) -> Void in
+                    ShareData().userdata = gettedUser
+                    LoginData().setLoggedIn(gettedUser.id)
                     // NotificationCenter.default.post(name: Notification.Name(rawValue: TroupeAuthenticationReady), object: self)
                     completion(gettedUser)
                 })
@@ -64,14 +66,13 @@ class LoginAuthViewModel {
                                   grantType: "authorization_code",
                                   code: code)
         
-        GitterApi.init(accessToken: nil).exchangeToken(dataToken: token) { (token) in
+        GitterApi.shared.exchangeToken(dataToken: token) { (token) in
             completionHandler(token)
         }
     }
 
-    func getUser(_ accessToken: String, completionHandler: @escaping (_ userId: User) -> Void) {
-        let api = GitterApi(accessToken: accessToken)
-        api.getUserId { (user) in
+    func getUser(completionHandler: @escaping (_ userId: User) -> Void) {
+        GitterApi().getUserId { (user) in
             guard let user = user else { return }
             print(user)
             completionHandler(user)

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import KeychainSwift
 
 enum CustomHttpError: Error {
     case fail
@@ -18,6 +19,7 @@ protocol HTTPClientProvider {
 }
 
 final class HTTPClient: HTTPClientProvider {
+    private let keychain = KeychainSwift()
     
     func get(url: URL, completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
         let request = URLRequest(url: url)
@@ -28,20 +30,25 @@ final class HTTPClient: HTTPClientProvider {
         }.resume()
     }
     
-    func getAuth(accessToken: String, url: URL, completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
+    func getAuth(url: URL, completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
+        guard let accessToken = LoginData.shared.accessToken else {
+            print("Access Token is not provided")
+            return
+        }
+        
         let config = URLSessionConfiguration.ephemeral
         config.httpAdditionalHeaders = [ "Authorization": "Bearer \(accessToken)",
                                          "Accept": "application/json",
                                          "Content-Type": "application/json"]
-
-        var request = URLRequest(url: url)
         
+        let request = URLRequest(url: url)
         
         URLSession(configuration: config,
                    delegate:nil,
-                   delegateQueue:OperationQueue.main)
+                   delegateQueue: OperationQueue.main)
             .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if let data = data {
+                
                 completion(.success(data))
             }
         }.resume()
