@@ -15,12 +15,16 @@ class HomeCoordinator: Coordinator {
     
     weak var tabController: MainTabBarController?
     var currentController: HomeViewController?
-
-    init(with navigationController: UINavigationController) {
+    
+    var userdata: User
+    
+    init(with navigationController: UINavigationController?, user: User) {
         self.navigationController = navigationController
+        self.userdata = user
         
         currentController = HomeViewController.instantiate(from: AppStoryboards.Home)
         currentController?.coordinator = self
+        childCoordinators.append(self)
     }
     
     func start() {

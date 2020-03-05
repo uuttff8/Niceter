@@ -86,8 +86,8 @@ extension LoginWebViewController: WKNavigationDelegate {
         if (url.absoluteString.hasPrefix(viewModel?.appSettings.scope ?? "")) {
             decisionHandler(.cancel)
             
-            viewModel?.processAuthorisation(url: url, completion: { [weak self] (userId) in
-                self?.showInitialViewController()
+            viewModel?.processAuthorisation(url: url, completion: { [weak self] (user) in
+                self?.showInitialViewController(with: user)
             })
             
         } else {
@@ -95,9 +95,9 @@ extension LoginWebViewController: WKNavigationDelegate {
         }
     }
     
-    private func showInitialViewController() {
+    private func showInitialViewController(with user: User) {
         self.dismiss(animated: true, completion: {
-            let tabBar = MainTabBarCoordinator(navigationController: nil)
+            let tabBar = MainTabBarCoordinator(navigationController: nil, with: user)
             UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController = tabBar.currentController
             tabBar.start()
         })

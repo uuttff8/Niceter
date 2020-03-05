@@ -16,7 +16,7 @@ class SearchCoordinator: Coordinator {
     var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
 
-    init(with navigationController: UINavigationController) {
+    init(with navigationController: UINavigationController?) {
         self.navigationController = navigationController
         
         currentController = SearchViewController.instantiate(from: AppStoryboards.Search)

@@ -11,51 +11,60 @@ import UIKit
 class MainTabBarController: UITabBarController {
 
     weak var coordinator: MainTabBarCoordinator?
-
+    var userdata: User
+    
+    init(with user: User) {
+        self.userdata = user
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navigationController1 = UINavigationController()
-        let coordinator1 = HomeCoordinator(with: navigationController1)
+        let coordinator1 = HomeCoordinator(with: nil, user: userdata)
+        let navigationController1 = UINavigationController(rootViewController: coordinator1.currentController!)
+        coordinator1.navigationController = navigationController1
         coordinator1.tabController = self
-        coordinator1.currentController?.tabBarItem = UITabBarItem(title: "HOME",
-                                                                  image: nil,
-                                                                  tag: 11)
+        coordinator1.currentController?.tabBarItem = UITabBarItem(title: "Home",
+                                                                  image: UIImage(systemName: "message.fill"),
+                                                                  tag: 1)
 
-        let navigationController2 = UINavigationController()
-        let coordinator2 = SearchCoordinator(with: navigationController2)
+        let coordinator2 = SearchCoordinator(with: nil)
+        let navigationController2 = UINavigationController(rootViewController: coordinator2.currentController!)
+        coordinator2.navigationController = navigationController2
         coordinator2.tabController = self
-        coordinator2.currentController?.tabBarItem = UITabBarItem(title: "ABOUT",
-                                                                  image: nil,
-                                                                  tag: 22)
+        coordinator2.currentController?.tabBarItem = UITabBarItem(title: "Search",
+                                                                  image: UIImage(systemName: "magnifyingglass"),
+                                                                  tag: 2)
         
-        let navigationController3 = UINavigationController()
-        let coordinator3 = PeopleCoordinator(with: navigationController3)
+        let coordinator3 = PeopleCoordinator(with: nil)
+        let navigationController3 = UINavigationController(rootViewController: coordinator3.currentController!)
+        coordinator3.navigationController = navigationController3
         coordinator3.tabController = self
-        coordinator3.currentController?.tabBarItem = UITabBarItem(title: "PEOPLE",
-                                                                  image: nil,
-                                                                  tag: 22)
+        coordinator3.currentController?.tabBarItem = UITabBarItem(title: "People",
+                                                                  image: UIImage(systemName: "person.fill"),
+                                                                  tag: 3)
 
         
-        let navigationController4 = UINavigationController()
-        let coordinator4 = CommunitiesCoordinator(with: navigationController4)
+        let coordinator4 = CommunitiesCoordinator(with: nil)
+        let navigationController4 = UINavigationController(rootViewController: coordinator4.currentController!)
+        coordinator4.navigationController = navigationController4
         coordinator4.tabController = self
-        coordinator4.currentController?.tabBarItem = UITabBarItem(title: "COMMUNITIES",
-                                                                  image: nil,
-                                                                  tag: 22)
-
+        coordinator4.currentController?.tabBarItem = UITabBarItem(title: "Communities",
+                                                                  image: UIImage(systemName: "person.3.fill"),
+                                                                  tag: 4)
 
 
         viewControllers = [
-            coordinator1.currentController!,
-            coordinator2.currentController!,
-            coordinator3.currentController!,
-            coordinator4.currentController!
+            navigationController1,
+            navigationController2,
+            navigationController3,
+            navigationController4,
         ]
-
-        tabBar.barTintColor = UIColor.white
-        tabBar.isTranslucent = false
-
     }
 }
