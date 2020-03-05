@@ -37,7 +37,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="gitLabButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QWB-6e-P4x"/>
+                                            <action selector="gitLabButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FuF-qC-wh1"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFd-RQ-nxn" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
@@ -55,7 +55,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="gitHubButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9rY-ej-gfM"/>
+                                            <action selector="gitHubButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nc6-AE-H1v"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8s-u4-iRN" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
@@ -91,6 +91,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="githubButton" destination="MFd-RQ-nxn" id="qVn-yq-dgX"/>
+                        <outlet property="gitlabButton" destination="LMh-dS-wZc" id="wDW-v6-1mU"/>
+                        <outlet property="twitterButton" destination="r8s-u4-iRN" id="dd7-CF-3gu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

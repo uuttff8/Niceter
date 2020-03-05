@@ -18,16 +18,16 @@ class LoginAuthViewModel {
     private let host = "https://gitter.im"
     let appSettings = AppSettingsSecret()
     
-    func processAuthorisation(url: URL, completion: @escaping ((_ userId: String) -> Void)) {
+    func processAuthorisation(url: URL, completion: @escaping ((_ user: User) -> Void)) {
         if let code = getCodeFromCallbackUrl(url) {
             
             exchangeTokens(code, completionHandler: { (accessToken) -> Void in
                 
-                self.getUserId(accessToken, completionHandler: { (userId) -> Void in
+                self.getUser(accessToken, completionHandler: { (gettedUser) -> Void in
                     // TODO: authorize
                     // LoginData().setLoggedIn(userId, withToken: accessToken)
                     // NotificationCenter.default.post(name: Notification.Name(rawValue: TroupeAuthenticationReady), object: self)
-                    completion(userId)
+                    completion(gettedUser)
                 })
                 
             })
@@ -69,12 +69,12 @@ class LoginAuthViewModel {
         }
     }
 
-    func getUserId(_ accessToken: String, completionHandler: @escaping (_ userId: String) -> Void) {
+    func getUser(_ accessToken: String, completionHandler: @escaping (_ userId: User) -> Void) {
         let api = GitterApi(accessToken: accessToken)
         api.getUserId { (user) in
             guard let user = user else { return }
-            print(user.id)
-            completionHandler(user.id)
+            print(user)
+            completionHandler(user)
         }
     }
 }

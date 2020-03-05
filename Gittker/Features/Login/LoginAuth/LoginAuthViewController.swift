@@ -10,6 +10,24 @@ import UIKit
 
 class LoginAuthViewController: UIViewController, Storyboarded {
 
+    @IBOutlet weak var gitlabButton: RoundButton! {
+        didSet {
+            self.gitlabButton.alpha = 0.0
+        }
+    }
+    @IBOutlet weak var githubButton: RoundButton! {
+        didSet {
+            self.githubButton.alpha = 0.0
+        }
+    }
+    @IBOutlet weak var twitterButton: RoundButton! {
+        didSet {
+            self.twitterButton.alpha = 0.0
+        }
+
+    }
+    
+    
     weak var coordinator: LoginAuthCoordinator?
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -20,6 +38,15 @@ class LoginAuthViewController: UIViewController, Storyboarded {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 0.4) {
+            self.githubButton.alpha = 1.0
+            self.twitterButton.alpha = 1.0
+            self.gitlabButton.alpha = 1.0
+        }
     }
     
     override func viewDidLoad() {

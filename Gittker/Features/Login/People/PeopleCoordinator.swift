@@ -16,7 +16,7 @@ class PeopleCoordinator: Coordinator {
     var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
 
-    init(with navigationController: UINavigationController) {
+    init(with navigationController: UINavigationController?) {
         self.navigationController = navigationController
         
         currentController = PeopleViewController.instantiate(from: AppStoryboards.People)

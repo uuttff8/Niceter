@@ -12,16 +12,16 @@ final class MainTabBarCoordinator: Coordinator {
     var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
 
-
     var currentController: MainTabBarController?
+    var userdata: User
 
-    init(navigationController: UINavigationController?) {
+    init(navigationController: UINavigationController?, with user: User) {
         self.navigationController = navigationController
+        self.userdata = user
         
-        self.currentController = MainTabBarController()
+        self.currentController = MainTabBarController(with: user)
         self.childCoordinators.append(self)
         currentController?.coordinator = self
-
     }
     
     func start() {
@@ -29,17 +29,4 @@ final class MainTabBarCoordinator: Coordinator {
                                                  animated: true)
 
     }
-
-    func fetchHome(with title: String, completion:  @escaping (_ result: Dictionary<String,Any>, _ error: NSError?) -> ()) {
-
-        completion(["ss":"ss"], nil)
-
-    }
-
-
-    func handleAbout(with title: String, completion: @escaping (_ result: Dictionary<String,Any>, _ error: NSError?) -> ()) {
-
-        completion(["ss":"ss"], nil)
-    }
-
 }

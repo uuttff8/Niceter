@@ -16,7 +16,7 @@ class CommunitiesCoordinator: Coordinator {
     var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
 
-    init(with navigationController: UINavigationController) {
+    init(with navigationController: UINavigationController?) {
         self.navigationController = navigationController
         
         currentController = CommunitiesViewController.instantiate(from: AppStoryboards.Communities)
