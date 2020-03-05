@@ -14,5 +14,8 @@ class HomeViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Conversations"
     }
+    
+    
 }

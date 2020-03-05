@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -43,6 +43,11 @@
 		4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */; };
 		4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC71240EE6DD0028229C /* Communities.storyboard */; };
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
+		4E2A7A0D241153C70025F39C /* RoomsLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* RoomsLogic.swift */; };
+		4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */; };
+		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
+		4E2A7A1924116C960025F39C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1824116C960025F39C /* LoginData.swift */; };
+		4E2A7A1B2411792C0025F39C /* KeychainSwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +111,10 @@
 		4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC71240EE6DD0028229C /* Communities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Communities.storyboard; sourceTree = "<group>"; };
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
+		4E2A7A0C241153C70025F39C /* RoomsLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsLogic.swift; sourceTree = "<group>"; };
+		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
+		4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +207,8 @@
 		4E09AC19240D81770028229C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A7A1724116C8E0025F39C /* Auth */,
+				4E2A7A0A241153A50025F39C /* Logic */,
 				4E09AC4A240EA67E0028229C /* Models */,
 				4E09AC45240EA3090028229C /* Networking */,
 				4E09AC42240E9BF10028229C /* Settings */,
@@ -271,6 +283,7 @@
 		4E09AC2C240D8CA90028229C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */,
 				4E09AC5B240EE6660028229C /* HomeViewController.swift */,
 				4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */,
 				4E09AC5F240EE6760028229C /* Home.storyboard */,
@@ -358,6 +371,31 @@
 			path = MainTabBar;
 			sourceTree = "<group>";
 		};
+		4E2A7A0A241153A50025F39C /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				4E2A7A0B241153BD0025F39C /* Rooms */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		4E2A7A0B241153BD0025F39C /* Rooms */ = {
+			isa = PBXGroup;
+			children = (
+				4E2A7A0C241153C70025F39C /* RoomsLogic.swift */,
+			);
+			path = Rooms;
+			sourceTree = "<group>";
+		};
+		4E2A7A1724116C8E0025F39C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				4E2A7A1824116C960025F39C /* LoginData.swift */,
+				4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -374,6 +412,9 @@
 			dependencies = (
 			);
 			name = Gittker;
+			packageProductDependencies = (
+				4E2A7A1424116B620025F39C /* KeychainSwift */,
+			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
 			productType = "com.apple.product-type.application";
@@ -446,6 +487,9 @@
 				Base,
 			);
 			mainGroup = 4E09ABD6240D7FA70028229C;
+			packageReferences = (
+				4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */,
+			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -507,15 +551,19 @@
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
 				4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */,
 				4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */,
+				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
 				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
+				4E2A7A1B2411792C0025F39C /* KeychainSwiftWrapper.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
+				4E2A7A0D241153C70025F39C /* RoomsLogic.swift in Sources */,
 				4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
 				4E09AC47240EA3560028229C /* GitterApi.swift in Sources */,
 				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
+				4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */,
 				4E09AC23240D82B30028229C /* Storyboarded.swift in Sources */,
 				4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */,
 				4E09AC6E240EE6C60028229C /* CommunitiesViewController.swift in Sources */,
@@ -852,6 +900,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 19.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E2A7A1424116B620025F39C /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */ = {

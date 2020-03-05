@@ -11,43 +11,22 @@ import Foundation
 private enum GitterApiLinks: String {
     static let baseUrl = "https://gitter.im/"
     static let baseUrlApi = "https://api.gitter.im/"
-
+    
     
     case exchangeToken = "login/oauth/token"
     case whoMe = "v1/user/me"
+    case rooms = "/v1/rooms"
 }
 
 class GitterApi {
+    static let shared = GitterApi()
+    
     private let appSettings = AppSettingsSecret()
     private let httpClient = HTTPClient()
-    private let accessToken: String?
-    
-    init(accessToken: String?) {
-        self.accessToken = accessToken
-    }
-    
-    private func authSession() -> URLSession {
-        let config = URLSessionConfiguration.ephemeral
-        config.httpAdditionalHeaders = [ "Authorization": "Bearer \(accessToken)" ]
-        
-        return URLSession(configuration: config, delegate:nil, delegateQueue:OperationQueue.main)
-    }
-    
 }
 
 // MARK: - Auth
 extension GitterApi {
-    func convertToDictionary(text: String) -> [String: Any]? {
-        if let data = text.data(using: .utf8) {
-            do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        return nil
-    }
-    
     func exchangeToken(dataToken: ExchangeToken, completion: @escaping ((String) -> Void)) {
         print(dataToken)
         let body = try? JSONEncoder().encode(dataToken)
@@ -58,7 +37,7 @@ extension GitterApi {
                 let accessToken = try? JSONDecoder().decode(AccessToken.self, from: data).accessToken
                 guard let token = accessToken else { print("\(#line) and \(#file) Broken access token"); return }
                 completion(token)
-            default: print("pizdec"); break
+            default: break
             }
         }
     }
@@ -70,17 +49,15 @@ extension GitterApi {
         }
         return decoder
     }
-    
-    func getUserId(completion: @escaping ((User?) -> Void)) {
-        var url = URLComponents(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.whoMe.rawValue)")!
+}
 
-        url.queryItems = [
-            URLQueryItem(name: "access_token", value: accessToken)
-        ]
+// MARK: - User
+extension GitterApi {
+    func getUserId(completion: @escaping ((User?) -> Void)) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.whoMe.rawValue)")!
+        print(String(describing: url))
         
-        print(url.url!)
-        self.httpClient.getAuth(accessToken: self.accessToken ?? "",
-                                url: url.url!)
+        self.httpClient.getAuth(url: url)
         { (res) in
             switch res {
             case .success(let data):
@@ -90,7 +67,31 @@ extension GitterApi {
                 let user = try? JSONDecoder().decode(User.self, from: data)
                 
                 completion(user)
-            default: print("pizdec 2"); break
+            default: print(""); break
+            }
+        }
+    }
+}
+
+
+// MARK: - Rooms
+
+extension GitterApi {
+    func getRooms(completion: @escaping ((RoomSchema?) -> Void)) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.rooms.rawValue)")!
+        print(String(describing: url))
+        
+        self.httpClient.getAuth(url: url)
+        { (res) in
+            switch res {
+                case .success(let data):
+                    let str = String(decoding: data, as: UTF8.self)
+                    print(str)
+                    
+                    let room = try? JSONDecoder().decode(RoomSchema.self, from: data)
+                    
+                    completion(room)
+                default: break
             }
         }
     }

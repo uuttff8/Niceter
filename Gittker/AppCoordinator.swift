@@ -17,8 +17,17 @@ class AppCoordinator: Coordinator {
     }
     
     func start() {
-        let child = LoginAuthCoordinator(navigationController: navigationController!)
-        childCoordinators.append(child)
-        child.start()
+        if LoginData.shared.isLoggedIn() {
+            let userdata = ShareData().userdata
+            guard let user = userdata else { print("\(#file) \(#line) User is not initialized"); return }
+            
+            let tabBar = MainTabBarCoordinator(navigationController: navigationController, with: user)
+            navigationController?.setNavigationBarHidden(true, animated: true)
+            tabBar.start()
+        } else {
+            let child = LoginAuthCoordinator(navigationController: navigationController!)
+            childCoordinators.append(child)
+            child.start()
+        }
     }
 }
