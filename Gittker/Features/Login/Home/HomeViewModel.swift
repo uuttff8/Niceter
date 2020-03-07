@@ -13,6 +13,9 @@ class HomeViewModel {
     open var model: RoomSchema?
     
     func getRooms() {
+        GitterApi.shared.getRooms { (rooms) in
+            
+        }
     }
 }
 
