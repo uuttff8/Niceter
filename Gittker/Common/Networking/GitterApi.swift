@@ -77,7 +77,7 @@ extension GitterApi {
 // MARK: - Rooms
 
 extension GitterApi {
-    func getRooms(completion: @escaping ((RoomSchema?) -> Void)) {
+    func getRooms(completion: @escaping (([RoomSchema]?) -> Void)) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.rooms.rawValue)")!
         print(String(describing: url))
         
@@ -88,7 +88,7 @@ extension GitterApi {
                     let str = String(decoding: data, as: UTF8.self)
                     print(str)
                     
-                    let room = try? JSONDecoder().decode(RoomSchema.self, from: data)
+                    let room = try! JSONDecoder().decode([RoomSchema].self, from: data)
                     
                     completion(room)
                 default: break

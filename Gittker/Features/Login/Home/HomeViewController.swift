@@ -12,9 +12,16 @@ class HomeViewController: UIViewController, Storyboarded {
 
     weak var coordinator: HomeCoordinator?
     
+    lazy var viewModel: HomeViewModel = {
+        return HomeViewModel()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Conversations"
+        
+        viewModel.getRooms()
+        
     }
     
     

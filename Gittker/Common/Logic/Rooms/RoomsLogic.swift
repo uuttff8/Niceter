@@ -29,20 +29,27 @@ enum RoomType: String, Codable {
 }
 
 struct RoomSchema: Codable {
-    let id: String             // Room ID.
-    let name: String           // Room name.
-    let topic: String?         // Room topic. (default: GitHub repo description)
-    let uri: String?           // Room URI on Gitter.
-    let oneToOne: Bool?        // Indicates if the room is a one-to-one chat.
-    let users: [User]?         // List of users in the room.
-    let userCount: Int?        // Count of users in the room.
-    let unreadItems: Int?      // Number of unread messages for the current user.
-    let mentions: Int?         // Number of unread mentions for the current user.
-    let lastAccessTime: Date?  // Last time the current user accessed the room in ISO format.
-    let favourite: Int?        // Indicates if the room is on of your favourites.
-    let lurk: Bool?            // Indicates if the current user has disabled notifications.
-    let url: String?           // Path to the room on gitter.
-    let githubType: RoomType?  // Type of the room.
-    let tags: [String]?        // Tags that define the room.
-    let v: String?             // Room version.
+    let id: String              // Room ID.
+    let name: String            // Room name.
+    let topic: String?          // Room topic. (default: GitHub repo description)
+    let avatarUrl: String?
+    let uri: String?            // Room URI on Gitter.
+    let oneToOne: Bool?         // Indicates if the room is a one-to-one chat.
+    let users: [User]?          // List of users in the room.
+    let userCount: Int?         // Count of users in the room.
+    let unreadItems: Int?       // Number of unread messages for the current user.
+    let mentions: Int?          // Number of unread mentions for the current user.
+    let lastAccessTime: String? // Last time the current user accessed the room in ISO format.
+    let favourite: Int?         // Indicates if the room is on of your favourites.
+    let lurk: Bool?             // Indicates if the current user has disabled notifications.
+    let url: String?            // Path to the room on gitter.
+    let githubType: RoomType?   // Type of the room.
+    let tags: [String]?         // Tags that define the room.
+    let v: Int?                 // Room version.
+    let security: String?
+    let noindex: Bool?
+    let roomMember: Bool?
+    let groupId: String?
+    let `public`: Bool?
+    
 }
