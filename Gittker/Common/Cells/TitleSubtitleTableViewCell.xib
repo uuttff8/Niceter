@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TitleSubtitleTableViewCell" rowHeight="71" id="Di3-mC-Rzu" customClass="TitleSubtitleTableViewCell" customModule="Gittker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="71"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Di3-mC-Rzu" id="zqK-LP-sLV">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="71"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MvW-cq-CpR">
+                        <rect key="frame" x="16" y="5" width="382" height="61"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVm-uM-mFL">
+                                <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S2m-RX-Cu4">
+                                <rect key="frame" x="0.0" y="22.5" width="382" height="38.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pwy-eM-TO1">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="38.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="Pwy-eM-TO1" firstAttribute="top" secondItem="S2m-RX-Cu4" secondAttribute="top" id="6Co-L3-Hyd"/>
+                                    <constraint firstAttribute="bottom" secondItem="Pwy-eM-TO1" secondAttribute="bottom" id="8qo-2L-sna"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pwy-eM-TO1" secondAttribute="trailing" id="BNx-D6-dSq"/>
+                                    <constraint firstItem="Pwy-eM-TO1" firstAttribute="leading" secondItem="S2m-RX-Cu4" secondAttribute="leading" id="kKe-kg-tjs"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="MvW-cq-CpR" secondAttribute="bottom" constant="5" id="5yF-za-ERZ"/>
+                    <constraint firstItem="MvW-cq-CpR" firstAttribute="leading" secondItem="zqK-LP-sLV" secondAttribute="leading" constant="16" id="7S0-NX-Iee"/>
+                    <constraint firstAttribute="trailing" secondItem="MvW-cq-CpR" secondAttribute="trailing" constant="16" id="Dq7-d2-8gP"/>
+                    <constraint firstItem="MvW-cq-CpR" firstAttribute="top" secondItem="zqK-LP-sLV" secondAttribute="top" constant="5" id="zxA-jR-a4n"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="subtitle" destination="Pwy-eM-TO1" id="8Xy-Qf-S3I"/>
+                <outlet property="title" destination="PVm-uM-mFL" id="2Oh-hR-wIc"/>
+            </connections>
+            <point key="canvasLocation" x="-62.318840579710148" y="90.066964285714278"/>
+        </tableViewCell>
+    </objects>
+</document>
