@@ -48,6 +48,10 @@
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
 		4E2A7A1924116C960025F39C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1824116C960025F39C /* LoginData.swift */; };
 		4E2A7A1B2411792C0025F39C /* KeychainSwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */; };
+		4E2A7A1F24154D8D0025F39C /* TitleSubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1D24154D8D0025F39C /* TitleSubtitleTableViewCell.swift */; };
+		4E2A7A2024154D8D0025F39C /* TitleSubtitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1E24154D8D0025F39C /* TitleSubtitleTableViewCell.xib */; };
+		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
+		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +119,10 @@
 		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftWrapper.swift; sourceTree = "<group>"; };
+		4E2A7A1D24154D8D0025F39C /* TitleSubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleTableViewCell.swift; sourceTree = "<group>"; };
+		4E2A7A1E24154D8D0025F39C /* TitleSubtitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleSubtitleTableViewCell.xib; sourceTree = "<group>"; };
+		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +207,11 @@
 		4E09AC15240D80F50028229C /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				4E09AC24240D835D0028229C /* Login */,
+				4E09AC55240EB6760028229C /* Communities */,
+				4E09AC25240D83630028229C /* LoginAuth */,
+				4E09AC53240EB6670028229C /* Search */,
+				4E09AC54240EB66F0028229C /* People */,
+				4E09AC2C240D8CA90028229C /* Home */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -207,6 +219,8 @@
 		4E09AC19240D81770028229C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A7A1C2413C96D0025F39C /* Cells */,
+				4E09AC56240EE2C90028229C /* MainTabBar */,
 				4E2A7A1724116C8E0025F39C /* Auth */,
 				4E2A7A0A241153A50025F39C /* Logic */,
 				4E09AC4A240EA67E0028229C /* Models */,
@@ -221,6 +235,7 @@
 		4E09AC1E240D82840028229C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A7A2124154E700025F39C /* Extensions */,
 				4E09AC2F240D90640028229C /* Logic */,
 				4E09AC21240D82A30028229C /* Protocols */,
 			);
@@ -233,19 +248,6 @@
 				4E09AC22240D82B30028229C /* Storyboarded.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		4E09AC24240D835D0028229C /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				4E09AC56240EE2C90028229C /* MainTabBar */,
-				4E09AC55240EB6760028229C /* Communities */,
-				4E09AC54240EB66F0028229C /* People */,
-				4E09AC53240EB6670028229C /* Search */,
-				4E09AC2C240D8CA90028229C /* Home */,
-				4E09AC25240D83630028229C /* LoginAuth */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		4E09AC25240D83630028229C /* LoginAuth */ = {
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				4E09AC43240E9C050028229C /* AppSettingsSecret.swift */,
+				4E2A7A2424154EDF0025F39C /* Config.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -394,6 +397,23 @@
 				4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		4E2A7A1C2413C96D0025F39C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4E2A7A1D24154D8D0025F39C /* TitleSubtitleTableViewCell.swift */,
+				4E2A7A1E24154D8D0025F39C /* TitleSubtitleTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4E2A7A2124154E700025F39C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -510,6 +530,7 @@
 				4E09AC6C240EE6AF0028229C /* People.storyboard in Resources */,
 				4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */,
 				4E09AC60240EE6760028229C /* Home.storyboard in Resources */,
+				4E2A7A2024154D8D0025F39C /* TitleSubtitleTableViewCell.xib in Resources */,
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
 				4E09AC66240EE6950028229C /* Search.storyboard in Resources */,
@@ -543,6 +564,7 @@
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
+				4E2A7A1F24154D8D0025F39C /* TitleSubtitleTableViewCell.swift in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
 				4E09AC5C240EE6660028229C /* HomeViewController.swift in Sources */,
@@ -550,6 +572,7 @@
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
 				4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */,
+				4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */,
 				4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */,
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
 				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
@@ -562,6 +585,7 @@
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
 				4E09AC47240EA3560028229C /* GitterApi.swift in Sources */,
+				4E2A7A2524154EDF0025F39C /* Config.swift in Sources */,
 				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
 				4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */,
 				4E09AC23240D82B30028229C /* Storyboarded.swift in Sources */,
