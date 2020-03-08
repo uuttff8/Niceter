@@ -10,11 +10,19 @@ import UIKit
 
 class HomeViewController: UIViewController, Storyboarded {
 
-    weak var coordinator: HomeCoordinator?
+    weak var coordinator: HomeCoordinator? {
+        didSet {
+            guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
+        }
+    }
     
     private let dataSource = HomeDataSource()
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.registerNib(withClass: TitleSubtitleTableViewCell.self)
+        }
+    }
     
     lazy var viewModel: HomeViewModel = {
         return HomeViewModel(dataSource: self.dataSource)
@@ -23,11 +31,6 @@ class HomeViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Conversations"
-        
-        
-        tableView.registerNib(withClass: TitleSubtitleTableViewCell.self)
-        
-        guard let _ = coordinator else { return }
         
         self.tableView.dataSource = self.dataSource
         
@@ -38,8 +41,6 @@ class HomeViewController: UIViewController, Storyboarded {
         }
         
         self.viewModel.fetchRooms()
-
-        
     }
 }
 
