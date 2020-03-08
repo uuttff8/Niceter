@@ -55,7 +55,6 @@ extension GitterApi {
 extension GitterApi {
     func getUserId(completion: @escaping ((User?) -> Void)) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.whoMe.rawValue)")!
-        print(String(describing: url))
         
         self.httpClient.getAuth(url: url)
         { (res) in
@@ -84,10 +83,7 @@ extension GitterApi {
         self.httpClient.getAuth(url: url)
         { (res) in
             switch res {
-                case .success(let data):
-                    let str = String(decoding: data, as: UTF8.self)
-                    print(str)
-                    
+                case .success(let data):                    
                     let room = try! JSONDecoder().decode([RoomSchema].self, from: data)
                     
                     completion(room)
