@@ -7,22 +7,25 @@
 //
 
 import UIKit
+import Nuke
 
 class TitleSubtitleTableViewCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var subtitle: UILabel!
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBOutlet weak var cellImageView: UIImageView! {
+        didSet {
+            cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2;
+            cellImageView.clipsToBounds = true
+        }
     }
     
+    func initialize(with room: RoomSchema) {
+        print(room.id)
+        
+        
+        title.text = room.name
+        subtitle.text = room.topic
+        Nuke.loadImage(with: URL(string: room.avatarUrl!)!, into: cellImageView)
+    }
 }

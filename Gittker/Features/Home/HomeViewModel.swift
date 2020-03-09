@@ -32,13 +32,15 @@ class HomeDataSource: GenericDataSource<RoomSchema>, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.cell(forRowAt: indexPath) as TitleSubtitleTableViewCell
         
-        cell.title.text = data.value[indexPath.item].name
-        cell.subtitle.text = data.value[indexPath.item].topic
-        
-        cell.selectionStyle = .none
+        cell.initialize(with: data.value[indexPath.item])
         
         return cell
     }
 }
 
 
+class HomeTableViewDelegate: NSObject, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
