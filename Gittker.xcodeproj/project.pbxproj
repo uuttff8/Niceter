@@ -48,8 +48,8 @@
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
 		4E2A7A1924116C960025F39C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1824116C960025F39C /* LoginData.swift */; };
 		4E2A7A1B2411792C0025F39C /* KeychainSwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */; };
-		4E2A7A1F24154D8D0025F39C /* TitleSubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1D24154D8D0025F39C /* TitleSubtitleTableViewCell.swift */; };
-		4E2A7A2024154D8D0025F39C /* TitleSubtitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1E24154D8D0025F39C /* TitleSubtitleTableViewCell.xib */; };
+		4E2A7A1F24154D8D0025F39C /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */; };
+		4E2A7A2024154D8D0025F39C /* RoomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */; };
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
@@ -120,8 +120,8 @@
 		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftWrapper.swift; sourceTree = "<group>"; };
-		4E2A7A1D24154D8D0025F39C /* TitleSubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSubtitleTableViewCell.swift; sourceTree = "<group>"; };
-		4E2A7A1E24154D8D0025F39C /* TitleSubtitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleSubtitleTableViewCell.xib; sourceTree = "<group>"; };
+		4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
+		4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTableViewCell.xib; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -221,7 +221,6 @@
 		4E09AC19240D81770028229C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				4E2A7A1C2413C96D0025F39C /* Cells */,
 				4E09AC56240EE2C90028229C /* MainTabBar */,
 				4E2A7A1724116C8E0025F39C /* Auth */,
 				4E2A7A0A241153A50025F39C /* Logic */,
@@ -287,6 +286,7 @@
 		4E09AC2C240D8CA90028229C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A7A312416C6290025F39C /* cells */,
 				4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */,
 				4E09AC5B240EE6660028229C /* HomeViewController.swift */,
 				4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */,
@@ -401,21 +401,21 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		4E2A7A1C2413C96D0025F39C /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				4E2A7A1D24154D8D0025F39C /* TitleSubtitleTableViewCell.swift */,
-				4E2A7A1E24154D8D0025F39C /* TitleSubtitleTableViewCell.xib */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
 		4E2A7A2124154E700025F39C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4E2A7A312416C6290025F39C /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */,
+				4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -534,7 +534,7 @@
 				4E09AC6C240EE6AF0028229C /* People.storyboard in Resources */,
 				4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */,
 				4E09AC60240EE6760028229C /* Home.storyboard in Resources */,
-				4E2A7A2024154D8D0025F39C /* TitleSubtitleTableViewCell.xib in Resources */,
+				4E2A7A2024154D8D0025F39C /* RoomTableViewCell.xib in Resources */,
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
 				4E09AC66240EE6950028229C /* Search.storyboard in Resources */,
@@ -568,7 +568,7 @@
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
-				4E2A7A1F24154D8D0025F39C /* TitleSubtitleTableViewCell.swift in Sources */,
+				4E2A7A1F24154D8D0025F39C /* RoomTableViewCell.swift in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
 				4E09AC5C240EE6660028229C /* HomeViewController.swift in Sources */,

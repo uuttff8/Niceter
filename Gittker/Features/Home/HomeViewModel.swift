@@ -30,7 +30,7 @@ class HomeDataSource: GenericDataSource<RoomSchema>, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.cell(forRowAt: indexPath) as TitleSubtitleTableViewCell
+        let cell = tableView.cell(forRowAt: indexPath) as RoomTableViewCell
         
         cell.initialize(with: data.value[indexPath.item])
         
