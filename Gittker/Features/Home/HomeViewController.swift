@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, Storyboarded {
         didSet {
             tableView.dataSource = self.dataSource
             tableView.delegate = self.tableDelegate
-            tableView.registerNib(withClass: TitleSubtitleTableViewCell.self)
+            tableView.registerNib(withClass: RoomTableViewCell.self)
             
             tableView.estimatedRowHeight = 71
             tableView.rowHeight = UITableView.automaticDimension

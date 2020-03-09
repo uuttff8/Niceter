@@ -1,5 +1,5 @@
 //
-//  TitleSubtitileTableViewCell.swift
+//  RoomTableViewCell.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/8/20.
@@ -9,7 +9,7 @@
 import UIKit
 import Nuke
 
-class TitleSubtitleTableViewCell: UITableViewCell {
+class RoomTableViewCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var subtitle: UILabel!
