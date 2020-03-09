@@ -52,6 +52,7 @@
 		4E2A7A2024154D8D0025F39C /* TitleSubtitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1E24154D8D0025F39C /* TitleSubtitleTableViewCell.xib */; };
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
+		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */,
+				4E2A7A302416B23C0025F39C /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +436,7 @@
 			name = Gittker;
 			packageProductDependencies = (
 				4E2A7A1424116B620025F39C /* KeychainSwift */,
+				4E2A7A2F2416B23C0025F39C /* Nuke */,
 			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
@@ -509,6 +512,7 @@
 			mainGroup = 4E09ABD6240D7FA70028229C;
 			packageReferences = (
 				4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
@@ -934,6 +938,14 @@
 				minimumVersion = 19.0.0;
 			};
 		};
+		4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -941,6 +953,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		4E2A7A2F2416B23C0025F39C /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
 		};
 /* End XCSwiftPackageProductDependency section */
 

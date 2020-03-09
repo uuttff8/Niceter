@@ -17,10 +17,18 @@ class HomeViewController: UIViewController, Storyboarded {
     }
     
     private let dataSource = HomeDataSource()
+    private let tableDelegate = HomeTableViewDelegate()
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
+            tableView.dataSource = self.dataSource
+            tableView.delegate = self.tableDelegate
             tableView.registerNib(withClass: TitleSubtitleTableViewCell.self)
+            
+            tableView.estimatedRowHeight = 71
+            tableView.rowHeight = UITableView.automaticDimension
+            
+            tableView.tableFooterView = UIView(frame: .zero)
         }
     }
     
@@ -32,20 +40,13 @@ class HomeViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         title = "Conversations"
         
-        self.tableView.dataSource = self.dataSource
-        
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.tableView.reloadData()
             }
         }
         
         self.viewModel.fetchRooms()
-    }
-}
-
-extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
