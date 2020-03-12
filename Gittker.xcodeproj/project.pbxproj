@@ -47,12 +47,14 @@
 		4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */; };
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
 		4E2A7A1924116C960025F39C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1824116C960025F39C /* LoginData.swift */; };
-		4E2A7A1B2411792C0025F39C /* KeychainSwiftWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */; };
+		4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1A2411792C0025F39C /* ShareData.swift */; };
 		4E2A7A1F24154D8D0025F39C /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */; };
 		4E2A7A2024154D8D0025F39C /* RoomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */; };
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
+		4E2A7A372417C8B60025F39C /* GitterFayeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A362417C8B60025F39C /* GitterFayeClient.swift */; };
+		4E2A7A4024194BA50025F39C /* GFayeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A3F24194BA50025F39C /* GFayeSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,11 +121,12 @@
 		4E2A7A0C241153C70025F39C /* RoomsLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsLogic.swift; sourceTree = "<group>"; };
 		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
-		4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftWrapper.swift; sourceTree = "<group>"; };
+		4E2A7A1A2411792C0025F39C /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
 		4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTableViewCell.xib; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		4E2A7A362417C8B60025F39C /* GitterFayeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterFayeClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2A7A4024194BA50025F39C /* GFayeSwift in Frameworks */,
 				4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */,
 				4E2A7A302416B23C0025F39C /* Nuke in Frameworks */,
 			);
@@ -181,6 +185,7 @@
 				4E09AC17240D81270028229C /* AppCoordinator.swift */,
 				4E09AC15240D80F50028229C /* Features */,
 				4E09AC19240D81770028229C /* Common */,
+				4E2A7A352417C8800025F39C /* Faye */,
 				4E09AC29240D8B0C0028229C /* CustomViews */,
 				4E09AC1E240D82840028229C /* Utils */,
 				4E09AC28240D85340028229C /* Resources */,
@@ -396,7 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				4E2A7A1824116C960025F39C /* LoginData.swift */,
-				4E2A7A1A2411792C0025F39C /* KeychainSwiftWrapper.swift */,
+				4E2A7A1A2411792C0025F39C /* ShareData.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -418,6 +423,14 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
+		4E2A7A352417C8800025F39C /* Faye */ = {
+			isa = PBXGroup;
+			children = (
+				4E2A7A362417C8B60025F39C /* GitterFayeClient.swift */,
+			);
+			path = Faye;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -437,6 +450,7 @@
 			packageProductDependencies = (
 				4E2A7A1424116B620025F39C /* KeychainSwift */,
 				4E2A7A2F2416B23C0025F39C /* Nuke */,
+				4E2A7A3F24194BA50025F39C /* GFayeSwift */,
 			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
@@ -513,6 +527,7 @@
 			packageReferences = (
 				4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */,
+				4E2A7A3E24194BA50025F39C /* XCRemoteSwiftPackageReference "GFayeSwift" */,
 			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
@@ -579,8 +594,9 @@
 				4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */,
 				4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */,
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
+				4E2A7A372417C8B60025F39C /* GitterFayeClient.swift in Sources */,
 				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
-				4E2A7A1B2411792C0025F39C /* KeychainSwiftWrapper.swift in Sources */,
+				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
 				4E2A7A0D241153C70025F39C /* RoomsLogic.swift in Sources */,
@@ -946,6 +962,14 @@
 				minimumVersion = 8.4.0;
 			};
 		};
+		4E2A7A3E24194BA50025F39C /* XCRemoteSwiftPackageReference "GFayeSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ckpwong/GFayeSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.5;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -958,6 +982,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
+		};
+		4E2A7A3F24194BA50025F39C /* GFayeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E2A7A3E24194BA50025F39C /* XCRemoteSwiftPackageReference "GFayeSwift" */;
+			productName = GFayeSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 

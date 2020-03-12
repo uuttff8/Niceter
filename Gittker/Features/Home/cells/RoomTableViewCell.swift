@@ -21,7 +21,7 @@ class RoomTableViewCell: UITableViewCell {
     }
     
     func initialize(with room: RoomSchema) {
-        print(room.id)
+        print("\(room.name) " + room.id)
         
         
         title.text = room.name

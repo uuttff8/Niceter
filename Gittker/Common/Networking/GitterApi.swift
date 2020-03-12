@@ -15,6 +15,7 @@ private enum GitterApiLinks: String {
     
     case exchangeToken = "login/oauth/token"
     case whoMe = "v1/user/me"
+    case suggestedRooms = "/v1/user/me/suggestedRooms"
     case rooms = "/v1/rooms"
 }
 
@@ -77,15 +78,30 @@ extension GitterApi {
 
 extension GitterApi {
     func getRooms(completion: @escaping (([RoomSchema]?) -> Void)) {
-        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.rooms.rawValue)")!
+        requestData(url: GitterApiLinks.rooms) { (data) in
+            completion(data)
+        }
+    }
+    
+    func getSuggestedRooms(completion: @escaping (([RoomSchema]?) -> Void)) {
+        requestData(url: GitterApiLinks.suggestedRooms) { (data) in
+            completion(data)
+        }
+    }
+}
+
+
+// MARK: - Private -
+extension GitterApi {
+    private func requestData<T: Codable>(url: GitterApiLinks, completion: @escaping (T) -> ()) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + url.rawValue)!
         print(String(describing: url))
         
         self.httpClient.getAuth(url: url)
         { (res) in
             switch res {
-                case .success(let data):                    
-                    let room = try! JSONDecoder().decode([RoomSchema].self, from: data)
-                    
+                case .success(let data):
+                    let room = try! JSONDecoder().decode(T.self, from: data)
                     completion(room)
                 default: break
             }
