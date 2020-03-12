@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "GFayeSwift",
+        "repositoryURL": "https://github.com/ckpwong/GFayeSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "2f1ac5c3701e618408a4f8a56e31b7ee0d161d06",
+          "version": "0.5.5"
+        }
+      },
+      {
         "package": "KeychainSwift",
         "repositoryURL": "https://github.com/evgenyneu/keychain-swift.git",
         "state": {
@@ -17,6 +26,33 @@
           "branch": null,
           "revision": "051fb936fbc0176655acb1085b15be477f3d5015",
           "version": "8.4.0"
+        }
+      },
+      {
+        "package": "Starscream",
+        "repositoryURL": "https://github.com/daltoniam/Starscream.git",
+        "state": {
+          "branch": null,
+          "revision": "e6b65c6d9077ea48b4a7bdda8994a1d3c6969c8d",
+          "version": "3.1.1"
+        }
+      },
+      {
+        "package": "swift-nio-zlib-support",
+        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
+        "state": {
+          "branch": null,
+          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "2b6054efa051565954e1d2b9da831680026cd768",
+          "version": "5.0.0"
         }
       }
     ]
