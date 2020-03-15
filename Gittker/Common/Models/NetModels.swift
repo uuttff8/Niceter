@@ -25,11 +25,12 @@ struct ExchangeToken: Codable {
 }
 
 struct User: Codable {
-    let id, username, displayName, url: String
-    let avatarURL: String
-    let avatarURLSmall, avatarURLMedium: String
-    let providers: [String]
-    let v: Int
+    let id, username: String
+    let displayName, url: String?
+    let avatarURL: String?
+    let avatarURLSmall, avatarURLMedium: String?
+    let providers: [String]?
+    let v: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, username, displayName, url
