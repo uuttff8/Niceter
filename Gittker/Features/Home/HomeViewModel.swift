@@ -31,16 +31,18 @@ class HomeDataSource: GenericDataSource<RoomSchema>, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.cell(forRowAt: indexPath) as RoomTableViewCell
-        
         cell.initialize(with: data.value[indexPath.item])
-        
         return cell
     }
 }
 
 
 class HomeTableViewDelegate: NSObject, UITableViewDelegate {
+    var dataSource: [RoomSchema]?
+    weak var coordinator: HomeCoordinator?
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        coordinator?.showChat(roomId: (dataSource?[indexPath.item].id)!)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

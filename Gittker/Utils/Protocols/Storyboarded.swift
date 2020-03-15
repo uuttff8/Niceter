@@ -14,6 +14,7 @@ enum AppStoryboards: String {
     case Search = "Search"
     case People = "People"
     case Communities = "Communities"
+    case Chat = "Chat"
 }
 
 protocol Storyboarded {
@@ -42,6 +43,8 @@ extension Storyboarded where Self: UIViewController {
         case .People:
             createStoryboard(storyboardId)
         case .Search:
+            createStoryboard(storyboardId)
+        case .Chat:
             createStoryboard(storyboardId)
         }
                 

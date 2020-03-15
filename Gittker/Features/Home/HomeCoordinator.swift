@@ -31,4 +31,9 @@ class HomeCoordinator: Coordinator {
         navigationController?.pushViewController(currentController!, animated: true)
     }
     
+    func showChat(roomId: String) {
+        let coord = ChatCoordinator(with: navigationController, roomId: roomId)
+        coord.start()
+    }
+    
 }

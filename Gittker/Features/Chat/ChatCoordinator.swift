@@ -6,4 +6,26 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ChatCoordinator: Coordinator {
+
+    weak var navigationController: UINavigationController?
+    var childCoordinators = [Coordinator]()
+    
+    var roomId: String
+    
+    init(with navigationController: UINavigationController?, roomId: String) {
+        self.navigationController = navigationController
+        self.roomId = roomId
+    }
+    
+    func start() {
+        let vc = ChatViewController.instantiate(from: AppStoryboards.Chat)
+        vc.coordinator = self
+        vc.roomId = roomId
+        childCoordinators.append(self)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
