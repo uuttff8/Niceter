@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		051A134C4F25D1D58DDA8C50 /* Pods_GittkerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 608250AD2030F805E2498753 /* Pods_GittkerTests.framework */; };
 		4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABE2240D7FA70028229C /* AppDelegate.swift */; };
 		4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABE6240D7FA70028229C /* LoginAuthViewController.swift */; };
 		4E09ABEA240D7FA70028229C /* LoginAuth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09ABE8240D7FA70028229C /* LoginAuth.storyboard */; };
@@ -43,7 +44,7 @@
 		4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */; };
 		4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC71240EE6DD0028229C /* Communities.storyboard */; };
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
-		4E2A7A0D241153C70025F39C /* RoomsLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* RoomsLogic.swift */; };
+		4E2A7A0D241153C70025F39C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* Room.swift */; };
 		4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */; };
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
 		4E2A7A1924116C960025F39C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1824116C960025F39C /* LoginData.swift */; };
@@ -53,8 +54,28 @@
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
-		4E2A7A372417C8B60025F39C /* GitterFayeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A362417C8B60025F39C /* GitterFayeClient.swift */; };
-		4E2A7A4024194BA50025F39C /* GFayeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A3F24194BA50025F39C /* GFayeSwift */; };
+		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
+		4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1788241E42A60066362D /* NSString+FayeInflectionSupport.m */; };
+		4E9D179E241E42A60066362D /* NSData+Serialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D178A241E42A60066362D /* NSData+Serialize.m */; };
+		4E9D179F241E42A60066362D /* NSDictionary+KeyTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D178D241E42A60066362D /* NSDictionary+KeyTranslation.m */; };
+		4E9D17A0241E42A60066362D /* NSDate+Serialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D178F241E42A60066362D /* NSDate+Serialize.m */; };
+		4E9D17A1241E42A60066362D /* NSString+Serialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1790241E42A60066362D /* NSString+Serialize.m */; };
+		4E9D17A2241E42A60066362D /* NSObject+Serialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1792241E42A60066362D /* NSObject+Serialize.m */; };
+		4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1795241E42A60066362D /* NSObject+PropertySupport.m */; };
+		4E9D17A4241E42A60066362D /* ObjectiveResourceDateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1798241E42A60066362D /* ObjectiveResourceDateFormatter.m */; };
+		4E9D17A5241E42A60066362D /* FayeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D179A241E42A60066362D /* FayeClient.m */; };
+		4E9D17A6241E42A60066362D /* FayeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D179B241E42A60066362D /* FayeMessage.m */; };
+		4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17A8241E46800066362D /* FayeWrapper.m */; };
+		4E9D17AD241E46810066362D /* TRConnectionMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17AB241E46800066362D /* TRConnectionMonitor.m */; };
+		4E9D17AF241E49BE0066362D /* RoomRecreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17AE241E49BE0066362D /* RoomRecreate.swift */; };
+		4E9D17B2241E7FE40066362D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E9D17B1241E7FE40066362D /* Chat.storyboard */; };
+		4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17B3241E80220066362D /* GitterFayeEndpoints.swift */; };
+		4E9D17B7241E839B0066362D /* GitterFayeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17B6241E839B0066362D /* GitterFayeClient.swift */; };
+		4E9D17B9241E8FAD0066362D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17B8241E8FAD0066362D /* ChatViewController.swift */; };
+		4E9D17BB241E8FB80066362D /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BA241E8FB80066362D /* ChatViewModel.swift */; };
+		4E9D17BD241E8FC00066362D /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BC241E8FC00066362D /* ChatCoordinator.swift */; };
+		6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */; };
+		B39CDC846CEBD903CAA79D9B /* Pods_Gittker_GittkerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +96,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4289C882E8C8144BE82D895B /* Pods-GittkerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GittkerTests.release.xcconfig"; path = "Target Support Files/Pods-GittkerTests/Pods-GittkerTests.release.xcconfig"; sourceTree = "<group>"; };
 		4E09ABDF240D7FA70028229C /* Gittker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gittker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E09ABE2240D7FA70028229C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E09ABE6240D7FA70028229C /* LoginAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +140,7 @@
 		4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC71240EE6DD0028229C /* Communities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Communities.storyboard; sourceTree = "<group>"; };
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
-		4E2A7A0C241153C70025F39C /* RoomsLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsLogic.swift; sourceTree = "<group>"; };
+		4E2A7A0C241153C70025F39C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4E2A7A1A2411792C0025F39C /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
@@ -126,7 +148,48 @@
 		4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTableViewCell.xib; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		4E2A7A362417C8B60025F39C /* GitterFayeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterFayeClient.swift; sourceTree = "<group>"; };
+		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
+		4E9D1781241E42A60066362D /* FayeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeClient.h; sourceTree = "<group>"; };
+		4E9D1784241E42A60066362D /* NSDate-UTC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-UTC.h"; sourceTree = "<group>"; };
+		4E9D1785241E42A60066362D /* NSDate-UTC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-UTC.m"; sourceTree = "<group>"; };
+		4E9D1787241E42A60066362D /* NSString+FayeInflectionSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FayeInflectionSupport.h"; sourceTree = "<group>"; };
+		4E9D1788241E42A60066362D /* NSString+FayeInflectionSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FayeInflectionSupport.m"; sourceTree = "<group>"; };
+		4E9D178A241E42A60066362D /* NSData+Serialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Serialize.m"; sourceTree = "<group>"; };
+		4E9D178B241E42A60066362D /* NSString+Serialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Serialize.h"; sourceTree = "<group>"; };
+		4E9D178C241E42A60066362D /* NSDate+Serialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Serialize.h"; sourceTree = "<group>"; };
+		4E9D178D241E42A60066362D /* NSDictionary+KeyTranslation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+KeyTranslation.m"; sourceTree = "<group>"; };
+		4E9D178E241E42A60066362D /* NSObject+Serialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Serialize.h"; sourceTree = "<group>"; };
+		4E9D178F241E42A60066362D /* NSDate+Serialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Serialize.m"; sourceTree = "<group>"; };
+		4E9D1790241E42A60066362D /* NSString+Serialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Serialize.m"; sourceTree = "<group>"; };
+		4E9D1791241E42A60066362D /* NSData+Serialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Serialize.h"; sourceTree = "<group>"; };
+		4E9D1792241E42A60066362D /* NSObject+Serialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Serialize.m"; sourceTree = "<group>"; };
+		4E9D1793241E42A60066362D /* NSDictionary+KeyTranslation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+KeyTranslation.h"; sourceTree = "<group>"; };
+		4E9D1795241E42A60066362D /* NSObject+PropertySupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+PropertySupport.m"; sourceTree = "<group>"; };
+		4E9D1796241E42A60066362D /* NSObject+PropertySupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+PropertySupport.h"; sourceTree = "<group>"; };
+		4E9D1798241E42A60066362D /* ObjectiveResourceDateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectiveResourceDateFormatter.m; sourceTree = "<group>"; };
+		4E9D1799241E42A60066362D /* ObjectiveResourceDateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveResourceDateFormatter.h; sourceTree = "<group>"; };
+		4E9D179A241E42A60066362D /* FayeClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FayeClient.m; sourceTree = "<group>"; };
+		4E9D179B241E42A60066362D /* FayeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FayeMessage.m; sourceTree = "<group>"; };
+		4E9D17A7241E43630066362D /* Gittker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gittker-Bridging-Header.h"; sourceTree = "<group>"; };
+		4E9D17A8241E46800066362D /* FayeWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FayeWrapper.m; sourceTree = "<group>"; };
+		4E9D17A9241E46800066362D /* TRConnectionMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRConnectionMonitor.h; sourceTree = "<group>"; };
+		4E9D17AA241E46800066362D /* FayeWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeWrapper.h; sourceTree = "<group>"; };
+		4E9D17AB241E46800066362D /* TRConnectionMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRConnectionMonitor.m; sourceTree = "<group>"; };
+		4E9D17AE241E49BE0066362D /* RoomRecreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRecreate.swift; sourceTree = "<group>"; };
+		4E9D17B1241E7FE40066362D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
+		4E9D17B3241E80220066362D /* GitterFayeEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterFayeEndpoints.swift; sourceTree = "<group>"; };
+		4E9D17B6241E839B0066362D /* GitterFayeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterFayeClient.swift; sourceTree = "<group>"; };
+		4E9D17B8241E8FAD0066362D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		4E9D17BA241E8FB80066362D /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		4E9D17BC241E8FC00066362D /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker.debug.xcconfig"; path = "Target Support Files/Pods-Gittker/Pods-Gittker.debug.xcconfig"; sourceTree = "<group>"; };
+		597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker-GittkerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		608250AD2030F805E2498753 /* Pods_GittkerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GittkerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64FA62F5F63FD0FF7DE28F20 /* Pods-GittkerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GittkerTests.debug.xcconfig"; path = "Target Support Files/Pods-GittkerTests/Pods-GittkerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6E525CE5AAF6FB4053348265 /* Pods-Gittker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker.release.xcconfig"; path = "Target Support Files/Pods-Gittker/Pods-Gittker.release.xcconfig"; sourceTree = "<group>"; };
+		7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gittker_GittkerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gittker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7A0FB74FF9B765193008F8B /* Pods-Gittker-GittkerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker-GittkerUITests.release.xcconfig"; path = "Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,9 +197,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E2A7A4024194BA50025F39C /* GFayeSwift in Frameworks */,
 				4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */,
 				4E2A7A302416B23C0025F39C /* Nuke in Frameworks */,
+				6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				051A134C4F25D1D58DDA8C50 /* Pods_GittkerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,19 +215,47 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B39CDC846CEBD903CAA79D9B /* Pods_Gittker_GittkerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E9D01EDC9D8AB8B71F3511A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */,
+				6E525CE5AAF6FB4053348265 /* Pods-Gittker.release.xcconfig */,
+				597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */,
+				D7A0FB74FF9B765193008F8B /* Pods-Gittker-GittkerUITests.release.xcconfig */,
+				64FA62F5F63FD0FF7DE28F20 /* Pods-GittkerTests.debug.xcconfig */,
+				4289C882E8C8144BE82D895B /* Pods-GittkerTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		3A500476451007D37E992108 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */,
+				7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */,
+				608250AD2030F805E2498753 /* Pods_GittkerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4E09ABD6240D7FA70028229C = {
 			isa = PBXGroup;
 			children = (
 				4E09ABE1240D7FA70028229C /* Gittker */,
+				4E2A7A352417C8800025F39C /* Faye */,
+				4E9D177E241E42890066362D /* Libraries */,
 				4E09ABFB240D7FA90028229C /* GittkerTests */,
 				4E09AC06240D7FA90028229C /* GittkerUITests */,
 				4E09ABE0240D7FA70028229C /* Products */,
+				2E9D01EDC9D8AB8B71F3511A /* Pods */,
+				3A500476451007D37E992108 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,10 +277,10 @@
 				4E09AC17240D81270028229C /* AppCoordinator.swift */,
 				4E09AC15240D80F50028229C /* Features */,
 				4E09AC19240D81770028229C /* Common */,
-				4E2A7A352417C8800025F39C /* Faye */,
 				4E09AC29240D8B0C0028229C /* CustomViews */,
 				4E09AC1E240D82840028229C /* Utils */,
 				4E09AC28240D85340028229C /* Resources */,
+				4E9D17A7241E43630066362D /* Gittker-Bridging-Header.h */,
 			);
 			path = Gittker;
 			sourceTree = "<group>";
@@ -214,6 +306,7 @@
 		4E09AC15240D80F50028229C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4E9D17B0241E7FDA0066362D /* Chat */,
 				4E09AC55240EB6760028229C /* Communities */,
 				4E09AC25240D83630028229C /* LoginAuth */,
 				4E09AC53240EB6670028229C /* Search */,
@@ -228,7 +321,6 @@
 			children = (
 				4E09AC56240EE2C90028229C /* MainTabBar */,
 				4E2A7A1724116C8E0025F39C /* Auth */,
-				4E2A7A0A241153A50025F39C /* Logic */,
 				4E09AC4A240EA67E0028229C /* Models */,
 				4E09AC45240EA3090028229C /* Networking */,
 				4E09AC42240E9BF10028229C /* Settings */,
@@ -337,7 +429,9 @@
 		4E09AC4A240EA67E0028229C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A7A0C241153C70025F39C /* Room.swift */,
 				4E09AC4B240EA68D0028229C /* NetModels.swift */,
+				4E9D17AE241E49BE0066362D /* RoomRecreate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -381,22 +475,6 @@
 			path = MainTabBar;
 			sourceTree = "<group>";
 		};
-		4E2A7A0A241153A50025F39C /* Logic */ = {
-			isa = PBXGroup;
-			children = (
-				4E2A7A0B241153BD0025F39C /* Rooms */,
-			);
-			path = Logic;
-			sourceTree = "<group>";
-		};
-		4E2A7A0B241153BD0025F39C /* Rooms */ = {
-			isa = PBXGroup;
-			children = (
-				4E2A7A0C241153C70025F39C /* RoomsLogic.swift */,
-			);
-			path = Rooms;
-			sourceTree = "<group>";
-		};
 		4E2A7A1724116C8E0025F39C /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,9 +504,118 @@
 		4E2A7A352417C8800025F39C /* Faye */ = {
 			isa = PBXGroup;
 			children = (
-				4E2A7A362417C8B60025F39C /* GitterFayeClient.swift */,
+				4E9D17B5241E83710066362D /* SwiftWrapper */,
+				4E9D17AA241E46800066362D /* FayeWrapper.h */,
+				4E9D17A8241E46800066362D /* FayeWrapper.m */,
+				4E9D17A9241E46800066362D /* TRConnectionMonitor.h */,
+				4E9D17AB241E46800066362D /* TRConnectionMonitor.m */,
 			);
 			path = Faye;
+			sourceTree = "<group>";
+		};
+		4E9D177E241E42890066362D /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D177F241E42A50066362D /* FayeObjc */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		4E9D177F241E42A50066362D /* FayeObjc */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D1780241E42A50066362D /* FayeMessage.h */,
+				4E9D1781241E42A60066362D /* FayeClient.h */,
+				4E9D179A241E42A60066362D /* FayeClient.m */,
+				4E9D179B241E42A60066362D /* FayeMessage.m */,
+				4E9D1782241E42A60066362D /* libs */,
+			);
+			path = FayeObjc;
+			sourceTree = "<group>";
+		};
+		4E9D1782241E42A60066362D /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D1783241E42A60066362D /* NSDate+UTC */,
+				4E9D1786241E42A60066362D /* NSString+FayeInflectionSupport */,
+				4E9D1789241E42A60066362D /* Serialize */,
+				4E9D1794241E42A60066362D /* NSObject+PropertySupport */,
+				4E9D1797241E42A60066362D /* ObjectiveResourceDateFormatter */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		4E9D1783241E42A60066362D /* NSDate+UTC */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D1784241E42A60066362D /* NSDate-UTC.h */,
+				4E9D1785241E42A60066362D /* NSDate-UTC.m */,
+			);
+			path = "NSDate+UTC";
+			sourceTree = "<group>";
+		};
+		4E9D1786241E42A60066362D /* NSString+FayeInflectionSupport */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D1787241E42A60066362D /* NSString+FayeInflectionSupport.h */,
+				4E9D1788241E42A60066362D /* NSString+FayeInflectionSupport.m */,
+			);
+			path = "NSString+FayeInflectionSupport";
+			sourceTree = "<group>";
+		};
+		4E9D1789241E42A60066362D /* Serialize */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D178A241E42A60066362D /* NSData+Serialize.m */,
+				4E9D178B241E42A60066362D /* NSString+Serialize.h */,
+				4E9D178C241E42A60066362D /* NSDate+Serialize.h */,
+				4E9D178D241E42A60066362D /* NSDictionary+KeyTranslation.m */,
+				4E9D178E241E42A60066362D /* NSObject+Serialize.h */,
+				4E9D178F241E42A60066362D /* NSDate+Serialize.m */,
+				4E9D1790241E42A60066362D /* NSString+Serialize.m */,
+				4E9D1791241E42A60066362D /* NSData+Serialize.h */,
+				4E9D1792241E42A60066362D /* NSObject+Serialize.m */,
+				4E9D1793241E42A60066362D /* NSDictionary+KeyTranslation.h */,
+			);
+			path = Serialize;
+			sourceTree = "<group>";
+		};
+		4E9D1794241E42A60066362D /* NSObject+PropertySupport */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D1795241E42A60066362D /* NSObject+PropertySupport.m */,
+				4E9D1796241E42A60066362D /* NSObject+PropertySupport.h */,
+			);
+			path = "NSObject+PropertySupport";
+			sourceTree = "<group>";
+		};
+		4E9D1797241E42A60066362D /* ObjectiveResourceDateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D1798241E42A60066362D /* ObjectiveResourceDateFormatter.m */,
+				4E9D1799241E42A60066362D /* ObjectiveResourceDateFormatter.h */,
+			);
+			path = ObjectiveResourceDateFormatter;
+			sourceTree = "<group>";
+		};
+		4E9D17B0241E7FDA0066362D /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D17B8241E8FAD0066362D /* ChatViewController.swift */,
+				4E9D17BA241E8FB80066362D /* ChatViewModel.swift */,
+				4E9D17BC241E8FC00066362D /* ChatCoordinator.swift */,
+				4E9D17B1241E7FE40066362D /* Chat.storyboard */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		4E9D17B5241E83710066362D /* SwiftWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D17B3241E80220066362D /* GitterFayeEndpoints.swift */,
+				4E9D17B6241E839B0066362D /* GitterFayeClient.swift */,
+			);
+			path = SwiftWrapper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,9 +625,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E09AC0C240D7FA90028229C /* Build configuration list for PBXNativeTarget "Gittker" */;
 			buildPhases = (
+				48B77DACB1AA3DDF128B3525 /* [CP] Check Pods Manifest.lock */,
 				4E09ABDB240D7FA70028229C /* Sources */,
 				4E09ABDC240D7FA70028229C /* Frameworks */,
 				4E09ABDD240D7FA70028229C /* Resources */,
+				6C0B33450358425D23E9EB58 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -450,7 +639,6 @@
 			packageProductDependencies = (
 				4E2A7A1424116B620025F39C /* KeychainSwift */,
 				4E2A7A2F2416B23C0025F39C /* Nuke */,
-				4E2A7A3F24194BA50025F39C /* GFayeSwift */,
 			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
@@ -460,6 +648,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E09AC0F240D7FA90028229C /* Build configuration list for PBXNativeTarget "GittkerTests" */;
 			buildPhases = (
+				B2A41263BFB63D0C104BFC1E /* [CP] Check Pods Manifest.lock */,
 				4E09ABF4240D7FA90028229C /* Sources */,
 				4E09ABF5240D7FA90028229C /* Frameworks */,
 				4E09ABF6240D7FA90028229C /* Resources */,
@@ -478,9 +667,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E09AC12240D7FA90028229C /* Build configuration list for PBXNativeTarget "GittkerUITests" */;
 			buildPhases = (
+				4592A3C419845358D2963EC3 /* [CP] Check Pods Manifest.lock */,
 				4E09ABFF240D7FA90028229C /* Sources */,
 				4E09AC00240D7FA90028229C /* Frameworks */,
 				4E09AC01240D7FA90028229C /* Resources */,
+				37912B7608F08AA4290B2ABC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -527,7 +718,6 @@
 			packageReferences = (
 				4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */,
-				4E2A7A3E24194BA50025F39C /* XCRemoteSwiftPackageReference "GFayeSwift" */,
 			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
@@ -553,6 +743,7 @@
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
 				4E09AC66240EE6950028229C /* Search.storyboard in Resources */,
+				4E9D17B2241E7FE40066362D /* Chat.storyboard in Resources */,
 				4E09ABEA240D7FA70028229C /* LoginAuth.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,6 +764,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37912B7608F08AA4290B2ABC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4592A3C419845358D2963EC3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Gittker-GittkerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		48B77DACB1AA3DDF128B3525 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Gittker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6C0B33450358425D23E9EB58 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gittker/Pods-Gittker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gittker/Pods-Gittker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Gittker/Pods-Gittker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2A41263BFB63D0C104BFC1E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GittkerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4E09ABDB240D7FA70028229C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -583,23 +877,35 @@
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
+				4E9D17A5241E42A60066362D /* FayeClient.m in Sources */,
 				4E2A7A1F24154D8D0025F39C /* RoomTableViewCell.swift in Sources */,
+				4E9D17A1241E42A60066362D /* NSString+Serialize.m in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
+				4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
 				4E09AC5C240EE6660028229C /* HomeViewController.swift in Sources */,
+				4E9D17BD241E8FC00066362D /* ChatCoordinator.swift in Sources */,
 				4E09AC31240D906F0028229C /* ClearCookies.swift in Sources */,
+				4E9D17B7241E839B0066362D /* GitterFayeClient.swift in Sources */,
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
+				4E9D17A0241E42A60066362D /* NSDate+Serialize.m in Sources */,
+				4E9D179F241E42A60066362D /* NSDictionary+KeyTranslation.m in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
+				4E9D17B9241E8FAD0066362D /* ChatViewController.swift in Sources */,
+				4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */,
 				4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */,
 				4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */,
+				4E9D17AF241E49BE0066362D /* RoomRecreate.swift in Sources */,
 				4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */,
+				4E9D17A2241E42A60066362D /* NSObject+Serialize.m in Sources */,
+				4E9D179E241E42A60066362D /* NSData+Serialize.m in Sources */,
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
-				4E2A7A372417C8B60025F39C /* GitterFayeClient.swift in Sources */,
+				4E9D17A6241E42A60066362D /* FayeMessage.m in Sources */,
 				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
 				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
-				4E2A7A0D241153C70025F39C /* RoomsLogic.swift in Sources */,
+				4E2A7A0D241153C70025F39C /* Room.swift in Sources */,
 				4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
@@ -607,11 +913,17 @@
 				4E09AC47240EA3560028229C /* GitterApi.swift in Sources */,
 				4E2A7A2524154EDF0025F39C /* Config.swift in Sources */,
 				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
+				4E9D17BB241E8FB80066362D /* ChatViewModel.swift in Sources */,
 				4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */,
+				4E9D17A4241E42A60066362D /* ObjectiveResourceDateFormatter.m in Sources */,
 				4E09AC23240D82B30028229C /* Storyboarded.swift in Sources */,
 				4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */,
+				4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */,
 				4E09AC6E240EE6C60028229C /* CommunitiesViewController.swift in Sources */,
+				4E9D17AD241E46810066362D /* TRConnectionMonitor.m in Sources */,
 				4E09AC6A240EE6AA0028229C /* PeopleCoordinator.swift in Sources */,
+				4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */,
+				4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,11 +1094,13 @@
 		};
 		4E09AC0D240D7FA90028229C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker/Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -795,6 +1109,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Gittker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Gittker/Gittker-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -802,11 +1117,13 @@
 		};
 		4E09AC0E240D7FA90028229C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E525CE5AAF6FB4053348265 /* Pods-Gittker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker/Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
+				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -815,6 +1132,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.Gittker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Gittker/Gittker-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -822,6 +1140,7 @@
 		};
 		4E09AC10240D7FA90028229C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64FA62F5F63FD0FF7DE28F20 /* Pods-GittkerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -844,6 +1163,7 @@
 		};
 		4E09AC11240D7FA90028229C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4289C882E8C8144BE82D895B /* Pods-GittkerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -866,6 +1186,7 @@
 		};
 		4E09AC13240D7FA90028229C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -886,6 +1207,7 @@
 		};
 		4E09AC14240D7FA90028229C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7A0FB74FF9B765193008F8B /* Pods-Gittker-GittkerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -962,14 +1284,6 @@
 				minimumVersion = 8.4.0;
 			};
 		};
-		4E2A7A3E24194BA50025F39C /* XCRemoteSwiftPackageReference "GFayeSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ckpwong/GFayeSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.5;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -982,11 +1296,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
-		};
-		4E2A7A3F24194BA50025F39C /* GFayeSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E2A7A3E24194BA50025F39C /* XCRemoteSwiftPackageReference "GFayeSwift" */;
-			productName = GFayeSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
