@@ -74,6 +74,7 @@
 		4E9D17B9241E8FAD0066362D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17B8241E8FAD0066362D /* ChatViewController.swift */; };
 		4E9D17BB241E8FB80066362D /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BA241E8FB80066362D /* ChatViewModel.swift */; };
 		4E9D17BD241E8FC00066362D /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BC241E8FC00066362D /* ChatCoordinator.swift */; };
+		4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */; };
 		6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */; };
 		B39CDC846CEBD903CAA79D9B /* Pods_Gittker_GittkerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */; };
 /* End PBXBuildFile section */
@@ -182,6 +183,7 @@
 		4E9D17B8241E8FAD0066362D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		4E9D17BA241E8FB80066362D /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		4E9D17BC241E8FC00066362D /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftCBridge.swift; sourceTree = "<group>"; };
 		572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker.debug.xcconfig"; path = "Target Support Files/Pods-Gittker/Pods-Gittker.debug.xcconfig"; sourceTree = "<group>"; };
 		597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker-GittkerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		608250AD2030F805E2498753 /* Pods_GittkerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GittkerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +250,7 @@
 		4E09ABD6240D7FA70028229C = {
 			isa = PBXGroup;
 			children = (
+				4E9D182B241FFA400066362D /* LanguagesBridge */,
 				4E09ABE1240D7FA70028229C /* Gittker */,
 				4E2A7A352417C8800025F39C /* Faye */,
 				4E9D177E241E42890066362D /* Libraries */,
@@ -319,6 +322,7 @@
 		4E09AC19240D81770028229C /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4E9D1826241FF89B0066362D /* FayeToMessage */,
 				4E09AC56240EE2C90028229C /* MainTabBar */,
 				4E2A7A1724116C8E0025F39C /* Auth */,
 				4E09AC4A240EA67E0028229C /* Models */,
@@ -618,6 +622,21 @@
 			path = SwiftWrapper;
 			sourceTree = "<group>";
 		};
+		4E9D1826241FF89B0066362D /* FayeToMessage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FayeToMessage;
+			sourceTree = "<group>";
+		};
+		4E9D182B241FFA400066362D /* LanguagesBridge */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */,
+			);
+			path = LanguagesBridge;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -902,6 +921,7 @@
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
 				4E9D17A6241E42A60066362D /* FayeMessage.m in Sources */,
 				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
+				4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */,
 				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,

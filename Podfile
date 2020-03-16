@@ -6,8 +6,7 @@ target 'Gittker' do
   inhibit_all_warnings!
 
   pod 'SocketRocket'
-
-
+  pod 'MessageKit'
 
   target 'GittkerTests' do
     inherit! :search_paths

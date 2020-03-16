@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageKit
 
-class ChatViewController: UIViewController, Storyboarded {
+class ChatViewController: MessagesViewController, Storyboarded {
 
     open var roomId: String?
     
@@ -19,3 +20,19 @@ class ChatViewController: UIViewController, Storyboarded {
         print(roomId)
     }
 }
+//
+//extension ChatViewController: MessagesDataSource {
+//    func currentSender() -> SenderType {
+//        <#code#>
+//    }
+//    
+//    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
+//        <#code#>
+//    }
+//    
+//    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+//        <#code#>
+//    }
+//    
+//     
+//}

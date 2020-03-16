@@ -11,6 +11,7 @@
 #import "FayeWrapper.h"
 #import "TRConnectionMonitor.h"
 #import "FayeClient.h"
+#import "Gittker-Swift.h"
 
 typedef enum {
     kConnected,                     // Intend to be connected
@@ -357,7 +358,8 @@ typedef enum {
             ext2 = [NSMutableDictionary dictionaryWithDictionary:ext];
         }
         
-        NSString *authToken = @"0053dddaf540b5a8ed490d4a1b3eac7544a532d7";
+        KeychainSwiftCBridge *keychain = [[KeychainSwiftCBridge alloc] init];
+        NSString *authToken = [keychain get:@"access_token"];
         if (authToken) {
             [ext2 setObject:authToken forKey:@"token"];
         }
