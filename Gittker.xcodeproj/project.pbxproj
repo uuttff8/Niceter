@@ -75,6 +75,12 @@
 		4E9D17BB241E8FB80066362D /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BA241E8FB80066362D /* ChatViewModel.swift */; };
 		4E9D17BD241E8FC00066362D /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BC241E8FC00066362D /* ChatCoordinator.swift */; };
 		4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */; };
+		4E9D182F241FFE820066362D /* FayeEventBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D182E241FFE820066362D /* FayeEventBinder.swift */; };
+		4E9D18322420006C0066362D /* MockMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18312420006C0066362D /* MockMessage.swift */; };
+		4E9D1834242003C60066362D /* RoomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1833242003C60066362D /* RoomEvent.swift */; };
+		4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18362420C5240066362D /* BasicAudioController.swift */; };
+		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
+		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */; };
 		B39CDC846CEBD903CAA79D9B /* Pods_Gittker_GittkerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */; };
 /* End PBXBuildFile section */
@@ -184,6 +190,12 @@
 		4E9D17BA241E8FB80066362D /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		4E9D17BC241E8FC00066362D /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftCBridge.swift; sourceTree = "<group>"; };
+		4E9D182E241FFE820066362D /* FayeEventBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FayeEventBinder.swift; sourceTree = "<group>"; };
+		4E9D18312420006C0066362D /* MockMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMessage.swift; sourceTree = "<group>"; };
+		4E9D1833242003C60066362D /* RoomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEvent.swift; sourceTree = "<group>"; };
+		4E9D18362420C5240066362D /* BasicAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAudioController.swift; sourceTree = "<group>"; };
+		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker.debug.xcconfig"; path = "Target Support Files/Pods-Gittker/Pods-Gittker.debug.xcconfig"; sourceTree = "<group>"; };
 		597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker-GittkerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		608250AD2030F805E2498753 /* Pods_GittkerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GittkerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +213,7 @@
 			files = (
 				4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */,
 				4E2A7A302416B23C0025F39C /* Nuke in Frameworks */,
+				4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */,
 				6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +253,7 @@
 		3A500476451007D37E992108 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EE0CF872420DD42005BDE24 /* WebKit.framework */,
 				82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */,
 				7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */,
 				608250AD2030F805E2498753 /* Pods_GittkerTests.framework */,
@@ -279,6 +293,7 @@
 				4E09ABE2240D7FA70028229C /* AppDelegate.swift */,
 				4E09AC17240D81270028229C /* AppCoordinator.swift */,
 				4E09AC15240D80F50028229C /* Features */,
+				4E9D18352420C5150066362D /* Audio */,
 				4E09AC19240D81770028229C /* Common */,
 				4E09AC29240D8B0C0028229C /* CustomViews */,
 				4E09AC1E240D82840028229C /* Utils */,
@@ -436,6 +451,7 @@
 				4E2A7A0C241153C70025F39C /* Room.swift */,
 				4E09AC4B240EA68D0028229C /* NetModels.swift */,
 				4E9D17AE241E49BE0066362D /* RoomRecreate.swift */,
+				4E9D1833242003C60066362D /* RoomEvent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -492,6 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */,
+				4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -625,6 +642,8 @@
 		4E9D1826241FF89B0066362D /* FayeToMessage */ = {
 			isa = PBXGroup;
 			children = (
+				4E9D18312420006C0066362D /* MockMessage.swift */,
+				4E9D182E241FFE820066362D /* FayeEventBinder.swift */,
 			);
 			path = FayeToMessage;
 			sourceTree = "<group>";
@@ -635,6 +654,14 @@
 				4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */,
 			);
 			path = LanguagesBridge;
+			sourceTree = "<group>";
+		};
+		4E9D18352420C5150066362D /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D18362420C5240066362D /* BasicAudioController.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -912,9 +939,12 @@
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
 				4E9D17B9241E8FAD0066362D /* ChatViewController.swift in Sources */,
 				4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */,
+				4E9D18322420006C0066362D /* MockMessage.swift in Sources */,
 				4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */,
 				4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */,
 				4E9D17AF241E49BE0066362D /* RoomRecreate.swift in Sources */,
+				4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */,
+				4E9D1834242003C60066362D /* RoomEvent.swift in Sources */,
 				4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */,
 				4E9D17A2241E42A60066362D /* NSObject+Serialize.m in Sources */,
 				4E9D179E241E42A60066362D /* NSData+Serialize.m in Sources */,
@@ -940,9 +970,11 @@
 				4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */,
 				4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */,
 				4E09AC6E240EE6C60028229C /* CommunitiesViewController.swift in Sources */,
+				4E9D182F241FFE820066362D /* FayeEventBinder.swift in Sources */,
 				4E9D17AD241E46810066362D /* TRConnectionMonitor.m in Sources */,
 				4E09AC6A240EE6AA0028229C /* PeopleCoordinator.swift in Sources */,
 				4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */,
+				4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */,
 				4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

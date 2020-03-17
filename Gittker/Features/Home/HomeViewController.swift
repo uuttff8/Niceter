@@ -40,7 +40,7 @@ class HomeViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Conversations"
+        title = "Rooms"
         
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in

@@ -21,8 +21,6 @@ class RoomTableViewCell: UITableViewCell {
     }
     
     func initialize(with room: RoomSchema) {
-        print(room.id + "\(room.name)")
-        
         title.text = room.name
         subtitle.text = room.topic
         Nuke.loadImage(with: URL(string: room.avatarUrl!)!, into: cellImageView)
