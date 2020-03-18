@@ -32,7 +32,7 @@ class HomeCoordinator: Coordinator {
     }
     
     func showChat(roomId: String) {
-        let coord = ChatCoordinator(with: navigationController, roomId: roomId)
+        let coord = RoomChatCoordinator(with: navigationController, roomId: roomId)
         coord.start()
     }
     

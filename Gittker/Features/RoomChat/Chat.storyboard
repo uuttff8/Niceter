@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Chat View Controller-->
+        <!--Room Chat View Controller-->
         <scene sceneID="fld-Tc-i5J">
             <objects>
-                <viewController storyboardIdentifier="ChatViewController" id="8LT-Hf-E8h" customClass="ChatViewController" customModule="Gittker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RoomChatViewController" id="8LT-Hf-E8h" customClass="RoomChatViewController" customModule="Gittker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xPW-tO-cDz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
