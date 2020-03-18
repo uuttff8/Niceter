@@ -50,6 +50,6 @@ class HomeViewController: UIViewController, Storyboarded {
             }
         }
         
-        self.viewModel.fetchRooms()
+        self.viewModel.fetchRoomsCached()
     }
 }

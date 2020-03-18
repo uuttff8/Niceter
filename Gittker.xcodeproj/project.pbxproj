@@ -82,7 +82,9 @@
 		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		4EE0CF902422239D005BDE24 /* BaseChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* BaseChatViewController.swift */; };
-		4EFC4FBB24223A0F00295EB1 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBA24223A0F00295EB1 /* Cache.swift */; };
+		4EFC4FBB24223A0F00295EB1 /* CodableCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */; };
+		4EFC4FBF242247D400295EB1 /* PersistentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBE242247D400295EB1 /* PersistentCache.swift */; };
+		4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedManager.swift */; };
 		6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */; };
 		B39CDC846CEBD903CAA79D9B /* Pods_Gittker_GittkerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */; };
 /* End PBXBuildFile section */
@@ -199,7 +201,9 @@
 		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		4EE0CF8F2422239D005BDE24 /* BaseChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseChatViewController.swift; sourceTree = "<group>"; };
-		4EFC4FBA24223A0F00295EB1 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCache.swift; sourceTree = "<group>"; };
+		4EFC4FBE242247D400295EB1 /* PersistentCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentCache.swift; sourceTree = "<group>"; };
+		4EFC4FC1242250C500295EB1 /* CachedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedManager.swift; sourceTree = "<group>"; };
 		572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker.debug.xcconfig"; path = "Target Support Files/Pods-Gittker/Pods-Gittker.debug.xcconfig"; sourceTree = "<group>"; };
 		597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker-GittkerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		608250AD2030F805E2498753 /* Pods_GittkerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GittkerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,8 +301,8 @@
 				4E09ABE2240D7FA70028229C /* AppDelegate.swift */,
 				4E09AC17240D81270028229C /* AppCoordinator.swift */,
 				4E09AC15240D80F50028229C /* Features */,
-				4E9D18352420C5150066362D /* Audio */,
 				4E09AC19240D81770028229C /* Core */,
+				4E9D18352420C5150066362D /* Audio */,
 				4E09AC29240D8B0C0028229C /* CustomViews */,
 				4E09AC1E240D82840028229C /* Utils */,
 				4E09AC28240D85340028229C /* Resources */,
@@ -341,7 +345,6 @@
 		4E09AC19240D81770028229C /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4EFC4FB924223A0500295EB1 /* Cache */,
 				4EE0CF8E24222364005BDE24 /* BaseChat */,
 				4E9D1826241FF89B0066362D /* FayeToMessage */,
 				4E09AC56240EE2C90028229C /* MainTabBar */,
@@ -454,6 +457,7 @@
 		4E09AC4A240EA67E0028229C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4EFC4FC0242250B400295EB1 /* CachedManager */,
 				4E2A7A0C241153C70025F39C /* Room.swift */,
 				4E09AC4B240EA68D0028229C /* NetModels.swift */,
 				4E9D17AE241E49BE0066362D /* RoomRecreate.swift */,
@@ -543,6 +547,7 @@
 		4E9D177E241E42890066362D /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				4EFC4FC32422523500295EB1 /* CodableCache */,
 				4E9D177F241E42A50066362D /* FayeObjc */,
 			);
 			path = Libraries;
@@ -678,12 +683,21 @@
 			path = BaseChat;
 			sourceTree = "<group>";
 		};
-		4EFC4FB924223A0500295EB1 /* Cache */ = {
+		4EFC4FC0242250B400295EB1 /* CachedManager */ = {
 			isa = PBXGroup;
 			children = (
-				4EFC4FBA24223A0F00295EB1 /* Cache.swift */,
+				4EFC4FC1242250C500295EB1 /* CachedManager.swift */,
 			);
-			path = Cache;
+			path = CachedManager;
+			sourceTree = "<group>";
+		};
+		4EFC4FC32422523500295EB1 /* CodableCache */ = {
+			isa = PBXGroup;
+			children = (
+				4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */,
+				4EFC4FBE242247D400295EB1 /* PersistentCache.swift */,
+			);
+			path = CodableCache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -941,6 +955,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */,
+				4EFC4FBF242247D400295EB1 /* PersistentCache.swift in Sources */,
 				4E09AC4C240EA68D0028229C /* NetModels.swift in Sources */,
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
@@ -982,11 +997,12 @@
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4EE0CF902422239D005BDE24 /* BaseChatViewController.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
+				4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
 				4E09AC47240EA3560028229C /* GitterApi.swift in Sources */,
 				4E2A7A2524154EDF0025F39C /* Config.swift in Sources */,
 				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
-				4EFC4FBB24223A0F00295EB1 /* Cache.swift in Sources */,
+				4EFC4FBB24223A0F00295EB1 /* CodableCache.swift in Sources */,
 				4E9D17BB241E8FB80066362D /* RoomChatViewModel.swift in Sources */,
 				4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */,
 				4E9D17A4241E42A60066362D /* ObjectiveResourceDateFormatter.m in Sources */,

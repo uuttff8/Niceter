@@ -60,6 +60,10 @@ struct Config {
         }
     }
     
+    struct CacheKeys {
+        static let roomsKey = "GittkerRoomsCache"
+    }
+    
     struct Orientation {
         /**
          Force the screen back to portrait orientation

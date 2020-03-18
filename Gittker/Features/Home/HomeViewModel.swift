@@ -15,11 +15,10 @@ class HomeViewModel {
         self.dataSource = dataSource
     }
     
-    func fetchRooms() {
-        GitterApi.shared.getRooms { (rooms) in
-            guard let rooms = rooms else { return }
-            
-            self.dataSource?.data.value = rooms
+    func fetchRoomsCached() {
+        CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
+            .loadRooms { (rooms) in
+                self.dataSource?.data.value = rooms
         }
     }
 }

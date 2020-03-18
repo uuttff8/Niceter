@@ -51,5 +51,4 @@ struct RoomSchema: Codable {
     let roomMember: Bool?
     let groupId: String?
     let `public`: Bool?
-    
 }
