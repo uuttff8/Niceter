@@ -9,6 +9,16 @@
 import Foundation
 import MessageKit
 
+extension UIImage {
+
+    convenience init?(withContentsOfUrl url: URL) throws {
+        let imageData = try Data(contentsOf: url)
+    
+        self.init(data: imageData)
+    }
+
+}
+
 class FayeEventRoomBinder: NSObject {
     
     private var client: GitterFayeClient
@@ -41,7 +51,7 @@ class FayeEventRoomBinder: NSObject {
                 
     }
     
-    func loadMessages(loadedMessages: @escaping (([MockMessage]) -> Void)) {
+    func loadMessages(loadedMessages: @escaping (([MockMessage], [Avatar]) -> Void)) {
         client.snapshotReceivedHandler = { (snapshot, _) in
             if let snap = snapshot as? Array<Dictionary<String, Any>> {
                 let roomRecrData = try? JSONSerialization.data(withJSONObject: snap, options: .prettyPrinted)
@@ -49,16 +59,20 @@ class FayeEventRoomBinder: NSObject {
                 let roomRecr = try? JSONDecoder().decode([RoomRecreate].self, from: roomRecrData!)
                 
                 var messageArray = [MockMessage]()
+                var avatarArray = [Avatar]()
                 
                 roomRecr?.forEach({ (roomRecrObject) in
                     
                     let user = MockUser(senderId: roomRecrObject.fromUser.id, displayName: (roomRecrObject.fromUser.displayName!))
                     let message = MockMessage(text: roomRecrObject.text, user: user, messageId: roomRecrObject.id, date: Date())
                     
+                    let avatar = try? Avatar(image: UIImage(withContentsOfUrl: URL(string: roomRecrObject.fromUser.avatarURL!)!), initials: "?")
+                    
                     messageArray.append(message)
+                    avatarArray.append(avatar!)
                 })
                 
-                loadedMessages(messageArray)
+                loadedMessages(messageArray, avatarArray)
             }
         }
     }

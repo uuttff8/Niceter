@@ -1,5 +1,5 @@
 //
-//  ChatCoordinator.swift
+//  RoomChatCoordinator.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/15/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatCoordinator: Coordinator {
+class RoomChatCoordinator: Coordinator {
 
     weak var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
@@ -21,7 +21,7 @@ class ChatCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = ChatViewController.instantiate(from: AppStoryboards.Chat)
+        let vc = RoomChatViewController.instantiate(from: AppStoryboards.Chat)
         vc.coordinator = self
         vc.roomId = roomId
         childCoordinators.append(self)
