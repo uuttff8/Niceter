@@ -8,11 +8,7 @@
 
 import UIKit
 import MessageKit
-
-protocol ChatImplementor {
-    func subscribeOnLoadNewMessages()
-    func loadFirstMessages()
-}
+import SafariServices
 
 class ChatViewController: MessagesViewController {
     
@@ -20,25 +16,24 @@ class ChatViewController: MessagesViewController {
     let refreshControl = UIRefreshControl()
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
-
+    
     
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureMessageCollectionView()
         configureMessageInputBar()
-        loadFirstMessages()
     }
-        
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        loadFirstMessages()
         subscribeOnLoadNewMessages()
     }
     
@@ -80,7 +75,7 @@ class ChatViewController: MessagesViewController {
         if #available(iOS 13.0, *) {
             flowLayout.collectionView?.backgroundColor = .systemBackground
         }
-
+        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         
@@ -100,6 +95,40 @@ class ChatViewController: MessagesViewController {
             for: .highlighted
         )
     }
+    
+    func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        let name = message.sender.displayName
+        return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+    }
+    
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        
+        let dateString = formatter.string(from: message.sentDate)
+        return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
+    }
+    
+    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        if indexPath.section % 3 == 0 {
+            return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+        }
+        return nil
+    }
+    
+    private func openUrlInsideApp(url: URL) {
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true, completion: nil)
+    }
+    
+    private func callNumber(phoneNumber:String) {
+        
+        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+            
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
 }
 
 extension ChatViewController: MessagesDataSource {
@@ -115,28 +144,11 @@ extension ChatViewController: MessagesDataSource {
         messageList.count
     }
     
-    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        if indexPath.section % 3 == 0 {
-            return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-        }
-        return nil
-    }
-    
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         
         return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
     }
     
-    func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        let name = message.sender.displayName
-        return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
-    }
-    
-    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
-        let dateString = formatter.string(from: message.sentDate)
-        return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-    }
 }
 
 // MARK: - MessageCellDelegate
@@ -170,7 +182,7 @@ extension ChatViewController: MessageCellDelegate {
     func didTapMessageBottomLabel(in cell: MessageCollectionViewCell) {
         print("Bottom label tapped")
     }
-
+    
     func didTapPlayButton(in cell: AudioMessageCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell),
             let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
@@ -195,23 +207,23 @@ extension ChatViewController: MessageCellDelegate {
             audioController.playSound(for: message, in: cell)
         }
     }
-
+    
     func didStartAudio(in cell: AudioMessageCell) {
         print("Did start playing audio sound")
     }
-
+    
     func didPauseAudio(in cell: AudioMessageCell) {
         print("Did pause audio sound")
     }
-
+    
     func didStopAudio(in cell: AudioMessageCell) {
         print("Did stop audio sound")
     }
-
+    
     func didTapAccessoryView(in cell: MessageCollectionViewCell) {
         print("Accessory view tapped")
     }
-
+    
 }
 
 // MARK: - MessageLabelDelegate
@@ -228,50 +240,52 @@ extension ChatViewController: MessageLabelDelegate {
     
     func didSelectPhoneNumber(_ phoneNumber: String) {
         print("Phone Number Selected: \(phoneNumber)")
+        callNumber(phoneNumber: phoneNumber)
     }
     
     func didSelectURL(_ url: URL) {
         print("URL Selected: \(url)")
+        openUrlInsideApp(url: url)
     }
     
     func didSelectTransitInformation(_ transitInformation: [String: String]) {
         print("TransitInformation Selected: \(transitInformation)")
     }
-
+    
     func didSelectHashtag(_ hashtag: String) {
         print("Hashtag selected: \(hashtag)")
     }
-
+    
     func didSelectMention(_ mention: String) {
         print("Mention selected: \(mention)")
     }
-
+    
     func didSelectCustom(_ pattern: String, match: String?) {
         print("Custom data detector patter selected: \(pattern)")
     }
-
+    
 }
 
 // MARK: - MessageInputBarDelegate
 
 extension ChatViewController: MessageInputBarDelegate {
-
+    
     func inputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-
+        
         // Here we can parse for which substrings were autocompleted
         let attributedText = messageInputBar.inputTextView.attributedText!
         let range = NSRange(location: 0, length: attributedText.length)
         attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
-
+            
             let substring = attributedText.attributedSubstring(from: range)
             let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
-            print("Autocompleted: `", substring, "` with context: ", context ?? [])
+            //print("Autocompleted: `", substring, "` with context: ", context ?? [])
         }
-
+        
         let components = inputBar.inputTextView.components
         messageInputBar.inputTextView.text = String()
         messageInputBar.invalidatePlugins()
-
+        
         // Send button activity animation
         messageInputBar.sendButton.startAnimating()
         messageInputBar.inputTextView.placeholder = "Sending..."
@@ -286,7 +300,7 @@ extension ChatViewController: MessageInputBarDelegate {
             }
         }
     }
-
+    
     private func insertMessages(_ data: [Any]) {
         for component in data {
             let user = MockUser(senderId: "123123123", displayName: "Anton Kuzmin")
