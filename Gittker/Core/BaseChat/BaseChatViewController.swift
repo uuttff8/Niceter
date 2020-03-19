@@ -16,8 +16,7 @@ protocol ChatImplementor {
 
 class ChatViewController: MessagesViewController {
     
-    var messageList: [MockMessage] = []
-    var avatarList: [Avatar] = []
+    var messageList: [GittkerMessage] = []
     let refreshControl = UIRefreshControl()
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
@@ -49,9 +48,8 @@ class ChatViewController: MessagesViewController {
     
     // MARK: - Helpers
     
-    func insertMessage(_ message: MockMessage) {
+    func insertMessage(_ message: GittkerMessage) {
         messageList.append(message)
-        print(messageList)
         // Reload last section to update header/footer labels and insert a new one
         messagesCollectionView.performBatchUpdates({
             messagesCollectionView.insertSections([messageList.count - 1])
@@ -110,7 +108,7 @@ extension ChatViewController: MessagesDataSource {
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        return messageList[indexPath.section]
+        return messageList[indexPath.section].message
     }
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -294,10 +292,10 @@ extension ChatViewController: MessageInputBarDelegate {
             let user = MockUser(senderId: "123123123", displayName: "Anton Kuzmin")
             if let str = component as? String {
                 let message = MockMessage(text: str, user: user, messageId: UUID().uuidString, date: Date())
-                insertMessage(message)
+                insertMessage(GittkerMessage(message: message, avatar: nil))
             } else if let img = component as? UIImage {
                 let message = MockMessage(image: img, user: user, messageId: UUID().uuidString, date: Date())
-                insertMessage(message)
+                insertMessage(GittkerMessage(message: message, avatar: nil))
             }
         }
     }

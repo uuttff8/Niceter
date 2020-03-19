@@ -85,6 +85,8 @@
 		4EFC4FBB24223A0F00295EB1 /* CodableCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */; };
 		4EFC4FBF242247D400295EB1 /* PersistentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBE242247D400295EB1 /* PersistentCache.swift */; };
 		4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedManager.swift */; };
+		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
+		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
 		6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */; };
 		B39CDC846CEBD903CAA79D9B /* Pods_Gittker_GittkerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */; };
 /* End PBXBuildFile section */
@@ -204,6 +206,8 @@
 		4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCache.swift; sourceTree = "<group>"; };
 		4EFC4FBE242247D400295EB1 /* PersistentCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentCache.swift; sourceTree = "<group>"; };
 		4EFC4FC1242250C500295EB1 /* CachedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedManager.swift; sourceTree = "<group>"; };
+		4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerMessage.swift; sourceTree = "<group>"; };
+		4EFC4FC62423746200295EB1 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
 		572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker.debug.xcconfig"; path = "Target Support Files/Pods-Gittker/Pods-Gittker.debug.xcconfig"; sourceTree = "<group>"; };
 		597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker-GittkerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		608250AD2030F805E2498753 /* Pods_GittkerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GittkerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +276,7 @@
 		4E09ABD6240D7FA70028229C = {
 			isa = PBXGroup;
 			children = (
+				4E09AC4F240EB5100028229C /* Gittker.entitlements */,
 				4E9D182B241FFA400066362D /* LanguagesBridge */,
 				4E09ABE1240D7FA70028229C /* Gittker */,
 				4E2A7A352417C8800025F39C /* Faye */,
@@ -297,7 +302,6 @@
 		4E09ABE1240D7FA70028229C /* Gittker */ = {
 			isa = PBXGroup;
 			children = (
-				4E09AC4F240EB5100028229C /* Gittker.entitlements */,
 				4E09ABE2240D7FA70028229C /* AppDelegate.swift */,
 				4E09AC17240D81270028229C /* AppCoordinator.swift */,
 				4E09AC15240D80F50028229C /* Features */,
@@ -462,6 +466,7 @@
 				4E09AC4B240EA68D0028229C /* NetModels.swift */,
 				4E9D17AE241E49BE0066362D /* RoomRecreate.swift */,
 				4E9D1833242003C60066362D /* RoomEvent.swift */,
+				4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 			children = (
 				4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */,
 				4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */,
+				4EFC4FC62423746200295EB1 /* Swift+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -973,6 +979,8 @@
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
 				4E9D17A0241E42A60066362D /* NSDate+Serialize.m in Sources */,
 				4E9D179F241E42A60066362D /* NSDictionary+KeyTranslation.m in Sources */,
+				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
+				4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
 				4E9D17B9241E8FAD0066362D /* RoomChatViewController.swift in Sources */,
 				4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */,
@@ -1189,7 +1197,7 @@
 			baseConfigurationReference = 572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Gittker/Gittker.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -1212,7 +1220,7 @@
 			baseConfigurationReference = 6E525CE5AAF6FB4053348265 /* Pods-Gittker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Gittker/Gittker.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;

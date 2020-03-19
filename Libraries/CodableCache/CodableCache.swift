@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 public struct CodableCache<T: Codable> {
     
     let encoder: JSONEncoder

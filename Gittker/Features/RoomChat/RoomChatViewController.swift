@@ -17,6 +17,7 @@ extension UIColor {
 final class RoomChatViewController: ChatViewController, Storyboarded {
     weak var coordinator: RoomChatCoordinator?
     public var roomId: String?
+    private var cache: CodableCache<[RoomRecreate]>?
     
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
@@ -26,24 +27,27 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
     }
     
     override func loadFirstMessages() {
+        cache = CodableCache<[RoomRecreate]>(key: roomId)
+                
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             FayeEventRoomBinder(roomId: self.roomId!)
-                .loadMessages { (messages: [MockMessage], avatars: [Avatar]) in
+                .loadMessages { (gittMessages: Array<GittkerMessage>) in
                     DispatchQueue.main.async {
-                        self.messageList = messages
-                        self.avatarList = avatars
+                        self.messageList = gittMessages
                         self.messagesCollectionView.reloadData()
                         self.messagesCollectionView.scrollToBottom()
                     }
             }
         }
         
+        self.messagesCollectionView.scrollToBottom()
+
     }
     
     override func subscribeOnLoadNewMessages() {
         FayeEventRoomBinder(roomId: roomId!)
-            .onNewMessage { [weak self] (message) in
+            .onNewMessage { [weak self] (message: GittkerMessage) in
                 self?.insertMessage(message)
         }
         
@@ -84,8 +88,8 @@ extension RoomChatViewController: MessagesDisplayDelegate {
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        let avatar = avatarList[indexPath.section]
-        avatarView.set(avatar: avatar)
+        let avatar = messageList[indexPath.section].avatar
+        avatarView.set(avatar: avatar!)
     }
     
     // MARK: - Location Messages

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MessageKit
 
 struct RoomEvent: Codable {
     
@@ -19,7 +20,15 @@ struct RoomEvent: Codable {
     let operation: String
     let model: ModelEventSchema
     
-    func operationCase() -> Event? {
+    func createGittkerMessage() -> GittkerMessage? {
+        switch operationEvent() {
+        case .create:
+            return model.toGittkerMessage()
+        default: return nil
+        }
+    }
+    
+    func operationEvent() -> Event? {
         switch operation {
         case "create": return Event.create
         case "update": return Event.update
@@ -44,6 +53,20 @@ struct ModelEventSchema: Codable {
     let readBy: Int?
     let unread: Bool?
     let html: String?
+    
+    func toGittkerMessage() -> GittkerMessage {
+        GittkerMessage(message: getMockMessage(), avatar: getAvatar())
+    }
+    
+    private func getMockMessage() -> MockMessage {
+        let user = MockUser(senderId: fromUser!.id, displayName: (fromUser?.displayName!)!)
+        let message = MockMessage(text: self.text!, user: user, messageId: self.id, date: Date())
+        return message
+    }
+    
+    private func getAvatar() -> Avatar? {
+        return try? Avatar(image: UIImage(withContentsOfUrl: URL(string: (fromUser?.avatarURLSmall!)!)!), initials: "?")
+    }
 }
 
 

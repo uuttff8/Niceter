@@ -20,67 +20,51 @@ extension UIImage {
 }
 
 class FayeEventRoomBinder: NSObject {
-    
     private var client: GitterFayeClient
+    private let cache: CodableCache<[RoomRecreate]>
     
     open var roomId: String
         
     init(roomId: String) {
         self.roomId = roomId
         client = GitterFayeClient(endpoints: [.roomsChatMessages(self.roomId)])
+        self.cache = CodableCache<Array<RoomRecreate>>(key: roomId)
         
         super.init()
     }
     
-    func onNewMessage(onNewMessage: @escaping ((MockMessage) -> Void)) {
-        client.messageReceivedHandler = { (dict, _) in
-            print(dict)
-            guard let data = dict.jsonData else { return }
-            let event = try! JSONDecoder().decode(RoomEvent.self, from: data)
-            print(event)
-            
-            switch event.operationCase() {
-            case .create:
-                let user = MockUser(senderId: event.model.fromUser!.id, displayName: (event.model.fromUser?.displayName!)!)
-                let message = MockMessage(text: event.model.text!, user: user, messageId: event.model.id, date: Date())
-                
-                onNewMessage(message)
-            default: break
-            }
+    func loadMessages(loadedMessages: @escaping ((Array<GittkerMessage>) -> Void)) {
+        if let cached = cache.get() {
+            loadedMessages(cached.toGittkerMessages())
         }
-                
-    }
-    
-    func loadMessages(loadedMessages: @escaping (([MockMessage], [Avatar]) -> Void)) {
+        
         client.snapshotReceivedHandler = { (snapshot, _) in
             if let snap = snapshot as? Array<Dictionary<String, Any>> {
                 let roomRecrData = try? JSONSerialization.data(withJSONObject: snap, options: .prettyPrinted)
                 
-                let roomRecr = try? JSONDecoder().decode([RoomRecreate].self, from: roomRecrData!)
+                guard let roomRecr = try? JSONDecoder().decode([RoomRecreate].self, from: roomRecrData!) else { print("blya"); return }
                 
-                var messageArray = [MockMessage]()
-                var avatarArray = [Avatar]()
+                try? self.cache.set(value: roomRecr)
                 
-                roomRecr?.forEach({ (roomRecrObject) in
-                    
-                    let user = MockUser(senderId: roomRecrObject.fromUser.id, displayName: (roomRecrObject.fromUser.displayName!))
-                    let message = MockMessage(text: roomRecrObject.text, user: user, messageId: roomRecrObject.id, date: Date())
-                    
-                    let avatar = try? Avatar(image: UIImage(withContentsOfUrl: URL(string: roomRecrObject.fromUser.avatarURL!)!), initials: "?")
-                    
-                    messageArray.append(message)
-                    avatarArray.append(avatar!)
-                })
-                
-                loadedMessages(messageArray, avatarArray)
+                let mess = roomRecr.toGittkerMessages()
+                loadedMessages(mess)
             }
         }
+        
+        return
     }
-    
 }
 
-extension Dictionary {
-    var jsonData: Data? {
-        try? JSONSerialization.data(withJSONObject: self, options: [])
+extension FayeEventRoomBinder {
+    func onNewMessage(onNewMessage: @escaping ((GittkerMessage) -> Void)) {
+        client.messageReceivedHandler = { (dict, _) in
+            guard let data = dict.jsonData else { return }
+            let event = try! JSONDecoder().decode(RoomEvent.self, from: data)
+            
+            if let message = event.createGittkerMessage() {
+                onNewMessage(message)
+            }
+        }
+                
     }
 }
