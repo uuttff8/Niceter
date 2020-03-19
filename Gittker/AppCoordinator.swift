@@ -9,23 +9,29 @@
 import UIKit
 
 class AppCoordinator: Coordinator {
+    private(set) var window: UIWindow
+
+    
     var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
     
-    init(navigationController: UINavigationController?) {
-        self.navigationController = navigationController
+    init() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        start()
     }
-    
+
     func start() {
         if LoginData.shared.isLoggedIn() {
             let userdata = ShareData().userdata
             guard let user = userdata else { print("\(#file) \(#line) User is not initialized"); return }
             
             let tabBar = MainTabBarCoordinator(navigationController: navigationController, with: user)
+            window.rootViewController = tabBar.currentController
             navigationController?.setNavigationBarHidden(true, animated: true)
             tabBar.start()
         } else {
             let child = LoginAuthCoordinator(navigationController: navigationController!)
+            window.rootViewController = child.currentController
             childCoordinators.append(child)
             child.start()
         }

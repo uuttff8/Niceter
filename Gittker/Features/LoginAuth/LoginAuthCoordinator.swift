@@ -12,15 +12,18 @@ class LoginAuthCoordinator: Coordinator {
 
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController?
+    var currentController: LoginAuthViewController
         
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        
+        currentController = LoginAuthViewController.instantiate(from: AppStoryboards.LoginAuth)
+
     }
     
     func start() {
-        let vc = LoginAuthViewController.instantiate(from: AppStoryboards.LoginAuth)
-        vc.coordinator = self
-        navigationController?.pushViewController(vc, animated: true)
+        currentController.coordinator = self
+        navigationController?.pushViewController(currentController, animated: true)
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
