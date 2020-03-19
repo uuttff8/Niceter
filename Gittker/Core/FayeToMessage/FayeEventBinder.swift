@@ -21,14 +21,14 @@ extension UIImage {
 
 class FayeEventRoomBinder: NSObject {
     private var client: GitterFayeClient
-    private let cache: CodableCache<[RoomRecreate]>
+    private let cache: CodableCache<Array<RoomRecreateSchema>>
     
     open var roomId: String
         
     init(roomId: String) {
         self.roomId = roomId
         client = GitterFayeClient(endpoints: [.roomsChatMessages(self.roomId)])
-        self.cache = CodableCache<Array<RoomRecreate>>(key: roomId)
+        self.cache = CodableCache<Array<RoomRecreateSchema>>(key: roomId)
         
         super.init()
     }
@@ -42,7 +42,7 @@ class FayeEventRoomBinder: NSObject {
             if let snap = snapshot as? Array<Dictionary<String, Any>> {
                 let roomRecrData = try? JSONSerialization.data(withJSONObject: snap, options: .prettyPrinted)
                 
-                guard let roomRecr = try? JSONDecoder().decode([RoomRecreate].self, from: roomRecrData!) else { print("blya"); return }
+                guard let roomRecr = try? JSONDecoder().decode(Array<RoomRecreateSchema>.self, from: roomRecrData!) else { print("blya"); return }
                 
                 try? self.cache.set(value: roomRecr)
                 
@@ -59,7 +59,7 @@ extension FayeEventRoomBinder {
     func onNewMessage(onNewMessage: @escaping ((GittkerMessage) -> Void)) {
         client.messageReceivedHandler = { (dict, _) in
             guard let data = dict.jsonData else { return }
-            let event = try! JSONDecoder().decode(RoomEvent.self, from: data)
+            let event = try! JSONDecoder().decode(RoomEventSchema.self, from: data)
             
             if let message = event.createGittkerMessage() {
                 onNewMessage(message)

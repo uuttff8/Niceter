@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ExchangeToken: Codable {
+struct ExchangeTokenSchema: Codable {
     var clientId: String
     var clientSecret: String
     var redirectUri: String
@@ -24,7 +24,7 @@ struct ExchangeToken: Codable {
     }
 }
 
-struct User: Codable {
+struct UserSchema: Codable {
     let id, username: String
     let displayName, url: String?
     let avatarURL: String?
@@ -42,7 +42,7 @@ struct User: Codable {
 }
 
 // ["access_token": "xxxx", "token_type": Bearer]
-struct AccessToken: Codable {
+struct AccessTokenSchema: Codable {
     let accessToken: String
     let tokenType: String
     

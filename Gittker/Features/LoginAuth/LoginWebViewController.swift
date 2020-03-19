@@ -95,7 +95,7 @@ extension LoginWebViewController: WKNavigationDelegate {
         }
     }
     
-    private func showInitialViewController(with user: User) {
+    private func showInitialViewController(with user: UserSchema) {
         self.dismiss(animated: true, completion: {
             let tabBar = MainTabBarCoordinator(navigationController: nil, with: user)
             UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController = tabBar.currentController

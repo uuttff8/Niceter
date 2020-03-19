@@ -13,14 +13,15 @@ struct UrlSchema: Codable {
     let url: String
 }
 
-struct MentionSchema: Codable {
-    
-}
+#warning("Create mentions and issues schema")
+//struct MentionSchema: Codable {
+//
+//}
 
-struct RoomRecreate: Codable {
+struct RoomRecreateSchema: Codable {
     let id: String
     let v: Int
-    let fromUser: User
+    let fromUser: UserSchema
 //    let issues: [String]
     let urls: [UrlSchema]
     let text: String
@@ -44,7 +45,7 @@ struct RoomRecreate: Codable {
 }
 
 
-extension Array where Element == RoomRecreate {
+extension Array where Element == RoomRecreateSchema {
     func toGittkerMessages() -> Array<GittkerMessage> {
         var gittMess = Array<GittkerMessage>()
         

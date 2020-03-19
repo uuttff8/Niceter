@@ -16,9 +16,9 @@ class HomeCoordinator: Coordinator {
     weak var tabController: MainTabBarController?
     var currentController: HomeViewController?
     
-    var userdata: User
+    var userdata: UserSchema
     
-    init(with navigationController: UINavigationController?, user: User) {
+    init(with navigationController: UINavigationController?, user: UserSchema) {
         self.navigationController = navigationController
         self.userdata = user
         
