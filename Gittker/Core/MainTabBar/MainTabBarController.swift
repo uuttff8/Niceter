@@ -11,9 +11,9 @@ import UIKit
 class MainTabBarController: UITabBarController {
 
     weak var coordinator: MainTabBarCoordinator?
-    var userdata: User
+    var userdata: UserSchema
     
-    init(with user: User) {
+    init(with user: UserSchema) {
         self.userdata = user
         
         super.init(nibName: nil, bundle: nil)

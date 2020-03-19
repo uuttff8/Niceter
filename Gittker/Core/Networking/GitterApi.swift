@@ -28,14 +28,14 @@ class GitterApi {
 
 // MARK: - Auth
 extension GitterApi {
-    func exchangeToken(dataToken: ExchangeToken, completion: @escaping ((String) -> Void)) {
+    func exchangeToken(dataToken: ExchangeTokenSchema, completion: @escaping ((String) -> Void)) {
         print(dataToken)
         let body = try? JSONEncoder().encode(dataToken)
         
         self.httpClient.post(url: URL(string: "\(GitterApiLinks.baseUrl + GitterApiLinks.exchangeToken.rawValue)")!, params: body!) { (res) in
             switch res {
             case .success(let data):
-                let accessToken = try? JSONDecoder().decode(AccessToken.self, from: data).accessToken
+                let accessToken = try? JSONDecoder().decode(AccessTokenSchema.self, from: data).accessToken
                 guard let token = accessToken else { print("\(#line) and \(#file) Broken access token"); return }
                 completion(token)
             default: break
@@ -54,7 +54,7 @@ extension GitterApi {
 
 // MARK: - User
 extension GitterApi {
-    func getUserId(completion: @escaping ((User?) -> Void)) {
+    func getUserId(completion: @escaping ((UserSchema?) -> Void)) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.whoMe.rawValue)")!
         
         self.httpClient.getAuth(url: url)
@@ -64,7 +64,7 @@ extension GitterApi {
                 let str = String(decoding: data, as: UTF8.self)
                 print(str)
                 
-                let user = try? JSONDecoder().decode(User.self, from: data)
+                let user = try? JSONDecoder().decode(UserSchema.self, from: data)
                 
                 completion(user)
             default: print(""); break

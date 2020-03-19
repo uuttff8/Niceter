@@ -13,9 +13,9 @@ final class MainTabBarCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
 
     var currentController: MainTabBarController?
-    var userdata: User
+    var userdata: UserSchema
 
-    init(navigationController: UINavigationController?, with user: User) {
+    init(navigationController: UINavigationController?, with user: UserSchema) {
         self.navigationController = navigationController
         self.userdata = user
         

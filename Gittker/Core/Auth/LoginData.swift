@@ -30,7 +30,12 @@ class LoginData {
     func setLoggedIn(_ userId:String) {
         self.userId = userId
     }
-
+    
+    func getCurrentUser() -> UserSchema? {
+        ShareData().userdata
+    }
+    
+    // LEGACY
     func isLoggedIn() -> Bool {
         return accessToken != nil && userId != nil
     }

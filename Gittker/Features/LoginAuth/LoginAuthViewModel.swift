@@ -18,7 +18,7 @@ class LoginAuthViewModel {
     private let host = "https://gitter.im"
     let appSettings = AppSettingsSecret()
     
-    func processAuthorisation(url: URL, completion: @escaping ((_ user: User) -> Void)) {
+    func processAuthorisation(url: URL, completion: @escaping ((_ user: UserSchema) -> Void)) {
         if let code = getCodeFromCallbackUrl(url) {
             
             exchangeTokens(code, completionHandler: { (authAccessToken) -> Void in
@@ -60,7 +60,7 @@ class LoginAuthViewModel {
     }
     
     func exchangeTokens(_ code: String, completionHandler: @escaping (_ accessToken: String) -> Void) {
-        let token = ExchangeToken(clientId: appSettings.clientID,
+        let token = ExchangeTokenSchema(clientId: appSettings.clientID,
                                   clientSecret: appSettings.clientIDSecret,
                                   redirectUri: appSettings.scope,
                                   grantType: "authorization_code",
@@ -71,7 +71,7 @@ class LoginAuthViewModel {
         }
     }
 
-    func getUser(completionHandler: @escaping (_ userId: User) -> Void) {
+    func getUser(completionHandler: @escaping (_ userId: UserSchema) -> Void) {
         GitterApi().getUserId { (user) in
             guard let user = user else { return }
             print(user)

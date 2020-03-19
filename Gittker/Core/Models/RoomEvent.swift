@@ -9,31 +9,28 @@
 import Foundation
 import MessageKit
 
-struct RoomEvent: Codable {
+struct RoomEventSchema: Codable {
     
-    enum Event {
-        case create
-        case update
-        case remove
-    }
-    
-    let operation: String
-    let model: ModelEventSchema
-    
-    func createGittkerMessage() -> GittkerMessage? {
-        switch operationEvent() {
-        case .create:
-            return model.toGittkerMessage()
-        default: return nil
+    enum Event: String, Codable {
+        case create = "create"
+        case update = "update"
+        case remove = "remove"
+        
+        enum Key: String, CodingKey {
+            case update = "create"
+            case create = "update"
+            case remove = "remove"
         }
     }
     
-    func operationEvent() -> Event? {
+    let operation: Self.Event
+    let model: ModelEventSchema
+    
+    func createGittkerMessage() -> GittkerMessage? {
         switch operation {
-        case "create": return Event.create
-        case "update": return Event.update
-        case "remove": return Event.remove
-        default: print("unexpected operation"); return nil
+        case .create:
+            return model.toGittkerMessage()
+        default: return nil
         }
     }
 }
@@ -42,7 +39,7 @@ struct ModelEventSchema: Codable {
     let id: String
     
     let v: Int?
-    let fromUser: User?
+    let fromUser: UserSchema?
     let editedAt: String?
     let issues: [String]?
     let urls: [String]?
@@ -137,25 +134,3 @@ struct ModelEventSchema: Codable {
 //  },
 //  "operation": "remove"
 //}
-
-
-protocol EnumDecodable: RawRepresentable, Decodable {
-    static func defaultDecoderValue() throws -> Self
-}
-
-enum EnumDecodableError: Swift.Error {
-    case noValue
-}
-
-extension EnumDecodable {
-    static func defaultDecoderValue() throws -> Self {
-        throw EnumDecodableError.noValue
-    }
-}
-
-extension EnumDecodable where RawValue: Decodable {
-    init(from decoder: Decoder) throws {
-        let value = try decoder.singleValueContainer().decode(RawValue.self)
-        self = try Self(rawValue: value) ?? Self.defaultDecoderValue()
-    }
-}

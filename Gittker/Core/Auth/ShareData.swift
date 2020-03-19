@@ -14,10 +14,10 @@ class ShareData {
     
     let keychain = KeychainSwift()
     
-    var userdata: User? {
+    var userdata: UserSchema? {
         get {
             let data = keychain.getData(ShareDataConstants.userdata)
-            return try? JSONDecoder().decode(User.self, from: data!)
+            return try? JSONDecoder().decode(UserSchema.self, from: data!)
         }
         set {
             let data = try? JSONEncoder().encode(newValue)

@@ -17,7 +17,7 @@ extension UIColor {
 final class RoomChatViewController: ChatViewController, Storyboarded {
     weak var coordinator: RoomChatCoordinator?
     public var roomId: String?
-    private var cache: CodableCache<[RoomRecreate]>?
+    private var cache: CodableCache<Array<RoomRecreateSchema>>?
     
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
@@ -47,7 +47,7 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
     }
     
     override func loadFirstMessages() {
-        cache = CodableCache<[RoomRecreate]>(key: roomId)
+        cache = CodableCache<[RoomRecreateSchema]>(key: roomId)
                 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
