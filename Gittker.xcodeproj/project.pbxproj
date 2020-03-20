@@ -87,6 +87,7 @@
 		4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedManager.swift */; };
 		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
 		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
+		4EFC50232425180600295EB1 /* HomeSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC50222425180600295EB1 /* HomeSearchBar.swift */; };
 		6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82C125B994AE70F72BA1E4FE /* Pods_Gittker.framework */; };
 		B39CDC846CEBD903CAA79D9B /* Pods_Gittker_GittkerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B39061BCF2CA18CAE7ACF92 /* Pods_Gittker_GittkerUITests.framework */; };
 /* End PBXBuildFile section */
@@ -208,6 +209,7 @@
 		4EFC4FC1242250C500295EB1 /* CachedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedManager.swift; sourceTree = "<group>"; };
 		4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerMessage.swift; sourceTree = "<group>"; };
 		4EFC4FC62423746200295EB1 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
+		4EFC50222425180600295EB1 /* HomeSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchBar.swift; sourceTree = "<group>"; };
 		572D926BB7A791F1B5A48759 /* Pods-Gittker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker.debug.xcconfig"; path = "Target Support Files/Pods-Gittker/Pods-Gittker.debug.xcconfig"; sourceTree = "<group>"; };
 		597547EE9DBCAC4B62A0F5AF /* Pods-Gittker-GittkerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gittker-GittkerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Gittker-GittkerUITests/Pods-Gittker-GittkerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		608250AD2030F805E2498753 /* Pods_GittkerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GittkerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				4E09AC2A240D8B240028229C /* RoundButton.swift */,
+				4EFC50222425180600295EB1 /* HomeSearchBar.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -994,6 +997,7 @@
 				4E9D17A2241E42A60066362D /* NSObject+Serialize.m in Sources */,
 				4E9D179E241E42A60066362D /* NSData+Serialize.m in Sources */,
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
+				4EFC50232425180600295EB1 /* HomeSearchBar.swift in Sources */,
 				4E9D17A6241E42A60066362D /* FayeMessage.m in Sources */,
 				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
 				4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */,

@@ -9,7 +9,12 @@
 import UIKit
 
 class HomeViewController: UIViewController, Storyboarded {
-
+    
+    let searchBar: HomeSearchBar = {
+        let bar = HomeSearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44.0))
+        return bar
+    }()
+    
     weak var coordinator: HomeCoordinator? {
         didSet {
             guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
@@ -30,6 +35,7 @@ class HomeViewController: UIViewController, Storyboarded {
             tableView.estimatedRowHeight = 71
             tableView.rowHeight = UITableView.automaticDimension
             
+            tableView.tableHeaderView = searchBar
             tableView.tableFooterView = UIView(frame: .zero)
         }
     }
@@ -40,6 +46,7 @@ class HomeViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Rooms"
         
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in
