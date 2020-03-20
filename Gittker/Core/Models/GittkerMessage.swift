@@ -10,6 +10,6 @@ import Foundation
 import MessageKit
 
 struct GittkerMessage {
-    let message: MockMessage
+    var message: MockMessage
     let avatar: Avatar?
 }

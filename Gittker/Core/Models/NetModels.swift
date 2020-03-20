@@ -26,7 +26,7 @@ struct ExchangeTokenSchema: Codable {
 
 struct UserSchema: Codable {
     let id, username: String
-    let displayName, url: String?
+    let displayName, url: String
     let avatarURL: String?
     let avatarURLSmall, avatarURLMedium: String?
     let providers: [String]?

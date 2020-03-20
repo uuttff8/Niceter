@@ -17,7 +17,6 @@ extension UIColor {
 final class RoomChatViewController: ChatViewController, Storyboarded {
     weak var coordinator: RoomChatCoordinator?
     public var roomId: String?
-    private var cache: CodableCache<Array<RoomRecreateSchema>>?
     
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
@@ -28,10 +27,10 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
         layout?.setMessageOutgoingAvatarSize(.zero)
         layout?.setMessageOutgoingMessageTopLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)))
         layout?.setMessageOutgoingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)))
-
+        
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-
+        
         additionalBottomInset = 30
     }
     
@@ -46,11 +45,10 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
         configureMessageInputBarForChat()
     }
     
-    override func loadFirstMessages() {
-        cache = CodableCache<[RoomRecreateSchema]>(key: roomId)
-                
+    override func loadFirstMessages() {                
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
+            
             FayeEventRoomBinder(roomId: self.roomId!)
                 .loadMessages { (gittMessages: Array<GittkerMessage>) in
                     DispatchQueue.main.async {
@@ -62,33 +60,37 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
         }
         
         self.messagesCollectionView.scrollToBottom()
-
     }
     
     override func subscribeOnLoadNewMessages() {
         FayeEventRoomBinder(roomId: roomId!)
-            .onNewMessage { [weak self] (message: GittkerMessage) in
-                self?.insertMessage(message)
-        }
-        
+            .subscribe(
+                onNew: { [weak self] (message: GittkerMessage) in
+                    self?.insertMessage(message)
+                }, onDeleted: { [weak self] (id) in
+                    self?.deleteMessage(by: id)
+                }, onUpdate: { [weak self] (message: GittkerMessage) in
+                    self?.updateMessage(message)
+            }
+        )
     }
     
     // MARK: - Helpers
-
+    
     func isTimeLabelVisible(at indexPath: IndexPath) -> Bool {
         return indexPath.section % 3 == 0 && !isPreviousMessageSameSender(at: indexPath)
     }
-
+    
     func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool {
         guard indexPath.section - 1 >= 0 else { return false }
         return messageList[indexPath.section].message.user == messageList[indexPath.section - 1].message.user
     }
-
+    
     func isNextMessageSameSender(at indexPath: IndexPath) -> Bool {
         guard indexPath.section + 1 < messageList.count else { return false }
         return messageList[indexPath.section].message.user == messageList[indexPath.section + 1].message.user
     }
-
+    
     func setTypingIndicatorViewHidden(_ isHidden: Bool, performUpdates updates: (() -> Void)? = nil) {
         setTypingIndicatorViewHidden(isHidden, animated: true, whilePerforming: updates) { [weak self] success in
             if success, self?.isLastSectionVisible() == true {
@@ -96,7 +98,6 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
             }
         }
     }
-
     
     private func configureMessageInputBarForChat() {
         messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: false)
@@ -104,8 +105,8 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
         messageInputBar.sendButton
             .onSelected { item in
                 item.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-            }.onDeselected { item in
-                item.transform = .identity
+        }.onDeselected { item in
+            item.transform = .identity
         }
     }
     
@@ -115,7 +116,7 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
         }
         return nil
     }
-
+    
     override func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if !isPreviousMessageSameSender(at: indexPath) {
             let name = message.sender.displayName
@@ -123,15 +124,14 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
         }
         return nil
     }
-
+    
     override func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-
+        
         if !isNextMessageSameSender(at: indexPath) && isFromCurrentSender(message: message) {
             return NSAttributedString(string: "Delivered", attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
         }
         return nil
     }
-
 }
 
 // MARK: - MessagesDisplayDelegate
@@ -143,7 +143,7 @@ extension RoomChatViewController: MessagesDisplayDelegate {
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .white : .darkText
     }
-
+    
     func detectorAttributes(for detector: DetectorType, and message: MessageType, at indexPath: IndexPath) -> [NSAttributedString.Key: Any] {
         switch detector {
         case .hashtag, .mention:
@@ -155,32 +155,32 @@ extension RoomChatViewController: MessagesDisplayDelegate {
         default: return MessageLabel.defaultAttributes
         }
     }
-
+    
     func enabledDetectors(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> [DetectorType] {
         return [.url, .address, .phoneNumber, .date, .transitInformation, .mention, .hashtag]
     }
-
+    
     // MARK: - All Messages
-
+    
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .primaryColor : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
-
+    
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
         return .bubble
     }
-
+    
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         let avatar = messageList[indexPath.section].avatar ?? Avatar()
         avatarView.set(avatar: avatar)
         avatarView.isHidden = isNextMessageSameSender(at: indexPath)
     }
-
+    
     func configureAccessoryView(_ accessoryView: UIView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         // Cells are reused, so only add a button here once. For real use you would need to
         // ensure any subviews are removed if not needed
         accessoryView.subviews.forEach { $0.removeFromSuperview() }
-
+        
         let button = UIButton(type: .infoLight)
         button.tintColor = .primaryColor
         accessoryView.addSubview(button)
@@ -201,7 +201,7 @@ extension RoomChatViewController: MessagesLayoutDelegate {
         }
         return 0
     }
-
+    
     func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         if isFromCurrentSender(message: message) {
             return !isPreviousMessageSameSender(at: indexPath) ? 20 : 0
@@ -209,7 +209,7 @@ extension RoomChatViewController: MessagesLayoutDelegate {
             return !isPreviousMessageSameSender(at: indexPath) ? 20 : 0
         }
     }
-
+    
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return (!isNextMessageSameSender(at: indexPath) && isFromCurrentSender(message: message)) ? 16 : 0
     }

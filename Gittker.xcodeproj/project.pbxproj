@@ -75,7 +75,7 @@
 		4E9D17BB241E8FB80066362D /* RoomChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BA241E8FB80066362D /* RoomChatViewModel.swift */; };
 		4E9D17BD241E8FC00066362D /* RoomChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17BC241E8FC00066362D /* RoomChatCoordinator.swift */; };
 		4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */; };
-		4E9D182F241FFE820066362D /* FayeEventBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D182E241FFE820066362D /* FayeEventBinder.swift */; };
+		4E9D182F241FFE820066362D /* FayeEventRoomBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D182E241FFE820066362D /* FayeEventRoomBinder.swift */; };
 		4E9D18322420006C0066362D /* MockMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18312420006C0066362D /* MockMessage.swift */; };
 		4E9D1834242003C60066362D /* RoomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1833242003C60066362D /* RoomEvent.swift */; };
 		4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18362420C5240066362D /* BasicAudioController.swift */; };
@@ -196,7 +196,7 @@
 		4E9D17BA241E8FB80066362D /* RoomChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatViewModel.swift; sourceTree = "<group>"; };
 		4E9D17BC241E8FC00066362D /* RoomChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatCoordinator.swift; sourceTree = "<group>"; };
 		4E9D182C241FFA650066362D /* KeychainSwiftCBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSwiftCBridge.swift; sourceTree = "<group>"; };
-		4E9D182E241FFE820066362D /* FayeEventBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FayeEventBinder.swift; sourceTree = "<group>"; };
+		4E9D182E241FFE820066362D /* FayeEventRoomBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FayeEventRoomBinder.swift; sourceTree = "<group>"; };
 		4E9D18312420006C0066362D /* MockMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMessage.swift; sourceTree = "<group>"; };
 		4E9D1833242003C60066362D /* RoomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEvent.swift; sourceTree = "<group>"; };
 		4E9D18362420C5240066362D /* BasicAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAudioController.swift; sourceTree = "<group>"; };
@@ -660,7 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				4E9D18312420006C0066362D /* MockMessage.swift */,
-				4E9D182E241FFE820066362D /* FayeEventBinder.swift */,
+				4E9D182E241FFE820066362D /* FayeEventRoomBinder.swift */,
 			);
 			path = FayeToMessage;
 			sourceTree = "<group>";
@@ -1018,7 +1018,7 @@
 				4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */,
 				4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */,
 				4E09AC6E240EE6C60028229C /* CommunitiesViewController.swift in Sources */,
-				4E9D182F241FFE820066362D /* FayeEventBinder.swift in Sources */,
+				4E9D182F241FFE820066362D /* FayeEventRoomBinder.swift in Sources */,
 				4E9D17AD241E46810066362D /* TRConnectionMonitor.m in Sources */,
 				4E09AC6A240EE6AA0028229C /* PeopleCoordinator.swift in Sources */,
 				4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */,
