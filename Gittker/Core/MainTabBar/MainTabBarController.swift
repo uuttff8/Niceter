@@ -26,45 +26,39 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let coordinator1 = HomeCoordinator(with: nil, user: userdata)
-        let navigationController1 = UINavigationController(rootViewController: coordinator1.currentController!)
-        coordinator1.navigationController = navigationController1
-        coordinator1.tabController = self
-        coordinator1.currentController?.tabBarItem = UITabBarItem(title: "Home",
+        let homeCoordinator = HomeCoordinator(with: nil, user: userdata)
+        let homeNavigationController = UINavigationController(rootViewController: homeCoordinator.currentController!)
+        homeCoordinator.navigationController = homeNavigationController
+        homeCoordinator.tabController = self
+        homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Home",
                                                                   image: UIImage(systemName: "message.fill"),
+                                                                  tag: 0)
+
+        
+        let peopleCoordinator = PeopleCoordinator(with: nil)
+        let peopleNavigationController = UINavigationController(rootViewController: peopleCoordinator.currentController!)
+        peopleCoordinator.navigationController = peopleNavigationController
+        peopleCoordinator.tabController = self
+        peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People",
+                                                                  image: UIImage(systemName: "person.fill"),
                                                                   tag: 1)
 
-        let coordinator2 = SearchCoordinator(with: nil)
-        let navigationController2 = UINavigationController(rootViewController: coordinator2.currentController!)
-        coordinator2.navigationController = navigationController2
-        coordinator2.tabController = self
-        coordinator2.currentController?.tabBarItem = UITabBarItem(title: "Search",
-                                                                  image: UIImage(systemName: "magnifyingglass"),
+        
+        let commCoordinator = CommunitiesCoordinator(with: nil)
+        let commNavigationController = UINavigationController(rootViewController: commCoordinator.currentController!)
+        commCoordinator.navigationController = commNavigationController
+        commCoordinator.tabController = self
+        commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Communities",
+                                                                  image: UIImage(systemName: "person.3.fill"),
                                                                   tag: 2)
         
-        let coordinator3 = PeopleCoordinator(with: nil)
-        let navigationController3 = UINavigationController(rootViewController: coordinator3.currentController!)
-        coordinator3.navigationController = navigationController3
-        coordinator3.tabController = self
-        coordinator3.currentController?.tabBarItem = UITabBarItem(title: "People",
-                                                                  image: UIImage(systemName: "person.fill"),
-                                                                  tag: 3)
-
-        
-        let coordinator4 = CommunitiesCoordinator(with: nil)
-        let navigationController4 = UINavigationController(rootViewController: coordinator4.currentController!)
-        coordinator4.navigationController = navigationController4
-        coordinator4.tabController = self
-        coordinator4.currentController?.tabBarItem = UITabBarItem(title: "Communities",
-                                                                  image: UIImage(systemName: "person.3.fill"),
-                                                                  tag: 4)
-
 
         viewControllers = [
-            navigationController1,
-            navigationController2,
-            navigationController3,
-            navigationController4,
+            peopleNavigationController,
+            homeNavigationController,
+            commNavigationController,
         ]
+        
+        selectedIndex = 1
     }
 }
