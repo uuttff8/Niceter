@@ -84,9 +84,6 @@ class ChatViewController: MessagesViewController {
         
         if let index = index {
             messageList[index].message = newMessage.message
-//            messagesCollectionView.performBatchUpdates({
-//                <#code#>
-//            }, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
             messagesCollectionView.reloadDataAndKeepOffset()
         }
     }
