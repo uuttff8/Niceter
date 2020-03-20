@@ -10,13 +10,13 @@ import Foundation
 import MessageKit
 
 extension UIImage {
-
+    
     convenience init?(withContentsOfUrl url: URL) throws {
         let imageData = try Data(contentsOf: url)
-    
+        
         self.init(data: imageData)
     }
-
+    
 }
 
 class FayeEventRoomBinder: NSObject {
@@ -24,7 +24,7 @@ class FayeEventRoomBinder: NSObject {
     private let cache: CodableCache<Array<RoomRecreateSchema>>
     
     open var roomId: String
-        
+    
     init(roomId: String) {
         self.roomId = roomId
         client = GitterFayeClient(endpoints: [.roomsChatMessages(self.roomId)])
@@ -33,6 +33,7 @@ class FayeEventRoomBinder: NSObject {
         super.init()
     }
     
+    // Load Messages
     func loadMessages(loadedMessages: @escaping ((Array<GittkerMessage>) -> Void)) {
         if let cached = cache.get() {
             loadedMessages(cached.toGittkerMessages())
@@ -50,21 +51,44 @@ class FayeEventRoomBinder: NSObject {
                 loadedMessages(mess)
             }
         }
-        
-        return
     }
-}
-
-extension FayeEventRoomBinder {
-    func onNewMessage(onNewMessage: @escaping ((GittkerMessage) -> Void)) {
+    
+    // New Message
+    func onNewMessage(_ onNewMessage: @escaping ((GittkerMessage) -> Void)) {
         client.messageReceivedHandler = { (dict, _) in
             guard let data = dict.jsonData else { return }
             let event = try! JSONDecoder().decode(RoomEventSchema.self, from: data)
             
-            if let message = event.createGittkerMessage() {
+            switch event.operation {
+            case .create:
+                let message = event.model.toGittkerMessage()
                 onNewMessage(message)
+            default: return
             }
         }
-                
+    }
+    
+    func subscribe(
+        onNew: ((GittkerMessage) -> Void)? = nil,
+        onDeleted: ((_ id: String) -> Void)? = nil,
+        onUpdate: ((GittkerMessage) -> Void)? = nil
+    ) {
+        
+        client.messageReceivedHandler = { (dict, _) in
+            guard let data = dict.jsonData else { return }
+            let event = try! JSONDecoder().decode(RoomEventSchema.self, from: data)
+            
+            switch event.operation {
+            case .create:
+                let message = event.model.toGittkerMessage()
+                onNew?(message)
+            case .update:
+                let message = event.model.toGittkerMessage()
+                onUpdate?(message)
+            case .remove:
+                let id = event.model.id
+                onDeleted?(id)
+            }
+        }
     }
 }

@@ -22,8 +22,6 @@ class AppCoordinator: Coordinator {
 
     func start() {
         if let userdata = LoginData.shared.getCurrentUser() {
-//            guard let user = userdata else { print("\(#file) \(#line) User is not initialized"); return }
-            
             let tabBar = MainTabBarCoordinator(navigationController: navigationController, with: userdata)
             window.rootViewController = tabBar.currentController
             navigationController?.setNavigationBarHidden(true, animated: true)

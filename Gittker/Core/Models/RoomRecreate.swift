@@ -33,7 +33,7 @@ struct RoomRecreateSchema: Codable {
     let html: String
     
     func toMockMessage() -> MockMessage {
-        let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName!)
+        let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName)
         let message = MockMessage(text: self.text, user: user, messageId: self.id, date: Date())
         return message
     }

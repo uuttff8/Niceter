@@ -58,6 +58,39 @@ class ChatViewController: MessagesViewController {
         })
     }
     
+    func deleteMessage(by passedId: String) {
+        let index = messageList.firstIndex(where: { (mess) in
+            mess.message.messageId == passedId
+        })
+        
+        if let index = index {
+            messageList.remove(at: index)
+            
+            messagesCollectionView.performBatchUpdates({
+                messagesCollectionView.deleteSections(IndexSet(integer: index))
+                messagesCollectionView.reloadSections([messageList.count - 2])
+            }) { [weak self] _ in
+                if self?.isLastSectionVisible() == true {
+                    self?.messagesCollectionView.scrollToBottom(animated: true)
+                }
+            }
+        }
+    }
+    
+    func updateMessage(_ newMessage: GittkerMessage) {
+        let index = messageList.firstIndex(where: { (mess) in
+            mess.message.messageId == newMessage.message.messageId
+        })
+        
+        if let index = index {
+            messageList[index].message = newMessage.message
+//            messagesCollectionView.performBatchUpdates({
+//                <#code#>
+//            }, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+            messagesCollectionView.reloadDataAndKeepOffset()
+        }
+    }
+    
     func isLastSectionVisible() -> Bool {
         
         guard !messageList.isEmpty else { return false }
@@ -148,7 +181,6 @@ extension ChatViewController: MessagesDataSource {
         
         return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
     }
-    
 }
 
 // MARK: - MessageCellDelegate
@@ -263,7 +295,6 @@ extension ChatViewController: MessageLabelDelegate {
     func didSelectCustom(_ pattern: String, match: String?) {
         print("Custom data detector patter selected: \(pattern)")
     }
-    
 }
 
 // MARK: - MessageInputBarDelegate
@@ -278,8 +309,8 @@ extension ChatViewController: MessageInputBarDelegate {
         attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
             
             let substring = attributedText.attributedSubstring(from: range)
-            let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
-            //print("Autocompleted: `", substring, "` with context: ", context ?? [])
+//            let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
+//            print("Autocompleted: `", substring, "` with context: ", context ?? [])
         }
         
         let components = inputBar.inputTextView.components
