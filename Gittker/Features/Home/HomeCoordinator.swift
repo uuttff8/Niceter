@@ -22,7 +22,7 @@ class HomeCoordinator: Coordinator {
         self.navigationController = navigationController
         self.userdata = user
         
-        currentController = HomeViewController.instantiate(from: AppStoryboards.Home)
+        currentController = HomeViewController()
         currentController?.coordinator = self
         childCoordinators.append(self)
     }
