@@ -31,9 +31,9 @@ class ChatViewController: MessagesViewController {
         configureMessageInputBar()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
         loadFirstMessages()
+        super.viewWillAppear(animated)
         subscribeOnLoadNewMessages()
     }
     

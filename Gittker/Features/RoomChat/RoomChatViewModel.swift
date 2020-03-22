@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+class RoomChatViewModel {
+    func loadFirstMessages(roomId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
+        FayeEventRoomBinder(roomId: roomId)
+            .loadMessages { (gittMessages: Array<GittkerMessage>) in
+                completion(gittMessages)
+        }
+    }
+}
