@@ -17,9 +17,9 @@ class HomeSearchBar: UISearchBar {
         super.init(frame: frame)
         
         self.delegate = self
-        let width = self.frame.width
+        let width = UIScreen.main.bounds.width
         
-        offset = UIOffset(horizontal: UIScreen.main.bounds.width - placeholderWidth, vertical: 0)
+        offset = UIOffset(horizontal: width - placeholderWidth, vertical: 0)
         self.setPositionAdjustment(offset, for: .search)
         self.configureSearchBar()
     }

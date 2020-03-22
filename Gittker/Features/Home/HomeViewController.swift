@@ -6,14 +6,14 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
-class HomeViewController: UIViewController, Storyboarded {
+class HomeViewController: ASViewController<ASTableNode> {
     
-    let searchBar: HomeSearchBar = {
-        let bar = HomeSearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44.0))
-        return bar
-    }()
+//    let searchBar: HomeSearchBar = {
+//        let bar = HomeSearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44.0))
+//        return bar
+//    }()
     
     weak var coordinator: HomeCoordinator? {
         didSet {
@@ -24,20 +24,23 @@ class HomeViewController: UIViewController, Storyboarded {
     private let dataSource = HomeDataSource()
     private var tableDelegate = HomeTableViewDelegate()
     
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            tableDelegate.coordinator = self.coordinator
-            
-            tableView.delegate = self.tableDelegate
-            tableView.dataSource = self.dataSource
-            tableView.registerNib(withClass: RoomTableViewCell.self)
-            
-            tableView.estimatedRowHeight = 71
-            tableView.rowHeight = UITableView.automaticDimension
-            
-            tableView.tableHeaderView = searchBar
-            tableView.tableFooterView = UIView(frame: .zero)
-        }
+    private var tableNode: ASTableNode {
+        
+        return node
+    }
+    
+    init() {
+        super.init(node: ASTableNode())
+        
+        self.tableNode.delegate = self.tableDelegate
+        self.tableNode.dataSource = self.dataSource
+        
+        tableNode.backgroundColor = UIColor.systemBackground
+        tableNode.view.separatorStyle = .none
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     lazy var viewModel: HomeViewModel = {
@@ -52,11 +55,19 @@ class HomeViewController: UIViewController, Storyboarded {
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                self.tableDelegate.coordinator = self.coordinator
                 self.tableDelegate.dataSource = self.dataSource.data.value
-                self.tableView.reloadData()
+                self.tableNode.reloadData()
             }
         }
         
         self.viewModel.fetchRoomsCached()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let indexPath = self.tableNode.indexPathForSelectedRow {
+            self.tableNode.view.deselectRow(at: indexPath, animated: true)
+        }
     }
 }

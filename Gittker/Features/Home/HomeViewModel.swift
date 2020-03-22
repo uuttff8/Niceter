@@ -6,7 +6,7 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class HomeViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
@@ -23,25 +23,30 @@ class HomeViewModel {
     }
 }
 
-class HomeDataSource: GenericDataSource<RoomSchema>, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.value.count
+class HomeDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
+    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        data.value.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.cell(forRowAt: indexPath) as RoomTableViewCell
-        cell.initialize(with: data.value[indexPath.item])
-        return cell
+    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return {
+            let room = self.data.value[indexPath.row]
+            let cell = RoomTableNode(with: RoomContent(avatarUrl: room.avatarUrl ?? "", title: room.name, subtitle: room.topic ?? ""))
+            
+            return cell
+        }
     }
 }
 
 
-class HomeTableViewDelegate: NSObject, UITableViewDelegate {
+class HomeTableViewDelegate: NSObject, ASTableDelegate {
     var dataSource: [RoomSchema]?
     weak var coordinator: HomeCoordinator?
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.showChat(roomId: (dataSource?[indexPath.item].id)!)
-        tableView.deselectRow(at: indexPath, animated: true)
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        if let roomId = dataSource?[indexPath.item].id {
+            coordinator?.showChat(roomId: roomId)
+        }
+        tableNode.deselectRow(at: indexPath, animated: true)
     }
 }

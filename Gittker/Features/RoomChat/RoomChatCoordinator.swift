@@ -27,5 +27,4 @@ class RoomChatCoordinator: Coordinator {
         childCoordinators.append(self)
         navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
