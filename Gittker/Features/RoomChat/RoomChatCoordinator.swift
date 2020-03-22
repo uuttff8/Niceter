@@ -21,7 +21,7 @@ class RoomChatCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = RoomChatViewController.instantiate(from: AppStoryboards.Chat)
+        let vc = RoomChatViewController()
         vc.coordinator = self
         vc.roomId = roomId
         childCoordinators.append(self)

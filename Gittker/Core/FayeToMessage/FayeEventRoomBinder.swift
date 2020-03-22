@@ -35,20 +35,22 @@ class FayeEventRoomBinder: NSObject {
     
     // Load Messages
     func loadMessages(loadedMessages: @escaping ((Array<GittkerMessage>) -> Void)) {
-        if let cached = cache.get() {
-            loadedMessages(cached.toGittkerMessages())
-        }
-        
-        client.snapshotReceivedHandler = { (snapshot, _) in
-            if let snap = snapshot as? Array<Dictionary<String, Any>> {
-                let roomRecrData = try? JSONSerialization.data(withJSONObject: snap, options: .prettyPrinted)
-                
-                guard let roomRecr = try? JSONDecoder().decode(Array<RoomRecreateSchema>.self, from: roomRecrData!) else { print("blya"); return }
-                
-                try? self.cache.set(value: roomRecr)
-                
-                let mess = roomRecr.toGittkerMessages()
-                loadedMessages(mess)
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let cached = self.cache.get() {
+                loadedMessages(cached.toGittkerMessages())
+            }
+
+            self.client.snapshotReceivedHandler = { (snapshot, _) in
+                if let snap = snapshot as? Array<Dictionary<String, Any>> {
+                    let roomRecrData = try? JSONSerialization.data(withJSONObject: snap, options: .prettyPrinted)
+
+                    guard let roomRecr = try? JSONDecoder().decode(Array<RoomRecreateSchema>.self, from: roomRecrData!) else { print("blya"); return }
+
+                    try? self.cache.set(value: roomRecr)
+
+                    let mess = roomRecr.toGittkerMessages()
+                    loadedMessages(mess)
+                }
             }
         }
     }

@@ -68,7 +68,6 @@
 		4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17A8241E46800066362D /* FayeWrapper.m */; };
 		4E9D17AD241E46810066362D /* TRConnectionMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17AB241E46800066362D /* TRConnectionMonitor.m */; };
 		4E9D17AF241E49BE0066362D /* RoomRecreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17AE241E49BE0066362D /* RoomRecreate.swift */; };
-		4E9D17B2241E7FE40066362D /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E9D17B1241E7FE40066362D /* Chat.storyboard */; };
 		4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17B3241E80220066362D /* GitterFayeEndpoints.swift */; };
 		4E9D17B7241E839B0066362D /* GitterFayeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17B6241E839B0066362D /* GitterFayeClient.swift */; };
 		4E9D17B9241E8FAD0066362D /* RoomChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D17B8241E8FAD0066362D /* RoomChatViewController.swift */; };
@@ -190,7 +189,6 @@
 		4E9D17AA241E46800066362D /* FayeWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeWrapper.h; sourceTree = "<group>"; };
 		4E9D17AB241E46800066362D /* TRConnectionMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRConnectionMonitor.m; sourceTree = "<group>"; };
 		4E9D17AE241E49BE0066362D /* RoomRecreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRecreate.swift; sourceTree = "<group>"; };
-		4E9D17B1241E7FE40066362D /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		4E9D17B3241E80220066362D /* GitterFayeEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterFayeEndpoints.swift; sourceTree = "<group>"; };
 		4E9D17B6241E839B0066362D /* GitterFayeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterFayeClient.swift; sourceTree = "<group>"; };
 		4E9D17B8241E8FAD0066362D /* RoomChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatViewController.swift; sourceTree = "<group>"; };
@@ -645,7 +643,6 @@
 				4E9D17B8241E8FAD0066362D /* RoomChatViewController.swift */,
 				4E9D17BA241E8FB80066362D /* RoomChatViewModel.swift */,
 				4E9D17BC241E8FC00066362D /* RoomChatCoordinator.swift */,
-				4E9D17B1241E7FE40066362D /* Chat.storyboard */,
 			);
 			path = RoomChat;
 			sourceTree = "<group>";
@@ -833,7 +830,6 @@
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
 				4E09AC66240EE6950028229C /* Search.storyboard in Resources */,
-				4E9D17B2241E7FE40066362D /* Chat.storyboard in Resources */,
 				4E09ABEA240D7FA70028229C /* LoginAuth.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

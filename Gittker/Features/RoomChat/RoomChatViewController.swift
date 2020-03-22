@@ -14,8 +14,11 @@ extension UIColor {
     static let primaryColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
 }
 
-final class RoomChatViewController: ChatViewController, Storyboarded {
+final class RoomChatViewController: ChatViewController {
     weak var coordinator: RoomChatCoordinator?
+    
+    var viewModel = RoomChatViewModel()
+    
     public var roomId: String?
     
     override func configureMessageCollectionView() {
@@ -45,21 +48,14 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
         configureMessageInputBarForChat()
     }
     
-    override func loadFirstMessages() {                
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            
-            FayeEventRoomBinder(roomId: self.roomId!)
-                .loadMessages { (gittMessages: Array<GittkerMessage>) in
-                    DispatchQueue.main.async {
-                        self.messageList = gittMessages
-                        self.messagesCollectionView.reloadData()
-                        self.messagesCollectionView.scrollToBottom()
-                    }
+    override func loadFirstMessages() {
+        viewModel.loadFirstMessages(roomId: roomId!) { (gittMessages) in
+            DispatchQueue.main.async {
+                self.messageList = gittMessages
+                self.messagesCollectionView.reloadData()
+                self.messagesCollectionView.scrollToBottom()
             }
         }
-        
-        self.messagesCollectionView.scrollToBottom()
     }
     
     override func subscribeOnLoadNewMessages() {
@@ -71,7 +67,7 @@ final class RoomChatViewController: ChatViewController, Storyboarded {
                     self?.deleteMessage(by: id)
                 }, onUpdate: { [weak self] (message: GittkerMessage) in
                     self?.updateMessage(message)
-            }
+                }
         )
     }
     
