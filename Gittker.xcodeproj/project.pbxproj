@@ -33,7 +33,6 @@
 		4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC59240EE5FE0028229C /* MainTabBarCoordinator.swift */; };
 		4E09AC5C240EE6660028229C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5B240EE6660028229C /* HomeViewController.swift */; };
 		4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */; };
-		4E09AC60240EE6760028229C /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC5F240EE6760028229C /* Home.storyboard */; };
 		4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC61240EE6820028229C /* SearchViewController.swift */; };
 		4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC63240EE68F0028229C /* SearchCoordinator.swift */; };
 		4E09AC66240EE6950028229C /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC65240EE6950028229C /* Search.storyboard */; };
@@ -44,6 +43,7 @@
 		4E09AC70240EE6D10028229C /* CommunitiesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */; };
 		4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC71240EE6DD0028229C /* Communities.storyboard */; };
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
+		4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */; };
 		4E2A7A0D241153C70025F39C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* Room.swift */; };
 		4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */; };
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
@@ -143,7 +143,6 @@
 		4E09AC59240EE5FE0028229C /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC5B240EE6660028229C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		4E09AC5F240EE6760028229C /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		4E09AC61240EE6820028229C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4E09AC63240EE68F0028229C /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC65240EE6950028229C /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
@@ -154,6 +153,7 @@
 		4E09AC6F240EE6D10028229C /* CommunitiesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC71240EE6DD0028229C /* Communities.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Communities.storyboard; sourceTree = "<group>"; };
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
+		4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableNode.swift; sourceTree = "<group>"; };
 		4E2A7A0C241153C70025F39C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
@@ -422,7 +422,6 @@
 				4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */,
 				4E09AC5B240EE6660028229C /* HomeViewController.swift */,
 				4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */,
-				4E09AC5F240EE6760028229C /* Home.storyboard */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -537,6 +536,7 @@
 			children = (
 				4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */,
 				4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */,
+				4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -829,7 +829,6 @@
 				4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */,
 				4E09AC6C240EE6AF0028229C /* People.storyboard in Resources */,
 				4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */,
-				4E09AC60240EE6760028229C /* Home.storyboard in Resources */,
 				4E2A7A2024154D8D0025F39C /* RoomTableViewCell.xib in Resources */,
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
@@ -1018,6 +1017,7 @@
 				4E9D17BB241E8FB80066362D /* RoomChatViewModel.swift in Sources */,
 				4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */,
 				4E9D17A4241E42A60066362D /* ObjectiveResourceDateFormatter.m in Sources */,
+				4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */,
 				4E09AC23240D82B30028229C /* Storyboarded.swift in Sources */,
 				4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */,
 				4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */,

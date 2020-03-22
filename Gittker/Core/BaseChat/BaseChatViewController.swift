@@ -305,7 +305,7 @@ extension ChatViewController: MessageInputBarDelegate {
         let range = NSRange(location: 0, length: attributedText.length)
         attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
             
-            let substring = attributedText.attributedSubstring(from: range)
+//            let substring = attributedText.attributedSubstring(from: range)
 //            let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
 //            print("Autocompleted: `", substring, "` with context: ", context ?? [])
         }
