@@ -14,14 +14,6 @@ struct RoomContent {
     let subtitle: String
 }
 
-extension ASImageNode {
-    func setRounded() {
-        let radius = self.frame.width / 2
-        self.layer.cornerRadius = radius
-        self.layer.masksToBounds = true
-    }
-}
-
 class RoomTableNode: ASCellNode {
     
     // MARK: - Variables
@@ -58,6 +50,9 @@ class RoomTableNode: ASCellNode {
     private func setupImageNode() {
         self.imageNode.url = URL(string: room.avatarUrl)
         self.imageNode.style.preferredSize = self.imageSize
+        
+        self.imageNode.cornerRadius = self.imageSize.width / 2
+        self.imageNode.clipsToBounds = true
     }
     
     private func setupTitleNode() {
@@ -86,6 +81,7 @@ class RoomTableNode: ASCellNode {
         self.addSubnode(imageNode)
         self.addSubnode(titleNode)
         self.addSubnode(subtitleNode)
+        self.addSubnode(separatorNode)
     }
     
     // MARK: - Layout
@@ -94,8 +90,7 @@ class RoomTableNode: ASCellNode {
         super.layout()
         let separatorHeight = 1 / UIScreen.main.scale
         self.separatorNode.frame = CGRect(x: 0.0, y: 0.0, width: self.calculatedSize.width, height: separatorHeight)
-        
-        imageNode.setRounded()
+        self.separatorNode.backgroundColor = UIColor.separator
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
