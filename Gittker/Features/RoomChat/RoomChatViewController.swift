@@ -80,6 +80,11 @@ final class RoomChatViewController: ChatViewController {
         )
     }
     
+    override func loadOlderMessages() {
+        
+        print(messageList[0].message.messageId)
+    }
+    
     // MARK: - Helpers
     
     func isTimeLabelVisible(at indexPath: IndexPath) -> Bool {

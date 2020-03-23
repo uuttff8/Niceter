@@ -17,6 +17,8 @@ class ChatViewController: MessagesViewController {
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
+    private var isOlderMessageLoading = false
+    
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -46,6 +48,8 @@ class ChatViewController: MessagesViewController {
     func subscribeOnLoadNewMessages() { }
     
     func loadFirstMessages() { }
+    
+    func loadOlderMessages() {  }
     
     // MARK: - Helpers
     
@@ -115,7 +119,7 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         
-//        scrollsToBottomOnKeyboardBeginsEditing = true // default false
+        //        scrollsToBottomOnKeyboardBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
     }
     
@@ -162,6 +166,23 @@ class ChatViewController: MessagesViewController {
             let application:UIApplication = UIApplication.shared
             if (application.canOpenURL(phoneCallURL)) {
                 application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        var visibleRect = CGRect()
+        
+        visibleRect.origin = self.messagesCollectionView.contentOffset
+        visibleRect.size = self.messagesCollectionView.bounds.size
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        
+        guard let indexPath = self.messagesCollectionView.indexPathForItem(at: visiblePoint) else { return }
+        
+//        print(" \(indexPath)")
+        if indexPath.section <= 10 {
+            if !isOlderMessageLoading {
+                self.loadOlderMessages()
             }
         }
     }
@@ -311,9 +332,9 @@ extension ChatViewController: MessageInputBarDelegate {
         let range = NSRange(location: 0, length: attributedText.length)
         attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
             
-//            let substring = attributedText.attributedSubstring(from: range)
-//            let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
-//            print("Autocompleted: `", substring, "` with context: ", context ?? [])
+            //            let substring = attributedText.attributedSubstring(from: range)
+            //            let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
+            //            print("Autocompleted: `", substring, "` with context: ", context ?? [])
         }
         
         let components = inputBar.inputTextView.components
