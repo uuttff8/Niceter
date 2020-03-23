@@ -41,22 +41,24 @@ struct RoomRecreateSchema: Codable {
     func getAvatar() -> Avatar? {
         return try? Avatar(image: UIImage(withContentsOfUrl: URL(string: fromUser.avatarURL!)!), initials: "?")
     }
+    
+    func toGittkerMessage() -> GittkerMessage {
+        let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName)
+        let message = MockMessage(text: self.text, user: user, messageId: self.id, date: Date())
+        let avatar = try? Avatar(image: UIImage(withContentsOfUrl: URL(string: fromUser.avatarURL!)!), initials: "?")
+        
+        return GittkerMessage(message: message, avatar: avatar)
+    }
 
 }
 
 
 extension Array where Element == RoomRecreateSchema {
     func toGittkerMessages() -> Array<GittkerMessage> {
-        var gittMess = Array<GittkerMessage>()
         
-        self.forEach({ (roomRecrObject) in
-            let message = roomRecrObject.toMockMessage()
-            let avatar = roomRecrObject.getAvatar()!
-            
-            gittMess.append(GittkerMessage(message: message, avatar: avatar))
-        })
-        
-        return gittMess
+        return self.map { (roomRecrObject) in
+            roomRecrObject.toGittkerMessage()
+        }
     }
 
 }
