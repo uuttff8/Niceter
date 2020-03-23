@@ -8,15 +8,27 @@
 
 import Foundation
 
-private enum GitterApiLinks: String {
+private enum GitterApiLinks {
     static let baseUrl = "https://gitter.im/"
     static let baseUrlApi = "https://api.gitter.im/"
     
+    case exchangeToken
+    case whoMe
+    case suggestedRooms
+    case rooms
     
-    case exchangeToken = "login/oauth/token"
-    case whoMe = "v1/user/me"
-    case suggestedRooms = "/v1/user/me/suggestedRooms"
-    case rooms = "/v1/rooms"
+    // Messages
+    case firstMessages(String)
+    
+    func encode() -> String {
+        switch self {
+        case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=30"
+        case .exchangeToken: return "login/oauth/token"
+        case .rooms: return "v1/rooms"
+        case .suggestedRooms: return "v1/user/me/suggestedRooms"
+        case .whoMe: return "v1/user/me"
+        }
+    }
 }
 
 class GitterApi {
@@ -32,7 +44,7 @@ extension GitterApi {
         print(dataToken)
         let body = try? JSONEncoder().encode(dataToken)
         
-        self.httpClient.post(url: URL(string: "\(GitterApiLinks.baseUrl + GitterApiLinks.exchangeToken.rawValue)")!, params: body!) { (res) in
+        self.httpClient.post(url: URL(string: "\(GitterApiLinks.baseUrl + GitterApiLinks.exchangeToken.encode())")!, params: body!) { (res) in
             switch res {
             case .success(let data):
                 let accessToken = try? JSONDecoder().decode(AccessTokenSchema.self, from: data).accessToken
@@ -55,7 +67,7 @@ extension GitterApi {
 // MARK: - User
 extension GitterApi {
     func getUserId(completion: @escaping ((UserSchema?) -> Void)) {
-        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.whoMe.rawValue)")!
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.whoMe.encode())")!
         
         self.httpClient.getAuth(url: url)
         { (res) in
@@ -90,20 +102,29 @@ extension GitterApi {
     }
 }
 
+// MARK: - Messages
+extension GitterApi {
+    func loadFirstMessages(for roomId: String, completion: @escaping (([RoomRecreateSchema]?) -> Void)) {
+        requestData(url: GitterApiLinks.firstMessages(roomId)) { (data) in
+            completion(data)
+        }
+    }
+}
+
 
 // MARK: - Private -
 extension GitterApi {
     private func requestData<T: Codable>(url: GitterApiLinks, completion: @escaping (T) -> ()) {
-        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + url.rawValue)!
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + url.encode())!
         print(String(describing: url))
         
         self.httpClient.getAuth(url: url)
         { (res) in
             switch res {
-                case .success(let data):
-                    let room = try! JSONDecoder().decode(T.self, from: data)
-                    completion(room)
-                default: break
+            case .success(let data):
+                let room = try! JSONDecoder().decode(T.self, from: data)
+                completion(room)
+            default: break
             }
         }
     }

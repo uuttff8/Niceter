@@ -29,3 +29,27 @@ class CachedRoomLoader {
         }
     }
 }
+
+class CachedRoomMessagesLoader {
+    typealias Handler = ([RoomRecreateSchema]) -> Void
+
+    private let cache: CodableCache<[RoomRecreateSchema]>
+    private let roomId: String
+    
+    init(cacheKey: AnyHashable) {
+        self.roomId = cacheKey as? String ?? ""
+        cache = CodableCache<[RoomRecreateSchema]>(key: cacheKey)
+    }
+    
+    func loadMessages(then handler: @escaping Handler) {
+        if let cached = cache.get() {
+            handler(cached)
+        }
+
+        GitterApi.shared.loadFirstMessages(for: roomId) { [weak self] (roomRecrList) in
+            guard let messages = roomRecrList else { return }
+            try? self?.cache.set(value: messages)
+            handler(messages)
+        }
+    }
+}

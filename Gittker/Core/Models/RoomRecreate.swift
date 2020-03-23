@@ -22,10 +22,10 @@ struct RoomRecreateSchema: Codable {
     let id: String
     let v: Int
     let fromUser: UserSchema
-//    let issues: [String]
+    //    let issues: [String]
     let urls: [UrlSchema]
     let text: String
-//    let mentions: [String]
+    //    let mentions: [String]
     let meta: [String]
     let sent: String
     let readBy: Int
@@ -49,16 +49,14 @@ struct RoomRecreateSchema: Codable {
         
         return GittkerMessage(message: message, avatar: avatar)
     }
-
+    
 }
 
 
 extension Array where Element == RoomRecreateSchema {
     func toGittkerMessages() -> Array<GittkerMessage> {
-        
         return self.map { (roomRecrObject) in
             roomRecrObject.toGittkerMessage()
         }
     }
-
 }

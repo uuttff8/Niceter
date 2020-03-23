@@ -60,6 +60,7 @@ class FayeEventRoomBinder: NSObject {
                     try? self.cache.set(value: roomRecr)
 
                     let mess = roomRecr.toGittkerMessages()
+                    
                     loadedMessages(mess)
                 }
             }

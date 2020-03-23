@@ -10,9 +10,12 @@ import Foundation
 
 class RoomChatViewModel {
     func loadFirstMessages(roomId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
-        FayeEventRoomBinder(roomId: roomId)
-            .loadMessages { (gittMessages: Array<GittkerMessage>) in
-                completion(gittMessages)
+        DispatchQueue.global(qos: .userInitiated).async {
+            CachedRoomMessagesLoader(cacheKey: roomId)
+                .loadMessages { (roomRecrList) in
+                    let messages = roomRecrList.toGittkerMessages()
+                    completion(messages)
+            }
         }
     }
 }
