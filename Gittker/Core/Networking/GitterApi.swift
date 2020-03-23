@@ -19,10 +19,13 @@ private enum GitterApiLinks {
     
     // Messages
     case firstMessages(String)
+    case olderMessages(messageId: String, roomId: String)
     
     func encode() -> String {
         switch self {
         case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=30"
+        case .olderMessages(messageId: let messageId, roomId: let roomId):
+            return "v1/rooms/\(roomId)/chatMessages?limit=50&beforeId=\(messageId)"
         case .exchangeToken: return "login/oauth/token"
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
@@ -106,6 +109,12 @@ extension GitterApi {
 extension GitterApi {
     func loadFirstMessages(for roomId: String, completion: @escaping (([RoomRecreateSchema]?) -> Void)) {
         requestData(url: GitterApiLinks.firstMessages(roomId)) { (data) in
+            completion(data)
+        }
+    }
+    
+    func loadOlderMessage(messageId: String, roomId: String, completion: @escaping (([RoomRecreateSchema]?) -> Void)) {
+        requestData(url: GitterApiLinks.olderMessages(messageId: messageId, roomId: roomId)) { (data) in
             completion(data)
         }
     }

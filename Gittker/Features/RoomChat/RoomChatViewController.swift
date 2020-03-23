@@ -82,7 +82,14 @@ final class RoomChatViewController: ChatViewController {
     
     override func loadOlderMessages() {
         
-        print(messageList[0].message.messageId)
+        viewModel.loadOlderMessages(messageId: messageList[0].message.messageId,
+                                    roomId: roomId)
+        { (gittMessages) in
+            DispatchQueue.main.async {
+                self.messageList.insert(contentsOf: gittMessages, at: 0)
+                self.messagesCollectionView.reloadDataAndKeepOffset()
+            }
+        }
     }
     
     // MARK: - Helpers
