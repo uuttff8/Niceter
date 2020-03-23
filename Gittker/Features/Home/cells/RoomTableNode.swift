@@ -14,6 +14,14 @@ struct RoomContent {
     let subtitle: String
 }
 
+extension ASImageNode {
+    func setRounded() {
+        let radius = self.frame.width / 2
+        self.layer.cornerRadius = radius
+        self.layer.masksToBounds = true
+    }
+}
+
 class RoomTableNode: ASCellNode {
     
     // MARK: - Variables
@@ -33,7 +41,7 @@ class RoomTableNode: ASCellNode {
     
     init(with room: RoomContent) {
         self.room = room
-                
+        
         super.init()
         self.setupNodes()
         self.buildNodeHierarchy()
@@ -67,7 +75,6 @@ class RoomTableNode: ASCellNode {
         self.subtitleNode.maximumNumberOfLines = 2
         self.subtitleNode.truncationMode = .byTruncatingTail
     }
-
     
     private var subtitleTextAttributes = {
         return [NSAttributedString.Key.foregroundColor: UIColor.systemGray, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
@@ -87,6 +94,8 @@ class RoomTableNode: ASCellNode {
         super.layout()
         let separatorHeight = 1 / UIScreen.main.scale
         self.separatorNode.frame = CGRect(x: 0.0, y: 0.0, width: self.calculatedSize.width, height: separatorHeight)
+        
+        imageNode.setRounded()
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
