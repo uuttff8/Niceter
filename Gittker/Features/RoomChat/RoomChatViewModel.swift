@@ -19,7 +19,10 @@ class RoomChatViewModel {
         }
     }
     
-    func loadOlderMessages(for messageId: String) {
-        print(messageId)
+    func loadOlderMessages(messageId: String, roomId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
+        GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: roomId) { (roomRecrList) in
+            guard let messages = roomRecrList?.toGittkerMessages() else { return }
+            completion(messages)
+        }
     }
 }
