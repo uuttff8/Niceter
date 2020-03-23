@@ -18,4 +18,8 @@ class RoomChatViewModel {
             }
         }
     }
+    
+    func loadOlderMessages(for messageId: String) {
+        print(messageId)
+    }
 }
