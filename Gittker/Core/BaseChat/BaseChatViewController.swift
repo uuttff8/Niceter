@@ -17,7 +17,6 @@ class ChatViewController: MessagesViewController {
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
-    
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -32,9 +31,16 @@ class ChatViewController: MessagesViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         loadFirstMessages()
         super.viewWillAppear(animated)
         subscribeOnLoadNewMessages()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func subscribeOnLoadNewMessages() { }
@@ -109,7 +115,7 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         
-        scrollsToBottomOnKeyboardBeginsEditing = true // default false
+//        scrollsToBottomOnKeyboardBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
     }
     

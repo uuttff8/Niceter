@@ -19,7 +19,16 @@ final class RoomChatViewController: ChatViewController {
     
     var viewModel = RoomChatViewModel()
     
-    public var roomId: String?
+    private var roomId: String
+    
+    init(roomId: String) {
+        self.roomId = roomId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
@@ -49,7 +58,7 @@ final class RoomChatViewController: ChatViewController {
     }
     
     override func loadFirstMessages() {
-        viewModel.loadFirstMessages(roomId: roomId!) { (gittMessages) in
+        viewModel.loadFirstMessages(roomId: roomId) { (gittMessages) in
             DispatchQueue.main.async {
                 self.messageList = gittMessages
                 self.messagesCollectionView.reloadData()
@@ -59,7 +68,7 @@ final class RoomChatViewController: ChatViewController {
     }
     
     override func subscribeOnLoadNewMessages() {
-        FayeEventRoomBinder(roomId: roomId!)
+        FayeEventRoomBinder(roomId: roomId)
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
                     self?.insertMessage(message)

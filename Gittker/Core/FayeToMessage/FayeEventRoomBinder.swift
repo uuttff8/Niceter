@@ -19,7 +19,6 @@ extension UIImage {
 }
 
 extension UIImage {
-
     func decodedImage() -> UIImage {
         guard let cgImage = cgImage else { return self }
         let size = CGSize(width: cgImage.width, height: cgImage.height)
