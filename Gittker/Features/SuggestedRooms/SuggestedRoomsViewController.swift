@@ -9,5 +9,30 @@
 import AsyncDisplayKit
 
 class SuggestedRoomsView: ASDisplayNode {
+    private let titleNode = ASTextNode()
     
+    override init() {
+        super.init()
+        setupNodes()
+    }
+    
+    private func setupNodes() {
+        setupTitleNode()
+    }
+    
+    private func setupTitleNode() {
+        titleNode.attributedText = NSAttributedString(string: "Horosho")
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        
+        let subnode = ASDisplayNode { () -> UIView in
+            let view = UIView()
+            view.backgroundColor = UIColor.green
+            view.frame.size = CGSize(width: 60, height: 100)
+            return view
+        }
+        let centerSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: [], child: subnode)
+        return centerSpec
+    }
 }
