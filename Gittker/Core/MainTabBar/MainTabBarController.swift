@@ -26,12 +26,12 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let homeCoordinator = HomeCoordinator(with: nil, user: userdata)
+        let homeCoordinator = RoomsCoordinator(with: nil, user: userdata)
         let homeNavigationController = UINavigationController(rootViewController: homeCoordinator.currentController!)
         homeCoordinator.navigationController = homeNavigationController
         homeCoordinator.tabController = self
-        homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Home",
-                                                                  image: UIImage(systemName: "message.fill"),
+        homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms",
+                                                                  image: UIImage(systemName: "message"),
                                                                   tag: 0)
 
         
@@ -40,7 +40,7 @@ class MainTabBarController: UITabBarController {
         peopleCoordinator.navigationController = peopleNavigationController
         peopleCoordinator.tabController = self
         peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People",
-                                                                  image: UIImage(systemName: "person.fill"),
+                                                                  image: UIImage(systemName: "person"),
                                                                   tag: 1)
 
         
@@ -49,7 +49,7 @@ class MainTabBarController: UITabBarController {
         commCoordinator.navigationController = commNavigationController
         commCoordinator.tabController = self
         commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Communities",
-                                                                  image: UIImage(systemName: "person.3.fill"),
+                                                                  image: UIImage(systemName: "person.3"),
                                                                   tag: 2)
         
 

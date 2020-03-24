@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class HomeViewModel {
+class RoomsViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
     
     init(dataSource : GenericDataSource<RoomSchema>?) {
@@ -23,7 +23,7 @@ class HomeViewModel {
     }
 }
 
-class HomeDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
+class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         data.value.count
     }
@@ -39,9 +39,9 @@ class HomeDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
 }
 
 
-class HomeTableViewDelegate: NSObject, ASTableDelegate {
+class RoomsTableViewDelegate: NSObject, ASTableDelegate {
     var dataSource: [RoomSchema]?
-    weak var coordinator: HomeCoordinator?
+    weak var coordinator: RoomsCoordinator?
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if let roomId = dataSource?[indexPath.item].id {

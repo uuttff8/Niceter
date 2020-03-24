@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  RoomsViewController.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/3/20.
@@ -8,22 +8,22 @@
 
 import AsyncDisplayKit
 
-class HomeViewController: ASViewController<ASTableNode> {
-    weak var coordinator: HomeCoordinator? {
+class RoomsViewController: ASViewController<ASTableNode> {
+    weak var coordinator: RoomsCoordinator? {
         didSet {
             guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
         }
     }
     
-    private let dataSource = HomeDataSource()
-    private var tableDelegate = HomeTableViewDelegate()
+    private let dataSource = RoomsDataSource()
+    private var tableDelegate = RoomsTableViewDelegate()
     
     private var tableNode: ASTableNode {
         return node
     }
     
-    lazy var viewModel: HomeViewModel = {
-        return HomeViewModel(dataSource: self.dataSource)
+    lazy var viewModel: RoomsViewModel = {
+        return RoomsViewModel(dataSource: self.dataSource)
     }()
 
     init() {
@@ -73,7 +73,7 @@ class HomeViewController: ASViewController<ASTableNode> {
     }
 }
 
-extension HomeViewController: UISearchControllerDelegate {
+extension RoomsViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         view = SuggestedRoomsNode(rooms: [SuggestedRoomContent(title: "Heh", avatarUrl: "https://pbs.twimg.com/profile_images/754207607875862528/8bxQXZT4_400x400.jpg")]).view
     }
