@@ -39,6 +39,10 @@ struct UserSchema: Codable {
         case avatarURLMedium = "avatarUrlMedium"
         case providers, v
     }
+    
+    func toMockUser() -> MockUser {
+        MockUser(senderId: self.id, displayName: self.displayName)
+    }
 }
 
 // ["access_token": "xxxx", "token_type": Bearer]

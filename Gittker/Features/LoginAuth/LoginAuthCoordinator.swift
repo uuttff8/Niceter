@@ -14,17 +14,15 @@ class LoginAuthCoordinator: Coordinator {
     var navigationController: UINavigationController?
     var currentController: LoginAuthViewController
         
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController?) {
         self.navigationController = navigationController
         
         currentController = LoginAuthViewController.instantiate(from: AppStoryboards.LoginAuth)
-
     }
     
     func start() {
         currentController.coordinator = self
         navigationController?.pushViewController(currentController, animated: true)
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     func showLoginWebView(host: String) {
