@@ -56,6 +56,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
         }
         
         self.viewModel.fetchRoomsCached()
+        self.viewModel.fetchSuggestemRooms()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +76,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
 
 extension RoomsViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
-        view = SuggestedRoomsNode(rooms: [SuggestedRoomContent(title: "Heh", avatarUrl: "https://pbs.twimg.com/profile_images/754207607875862528/8bxQXZT4_400x400.jpg")]).view
+        view = SuggestedRoomsNode(rooms: viewModel.suggestedRoomsData).view
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {

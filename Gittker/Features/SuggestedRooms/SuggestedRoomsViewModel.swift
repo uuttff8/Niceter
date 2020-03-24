@@ -10,15 +10,15 @@ import AsyncDisplayKit
 
 class SuggestedRoomsViewModel {
     weak var dataSource : GenericDataSource<SuggestedRoomContent>?
-    private var rooms: Array<SuggestedRoomContent>
+    private var rooms: Array<SuggestedRoomContent>?
     
-    init(dataSource : GenericDataSource<SuggestedRoomContent>?, rooms: Array<SuggestedRoomContent>) {
+    init(dataSource : GenericDataSource<SuggestedRoomContent>?, rooms: Array<SuggestedRoomContent>?) {
         self.dataSource = dataSource
         self.rooms = rooms
     }
     
     func fetchRooms() {
-        self.dataSource?.data.value = rooms
+        self.dataSource?.data.value = rooms ?? []
     }
 }
 
