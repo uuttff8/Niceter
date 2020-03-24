@@ -31,8 +31,8 @@
 		4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC4D240EAADB0028229C /* HttpClient.swift */; };
 		4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC57240EE5E60028229C /* MainTabBarController.swift */; };
 		4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC59240EE5FE0028229C /* MainTabBarCoordinator.swift */; };
-		4E09AC5C240EE6660028229C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5B240EE6660028229C /* HomeViewController.swift */; };
-		4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */; };
+		4E09AC5C240EE6660028229C /* RoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5B240EE6660028229C /* RoomsViewController.swift */; };
+		4E09AC5E240EE66F0028229C /* RoomsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5D240EE66F0028229C /* RoomsCoordinator.swift */; };
 		4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC61240EE6820028229C /* SearchViewController.swift */; };
 		4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC63240EE68F0028229C /* SearchCoordinator.swift */; };
 		4E09AC66240EE6950028229C /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC65240EE6950028229C /* Search.storyboard */; };
@@ -45,7 +45,7 @@
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
 		4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */; };
 		4E2A7A0D241153C70025F39C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* Room.swift */; };
-		4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */; };
+		4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */; };
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
 		4E2A7A1924116C960025F39C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1824116C960025F39C /* LoginData.swift */; };
 		4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1A2411792C0025F39C /* ShareData.swift */; };
@@ -143,8 +143,8 @@
 		4E09AC4F240EB5100028229C /* Gittker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gittker.entitlements; sourceTree = "<group>"; };
 		4E09AC57240EE5E60028229C /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4E09AC59240EE5FE0028229C /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
-		4E09AC5B240EE6660028229C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		4E09AC5B240EE6660028229C /* RoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewController.swift; sourceTree = "<group>"; };
+		4E09AC5D240EE66F0028229C /* RoomsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC61240EE6820028229C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4E09AC63240EE68F0028229C /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC65240EE6950028229C /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
 		4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableNode.swift; sourceTree = "<group>"; };
 		4E2A7A0C241153C70025F39C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
-		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4E2A7A1A2411792C0025F39C /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 				4E09AC25240D83630028229C /* LoginAuth */,
 				4E09AC53240EB6670028229C /* Search */,
 				4E09AC54240EB66F0028229C /* People */,
-				4E09AC2C240D8CA90028229C /* Home */,
+				4E09AC2C240D8CA90028229C /* Rooms */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -421,15 +421,15 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
-		4E09AC2C240D8CA90028229C /* Home */ = {
+		4E09AC2C240D8CA90028229C /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
 				4E2A7A312416C6290025F39C /* cells */,
-				4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */,
-				4E09AC5B240EE6660028229C /* HomeViewController.swift */,
-				4E09AC5D240EE66F0028229C /* HomeCoordinator.swift */,
+				4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */,
+				4E09AC5B240EE6660028229C /* RoomsViewController.swift */,
+				4E09AC5D240EE66F0028229C /* RoomsCoordinator.swift */,
 			);
-			path = Home;
+			path = Rooms;
 			sourceTree = "<group>";
 		};
 		4E09AC2F240D90640028229C /* Logic */ = {
@@ -995,7 +995,7 @@
 				4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
 				4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */,
-				4E09AC5C240EE6660028229C /* HomeViewController.swift in Sources */,
+				4E09AC5C240EE6660028229C /* RoomsViewController.swift in Sources */,
 				4E9D17BD241E8FC00066362D /* RoomChatCoordinator.swift in Sources */,
 				4E09AC31240D906F0028229C /* ClearCookies.swift in Sources */,
 				4E9D17B7241E839B0066362D /* GitterFayeClient.swift in Sources */,
@@ -1039,11 +1039,11 @@
 				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
 				4EFC4FBB24223A0F00295EB1 /* CodableCache.swift in Sources */,
 				4E9D17BB241E8FB80066362D /* RoomChatViewModel.swift in Sources */,
-				4E2A7A1224116A6F0025F39C /* HomeViewModel.swift in Sources */,
+				4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */,
 				4E9D17A4241E42A60066362D /* ObjectiveResourceDateFormatter.m in Sources */,
 				4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */,
 				4E09AC23240D82B30028229C /* Storyboarded.swift in Sources */,
-				4E09AC5E240EE66F0028229C /* HomeCoordinator.swift in Sources */,
+				4E09AC5E240EE66F0028229C /* RoomsCoordinator.swift in Sources */,
 				4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */,
 				4E09AC6E240EE6C60028229C /* CommunitiesViewController.swift in Sources */,
 				4E9D182F241FFE820066362D /* FayeEventRoomBinder.swift in Sources */,

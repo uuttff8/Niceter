@@ -1,5 +1,5 @@
 //
-//  HomeCoordinator.swift
+//  RoomsCoordinator.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/3/20.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class HomeCoordinator: Coordinator {
+class RoomsCoordinator: Coordinator {
 
     weak var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
     
     weak var tabController: MainTabBarController?
-    var currentController: HomeViewController?
+    var currentController: RoomsViewController?
     
     var userdata: UserSchema
     
@@ -22,7 +22,7 @@ class HomeCoordinator: Coordinator {
         self.navigationController = navigationController
         self.userdata = user
         
-        currentController = HomeViewController()
+        currentController = RoomsViewController()
         currentController?.coordinator = self
         childCoordinators.append(self)
     }
