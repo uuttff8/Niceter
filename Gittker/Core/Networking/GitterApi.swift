@@ -9,6 +9,8 @@
 import Foundation
 
 private enum GitterApiLinks {
+    private static let limitMessages = 30 // Limit messages to be loaded
+    
     static let baseUrl = "https://gitter.im/"
     static let baseUrlApi = "https://api.gitter.im/"
     
@@ -23,9 +25,9 @@ private enum GitterApiLinks {
     
     func encode() -> String {
         switch self {
-        case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=30"
+        case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
         case .olderMessages(messageId: let messageId, roomId: let roomId):
-            return "v1/rooms/\(roomId)/chatMessages?limit=50&beforeId=\(messageId)"
+            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&beforeId=\(messageId)"
         case .exchangeToken: return "login/oauth/token"
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
