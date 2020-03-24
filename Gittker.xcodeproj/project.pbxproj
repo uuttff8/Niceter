@@ -79,6 +79,8 @@
 		4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */; };
 		4EB3FBFE24298E7A00F3BF88 /* HomeSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FBFD24298E7A00F3BF88 /* HomeSearchController.swift */; };
 		4EB3FC01242991AC00F3BF88 /* SuggestedRoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC00242991AC00F3BF88 /* SuggestedRoomsViewController.swift */; };
+		4EB3FC03242A499300F3BF88 /* SuggestedRoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC02242A499300F3BF88 /* SuggestedRoomsViewModel.swift */; };
+		4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC05242A72B400F3BF88 /* SuggestemRoomCellNode.swift */; };
 		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
@@ -201,6 +203,8 @@
 		4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatBaseViewController.swift; sourceTree = "<group>"; };
 		4EB3FBFD24298E7A00F3BF88 /* HomeSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchController.swift; sourceTree = "<group>"; };
 		4EB3FC00242991AC00F3BF88 /* SuggestedRoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedRoomsViewController.swift; sourceTree = "<group>"; };
+		4EB3FC02242A499300F3BF88 /* SuggestedRoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedRoomsViewModel.swift; sourceTree = "<group>"; };
+		4EB3FC05242A72B400F3BF88 /* SuggestemRoomCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestemRoomCellNode.swift; sourceTree = "<group>"; };
 		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -686,9 +690,19 @@
 		4EB3FBFF2429919200F3BF88 /* SuggestedRooms */ = {
 			isa = PBXGroup;
 			children = (
+				4EB3FC04242A72A700F3BF88 /* cells */,
 				4EB3FC00242991AC00F3BF88 /* SuggestedRoomsViewController.swift */,
+				4EB3FC02242A499300F3BF88 /* SuggestedRoomsViewModel.swift */,
 			);
 			path = SuggestedRooms;
+			sourceTree = "<group>";
+		};
+		4EB3FC04242A72A700F3BF88 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				4EB3FC05242A72B400F3BF88 /* SuggestemRoomCellNode.swift */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 		4EE0CF8E24222364005BDE24 /* BaseChat */ = {
@@ -995,6 +1009,7 @@
 				4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */,
 				4E9D18322420006C0066362D /* MockMessage.swift in Sources */,
 				4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */,
+				4EB3FC03242A499300F3BF88 /* SuggestedRoomsViewModel.swift in Sources */,
 				4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */,
 				4E9D17AF241E49BE0066362D /* RoomRecreate.swift in Sources */,
 				4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */,
@@ -1008,6 +1023,7 @@
 				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
 				4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */,
 				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
+				4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
 				4E2A7A0D241153C70025F39C /* Room.swift in Sources */,

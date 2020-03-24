@@ -68,15 +68,17 @@ class HomeViewController: ASViewController<ASTableNode> {
     private func setupSearchBar() {
         navigationItem.searchController = HomeSearchController()
         navigationItem.searchController?.delegate = self
+        // we can tap inside view with that
+        navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
     }
 }
 
 extension HomeViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
-        view = SuggestedRoomsView().view
+        view = SuggestedRoomsNode(rooms: [SuggestedRoomContent(title: "Heh", avatarUrl: "https://pbs.twimg.com/profile_images/754207607875862528/8bxQXZT4_400x400.jpg")]).view
     }
     
-    func didDismissSearchController(_ searchController: UISearchController) {
+    func willDismissSearchController(_ searchController: UISearchController) {
         view = tableNode.view
     }
 }
