@@ -9,12 +9,6 @@
 import AsyncDisplayKit
 
 class HomeViewController: ASViewController<ASTableNode> {
-    
-//    let searchBar: HomeSearchBar = {
-//        let bar = HomeSearchBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44.0))
-//        return bar
-//    }()
-    
     weak var coordinator: HomeCoordinator? {
         didSet {
             guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
@@ -25,10 +19,13 @@ class HomeViewController: ASViewController<ASTableNode> {
     private var tableDelegate = HomeTableViewDelegate()
     
     private var tableNode: ASTableNode {
-        
         return node
     }
     
+    lazy var viewModel: HomeViewModel = {
+        return HomeViewModel(dataSource: self.dataSource)
+    }()
+
     init() {
         super.init(node: ASTableNode())
         
@@ -43,14 +40,11 @@ class HomeViewController: ASViewController<ASTableNode> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var viewModel: HomeViewModel = {
-        return HomeViewModel(dataSource: self.dataSource)
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Rooms"
+        self.setupSearchBar()
         
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in
@@ -69,5 +63,20 @@ class HomeViewController: ASViewController<ASTableNode> {
         if let indexPath = self.tableNode.indexPathForSelectedRow {
             self.tableNode.view.deselectRow(at: indexPath, animated: true)
         }
+    }
+    
+    private func setupSearchBar() {
+        navigationItem.searchController = HomeSearchController()
+        navigationItem.searchController?.delegate = self
+    }
+}
+
+extension HomeViewController: UISearchControllerDelegate {
+    func willPresentSearchController(_ searchController: UISearchController) {
+        view = SuggestedRoomsView().view
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        view = tableNode.view
     }
 }
