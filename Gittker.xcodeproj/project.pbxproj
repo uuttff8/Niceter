@@ -49,8 +49,6 @@
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
 		4E2A7A1924116C960025F39C /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1824116C960025F39C /* LoginData.swift */; };
 		4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1A2411792C0025F39C /* ShareData.swift */; };
-		4E2A7A1F24154D8D0025F39C /* RoomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */; };
-		4E2A7A2024154D8D0025F39C /* RoomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */; };
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
@@ -79,6 +77,8 @@
 		4E9D1834242003C60066362D /* RoomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1833242003C60066362D /* RoomEvent.swift */; };
 		4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18362420C5240066362D /* BasicAudioController.swift */; };
 		4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */; };
+		4EB3FBFE24298E7A00F3BF88 /* HomeSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FBFD24298E7A00F3BF88 /* HomeSearchController.swift */; };
+		4EB3FC01242991AC00F3BF88 /* SuggestedRoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC00242991AC00F3BF88 /* SuggestedRoomsViewController.swift */; };
 		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
@@ -158,8 +158,6 @@
 		4E2A7A1124116A6F0025F39C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
 		4E2A7A1A2411792C0025F39C /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
-		4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableViewCell.swift; sourceTree = "<group>"; };
-		4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTableViewCell.xib; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
@@ -201,6 +199,8 @@
 		4E9D1833242003C60066362D /* RoomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEvent.swift; sourceTree = "<group>"; };
 		4E9D18362420C5240066362D /* BasicAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAudioController.swift; sourceTree = "<group>"; };
 		4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatBaseViewController.swift; sourceTree = "<group>"; };
+		4EB3FBFD24298E7A00F3BF88 /* HomeSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchController.swift; sourceTree = "<group>"; };
+		4EB3FC00242991AC00F3BF88 /* SuggestedRoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedRoomsViewController.swift; sourceTree = "<group>"; };
 		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +338,7 @@
 		4E09AC15240D80F50028229C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4EB3FBFF2429919200F3BF88 /* SuggestedRooms */,
 				4E9D17B0241E7FDA0066362D /* RoomChat */,
 				4E09AC55240EB6760028229C /* Communities */,
 				4E09AC25240D83630028229C /* LoginAuth */,
@@ -411,6 +412,7 @@
 			children = (
 				4E09AC2A240D8B240028229C /* RoundButton.swift */,
 				4EFC50222425180600295EB1 /* HomeSearchBar.swift */,
+				4EB3FBFD24298E7A00F3BF88 /* HomeSearchController.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -534,8 +536,6 @@
 		4E2A7A312416C6290025F39C /* cells */ = {
 			isa = PBXGroup;
 			children = (
-				4E2A7A1D24154D8D0025F39C /* RoomTableViewCell.swift */,
-				4E2A7A1E24154D8D0025F39C /* RoomTableViewCell.xib */,
 				4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */,
 			);
 			path = cells;
@@ -681,6 +681,14 @@
 				4E9D18362420C5240066362D /* BasicAudioController.swift */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		4EB3FBFF2429919200F3BF88 /* SuggestedRooms */ = {
+			isa = PBXGroup;
+			children = (
+				4EB3FC00242991AC00F3BF88 /* SuggestedRoomsViewController.swift */,
+			);
+			path = SuggestedRooms;
 			sourceTree = "<group>";
 		};
 		4EE0CF8E24222364005BDE24 /* BaseChat */ = {
@@ -829,7 +837,6 @@
 				4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */,
 				4E09AC6C240EE6AF0028229C /* People.storyboard in Resources */,
 				4E09AC72240EE6DD0028229C /* Communities.storyboard in Resources */,
-				4E2A7A2024154D8D0025F39C /* RoomTableViewCell.xib in Resources */,
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
 				4E09AC66240EE6950028229C /* Search.storyboard in Resources */,
@@ -961,6 +968,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EB3FBFE24298E7A00F3BF88 /* HomeSearchController.swift in Sources */,
 				4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */,
 				4EFC4FBF242247D400295EB1 /* PersistentCache.swift in Sources */,
 				4E09AC4C240EA68D0028229C /* NetModels.swift in Sources */,
@@ -968,7 +976,6 @@
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
 				4E9D17A5241E42A60066362D /* FayeClient.m in Sources */,
-				4E2A7A1F24154D8D0025F39C /* RoomTableViewCell.swift in Sources */,
 				4E9D17A1241E42A60066362D /* NSString+Serialize.m in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */,
@@ -1007,6 +1014,7 @@
 				4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
+				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsViewController.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
 				4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
