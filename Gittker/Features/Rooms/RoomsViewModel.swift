@@ -11,6 +11,8 @@ import AsyncDisplayKit
 class RoomsViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
     
+    var suggestedRoomsData: Array<RoomSchema>?
+    
     init(dataSource : GenericDataSource<RoomSchema>?) {
         self.dataSource = dataSource
     }
@@ -19,6 +21,13 @@ class RoomsViewModel {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
             .loadRooms { (rooms) in
                 self.dataSource?.data.value = rooms
+        }
+    }
+    
+    func fetchSuggestemRooms() {
+        CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
+            .loadRooms { (rooms) in
+                self.suggestedRoomsData = rooms
         }
     }
 }

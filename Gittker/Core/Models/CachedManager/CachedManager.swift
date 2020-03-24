@@ -8,6 +8,28 @@
 
 import Foundation
 
+class CachedSuggestedRoomLoader {
+    typealias Handler = ([RoomSchema]) -> Void
+
+    private let cache: CodableCache<[RoomSchema]>
+    
+    init(cacheKey: AnyHashable) {
+        cache = CodableCache<[RoomSchema]>(key: cacheKey)
+    }
+    
+    func loadRooms(then handler: @escaping Handler) {
+        if let cached = cache.get() {
+            handler(cached)
+        }
+
+        GitterApi.shared.getSuggestedRooms { [weak self] (roomSchemaList) in
+            guard let rooms = roomSchemaList else { return }
+            try? self?.cache.set(value: rooms)
+            handler(rooms)
+        }
+    }
+}
+
 class CachedRoomLoader {
     typealias Handler = ([RoomSchema]) -> Void
 

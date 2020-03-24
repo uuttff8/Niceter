@@ -17,10 +17,14 @@ class SuggestedRoomsNode: ASDisplayNode {
     
     var viewModel: SuggestedRoomsViewModel
     
-    init(rooms: Array<SuggestedRoomContent>) {
+    init(rooms: Array<RoomSchema>?) {
         contentNode = ASTableNode(style: .plain)
         
-        viewModel = SuggestedRoomsViewModel(dataSource: self.dataSource, rooms: rooms)
+        let suggestedRooms = rooms?.map {
+            SuggestedRoomContent(title: $0.name, avatarUrl: $0.avatarUrl ?? "")
+        }
+                
+        viewModel = SuggestedRoomsViewModel(dataSource: self.dataSource, rooms: suggestedRooms)
         
         super.init()
         
@@ -43,6 +47,9 @@ class SuggestedRoomsNode: ASDisplayNode {
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                
+                
+                
                 //                self.tableDelegate.coordinator = self.coordinator
                 self.tableDelegate.dataSource = self.dataSource.data.value
                 self.contentNode.reloadData()
