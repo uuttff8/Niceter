@@ -9,6 +9,7 @@
 import Foundation
 
 class RoomChatViewModel {
+    
     func loadFirstMessages(roomId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             CachedRoomMessagesLoader(cacheKey: roomId)
@@ -20,9 +21,11 @@ class RoomChatViewModel {
     }
     
     func loadOlderMessages(messageId: String, roomId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
-        GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: roomId) { (roomRecrList) in
-            guard let messages = roomRecrList?.toGittkerMessages() else { return }
-            completion(messages)
+        DispatchQueue.global(qos: .userInitiated).async {
+            GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: roomId) { (roomRecrList) in
+                guard let messages = roomRecrList?.toGittkerMessages() else { return }
+                completion(messages)
+            }
         }
     }
 }

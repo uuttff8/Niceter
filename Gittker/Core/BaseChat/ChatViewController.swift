@@ -1,5 +1,5 @@
 //
-//  BaseChatViewController.swift
+//  ChatViewController.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/18/20.
@@ -11,13 +11,13 @@ import MessageKit
 import SafariServices
 
 class ChatViewController: MessagesViewController {
-    
     var messageList: [GittkerMessage] = []
-    let refreshControl = UIRefreshControl()
+    
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
     private var isOlderMessageLoading = false
+    private let userdata = ShareData().userdata?.toMockUser()
     
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -33,8 +33,6 @@ class ChatViewController: MessagesViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.navigationController?.setNavigationBarHidden(true, animated: true)
-        
         loadFirstMessages()
         super.viewWillAppear(animated)
         subscribeOnLoadNewMessages()
@@ -42,9 +40,9 @@ class ChatViewController: MessagesViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tabBarController?.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    // SHOULD BE IMPLEMENTED
     func subscribeOnLoadNewMessages() { }
     
     func loadFirstMessages() { }
@@ -179,7 +177,6 @@ class ChatViewController: MessagesViewController {
         
         guard let indexPath = self.messagesCollectionView.indexPathForItem(at: visiblePoint) else { return }
         
-//        print(" \(indexPath)")
         if indexPath.section <= 10 {
             if !isOlderMessageLoading {
                 self.loadOlderMessages()
@@ -190,7 +187,7 @@ class ChatViewController: MessagesViewController {
 
 extension ChatViewController: MessagesDataSource {
     func currentSender() -> SenderType {
-        return MockUser(senderId: "123123123", displayName: "Anton Kuzmin")
+        return userdata ?? MockUser(senderId: "1", displayName: "1")
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -202,7 +199,6 @@ extension ChatViewController: MessagesDataSource {
     }
     
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
         return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
     }
 }
@@ -358,7 +354,7 @@ extension ChatViewController: MessageInputBarDelegate {
     
     private func insertMessages(_ data: [Any]) {
         for component in data {
-            let user = MockUser(senderId: "123123123", displayName: "Anton Kuzmin")
+            let user = userdata!
             if let str = component as? String {
                 let message = MockMessage(text: str, user: user, messageId: UUID().uuidString, date: Date())
                 insertMessage(GittkerMessage(message: message, avatar: nil))

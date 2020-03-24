@@ -78,9 +78,10 @@
 		4E9D18322420006C0066362D /* MockMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18312420006C0066362D /* MockMessage.swift */; };
 		4E9D1834242003C60066362D /* RoomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1833242003C60066362D /* RoomEvent.swift */; };
 		4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18362420C5240066362D /* BasicAudioController.swift */; };
+		4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */; };
 		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
-		4EE0CF902422239D005BDE24 /* BaseChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* BaseChatViewController.swift */; };
+		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
 		4EFC4FBB24223A0F00295EB1 /* CodableCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */; };
 		4EFC4FBF242247D400295EB1 /* PersistentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBE242247D400295EB1 /* PersistentCache.swift */; };
 		4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedManager.swift */; };
@@ -199,9 +200,10 @@
 		4E9D18312420006C0066362D /* MockMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMessage.swift; sourceTree = "<group>"; };
 		4E9D1833242003C60066362D /* RoomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEvent.swift; sourceTree = "<group>"; };
 		4E9D18362420C5240066362D /* BasicAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAudioController.swift; sourceTree = "<group>"; };
+		4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatBaseViewController.swift; sourceTree = "<group>"; };
 		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
-		4EE0CF8F2422239D005BDE24 /* BaseChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseChatViewController.swift; sourceTree = "<group>"; };
+		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCache.swift; sourceTree = "<group>"; };
 		4EFC4FBE242247D400295EB1 /* PersistentCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentCache.swift; sourceTree = "<group>"; };
 		4EFC4FC1242250C500295EB1 /* CachedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedManager.swift; sourceTree = "<group>"; };
@@ -684,7 +686,8 @@
 		4EE0CF8E24222364005BDE24 /* BaseChat */ = {
 			isa = PBXGroup;
 			children = (
-				4EE0CF8F2422239D005BDE24 /* BaseChatViewController.swift */,
+				4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */,
+				4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */,
 			);
 			path = BaseChat;
 			sourceTree = "<group>";
@@ -970,6 +973,7 @@
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
+				4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */,
 				4E09AC5C240EE6660028229C /* HomeViewController.swift in Sources */,
 				4E9D17BD241E8FC00066362D /* RoomChatCoordinator.swift in Sources */,
 				4E09AC31240D906F0028229C /* ClearCookies.swift in Sources */,
@@ -1002,7 +1006,7 @@
 				4E2A7A0D241153C70025F39C /* Room.swift in Sources */,
 				4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
-				4EE0CF902422239D005BDE24 /* BaseChatViewController.swift in Sources */,
+				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
 				4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
