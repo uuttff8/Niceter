@@ -8,20 +8,27 @@
 
 import Foundation
 
-class CachedSuggestedRoomLoader {
-    typealias Handler = ([RoomSchema]) -> Void
-
-    private let cache: CodableCache<[RoomSchema]>
+class CachedLoader<T: Codable> {
+    typealias Handler = (T) -> Void
+    
+    fileprivate let cache: CodableCache<T>
     
     init(cacheKey: AnyHashable) {
-        cache = CodableCache<[RoomSchema]>(key: cacheKey)
+        cache = CodableCache<T>(key: cacheKey)
     }
     
-    func loadRooms(then handler: @escaping Handler) {
+    func fetchData(then handler: @escaping Handler) {
         if let cached = cache.get() {
             handler(cached)
         }
 
+    }
+}
+
+class CachedTwoSuggestedRoomLoader: CachedLoader<[RoomSchema]> {
+    override func fetchData(then handler: @escaping ([RoomSchema]) -> Void) {
+        super.fetchData(then: handler)
+        
         GitterApi.shared.getSuggestedRooms { [weak self] (roomSchemaList) in
             guard let rooms = roomSchemaList else { return }
             try? self?.cache.set(value: rooms)
@@ -30,20 +37,9 @@ class CachedSuggestedRoomLoader {
     }
 }
 
-class CachedRoomLoader {
-    typealias Handler = ([RoomSchema]) -> Void
-
-    private let cache: CodableCache<[RoomSchema]>
-    
-    init(cacheKey: AnyHashable) {
-        cache = CodableCache<[RoomSchema]>(key: cacheKey)
-    }
-    
-    func loadRooms(then handler: @escaping Handler) {
-        if let cached = cache.get() {
-            handler(cached)
-        }
-
+class CachedRoomLoader: CachedLoader<[RoomSchema]> {
+    override func fetchData(then handler: @escaping ([RoomSchema]) -> Void) {
+        super.fetchData(then: handler)
         GitterApi.shared.getRooms { [weak self] (roomSchemaList) in
             guard let rooms = roomSchemaList else { return }
             try? self?.cache.set(value: rooms)
@@ -52,22 +48,18 @@ class CachedRoomLoader {
     }
 }
 
-class CachedRoomMessagesLoader {
-    typealias Handler = ([RoomRecreateSchema]) -> Void
-
-    private let cache: CodableCache<[RoomRecreateSchema]>
+class CachedRoomMessagesLoader: CachedLoader<[RoomRecreateSchema]> {
+    
     private let roomId: String
     
-    init(cacheKey: AnyHashable) {
+    override init(cacheKey: AnyHashable) {
         self.roomId = cacheKey as? String ?? ""
-        cache = CodableCache<[RoomRecreateSchema]>(key: cacheKey)
+        super.init(cacheKey: cacheKey)
     }
     
-    func loadMessages(then handler: @escaping Handler) {
-        if let cached = cache.get() {
-            handler(cached)
-        }
-
+    override func fetchData(then handler: @escaping ([RoomRecreateSchema]) -> Void) {
+        super.fetchData(then: handler)
+        
         GitterApi.shared.loadFirstMessages(for: roomId) { [weak self] (roomRecrList) in
             guard let messages = roomRecrList else { return }
             try? self?.cache.set(value: messages)
