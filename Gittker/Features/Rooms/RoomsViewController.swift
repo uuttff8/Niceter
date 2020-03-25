@@ -32,7 +32,6 @@ class RoomsViewController: ASViewController<ASTableNode> {
         self.tableNode.delegate = self.tableDelegate
         self.tableNode.dataSource = self.dataSource
         
-        tableNode.backgroundColor = UIColor.systemBackground
         tableNode.view.separatorStyle = .none
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
     weak var coordinator: MainTabBarCoordinator?
     var userdata: UserSchema
     
@@ -48,8 +48,8 @@ class MainTabBarController: UITabBarController {
         let commNavigationController = UINavigationController(rootViewController: commCoordinator.currentController!)
         commCoordinator.navigationController = commNavigationController
         commCoordinator.tabController = self
-        commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Communities",
-                                                                  image: UIImage(systemName: "person.3"),
+        commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Settings",
+                                                                  image: UIImage(systemName: "gear"),
                                                                   tag: 2)
         
 
