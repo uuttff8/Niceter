@@ -1,5 +1,5 @@
 //
-//  SuggestedRoomsViewController.swift
+//  SuggestedRoomsNodeController.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/24/20.
@@ -8,7 +8,9 @@
 
 import AsyncDisplayKit
 
-class SuggestedRoomsNode: ASDisplayNode {
+class SuggestedRoomsNodeController: ASDisplayNode {
+    weak var coordinator: SuggestedRoomsCoordinator?
+    
     // MARK: - Variables
     let contentNode: ASTableNode
     
@@ -17,11 +19,12 @@ class SuggestedRoomsNode: ASDisplayNode {
     
     var viewModel: SuggestedRoomsViewModel
     
-    init(rooms: Array<RoomSchema>?) {
+    init(rooms: Array<RoomSchema>?, coordinator: SuggestedRoomsCoordinator?) {
         contentNode = ASTableNode(style: .plain)
+        self.coordinator = coordinator
         
         let suggestedRooms = rooms?.map {
-            SuggestedRoomContent(title: $0.name, avatarUrl: $0.avatarUrl ?? "")
+            SuggestedRoomContent(title: $0.name, avatarUrl: $0.avatarUrl ?? "", roomId: $0.id)
         }
                 
         viewModel = SuggestedRoomsViewModel(dataSource: self.dataSource, rooms: suggestedRooms)
@@ -48,9 +51,7 @@ class SuggestedRoomsNode: ASDisplayNode {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
-                
-                
-                //                self.tableDelegate.coordinator = self.coordinator
+                self.tableDelegate.coordinator = self.coordinator
                 self.tableDelegate.dataSource = self.dataSource.data.value
                 self.contentNode.reloadData()
             }

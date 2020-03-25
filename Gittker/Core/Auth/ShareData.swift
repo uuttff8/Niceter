@@ -12,12 +12,14 @@ import KeychainSwift
 // work after auth
 class ShareData {
     
-    private let keychain = KeychainSwift()
+    let keychain = KeychainSwift()
     
     var userdata: UserSchema? {
         get {
-            let data = keychain.getData(ShareDataConstants.userdata)
-            return try? JSONDecoder().decode(UserSchema.self, from: data!)
+            guard let data = keychain.getData(ShareDataConstants.userdata) else {
+                return nil
+            }
+            return try? JSONDecoder().decode(UserSchema.self, from: data)
         } set {
             let data = try? JSONEncoder().encode(newValue)
             keychain.set(data!, forKey: ShareDataConstants.userdata)

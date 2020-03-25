@@ -25,7 +25,7 @@ class RoomsViewModel {
     }
     
     func fetchSuggestemRooms() {
-        CachedTwoSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
+        CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
             .fetchData { (rooms) in
                 self.suggestedRoomsData = rooms
         }

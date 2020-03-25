@@ -1,5 +1,5 @@
 //
-//  CommunitiesCoordinator.swift
+//  SettingsCoordinator.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/3/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class CommunitiesCoordinator: Coordinator {
+class SettingsCoordinator: Coordinator {
 
     weak var tabController: MainTabBarController?
-    var currentController: CommunitiesViewController?
+    var currentController: SettingsViewController?
     
     var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
@@ -19,7 +19,7 @@ class CommunitiesCoordinator: Coordinator {
     init(with navigationController: UINavigationController?) {
         self.navigationController = navigationController
         
-        currentController = CommunitiesViewController.instantiate(from: AppStoryboards.Communities)
+        currentController = SettingsViewController()
         currentController?.coordinator = self
     }
     

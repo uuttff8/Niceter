@@ -30,7 +30,7 @@ class SuggestedRoomsDataSource: GenericDataSource<SuggestedRoomContent>, ASTable
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
-            let cell = SuggestemRoomTableNode(with: SuggestedRoomContent(title: room.title, avatarUrl: room.avatarUrl))
+            let cell = SuggestemRoomTableNode(with: room)
             
             return cell
         }
@@ -39,8 +39,12 @@ class SuggestedRoomsDataSource: GenericDataSource<SuggestedRoomContent>, ASTable
 
 class SuggestedRoomsTableNodeDelegate: NSObject, ASTableDelegate {
     var dataSource: [SuggestedRoomContent]?
+    weak var coordinator: SuggestedRoomsCoordinator?
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        if let roomId = dataSource?[indexPath.item].roomId {
+            coordinator?.showChat(roomId: roomId)
+        }
         tableNode.deselectRow(at: indexPath, animated: true)
     }
 }
