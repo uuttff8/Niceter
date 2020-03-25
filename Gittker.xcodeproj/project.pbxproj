@@ -86,7 +86,7 @@
 		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
 		4EFC4FBB24223A0F00295EB1 /* CodableCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */; };
 		4EFC4FBF242247D400295EB1 /* PersistentCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FBE242247D400295EB1 /* PersistentCache.swift */; };
-		4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedManager.swift */; };
+		4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedLoader.swift */; };
 		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
 		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
 		4EFC50232425180600295EB1 /* HomeSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC50222425180600295EB1 /* HomeSearchBar.swift */; };
@@ -210,7 +210,7 @@
 		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		4EFC4FBA24223A0F00295EB1 /* CodableCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCache.swift; sourceTree = "<group>"; };
 		4EFC4FBE242247D400295EB1 /* PersistentCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentCache.swift; sourceTree = "<group>"; };
-		4EFC4FC1242250C500295EB1 /* CachedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedManager.swift; sourceTree = "<group>"; };
+		4EFC4FC1242250C500295EB1 /* CachedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedLoader.swift; sourceTree = "<group>"; };
 		4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerMessage.swift; sourceTree = "<group>"; };
 		4EFC4FC62423746200295EB1 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
 		4EFC50222425180600295EB1 /* HomeSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchBar.swift; sourceTree = "<group>"; };
@@ -356,10 +356,10 @@
 		4E09AC19240D81770028229C /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4EE0CF8E24222364005BDE24 /* BaseChat */,
-				4E9D1826241FF89B0066362D /* FayeToMessage */,
-				4E09AC56240EE2C90028229C /* MainTabBar */,
-				4E2A7A1724116C8E0025F39C /* Auth */,
+				4ED5398B242BA7D9000874F3 /* Cache */,
+				4ED5398A242BA7B9000874F3 /* Chat */,
+				4ED53989242BA797000874F3 /* UI */,
+				4E2A7A1724116C8E0025F39C /* Data */,
 				4E09AC4A240EA67E0028229C /* Models */,
 				4E09AC45240EA3090028229C /* Networking */,
 				4E09AC42240E9BF10028229C /* Settings */,
@@ -469,7 +469,6 @@
 		4E09AC4A240EA67E0028229C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4EFC4FC0242250B400295EB1 /* CachedManager */,
 				4E2A7A0C241153C70025F39C /* Room.swift */,
 				4E09AC4B240EA68D0028229C /* NetModels.swift */,
 				4E9D17AE241E49BE0066362D /* RoomRecreate.swift */,
@@ -517,13 +516,13 @@
 			path = MainTabBar;
 			sourceTree = "<group>";
 		};
-		4E2A7A1724116C8E0025F39C /* Auth */ = {
+		4E2A7A1724116C8E0025F39C /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				4E2A7A1824116C960025F39C /* LoginData.swift */,
 				4E2A7A1A2411792C0025F39C /* ShareData.swift */,
 			);
-			path = Auth;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		4E2A7A2124154E700025F39C /* Extensions */ = {
@@ -705,6 +704,31 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
+		4ED53989242BA797000874F3 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4EE0CF8E24222364005BDE24 /* BaseChat */,
+				4E09AC56240EE2C90028229C /* MainTabBar */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4ED5398A242BA7B9000874F3 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D1826241FF89B0066362D /* FayeToMessage */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		4ED5398B242BA7D9000874F3 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				4EFC4FC1242250C500295EB1 /* CachedLoader.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		4EE0CF8E24222364005BDE24 /* BaseChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,14 +736,6 @@
 				4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */,
 			);
 			path = BaseChat;
-			sourceTree = "<group>";
-		};
-		4EFC4FC0242250B400295EB1 /* CachedManager */ = {
-			isa = PBXGroup;
-			children = (
-				4EFC4FC1242250C500295EB1 /* CachedManager.swift */,
-			);
-			path = CachedManager;
 			sourceTree = "<group>";
 		};
 		4EFC4FC32422523500295EB1 /* CodableCache */ = {
@@ -1031,7 +1047,7 @@
 				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNodeController.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
-				4EFC4FC2242250C500295EB1 /* CachedManager.swift in Sources */,
+				4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
 				4EA628B4242B87480034E66E /* SuggestedRoomCoordinator.swift in Sources */,
 				4E09AC47240EA3560028229C /* GitterApi.swift in Sources */,
