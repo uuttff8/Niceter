@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class SuggestedRoomsNodeController: ASDisplayNode {
+class SuggestedRoomsNode: ASDisplayNode {
     weak var coordinator: SuggestedRoomsCoordinator?
     
     // MARK: - Variables
