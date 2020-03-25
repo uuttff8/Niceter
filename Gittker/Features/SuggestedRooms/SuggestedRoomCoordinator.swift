@@ -14,7 +14,7 @@ class SuggestedRoomsCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     
     weak var tabController: MainTabBarController?
-    var currentController: SuggestedRoomsNodeController?
+    var currentController: SuggestedRoomsNode?
     
     var room: Array<RoomSchema>?
     
@@ -22,7 +22,7 @@ class SuggestedRoomsCoordinator: Coordinator {
         self.navigationController = navigationController
         self.room = room
         
-        currentController = SuggestedRoomsNodeController(rooms: room, coordinator: self)
+        currentController = SuggestedRoomsNode(rooms: room, coordinator: self)
         currentController?.coordinator = self
         childCoordinators.append(self)
     }
