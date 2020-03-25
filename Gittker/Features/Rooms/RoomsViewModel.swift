@@ -19,14 +19,14 @@ class RoomsViewModel {
     
     func fetchRoomsCached() {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
-            .loadRooms { (rooms) in
+            .fetchData { (rooms) in
                 self.dataSource?.data.value = rooms
         }
     }
     
     func fetchSuggestemRooms() {
-        CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
-            .loadRooms { (rooms) in
+        CachedTwoSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
+            .fetchData { (rooms) in
                 self.suggestedRoomsData = rooms
         }
     }
