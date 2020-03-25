@@ -40,7 +40,6 @@ class RoomsViewController: ASViewController<ASTableNode> {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Rooms"
@@ -59,13 +58,6 @@ class RoomsViewController: ASViewController<ASTableNode> {
         self.viewModel.fetchSuggestemRooms()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let indexPath = self.tableNode.indexPathForSelectedRow {
-            self.tableNode.view.deselectRow(at: indexPath, animated: true)
-        }
-    }
-    
     private func setupSearchBar() {
         navigationItem.searchController = HomeSearchController()
         navigationItem.searchController?.delegate = self
@@ -76,7 +68,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
 
 extension RoomsViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
-        view = SuggestedRoomsNode(rooms: viewModel.suggestedRoomsData).view
+        view = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController?.view
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {

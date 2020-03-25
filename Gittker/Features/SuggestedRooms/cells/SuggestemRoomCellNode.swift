@@ -11,6 +11,7 @@ import AsyncDisplayKit
 struct SuggestedRoomContent {
     let title: String
     let avatarUrl: String
+    let roomId: String
 }
 
 class SuggestemRoomTableNode: ASCellNode {

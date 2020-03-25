@@ -50,4 +50,8 @@ struct RoomSchema: Codable {
             case UserChannel = "USER_CHANNEL"
         }
     }
+    
+    func toSuggestedRoomContent() -> SuggestedRoomContent {
+        SuggestedRoomContent(title: self.name, avatarUrl: self.avatarUrl ?? "", roomId: self.id)
+    }
 }

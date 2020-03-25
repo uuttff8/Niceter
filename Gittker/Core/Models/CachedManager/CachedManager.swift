@@ -25,7 +25,7 @@ class CachedLoader<T: Codable> {
     }
 }
 
-class CachedTwoSuggestedRoomLoader: CachedLoader<[RoomSchema]> {
+class CachedSuggestedRoomLoader: CachedLoader<[RoomSchema]> {
     override func fetchData(then handler: @escaping ([RoomSchema]) -> Void) {
         super.fetchData(then: handler)
         

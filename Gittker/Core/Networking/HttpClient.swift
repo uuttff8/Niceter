@@ -37,6 +37,7 @@ final class HTTPClient: HTTPClientProvider {
         }
         
         let config = URLSessionConfiguration.ephemeral
+        config.waitsForConnectivity = true
         config.httpAdditionalHeaders = [ "Authorization": "Bearer \(accessToken)",
                                          "Accept": "application/json",
                                          "Content-Type": "application/json"]
@@ -45,7 +46,7 @@ final class HTTPClient: HTTPClientProvider {
         
         URLSession(configuration: config,
                    delegate:nil,
-                   delegateQueue: OperationQueue.main)
+                   delegateQueue: OperationQueue.current)
             .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if let data = data {
                 

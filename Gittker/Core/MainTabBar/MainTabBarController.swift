@@ -44,7 +44,7 @@ class MainTabBarController: UITabBarController {
                                                                   tag: 1)
 
         
-        let commCoordinator = CommunitiesCoordinator(with: nil)
+        let commCoordinator = SettingsCoordinator(with: nil)
         let commNavigationController = UINavigationController(rootViewController: commCoordinator.currentController!)
         commCoordinator.navigationController = commNavigationController
         commCoordinator.tabController = self

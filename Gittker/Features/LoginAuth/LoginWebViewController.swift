@@ -87,7 +87,9 @@ extension LoginWebViewController: WKNavigationDelegate {
             decisionHandler(.cancel)
             
             viewModel?.processAuthorisation(url: url, completion: { [weak self] (user) in
-                self?.showInitialViewController(with: user)
+                DispatchQueue.main.async {
+                    self?.showInitialViewController(with: user)
+                }
             })
             
         } else {
