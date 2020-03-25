@@ -19,8 +19,7 @@ class SettingsCoordinator: Coordinator {
     init(with navigationController: UINavigationController?) {
         self.navigationController = navigationController
         
-        currentController = SettingsViewController()
-        currentController?.coordinator = self
+        currentController = SettingsViewController(coordinator: self)
     }
     
     func start() {

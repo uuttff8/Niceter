@@ -8,12 +8,23 @@
 
 import AsyncDisplayKit
 
-class SettingsViewController: ASViewController<ASDisplayNode> {
+class SettingsViewController: ASViewController<ASTableNode> {
     
     weak var coordinator: SettingsCoordinator?
     
-    init() {
-        super.init(node: ASDisplayNode())
+    lazy var viewModel: SettingsViewModel = SettingsViewModel(dataSource: self.dataSource)
+    
+    private let dataSource = SettingsDataSource()
+    private var tableNode: ASTableNode {
+        return node
+    }
+
+    init(coordinator: SettingsCoordinator) {
+        super.init(node: ASTableNode(style: .insetGrouped))
+//        node.backgroundColor = .systemBackground
+//        self.tableNode.view.separatorStyle = .none
+        
+        self.tableNode.dataSource = self.dataSource
     }
     
     required init?(coder: NSCoder) {
@@ -22,5 +33,18 @@ class SettingsViewController: ASViewController<ASDisplayNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Settings"
+        
+        self.dataSource.data.addAndNotify(observer: self) { [weak self] in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                self.tableNode.reloadData()
+            }
+        }
+        
+        self.viewModel.fetchDataSource()
     }
+    
 }
+
