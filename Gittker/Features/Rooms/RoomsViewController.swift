@@ -9,11 +9,15 @@
 import AsyncDisplayKit
 
 class RoomsViewController: ASViewController<ASTableNode> {
+    var typedText: ((_ text: String) -> Void)?
+    
     weak var coordinator: RoomsCoordinator? {
         didSet {
             guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
         }
     }
+    
+    var suggestedRoomController: SuggestedRoomsNode?
     
     private let dataSource = RoomsDataSource()
     private var tableDelegate = RoomsTableViewDelegate()
@@ -28,6 +32,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
 
     init() {
         super.init(node: ASTableNode())
+        suggestedRoomController = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController
         
         self.tableNode.delegate = self.tableDelegate
         self.tableNode.dataSource = self.dataSource
@@ -60,6 +65,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
     private func setupSearchBar() {
         navigationItem.searchController = HomeSearchController()
         navigationItem.searchController?.delegate = self
+        navigationItem.searchController?.searchBar.delegate = self
         // we can tap inside view with that
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
     }
@@ -72,5 +78,15 @@ extension RoomsViewController: UISearchControllerDelegate {
     
     func willDismissSearchController(_ searchController: UISearchController) {
         view = tableNode.view
+    }
+}
+
+extension RoomsViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText != "" {
+            view = UIView()
+        } else {
+            view = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController?.view
+        }
     }
 }
