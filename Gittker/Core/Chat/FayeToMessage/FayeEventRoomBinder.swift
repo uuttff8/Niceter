@@ -6,7 +6,7 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
+import Cache
 import MessageKit
 
 extension UIImage {
@@ -32,14 +32,26 @@ extension UIImage {
 
 class FayeEventRoomBinder: NSObject {
     private var client: GitterFayeClient
-    private let cache: CodableCache<Array<RoomRecreateSchema>>
     
+    let diskConfig: DiskConfig
+    let memoryConfig: MemoryConfig
+    let storage: Storage<Array<RoomRecreateSchema>>?
+
     open var roomId: String
     
     init(roomId: String) {
         self.roomId = roomId
         client = GitterFayeClient(endpoints: [.roomsChatMessages(self.roomId)])
-        self.cache = CodableCache<Array<RoomRecreateSchema>>(key: roomId)
+        
+        diskConfig  = DiskConfig(name: "FayeEvents")
+        memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
+        
+        
+        storage = try? Storage<Array<RoomRecreateSchema>>(
+          diskConfig: diskConfig,
+          memoryConfig: memoryConfig,
+          transformer: TransformerFactory.forCodable(ofType: Array<RoomRecreateSchema>.self)
+        )
         
         super.init()
     }
@@ -47,7 +59,7 @@ class FayeEventRoomBinder: NSObject {
     // Load Messages
     func loadMessages(loadedMessages: @escaping ((Array<GittkerMessage>) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            if let cached = self.cache.get() {
+            if let cached = try? self.storage?.object(forKey: self.roomId) {
                 loadedMessages(cached.toGittkerMessages())
             }
 
@@ -57,8 +69,7 @@ class FayeEventRoomBinder: NSObject {
 
                     guard let roomRecr = try? JSONDecoder().decode(Array<RoomRecreateSchema>.self, from: roomRecrData!) else { print("blya"); return }
 
-                    try? self.cache.set(value: roomRecr)
-
+                    try? self.storage?.setObject(roomRecr, forKey: self.roomId)
                     let mess = roomRecr.toGittkerMessages()
                     
                     loadedMessages(mess)
