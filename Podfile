@@ -8,6 +8,7 @@ target 'Gittker' do
   pod "Texture"
   pod 'SocketRocket'
   pod 'MessageKit'
+  pod 'Cache'
 
   target 'GittkerTests' do
     inherit! :search_paths
