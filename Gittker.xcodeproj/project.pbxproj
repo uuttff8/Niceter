@@ -84,6 +84,7 @@
 		4ED5398D242BB37F000874F3 /* SettingsProfileNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5398C242BB37F000874F3 /* SettingsProfileNodeCell.swift */; };
 		4ED53991242BB60E000874F3 /* TableGrouped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED53990242BB60E000874F3 /* TableGrouped.swift */; };
 		4ED53993242BB7A7000874F3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED53992242BB7A7000874F3 /* SettingsViewModel.swift */; };
+		4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5399A242F61C3000874F3 /* SearchQuerySchema.swift */; };
 		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
@@ -209,6 +210,7 @@
 		4ED5398C242BB37F000874F3 /* SettingsProfileNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProfileNodeCell.swift; sourceTree = "<group>"; };
 		4ED53990242BB60E000874F3 /* TableGrouped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableGrouped.swift; sourceTree = "<group>"; };
 		4ED53992242BB7A7000874F3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		4ED5399A242F61C3000874F3 /* SearchQuerySchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuerySchema.swift; sourceTree = "<group>"; };
 		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				4E9D17AE241E49BE0066362D /* RoomRecreate.swift */,
 				4E9D1833242003C60066362D /* RoomEvent.swift */,
 				4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */,
+				4ED5399A242F61C3000874F3 /* SearchQuerySchema.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1028,6 +1031,7 @@
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
 				4E9D17A0241E42A60066362D /* NSDate+Serialize.m in Sources */,
 				4E9D179F241E42A60066362D /* NSDictionary+KeyTranslation.m in Sources */,
+				4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */,
 				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
 				4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,

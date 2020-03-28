@@ -29,7 +29,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
     lazy var viewModel: RoomsViewModel = {
         return RoomsViewModel(dataSource: self.dataSource)
     }()
-
+    
     init() {
         super.init(node: ASTableNode())
         suggestedRoomController = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController
@@ -59,7 +59,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
         }
         
         self.viewModel.fetchRoomsCached()
-        self.viewModel.fetchSuggestemRooms()
+        self.viewModel.fetchSuggestedRooms()
     }
     
     private func setupSearchBar() {
@@ -68,6 +68,23 @@ class RoomsViewController: ASViewController<ASTableNode> {
         navigationItem.searchController?.searchBar.delegate = self
         // we can tap inside view with that
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+    }
+    
+    @objc func reload(_ searchBar: UISearchBar) {
+        if let text = searchBar.text, text != "" {
+            self.viewModel.suggestedRoomsSearchQuery(with: text) { (rooms) in
+                DispatchQueue.main.async {
+                    self.view = SuggestedRoomsCoordinator(with: self.navigationController,
+                                                          room: rooms)
+                        .currentController?
+                        .view
+                }
+            }
+            
+        } else {
+            view = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController?.view
+            
+        }
     }
 }
 
@@ -83,10 +100,7 @@ extension RoomsViewController: UISearchControllerDelegate {
 
 extension RoomsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText != "" {
-            view = UIView()
-        } else {
-            view = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController?.view
-        }
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(reload(_:)), object: searchBar)
+        self.perform(#selector(reload(_:)), with: searchBar, afterDelay: 0.5)
     }
 }

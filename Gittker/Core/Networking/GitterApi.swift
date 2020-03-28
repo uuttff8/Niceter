@@ -23,6 +23,9 @@ private enum GitterApiLinks {
     case firstMessages(String)
     case olderMessages(messageId: String, roomId: String)
     
+    // Search Rooms
+    case searchRooms(_ query: String)
+    
     func encode() -> String {
         switch self {
         case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
@@ -32,6 +35,7 @@ private enum GitterApiLinks {
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
         case .whoMe: return "v1/user/me"
+        case .searchRooms(let query): return "/v1/rooms?q=\(query)"
         }
     }
 }
@@ -105,6 +109,12 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func searchRooms(query: String, completion: @escaping (SearchQuerySchema?) -> Void) {
+        requestData(url: GitterApiLinks.searchRooms(query)) { (data) in
+            completion(data)
+        }
+    }
 }
 
 // MARK: - Messages
@@ -133,6 +143,10 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
+                if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
+                    print(json)
+                }
+
                 let room = try! JSONDecoder().decode(T.self, from: data)
                 completion(room)
             default: break
