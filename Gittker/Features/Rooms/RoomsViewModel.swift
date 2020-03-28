@@ -12,6 +12,7 @@ class RoomsViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
     
     var suggestedRoomsData: Array<RoomSchema>?
+    var suggestedRoomsSearchData: SearchQuerySchema?
     
     init(dataSource : GenericDataSource<RoomSchema>?) {
         self.dataSource = dataSource
@@ -24,10 +25,17 @@ class RoomsViewModel {
         }
     }
     
-    func fetchSuggestemRooms() {
+    func fetchSuggestedRooms() {
         CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
             .fetchData { (rooms) in
                 self.suggestedRoomsData = rooms
+        }
+    }
+    
+    func suggestedRoomsSearchQuery(with text: String, completion: @escaping (([RoomSchema]) -> Void)) {
+        GitterApi.shared.searchRooms(query: text) { (result) in
+//            self.suggestedRoomsData = result?.results ?? []
+            completion(result!.results)
         }
     }
 }
