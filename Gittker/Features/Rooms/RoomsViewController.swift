@@ -16,9 +16,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
             guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
         }
     }
-    
-    var suggestedRoomController: SuggestedRoomsNode?
-    
+        
     private let dataSource = RoomsDataSource()
     private var tableDelegate = RoomsTableViewDelegate()
     
@@ -32,7 +30,6 @@ class RoomsViewController: ASViewController<ASTableNode> {
     
     init() {
         super.init(node: ASTableNode())
-        suggestedRoomController = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController
         
         self.tableNode.delegate = self.tableDelegate
         self.tableNode.dataSource = self.dataSource
@@ -74,27 +71,27 @@ class RoomsViewController: ASViewController<ASTableNode> {
         if let text = searchBar.text, text != "" {
             self.viewModel.suggestedRoomsSearchQuery(with: text) { (rooms) in
                 DispatchQueue.main.async {
-                    self.view = SuggestedRoomsCoordinator(with: self.navigationController,
-                                                          room: rooms)
-                        .currentController?
-                        .view
+                    self.coordinator?.showSuggestedRoom(with: rooms)
                 }
             }
             
         } else {
-            view = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController?.view
-            
+            showSuggestedRooms()
         }
     }
 }
 
 extension RoomsViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
-        view = SuggestedRoomsCoordinator(with: navigationController, room: viewModel.suggestedRoomsData).currentController?.view
+        showSuggestedRooms()
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
         view = tableNode.view
+    }
+    
+    private func showSuggestedRooms() {
+        coordinator?.showSuggestedRoom(with: self.viewModel.suggestedRoomsData)
     }
 }
 

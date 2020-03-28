@@ -36,4 +36,7 @@ class RoomsCoordinator: Coordinator {
         coord.start()
     }
     
+    func showSuggestedRoom(with rooms: Array<RoomSchema>?) {
+        self.currentController?.view = SuggestedRoomsCoordinator(with: navigationController, rooms: rooms).currentController?.view
+    }
 }
