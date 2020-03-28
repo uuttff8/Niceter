@@ -73,8 +73,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
         FayeEventRoomBinder(with: userId)
             .subscribe(
                 onNew: { (roomSchema) in
-                    self.viewModel.dataSource?.data.value.append(roomSchema)
-                    self.tableNode.reloadData()
+                    self.insertRoom(with: roomSchema)
             },
                 onRemove: { (roomId) in
                     self.deleteRoom(by: roomId)
@@ -103,8 +102,22 @@ class RoomsViewController: ASViewController<ASTableNode> {
             room.id == passedId
         }) {
             self.viewModel.dataSource?.data.value.remove(at: index)
-            self.tableNode.reloadData()
+            
+            self.tableNode.performBatch(animated: true, updates: {
+                tableNode.deleteRows(at: [IndexPath(row: index - 1, section: 0)], with: .fade)
+            }, completion: nil)
         }
+    }
+    
+    private func insertRoom(with room: RoomSchema) {
+        self.viewModel.dataSource?.data.value.append(room)
+        self.tableNode.performBatch(animated: true, updates: {
+            if let counted = self.viewModel.dataSource?.data.value.count {
+                tableNode.insertRows(at: [IndexPath(row: counted - 1, section: 0)], with: .fade)
+            } else {
+                tableNode.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+            }
+        }, completion: nil)
     }
 }
 
