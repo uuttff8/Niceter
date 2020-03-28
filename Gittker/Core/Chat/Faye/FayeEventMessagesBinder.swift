@@ -1,5 +1,5 @@
 //
-//  FayeEventRoomBinder.swift
+//  FayeEventMessagesBinder.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/16/20.
@@ -9,41 +9,20 @@
 import Cache
 import MessageKit
 
-extension UIImage {
-    
-    convenience init?(withContentsOfUrl url: URL) throws {
-        let imageData = try Data(contentsOf: url)
-        
-        self.init(data: imageData)
-    }
-}
-
-extension UIImage {
-    func decodedImage() -> UIImage {
-        guard let cgImage = cgImage else { return self }
-        let size = CGSize(width: cgImage.width, height: cgImage.height)
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: cgImage.bytesPerRow, space: colorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
-        context?.draw(cgImage, in: CGRect(origin: .zero, size: size))
-        guard let decodedImage = context?.makeImage() else { return self }
-        return UIImage(cgImage: decodedImage)
-    }
-}
-
-class FayeEventRoomBinder: NSObject {
+public final class FayeEventMessagesBinder {
     private var client: GitterFayeClient
     
     let diskConfig: DiskConfig
     let memoryConfig: MemoryConfig
     let storage: Storage<Array<RoomRecreateSchema>>?
 
-    open var roomId: String
+    public var roomId: String
     
     init(roomId: String) {
         self.roomId = roomId
         client = GitterFayeClient(endpoints: [.roomsChatMessages(self.roomId)])
         
-        diskConfig  = DiskConfig(name: "FayeEvents")
+        diskConfig  = DiskConfig(name: "FayeMessagesEvents")
         memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
         
         
@@ -52,11 +31,10 @@ class FayeEventRoomBinder: NSObject {
           memoryConfig: memoryConfig,
           transformer: TransformerFactory.forCodable(ofType: Array<RoomRecreateSchema>.self)
         )
-        
-        super.init()
     }
     
-    // Load Messages
+    // MARK: - Messages
+    
     func loadMessages(loadedMessages: @escaping ((Array<GittkerMessage>) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             if let cached = try? self.storage?.object(forKey: self.roomId) {
@@ -78,21 +56,6 @@ class FayeEventRoomBinder: NSObject {
         }
     }
     
-    // New Message
-    func onNewMessage(_ onNewMessage: @escaping ((GittkerMessage) -> Void)) {
-        client.messageReceivedHandler = { (dict, _) in
-            guard let data = dict.jsonData else { return }
-            let event = try! JSONDecoder().decode(RoomEventSchema.self, from: data)
-            
-            switch event.operation {
-            case .create:
-                let message = event.model.toGittkerMessage()
-                onNewMessage(message)
-            default: return
-            }
-        }
-    }
-    
     func subscribe(
         onNew: ((GittkerMessage) -> Void)? = nil,
         onDeleted: ((_ id: String) -> Void)? = nil,
@@ -101,7 +64,7 @@ class FayeEventRoomBinder: NSObject {
         
         client.messageReceivedHandler = { (dict, _) in
             guard let data = dict.jsonData else { return }
-            let event = try! JSONDecoder().decode(RoomEventSchema.self, from: data)
+            guard let event = try? JSONDecoder().decode(MessagesEventSchema.self, from: data) else { return }
             
             switch event.operation {
             case .create:

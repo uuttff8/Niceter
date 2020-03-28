@@ -13,25 +13,22 @@ struct UrlSchema: Codable {
     let url: String
 }
 
-#warning("Create mentions and issues schema")
-//struct MentionSchema: Codable {
-//
-//}
-
 struct RoomRecreateSchema: Codable {
     let id: String
-    let v: Int
+    let v: Int?
     let fromUser: UserSchema
-    //    let issues: [String]
-    let urls: [UrlSchema]
+//    let issues: [String]?
+    let urls: [UrlSchema]?
     let text: String
-    //    let mentions: [String]
-    let meta: [String]
-    let sent: String
-    let readBy: Int
-    let unread: Bool
+//    let mentions: Int?
+    let meta: [String]?
+    let sent: String?
+    let readBy: Int?
+    let unread: Bool?
     let html: String
-    
+}
+
+extension RoomRecreateSchema {
     func toMockMessage() -> MockMessage {
         let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName)
         let message = MockMessage(text: self.text, user: user, messageId: self.id, date: Date())
@@ -49,7 +46,6 @@ struct RoomRecreateSchema: Codable {
         
         return GittkerMessage(message: message, avatar: avatar)
     }
-    
 }
 
 

@@ -9,8 +9,6 @@
 import AsyncDisplayKit
 
 class RoomsViewController: ASViewController<ASTableNode> {
-    var typedText: ((_ text: String) -> Void)?
-    
     weak var coordinator: RoomsCoordinator? {
         didSet {
             guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
@@ -57,6 +55,9 @@ class RoomsViewController: ASViewController<ASTableNode> {
         
         self.viewModel.fetchRoomsCached()
         self.viewModel.fetchSuggestedRooms()
+        
+        guard let userId = ShareData().userdata?.id else { return }
+        FayeEventRoomBinder(with: userId).subscribe()
     }
     
     private func setupSearchBar() {

@@ -9,15 +9,15 @@
 import Foundation
 
 enum GitterFayeEndpoints {
-    case userRooms(String)         // /api/v1/user/:userId/rooms
-    case userUnreadItems(String, String) // /api/v1/user/:userId/rooms/:roomId/unreadItems
-    case user(String)              // /api/v1/user/:userId
+    case userRooms(_ userId: String)                            // /api/v1/user/:userId/rooms
+    case userUnreadItems(_ userId: String,_ roomId: String)     // /api/v1/user/:userId/rooms/:roomId/unreadItems
+    case user(_ userId: String)                                 // /api/v1/user/:userId
     
-    case rooms(String)             // /api/v1/rooms/:roomId Room user presence.
-    case roomsChatMessages(_ roomId: String) // /api/v1/rooms/:roomId/chatMessages
-    case roomsUsers(String)        // /api/v1/rooms/:roomId/users
-    case roomsEvents(String)       // /api/v1/rooms/:roomId/events
-    case roomsReadBy(String, String)     // /api/v1/rooms/:roomId/chatMessages/:messageId/readBy
+    case rooms(_ roomId: String)                                // /api/v1/rooms/:roomId Room user presence.
+    case roomsChatMessages(_ roomId: String)                    // /api/v1/rooms/:roomId/chatMessages
+    case roomsUsers(_ roomId: String)                           // /api/v1/rooms/:roomId/users
+    case roomsEvents(_ roomId: String)                          // /api/v1/rooms/:roomId/events
+    case roomsReadBy(_ roomId: String, _ messageId: String)     // /api/v1/rooms/:roomId/chatMessages/:messageId/readBy
     
     func encode() -> String {
         switch self {
