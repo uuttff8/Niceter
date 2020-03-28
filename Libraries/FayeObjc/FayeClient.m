@@ -240,7 +240,7 @@
             NSLog(@"Could not serialize object as JSON data: %@", [writeError localizedDescription]);
         } else {
             NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            [webSocket send:jsonString];
+            [self->webSocket send:jsonString];
         }
     }];
 }
@@ -416,7 +416,7 @@
                 if ([fm.successful boolValue]) {
                   self.fayeClientId = fm.clientId;        
                   if(self.delegate != NULL && [self.delegate respondsToSelector:@selector(connectedToServer)]) {
-                      fayeConnected = YES;
+                      self->fayeConnected = YES;
                       [self.delegate connectedToServer];
                   }
                   [self connect];
@@ -426,14 +426,14 @@
               }    
             } else if ([fm.channel isEqualToString:CONNECT_CHANNEL]) {      
                 if ([fm.successful boolValue]) {
-                    fayeConnected = YES;
+                    self->fayeConnected = YES;
                     [self connect];        
                 } else {
                     NSLog(@"ERROR CONNECTING TO FAYE");
                 }
             } else if ([fm.channel isEqualToString:DISCONNECT_CHANNEL]) {
                 if ([fm.successful boolValue]) {        
-                    fayeConnected = NO;  
+                    self->fayeConnected = NO;  
                     [self closeWebSocketConnection];
                     if(self.delegate != NULL && [self.delegate respondsToSelector:@selector(disconnectedFromServer)]) {
                         [self.delegate disconnectedFromServer];
@@ -442,10 +442,10 @@
                     NSLog(@"ERROR DISCONNECTING TO FAYE");
                 }
             } else if ([fm.channel isEqualToString:SUBSCRIBE_CHANNEL]) {
-                [pendingSubscriptions removeObject:fm.subscription];
+                [self->pendingSubscriptions removeObject:fm.subscription];
                 if ([fm.successful boolValue]) {
                     NSLog(@"SUBSCRIBED TO CHANNEL %@ ON FAYE", fm.subscription);
-                    [openSubscriptions addObject:fm.subscription];
+                    [self->openSubscriptions addObject:fm.subscription];
                     if(self.delegate != NULL && [self.delegate respondsToSelector:@selector(didSubscribeToChannel:)]) {          
                         [self.delegate didSubscribeToChannel:fm.subscription];
                     }
@@ -457,11 +457,11 @@
                 }      
             } else if ([fm.channel isEqualToString:UNSUBSCRIBE_CHANNEL]) {
                   NSLog(@"UNSUBSCRIBED FROM CHANNEL %@ ON FAYE", fm.subscription);
-                  [openSubscriptions removeObject:fm.subscription];
+                [self->openSubscriptions removeObject:fm.subscription];
                   if(self.delegate != NULL && [self.delegate respondsToSelector:@selector(didUnsubscribeFromChannel:)]) {          
                       [self.delegate didUnsubscribeFromChannel:fm.subscription];
                   }
-            } else if ([openSubscriptions containsObject:fm.channel]) {      
+            } else if ([self->openSubscriptions containsObject:fm.channel]) {      
                 if(fm.data) {        
                     if(self.delegate != NULL && [self.delegate respondsToSelector:@selector(messageReceived:channel:)]) {          
                         [self.delegate messageReceived:fm.data channel:fm.channel];
