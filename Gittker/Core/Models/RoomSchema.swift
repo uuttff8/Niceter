@@ -11,7 +11,7 @@ import Foundation
 // https://developer.gitter.im/docs/rooms-resource
 struct RoomSchema: Codable {
     let id: String                       // Room ID.
-    let name: String                     // Room name.
+    let name: String?                    // Room name.
     let topic: String?                   // Room topic. (default: GitHub repo description)
     let avatarUrl: String?
     let uri: String?                     // Room URI on Gitter.
@@ -40,18 +40,9 @@ struct RoomSchema: Codable {
         case OrgChannel = "ORG_CHANNEL" // A one-to-one chat.
         case RepoChannel = "REPO_CHANNEL" // A Gitter channel nested under a GitHub Repository.
         case UserChannel = "USER_CHANNEL" // A Gitter channel nested under a GitHub User.
-        
-        enum Key: String, CodingKey {
-            case Org = "ORG"
-            case Repo = "REPO"
-            case OneToOne = "ONETOONE"
-            case OrgChannel = "ORG_CHANNEL"
-            case RepoChannel = "REPO_CHANNEL"
-            case UserChannel = "USER_CHANNEL"
-        }
     }
     
     func toSuggestedRoomContent() -> SuggestedRoomContent {
-        SuggestedRoomContent(title: self.name, avatarUrl: self.avatarUrl ?? "", roomId: self.id)
+        SuggestedRoomContent(title: self.name ?? "", avatarUrl: self.avatarUrl ?? "", roomId: self.id)
     }
 }

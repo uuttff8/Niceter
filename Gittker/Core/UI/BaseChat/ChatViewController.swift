@@ -35,7 +35,7 @@ class ChatViewController: MessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadFirstMessages()
         super.viewWillAppear(animated)
-        subscribeOnLoadNewMessages()
+        subscribeOnMessagesEvent()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -43,7 +43,7 @@ class ChatViewController: MessagesViewController {
     }
     
     // SHOULD BE IMPLEMENTED
-    func subscribeOnLoadNewMessages() { }
+    func subscribeOnMessagesEvent() { }
     
     func loadFirstMessages() { }
     

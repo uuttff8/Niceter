@@ -40,8 +40,8 @@ final class RoomChatViewController: RoomChatBaseViewController {
         }
     }
     
-    override func subscribeOnLoadNewMessages() {
-        FayeEventRoomBinder(roomId: roomId)
+    override func subscribeOnMessagesEvent() {
+        FayeEventMessagesBinder(roomId: roomId)
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
                     self?.insertMessage(message)

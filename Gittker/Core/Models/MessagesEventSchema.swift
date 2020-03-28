@@ -1,15 +1,14 @@
 //
-//  RoomEvent.swift
+//  MessagesEventSchema.swift
 //  Gittker
 //
 //  Created by uuttff8 on 3/16/20.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
 import MessageKit
 
-struct RoomEventSchema: Codable {
+struct MessagesEventSchema: Codable {
     
     enum Event: String, Codable {
         case create = "create"
@@ -24,7 +23,7 @@ struct RoomEventSchema: Codable {
     }
     
     let operation: Self.Event
-    let model: ModelEventSchema
+    let model: RoomRecreateSchema
     
     func createGittkerMessage() -> GittkerMessage? {
         switch operation {
@@ -32,41 +31,6 @@ struct RoomEventSchema: Codable {
             return model.toGittkerMessage()
         default: return nil
         }
-    }
-}
-
-struct ModelEventSchema: Codable {
-    let id: String
-    
-    let v: Int?
-    let fromUser: UserSchema?
-    let editedAt: String?
-    let issues: [String]?
-    let urls: [String]?
-    let text: String?
-    let mentions: [String]?
-    let meta: [String]?
-    let sent: String?
-    let readBy: Int?
-    let unread: Bool?
-    let html: String?
-    
-    func toGittkerMessage() -> GittkerMessage {
-        GittkerMessage(message: getMockMessage(), avatar: getAvatar())
-    }
-    
-    private func getMockMessage() -> MockMessage {
-        let user = MockUser(senderId: fromUser!.id, displayName: fromUser!.displayName)
-        let message = MockMessage(text: self.text!, user: user, messageId: self.id, date: Date())
-        return message
-    }
-    
-    private func getAvatar() -> Avatar? {
-        guard let avatarUrlString = fromUser?.avatarURLSmall else {
-            return nil
-        }
-        
-        return try? Avatar(image: UIImage(withContentsOfUrl: URL(string: avatarUrlString)!), initials: "?")
     }
 }
 
