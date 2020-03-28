@@ -14,7 +14,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
             guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
         }
     }
-        
+    
     private let dataSource = RoomsDataSource()
     private var tableDelegate = RoomsTableViewDelegate()
     
@@ -56,8 +56,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
         self.viewModel.fetchRoomsCached()
         self.viewModel.fetchSuggestedRooms()
         
-        guard let userId = ShareData().userdata?.id else { return }
-        FayeEventRoomBinder(with: userId).subscribe()
+        subscribeOnEvents()
     }
     
     private func setupSearchBar() {
@@ -66,6 +65,24 @@ class RoomsViewController: ASViewController<ASTableNode> {
         navigationItem.searchController?.searchBar.delegate = self
         // we can tap inside view with that
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+    }
+    
+    private func subscribeOnEvents() {
+        guard let userId = ShareData().userdata?.id else { return }
+        
+        FayeEventRoomBinder(with: userId)
+            .subscribe(
+                onNew: { (roomSchema) in
+                    self.viewModel.dataSource?.data.value.append(roomSchema)
+                    self.tableNode.reloadData()
+            },
+                onRemove: { (roomId) in
+                    self.deleteRoom(by: roomId)
+            },
+                onPatch: { (roomSchema) in
+                    
+            }
+        )
     }
     
     @objc func reload(_ searchBar: UISearchBar) {
@@ -78,6 +95,15 @@ class RoomsViewController: ASViewController<ASTableNode> {
             
         } else {
             showSuggestedRooms()
+        }
+    }
+    
+    private func deleteRoom(by passedId: String) {
+        if let index = self.viewModel.dataSource?.data.value.firstIndex(where: { (room) in
+            room.id == passedId
+        }) {
+            self.viewModel.dataSource?.data.value.remove(at: index)
+            self.tableNode.reloadData()
         }
     }
 }

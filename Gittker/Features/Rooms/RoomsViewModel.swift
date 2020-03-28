@@ -12,7 +12,6 @@ class RoomsViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
     
     var suggestedRoomsData: Array<RoomSchema>?
-    var suggestedRoomsSearchData: SearchQuerySchema?
     
     init(dataSource : GenericDataSource<RoomSchema>?) {
         self.dataSource = dataSource
