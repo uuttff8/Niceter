@@ -10,7 +10,7 @@ import UIKit
 
 class RoomsCoordinator: Coordinator {
 
-    weak var navigationController: UINavigationController?
+    var navigationController: UINavigationController?
     var childCoordinators = [Coordinator]()
     
     weak var tabController: MainTabBarController?
@@ -22,8 +22,7 @@ class RoomsCoordinator: Coordinator {
         self.navigationController = navigationController
         self.userdata = user
         
-        currentController = RoomsViewController()
-        currentController?.coordinator = self
+        currentController = RoomsViewController(coordinator: self)
         childCoordinators.append(self)
     }
     

@@ -655,8 +655,8 @@
 		4E9D17B0241E7FDA0066362D /* RoomChat */ = {
 			isa = PBXGroup;
 			children = (
-				4E9D17B8241E8FAD0066362D /* RoomChatViewController.swift */,
 				4E9D17BA241E8FB80066362D /* RoomChatViewModel.swift */,
+				4E9D17B8241E8FAD0066362D /* RoomChatViewController.swift */,
 				4E9D17BC241E8FC00066362D /* RoomChatCoordinator.swift */,
 			);
 			path = RoomChat;

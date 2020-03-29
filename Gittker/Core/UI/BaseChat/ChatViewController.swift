@@ -49,6 +49,8 @@ class ChatViewController: MessagesViewController {
     
     func loadOlderMessages() {  }
     
+    func sendMessage(inputBar: MessageInputBar, text: String) { }
+    
     // MARK: - Helpers
     
     func insertMessage(_ message: GittkerMessage) {
@@ -345,11 +347,13 @@ extension ChatViewController: MessageInputBarDelegate {
             sleep(1)
             DispatchQueue.main.async { [weak self] in
                 self?.messageInputBar.sendButton.stopAnimating()
-                self?.messageInputBar.inputTextView.placeholder = "Aa"
+                self?.messageInputBar.inputTextView.placeholder = "Message"
                 self?.insertMessages(components)
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
         }
+        
+        self.sendMessage(inputBar: inputBar, text: text)
     }
     
     private func insertMessages(_ data: [Any]) {
