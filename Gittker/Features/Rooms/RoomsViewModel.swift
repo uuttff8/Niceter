@@ -20,6 +20,13 @@ class RoomsViewModel {
     func fetchRoomsCached() {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
             .fetchData { (rooms) in
+                // sort by unreadItems
+                let rooms = rooms.sorted { (a, b) -> Bool in
+                    if let a = a.unreadItems, let b = b.unreadItems {
+                        return a > b
+                    }
+                    return false
+                }
                 self.dataSource?.data.value = rooms
         }
     }
@@ -46,7 +53,10 @@ class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
-            let cell = RoomTableNode(with: RoomContent(avatarUrl: room.avatarUrl ?? "", title: room.name ?? "", subtitle: room.topic ?? ""))
+            let cell = RoomTableNode(with: RoomContent(avatarUrl: room.avatarUrl ?? "",
+                                                       title: room.name ?? "",
+                                                       subtitle: room.topic ?? "",
+                                                       unreadItems: room.unreadItems ?? 0))
             
             return cell
         }
