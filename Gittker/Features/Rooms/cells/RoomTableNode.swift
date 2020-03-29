@@ -28,6 +28,8 @@ class RoomTableNode: ASCellNode {
     private let imageNode = ASNetworkImageNode()
     private let titleNode = ASTextNode()
     private let subtitleNode = ASTextNode()
+    private let unreadNodeText = ASTextNode()
+    private let unreadNode = ASDisplayNode()
     private let separatorNode = ASDisplayNode()
     
     // MARK: - Object life cycle
@@ -46,12 +48,14 @@ class RoomTableNode: ASCellNode {
         setupImageNode()
         setupTitleNode()
         setupSubtitleNode()
+        setupUnread()
     }
     
     private func setupImageNode() {
         self.imageNode.url = URL(string: room.avatarUrl)
         self.imageNode.style.preferredSize = self.imageSize
         
+        self.imageNode.cornerRoundingType = .precomposited
         self.imageNode.cornerRadius = self.imageSize.width / 2
         self.imageNode.clipsToBounds = true
     }
@@ -72,6 +76,14 @@ class RoomTableNode: ASCellNode {
         self.subtitleNode.truncationMode = .byTruncatingTail
     }
     
+    private func setupUnread() {
+        if room.unreadItems > 0 {
+            self.unreadNodeText.attributedText = NSAttributedString(string: String(self.room.unreadItems), attributes: [.foregroundColor: UIColor.label])
+            self.unreadNode.cornerRadius = 10
+            self.unreadNode.backgroundColor = UIColor.tertiarySystemFill
+        }
+    }
+    
     private var subtitleTextAttributes = {
         return [NSAttributedString.Key.foregroundColor: UIColor.systemGray, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
     }
@@ -79,10 +91,9 @@ class RoomTableNode: ASCellNode {
     // MARK: - Build node hierarchy
     
     private func buildNodeHierarchy() {
-        self.addSubnode(imageNode)
-        self.addSubnode(titleNode)
-        self.addSubnode(subtitleNode)
-        self.addSubnode(separatorNode)
+        [imageNode, titleNode, subtitleNode, unreadNode, unreadNodeText, separatorNode].forEach { (node) in
+            self.addSubnode(node)
+        }
     }
     
     // MARK: - Layout
@@ -95,8 +106,11 @@ class RoomTableNode: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
+        let spacer = ASLayoutSpec()
+        spacer.style.flexGrow = 1
         
+        self.unreadNode.style.preferredSize = CGSize(width: 40, height: 30)
+        self.titleNode.style.flexShrink = 1
         let titleSubtitleSpec = ASStackLayoutSpec(direction: .vertical,
                                                   spacing: 2.0,
                                                   justifyContent: .start,
@@ -105,12 +119,17 @@ class RoomTableNode: ASCellNode {
         
         titleSubtitleSpec.style.flexShrink = 1
         
+        let unreadInsetSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: self.unreadNodeText)
+        let unreadOverlaySpec = ASOverlayLayoutSpec(child: self.unreadNode, overlay: unreadInsetSpec)
+        let unreadStack = ASStackLayoutSpec(direction: .vertical, spacing: 5, justifyContent: .center, alignItems: .center, children: [unreadOverlaySpec])
+        
+        
         let finalSpec = ASStackLayoutSpec(direction: .horizontal,
                                           spacing: 10.0,
                                           justifyContent: .start,
                                           alignItems: .stretch,
-                                          children: [self.imageNode, titleSubtitleSpec])
+                                          children: [self.imageNode, titleSubtitleSpec, spacer, unreadStack])
         
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0), child: finalSpec)
+        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 16.0), child: finalSpec)
     }
 }
