@@ -9,16 +9,16 @@
 import Foundation
 
 // https://developer.gitter.im/docs/rooms-resource
-struct RoomSchema: Codable {
+struct RoomSchema: Codable, Equatable {
     let id: String                       // Room ID.
     let name: String?                    // Room name.
-    let topic: String?                   // Room topic. (default: GitHub repo description)
+    var topic: String?                   // Room topic. (default: GitHub repo description)
     let avatarUrl: String?
     let uri: String?                     // Room URI on Gitter.
     let oneToOne: Bool?                  // Indicates if the room is a one-to-one chat.
     let users: [UserSchema]?             // List of users in the room.
     let userCount: Int?                  // Count of users in the room.
-    let unreadItems: Int?                // Number of unread messages for the current user.
+    var unreadItems: Int?                // Number of unread messages for the current user.
     let mentions: Int?                   // Number of unread mentions for the current user.
     let lastAccessTime: String?          // Last time the current user accessed the room in ISO format.
     let favourite: Int?                  // Indicates if the room is on of your favourites.

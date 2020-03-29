@@ -24,7 +24,7 @@ struct ExchangeTokenSchema: Codable {
     }
 }
 
-struct UserSchema: Codable {
+struct UserSchema: Codable, Hashable, Equatable {
     let id, username: String
     let displayName, url: String
     let avatarURL: String?
