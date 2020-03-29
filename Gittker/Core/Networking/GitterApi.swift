@@ -22,6 +22,7 @@ private enum GitterApiLinks {
     // Messages
     case firstMessages(String)
     case olderMessages(messageId: String, roomId: String)
+    case sendMessage(roomId: String)
     
     // Search Rooms
     case searchRooms(_ query: String)
@@ -31,6 +32,9 @@ private enum GitterApiLinks {
         case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
         case .olderMessages(messageId: let messageId, roomId: let roomId):
             return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&beforeId=\(messageId)"
+        case .sendMessage(roomId: let roomId):
+            return "v1/rooms/\(roomId)/chatMessages"
+            
         case .exchangeToken: return "login/oauth/token"
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
@@ -130,6 +134,17 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func sendGitterMessage(roomId: String, text: String, status: Bool = false, completion: @escaping ((RoomRecreateSchema?) -> Void)) {
+        let bodyObject: [String : Any] = [
+            "status": "\(status)",
+            "text": "\(text)"
+        ]
+        
+        postData(url: GitterApiLinks.sendMessage(roomId: roomId), body: bodyObject) { (data) in
+            completion(data)
+        }
+    }
 }
 
 
@@ -143,12 +158,23 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
-                    print(json)
-                }
-
                 let room = try! JSONDecoder().decode(T.self, from: data)
                 completion(room)
+            default: break
+            }
+        }
+    }
+    
+    private func postData<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> ()) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + url.encode())!
+        print(String(describing: url))
+        
+        self.httpClient.postAuth(url: url, bodyObject: body)
+        { (res) in
+            switch res {
+            case .success(let data):
+                let type = try! JSONDecoder().decode(T.self, from: data)
+                completion(type)
             default: break
             }
         }

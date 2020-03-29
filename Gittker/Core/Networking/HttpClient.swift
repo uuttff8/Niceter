@@ -72,4 +72,32 @@ final class HTTPClient: HTTPClientProvider {
             }
         }.resume()
     }
+    
+    func postAuth(url: URL, bodyObject: [String : Any],  completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
+        guard let accessToken = LoginData.shared.accessToken else {
+            print("Access Token is not provided")
+            return
+        }
+        guard let jsonBody = try? JSONSerialization.data(withJSONObject: bodyObject, options: []) else { return }
+        
+        let config = URLSessionConfiguration.ephemeral
+        config.waitsForConnectivity = true
+        config.httpAdditionalHeaders = [ "Authorization": "Bearer \(accessToken)",
+                                         "Accept": "application/json",
+                                         "Content-Type": "application/json"]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = jsonBody
+        
+        URLSession(configuration: config,
+                   delegate:nil,
+                   delegateQueue: OperationQueue.current)
+            .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if let data = data {
+                
+                completion(.success(data))
+            }
+        }.resume()
+    }
 }
