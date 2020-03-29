@@ -87,6 +87,7 @@
 		4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5399A242F61C3000874F3 /* SearchQuerySchema.swift */; };
 		4ED5399F242FB0D1000874F3 /* FayeEventRoomBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5399E242FB0D1000874F3 /* FayeEventRoomBinder.swift */; };
 		4ED539A1242FB613000874F3 /* RoomEventSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED539A0242FB613000874F3 /* RoomEventSchema.swift */; };
+		4ED539A32431332C000874F3 /* SuccessSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED539A22431332C000874F3 /* SuccessSchema.swift */; };
 		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
@@ -215,6 +216,7 @@
 		4ED5399A242F61C3000874F3 /* SearchQuerySchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuerySchema.swift; sourceTree = "<group>"; };
 		4ED5399E242FB0D1000874F3 /* FayeEventRoomBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FayeEventRoomBinder.swift; sourceTree = "<group>"; };
 		4ED539A0242FB613000874F3 /* RoomEventSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEventSchema.swift; sourceTree = "<group>"; };
+		4ED539A22431332C000874F3 /* SuccessSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessSchema.swift; sourceTree = "<group>"; };
 		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */,
 				4ED5399A242F61C3000874F3 /* SearchQuerySchema.swift */,
 				4ED539A0242FB613000874F3 /* RoomEventSchema.swift */,
+				4ED539A22431332C000874F3 /* SuccessSchema.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1029,6 +1032,7 @@
 				4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
 				4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */,
+				4ED539A32431332C000874F3 /* SuccessSchema.swift in Sources */,
 				4ED53993242BB7A7000874F3 /* SettingsViewModel.swift in Sources */,
 				4E09AC5C240EE6660028229C /* RoomsViewController.swift in Sources */,
 				4E9D17BD241E8FC00066362D /* RoomChatCoordinator.swift in Sources */,

@@ -78,4 +78,10 @@ final class RoomChatViewController: RoomChatBaseViewController {
             }
         }
     }
+    
+    // Mark all messages as read
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewModel.markMessagesAsRead(userId: userdata!.senderId, completion: nil)
+    }
 }
