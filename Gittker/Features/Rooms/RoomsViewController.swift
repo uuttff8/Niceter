@@ -9,11 +9,7 @@
 import AsyncDisplayKit
 
 class RoomsViewController: ASViewController<ASTableNode> {
-    weak var coordinator: RoomsCoordinator? {
-        didSet {
-            guard let _ = self.coordinator else { print("HomeCoordinator is not loaded"); return }
-        }
-    }
+    weak var coordinator: RoomsCoordinator?
     
     private let dataSource = RoomsDataSource()
     private var tableDelegate = RoomsTableViewDelegate()
@@ -26,7 +22,8 @@ class RoomsViewController: ASViewController<ASTableNode> {
         return RoomsViewModel(dataSource: self.dataSource)
     }()
     
-    init() {
+    init(coordinator: RoomsCoordinator) {
+        self.coordinator = coordinator
         super.init(node: ASTableNode())
         
         self.tableNode.delegate = self.tableDelegate
@@ -60,7 +57,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
     }
     
     private func setupSearchBar() {
-        navigationItem.searchController = HomeSearchController()
+        navigationItem.searchController = UISearchController()
         navigationItem.searchController?.delegate = self
         navigationItem.searchController?.searchBar.delegate = self
         // we can tap inside view with that
@@ -87,8 +84,8 @@ class RoomsViewController: ASViewController<ASTableNode> {
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
             self.viewModel.suggestedRoomsSearchQuery(with: text) { (rooms) in
-                DispatchQueue.main.async {
-                    self.coordinator?.showSuggestedRoom(with: rooms)
+                DispatchQueue.main.async { [weak self] in
+                    self?.coordinator?.showSuggestedRoom(with: rooms)
                 }
             }
             
@@ -111,11 +108,11 @@ class RoomsViewController: ASViewController<ASTableNode> {
     
     private func insertRoom(with room: RoomSchema) {
         self.viewModel.dataSource?.data.value.append(room)
-        self.tableNode.performBatch(animated: true, updates: {
-            if let counted = self.viewModel.dataSource?.data.value.count {
-                tableNode.insertRows(at: [IndexPath(row: counted - 1, section: 0)], with: .fade)
+        self.tableNode.performBatch(animated: true, updates: { [weak self] in
+            if let counted = self?.viewModel.dataSource?.data.value.count {
+                self?.tableNode.insertRows(at: [IndexPath(row: counted - 1, section: 0)], with: .fade)
             } else {
-                tableNode.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+                self?.tableNode.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
             }
         }, completion: nil)
     }

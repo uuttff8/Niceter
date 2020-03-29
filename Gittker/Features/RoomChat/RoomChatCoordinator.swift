@@ -21,9 +21,7 @@ class RoomChatCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = RoomChatViewController(roomId: roomId)
-        vc.coordinator = self
-        childCoordinators.append(self)
+        let vc = RoomChatViewController(coordinator: self, roomId: roomId)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

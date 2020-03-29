@@ -22,15 +22,15 @@ class AppCoordinator: Coordinator {
     func start() {
         if let userdata = LoginData.shared.getCurrentUser() {
             let tabBar = MainTabBarCoordinator(navigationController: nil, with: userdata)
-            childCoordinators.append(tabBar)
             window.rootViewController = tabBar.currentController
+            childCoordinators.append(tabBar)
             tabBar.start()
         } else {
             let root = UINavigationController()
+            window.rootViewController = root
             root.setNavigationBarHidden(true, animated: false)
             let child = LoginAuthCoordinator(navigationController: root)
             childCoordinators.append(child)
-            window.rootViewController = root
             child.start()
         }
     }

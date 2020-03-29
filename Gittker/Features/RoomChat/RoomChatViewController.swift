@@ -17,11 +17,12 @@ extension UIColor {
 final class RoomChatViewController: RoomChatBaseViewController {
     weak var coordinator: RoomChatCoordinator?
     
-    var viewModel = RoomChatViewModel()
+    lazy var viewModel = RoomChatViewModel()
     
     private var roomId: String
     
-    init(roomId: String) {
+    init(coordinator: RoomChatCoordinator, roomId: String) {
+        self.coordinator = coordinator
         self.roomId = roomId
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,10 +33,10 @@ final class RoomChatViewController: RoomChatBaseViewController {
         
     override func loadFirstMessages() {
         viewModel.loadFirstMessages(roomId: roomId) { (gittMessages) in
-            DispatchQueue.main.async {
-                self.messageList = gittMessages
-                self.messagesCollectionView.reloadData()
-                self.messagesCollectionView.scrollToBottom()
+            DispatchQueue.main.async { [weak self] in
+                self?.messageList = gittMessages
+                self?.messagesCollectionView.reloadData()
+                self?.messagesCollectionView.scrollToBottom()
             }
         }
     }
@@ -58,10 +59,14 @@ final class RoomChatViewController: RoomChatBaseViewController {
         viewModel.loadOlderMessages(messageId: messageList[0].message.messageId,
                                     roomId: roomId)
         { (gittMessages) in
-            DispatchQueue.main.async {
-                self.messageList.insert(contentsOf: gittMessages, at: 0)
-                self.messagesCollectionView.reloadDataAndKeepOffset()
+            DispatchQueue.main.async { [weak self] in
+                self?.messageList.insert(contentsOf: gittMessages, at: 0)
+                self?.messagesCollectionView.reloadDataAndKeepOffset()
             }
         }
+    }
+    
+    override func sendMessage(inputBar: MessageInputBar, text: String) {
+        
     }
 }
