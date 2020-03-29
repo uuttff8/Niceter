@@ -6,17 +6,17 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class SettingsCoordinator: Coordinator {
 
     weak var tabController: MainTabBarController?
     var currentController: SettingsViewController?
     
-    var navigationController: UINavigationController?
+    var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
 
-    init(with navigationController: UINavigationController?) {
+    init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
         
         currentController = SettingsViewController(coordinator: self)

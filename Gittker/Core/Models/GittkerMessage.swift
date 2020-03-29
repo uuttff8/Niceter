@@ -11,5 +11,5 @@ import MessageKit
 
 struct GittkerMessage {
     var message: MockMessage
-    let avatar: Avatar?
+    let avatarUrl: String?
 }

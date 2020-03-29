@@ -6,11 +6,11 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class SuggestedRoomsCoordinator: Coordinator {
 
-    weak var navigationController: UINavigationController?
+    weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     weak var tabController: MainTabBarController?
@@ -18,7 +18,7 @@ class SuggestedRoomsCoordinator: Coordinator {
     
     var rooms: Array<RoomSchema>?
     
-    init(with navigationController: UINavigationController?, rooms: Array<RoomSchema>?) {
+    init(with navigationController: ASNavigationController?, rooms: Array<RoomSchema>?) {
         self.navigationController = navigationController
         self.rooms = rooms
         

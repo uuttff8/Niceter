@@ -135,7 +135,7 @@ extension GitterApi {
         }
     }
     
-    func sendGitterMessage(roomId: String, text: String, status: Bool = false, completion: @escaping ((RoomRecreateSchema?) -> Void)) {
+    func sendGitterMessage(roomId: String, text: String, status: Bool = false, completion: @escaping ((Result<RoomRecreateSchema, MessageFailedError>?) -> Void)) {
         let bodyObject: [String : Any] = [
             "status": "\(status)",
             "text": "\(text)"
@@ -147,6 +147,10 @@ extension GitterApi {
     }
 }
 
+
+enum MessageFailedError: Error {
+    case sendFailed
+}
 
 // MARK: - Private -
 extension GitterApi {
@@ -165,7 +169,7 @@ extension GitterApi {
         }
     }
     
-    private func postData<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> ()) {
+    private func postData<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (Result<T, MessageFailedError>) -> ()) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + url.encode())!
         print(String(describing: url))
         
@@ -173,9 +177,10 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                let type = try! JSONDecoder().decode(T.self, from: data)
-                completion(type)
-            default: break
+                guard let type = try? JSONDecoder().decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
+                completion(.success(type))
+            case .failure(.fail):
+                completion(.failure(.sendFailed))
             }
         }
     }

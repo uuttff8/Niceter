@@ -6,16 +6,16 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 final class MainTabBarCoordinator: Coordinator {
-    var navigationController: UINavigationController?
+    var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
 
     var currentController: MainTabBarController?
     var userdata: UserSchema
 
-    init(navigationController: UINavigationController?, with user: UserSchema) {
+    init(navigationController: ASNavigationController?, with user: UserSchema) {
         self.navigationController = navigationController
         self.userdata = user
         

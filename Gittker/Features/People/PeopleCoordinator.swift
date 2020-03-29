@@ -6,17 +6,17 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class PeopleCoordinator: Coordinator {
 
     weak var tabController: MainTabBarController?
     var currentController: PeopleViewController?
     
-    var navigationController: UINavigationController?
+    var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
 
-    init(with navigationController: UINavigationController?) {
+    init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
         
         currentController = PeopleViewController.instantiate(from: AppStoryboards.People)

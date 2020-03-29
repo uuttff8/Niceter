@@ -6,15 +6,15 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class LoginAuthCoordinator: Coordinator {
 
     var childCoordinators = [Coordinator]()
-    var navigationController: UINavigationController?
+    var navigationController: ASNavigationController?
     var currentController: LoginAuthViewController
         
-    init(navigationController: UINavigationController?) {
+    init(navigationController: ASNavigationController?) {
         self.navigationController = navigationController
         
         currentController = LoginAuthViewController.instantiate(from: AppStoryboards.LoginAuth)

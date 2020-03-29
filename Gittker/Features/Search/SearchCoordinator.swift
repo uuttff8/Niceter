@@ -6,17 +6,17 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class SearchCoordinator: Coordinator {
 
     weak var tabController: MainTabBarController?
     var currentController: SearchViewController?
     
-    var navigationController: UINavigationController?
+    var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
 
-    init(with navigationController: UINavigationController?) {
+    init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
         
         currentController = SearchViewController.instantiate(from: AppStoryboards.Search)
