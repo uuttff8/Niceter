@@ -69,8 +69,13 @@ final class RoomChatViewController: RoomChatBaseViewController {
     }
     
     override func sendMessage(inputBar: MessageInputBar, text: String) {
-        viewModel.sendMessage(text: text) { (roomRecr) in
-            #warning("TODO: indicates errors and if is delivered")
+        viewModel.sendMessage(text: text) { (result) in
+            switch result {
+            case .success(_):
+                print("All is ok")
+            case .failure(_):
+                print("All is bad")
+            }
         }
     }
 }

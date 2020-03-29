@@ -6,11 +6,11 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class RoomsCoordinator: Coordinator {
 
-    var navigationController: UINavigationController?
+    var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     weak var tabController: MainTabBarController?
@@ -18,7 +18,7 @@ class RoomsCoordinator: Coordinator {
     
     var userdata: UserSchema
     
-    init(with navigationController: UINavigationController?, user: UserSchema) {
+    init(with navigationController: ASNavigationController?, user: UserSchema) {
         self.navigationController = navigationController
         self.userdata = user
         

@@ -6,12 +6,12 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class AppCoordinator: Coordinator {
     private(set) var window: UIWindow
 
-    var navigationController: UINavigationController?
+    var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     init() {
@@ -26,7 +26,7 @@ class AppCoordinator: Coordinator {
             childCoordinators.append(tabBar)
             tabBar.start()
         } else {
-            let root = UINavigationController()
+            let root = ASNavigationController()
             window.rootViewController = root
             root.setNavigationBarHidden(true, animated: false)
             let child = LoginAuthCoordinator(navigationController: root)

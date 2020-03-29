@@ -6,9 +6,9 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: ASTabBarController {
     
     weak var coordinator: MainTabBarCoordinator?
     var userdata: UserSchema
@@ -27,7 +27,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         let homeCoordinator = RoomsCoordinator(with: nil, user: userdata)
-        let homeNavigationController = UINavigationController(rootViewController: homeCoordinator.currentController!)
+        let homeNavigationController = ASNavigationController(rootViewController: homeCoordinator.currentController!)
         homeCoordinator.navigationController = homeNavigationController
         homeCoordinator.tabController = self
         homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms",
@@ -36,7 +36,7 @@ class MainTabBarController: UITabBarController {
 
         
         let peopleCoordinator = PeopleCoordinator(with: nil)
-        let peopleNavigationController = UINavigationController(rootViewController: peopleCoordinator.currentController!)
+        let peopleNavigationController = ASNavigationController(rootViewController: peopleCoordinator.currentController!)
         peopleCoordinator.navigationController = peopleNavigationController
         peopleCoordinator.tabController = self
         peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People",
@@ -45,7 +45,7 @@ class MainTabBarController: UITabBarController {
 
         
         let commCoordinator = SettingsCoordinator(with: nil)
-        let commNavigationController = UINavigationController(rootViewController: commCoordinator.currentController!)
+        let commNavigationController = ASNavigationController(rootViewController: commCoordinator.currentController!)
         commCoordinator.navigationController = commNavigationController
         commCoordinator.tabController = self
         commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Settings",

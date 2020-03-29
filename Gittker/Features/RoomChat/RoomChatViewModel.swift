@@ -35,12 +35,10 @@ class RoomChatViewModel {
         }
     }
     
-    func sendMessage(text: String, completion: @escaping ((RoomRecreateSchema) -> Void)) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            GitterApi.shared.sendGitterMessage(roomId: self.roomId, text: text) { (roomRecr) in
-                guard let room = roomRecr else { return }
-                completion(room)
-            }
+    func sendMessage(text: String, completion: @escaping ((Result<RoomRecreateSchema, MessageFailedError>) -> Void)) {
+        GitterApi.shared.sendGitterMessage(roomId: self.roomId, text: text) { (res) in
+            guard let result = res else { return }
+            completion(result)
         }
     }
 }

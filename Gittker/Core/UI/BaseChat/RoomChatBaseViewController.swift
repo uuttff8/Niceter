@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageKit
+import Nuke
 
 class RoomChatBaseViewController: ChatViewController {
     override func configureMessageCollectionView() {
@@ -134,9 +135,17 @@ extension RoomChatBaseViewController: MessagesDisplayDelegate {
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        let avatar = messageList[indexPath.section].avatar ?? Avatar()
-        avatarView.set(avatar: avatar)
-        avatarView.isHidden = isNextMessageSameSender(at: indexPath)
+//        let avatar = messageList[indexPath.section].avatar ?? Avatar()
+//        avatarView.set(avatar: avatar)
+//        avatarView.isHidden = isNextMessageSameSender(at: indexPath)
+        let mess = messageList[indexPath.section]
+        let options = ImageLoadingOptions(
+            placeholder: UIImage(named: "placeholder"),
+            transition: .fadeIn(duration: 0.33)
+        )
+        
+        // Safety: Gitter backend always returns avatar from github which is always available
+        Nuke.loadImage(with: URL(string: mess.avatarUrl!)!, options: options, into: avatarView)
     }
     
     func configureAccessoryView(_ accessoryView: UIView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {

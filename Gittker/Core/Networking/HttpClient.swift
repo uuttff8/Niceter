@@ -39,8 +39,8 @@ final class HTTPClient: HTTPClientProvider {
         let config = URLSessionConfiguration.ephemeral
         config.waitsForConnectivity = true
         config.httpAdditionalHeaders = [ "Authorization": "Bearer \(accessToken)",
-                                         "Accept": "application/json",
-                                         "Content-Type": "application/json"]
+            "Accept": "application/json",
+            "Content-Type": "application/json"]
         
         let request = URLRequest(url: url)
         
@@ -48,10 +48,10 @@ final class HTTPClient: HTTPClientProvider {
                    delegate:nil,
                    delegateQueue: OperationQueue.current)
             .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if let data = data {
-                
-                completion(.success(data))
-            }
+                if let data = data {
+                    
+                    completion(.success(data))
+                }
         }.resume()
     }
     
@@ -91,13 +91,19 @@ final class HTTPClient: HTTPClientProvider {
         request.httpBody = jsonBody
         
         URLSession(configuration: config,
-                   delegate:nil,
+                   delegate: INetworkDelegate(),
                    delegateQueue: OperationQueue.current)
             .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if let data = data {
-                
-                completion(.success(data))
-            }
+                if let data = data {
+                    completion(.success(data))
+                }
         }.resume()
+    }
+}
+
+
+private class INetworkDelegate: NSObject, URLSessionTaskDelegate {
+    func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
+        print("waiting")
     }
 }

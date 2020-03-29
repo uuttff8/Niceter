@@ -361,10 +361,10 @@ extension ChatViewController: MessageInputBarDelegate {
             let user = userdata!
             if let str = component as? String {
                 let message = MockMessage(text: str, user: user, messageId: UUID().uuidString, date: Date())
-                insertMessage(GittkerMessage(message: message, avatar: nil))
+                insertMessage(GittkerMessage(message: message, avatarUrl: nil))
             } else if let img = component as? UIImage {
                 let message = MockMessage(image: img, user: user, messageId: UUID().uuidString, date: Date())
-                insertMessage(GittkerMessage(message: message, avatar: nil))
+                insertMessage(GittkerMessage(message: message, avatarUrl: nil))
             }
         }
     }

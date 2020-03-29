@@ -6,16 +6,16 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import UIKit
+import AsyncDisplayKit
 
 class RoomChatCoordinator: Coordinator {
 
-    weak var navigationController: UINavigationController?
+    weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     var roomId: String
     
-    init(with navigationController: UINavigationController?, roomId: String) {
+    init(with navigationController: ASNavigationController?, roomId: String) {
         self.navigationController = navigationController
         self.roomId = roomId
     }

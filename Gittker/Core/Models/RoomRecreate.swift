@@ -35,16 +35,12 @@ extension RoomRecreateSchema {
         return message
     }
     
-    func getAvatar() -> Avatar? {
-        return try? Avatar(image: UIImage(withContentsOfUrl: URL(string: fromUser.avatarURL!)!), initials: "?")
-    }
-    
     func toGittkerMessage() -> GittkerMessage {
         let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName)
         let message = MockMessage(text: self.text, user: user, messageId: self.id, date: Date())
-        let avatar = try? Avatar(image: UIImage(withContentsOfUrl: URL(string: fromUser.avatarURL!)!), initials: "?")
+                
         
-        return GittkerMessage(message: message, avatar: avatar)
+        return GittkerMessage(message: message, avatarUrl: self.fromUser.avatarURLMedium)
     }
 }
 
