@@ -17,7 +17,7 @@ extension UIColor {
 final class RoomChatViewController: RoomChatBaseViewController {
     weak var coordinator: RoomChatCoordinator?
     
-    lazy var viewModel = RoomChatViewModel()
+    lazy var viewModel = RoomChatViewModel(roomId: roomId)
     
     private var roomId: String
     
@@ -32,7 +32,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     }
         
     override func loadFirstMessages() {
-        viewModel.loadFirstMessages(roomId: roomId) { (gittMessages) in
+        viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
                 self?.messageList = gittMessages
                 self?.messagesCollectionView.reloadData()
@@ -45,6 +45,10 @@ final class RoomChatViewController: RoomChatBaseViewController {
         FayeEventMessagesBinder(roomId: roomId)
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
+                    if message.message.sender.senderId == self?.userdata?.senderId {
+                        return
+                    }
+                    
                     self?.insertMessage(message)
                 }, onDeleted: { [weak self] (id) in
                     self?.deleteMessage(by: id)
@@ -55,9 +59,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     }
     
     override func loadOlderMessages() {
-        
-        viewModel.loadOlderMessages(messageId: messageList[0].message.messageId,
-                                    roomId: roomId)
+        viewModel.loadOlderMessages(messageId: messageList[0].message.messageId)
         { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
                 self?.messageList.insert(contentsOf: gittMessages, at: 0)
@@ -67,6 +69,8 @@ final class RoomChatViewController: RoomChatBaseViewController {
     }
     
     override func sendMessage(inputBar: MessageInputBar, text: String) {
-        
+        viewModel.sendMessage(text: text) { (roomRecr) in
+            #warning("TODO: indicates errors and if is delivered")
+        }
     }
 }

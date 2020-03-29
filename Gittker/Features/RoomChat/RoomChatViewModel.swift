@@ -10,9 +10,15 @@ import Foundation
 
 class RoomChatViewModel {
     
-    func loadFirstMessages(roomId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
+    private let roomId: String
+    
+    init(roomId: String) {
+        self.roomId = roomId
+    }
+    
+    func loadFirstMessages(completion: @escaping ((Array<GittkerMessage>) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            CachedRoomMessagesLoader(cacheKey: roomId)
+            CachedRoomMessagesLoader(cacheKey: self.roomId)
                 .fetchData { (roomRecrList) in
                     let messages = roomRecrList.toGittkerMessages()
                     completion(messages)
@@ -20,11 +26,20 @@ class RoomChatViewModel {
         }
     }
     
-    func loadOlderMessages(messageId: String, roomId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
+    func loadOlderMessages(messageId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: roomId) { (roomRecrList) in
+            GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: self.roomId) { (roomRecrList) in
                 guard let messages = roomRecrList?.toGittkerMessages() else { return }
                 completion(messages)
+            }
+        }
+    }
+    
+    func sendMessage(text: String, completion: @escaping ((RoomRecreateSchema) -> Void)) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            GitterApi.shared.sendGitterMessage(roomId: self.roomId, text: text) { (roomRecr) in
+                guard let room = roomRecr else { return }
+                completion(room)
             }
         }
     }

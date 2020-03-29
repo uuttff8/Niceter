@@ -17,7 +17,7 @@ class ChatViewController: MessagesViewController {
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
     private var isOlderMessageLoading = false
-    private let userdata = ShareData().userdata?.toMockUser()
+    let userdata = ShareData().userdata?.toMockUser()
     
     let formatter: DateFormatter = {
         let formatter = DateFormatter()

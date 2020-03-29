@@ -33,7 +33,6 @@ class RoomsViewModel {
     
     func suggestedRoomsSearchQuery(with text: String, completion: @escaping (([RoomSchema]) -> Void)) {
         GitterApi.shared.searchRooms(query: text) { (result) in
-//            self.suggestedRoomsData = result?.results ?? []
             completion(result!.results)
         }
     }
