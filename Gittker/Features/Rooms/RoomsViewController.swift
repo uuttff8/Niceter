@@ -11,6 +11,7 @@ import AsyncDisplayKit
 class RoomsViewController: ASViewController<ASTableNode> {
     weak var coordinator: RoomsCoordinator?
     
+    private let refreshControl = UIRefreshControl()
     private let dataSource = RoomsDataSource()
     private var tableDelegate = RoomsTableViewDelegate()
     
@@ -26,8 +27,10 @@ class RoomsViewController: ASViewController<ASTableNode> {
         self.coordinator = coordinator
         super.init(node: ASTableNode())
         
+        refreshControl.addTarget(self, action: #selector(reloadRooms(_:)), for: .valueChanged)
         self.tableNode.delegate = self.tableDelegate
         self.tableNode.dataSource = self.dataSource
+        self.tableNode.view.refreshControl = self.refreshControl
         
         tableNode.view.separatorStyle = .none
     }
@@ -76,9 +79,16 @@ class RoomsViewController: ASViewController<ASTableNode> {
                     self.deleteRoom(by: roomId)
             },
                 onPatch: { (roomSchema) in
-                    
+                    self.diffRoomById(with: roomSchema)
             }
         )
+    }
+    
+    @objc func reloadRooms(_ sender: Any) {
+        self.viewModel.fetchRoomsCached()
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
     }
     
     @objc func reload(_ searchBar: UISearchBar) {
@@ -115,6 +125,24 @@ class RoomsViewController: ASViewController<ASTableNode> {
                 self?.tableNode.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
             }
         }, completion: nil)
+    }
+    
+    private func diffRoomById(with room: RoomSchema) {
+        if let index = viewModel.dataSource?.data.value.firstIndex(where: { (roomSchema) -> Bool in
+            room.id == roomSchema.id
+        }) {
+            
+            if let newTopic = room.topic {
+                self.viewModel.dataSource?.data.value[index].topic = newTopic
+                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            }
+            
+//            // When lastAcessTime is updated, unreadItems should be zero
+//            if let _ = room.lastAccessTime {
+//                self.viewModel.dataSource?.data.value[index].unreadItems = 0
+//                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+//            }
+        }
     }
 }
 

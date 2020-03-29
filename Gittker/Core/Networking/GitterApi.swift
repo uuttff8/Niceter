@@ -39,7 +39,7 @@ private enum GitterApiLinks {
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
         case .whoMe: return "v1/user/me"
-        case .searchRooms(let query): return "/v1/rooms?q=\(query)"
+        case .searchRooms(let query): return "v1/rooms?q=\(query)"
         }
     }
 }
@@ -155,7 +155,7 @@ enum MessageFailedError: Error {
 // MARK: - Private -
 extension GitterApi {
     private func requestData<T: Codable>(url: GitterApiLinks, completion: @escaping (T) -> ()) {
-        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + url.encode())!
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
         self.httpClient.getAuth(url: url)
@@ -170,7 +170,7 @@ extension GitterApi {
     }
     
     private func postData<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (Result<T, MessageFailedError>) -> ()) {
-        let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + url.encode())!
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
         self.httpClient.postAuth(url: url, bodyObject: body)
