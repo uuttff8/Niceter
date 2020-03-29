@@ -12,12 +12,17 @@ private enum GitterApiLinks {
     private static let limitMessages = 30 // Limit messages to be loaded
     
     static let baseUrl = "https://gitter.im/"
+    static let baseUrlApi2 = "https://gitter.im/api/"
     static let baseUrlApi = "https://api.gitter.im/"
     
+    // Auth
     case exchangeToken
     case whoMe
+    
+    // Rooms
     case suggestedRooms
     case rooms
+    case readMessages(userId: String, roomId: String)
     
     // Messages
     case firstMessages(String)
@@ -36,9 +41,13 @@ private enum GitterApiLinks {
             return "v1/rooms/\(roomId)/chatMessages"
             
         case .exchangeToken: return "login/oauth/token"
+        case .whoMe: return "v1/user/me"
+            
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
-        case .whoMe: return "v1/user/me"
+        case .readMessages(userId: let userId, roomId: let roomId):
+            return "v1/user/\(userId)/rooms/\(roomId)/unreadItems"
+            
         case .searchRooms(let query): return "v1/rooms?q=\(query)"
         }
     }
@@ -119,6 +128,21 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func markMessagesAsRead(roomId: String, userId: String,  completion: @escaping ((SuccessSchema) -> Void)) {
+        guard let body =
+        """
+        {
+          "chat": [
+            "\(roomId)"
+          ]
+        }
+        """.convertToDictionary() else { return }
+        
+        postDataReadMessages(url: GitterApiLinks.readMessages(userId: userId, roomId: roomId), body: body) { (data: SuccessSchema) in
+            completion(data)
+        }
+    }
 }
 
 // MARK: - Messages
@@ -141,7 +165,7 @@ extension GitterApi {
             "text": "\(text)"
         ]
         
-        postData(url: GitterApiLinks.sendMessage(roomId: roomId), body: bodyObject) { (data) in
+        postDataSendMessage(url: GitterApiLinks.sendMessage(roomId: roomId), body: bodyObject) { (data) in
             completion(data)
         }
     }
@@ -169,7 +193,22 @@ extension GitterApi {
         }
     }
     
-    private func postData<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (Result<T, MessageFailedError>) -> ()) {
+    private func postDataReadMessages<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> ()) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi2)\(url.encode())".encodeUrl)!
+        print(String(describing: url))
+        
+        self.httpClient.postAuth(url: url, bodyObject: body)
+        { (res) in
+            switch res {
+            case .success(let data):
+                guard let type = try? JSONDecoder().decode(T.self, from: data) else { return }
+                completion(type)
+            default: break
+            }
+        }
+    }
+    
+    private func postDataSendMessage<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (Result<T, MessageFailedError>) -> ()) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
@@ -185,3 +224,8 @@ extension GitterApi {
         }
     }
 }
+
+
+// https://gitter.im/api/v1/user/5ac21dd2d73408ce4f940b10/rooms/53d6ed74107e137846ba84d0/unreadItems
+
+// https://gitter.im/api/v1/user/5ac21dd2d73408ce4f940b10/rooms/53d6ed74107e137846ba84d0/unreadItems

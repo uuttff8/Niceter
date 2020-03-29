@@ -35,7 +35,6 @@ public final class FayeEventRoomBinder {
             case .remove:
                 onRemove?(event.model.id)
             case .patch:
-                print(data.prettyPrintedJSONString)
                 onPatch?(event.model)
             }
         }
