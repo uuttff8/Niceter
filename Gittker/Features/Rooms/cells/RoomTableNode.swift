@@ -12,6 +12,7 @@ struct RoomContent {
     let avatarUrl: String
     let title: String
     let subtitle: String
+    let unreadItems: Int
 }
 
 class RoomTableNode: ASCellNode {

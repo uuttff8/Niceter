@@ -137,7 +137,7 @@ extension RoomChatBaseViewController: MessagesDisplayDelegate {
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         let mess = messageList[indexPath.section]
 
-        
+        // nil when we send messages
         guard let avatarUrl = mess.avatarUrl else { return }
                 
         // Safety: Gitter backend always returns avatar from github which is always available
