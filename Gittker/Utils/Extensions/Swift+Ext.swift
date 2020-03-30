@@ -17,9 +17,9 @@ extension Dictionary {
 extension Data {
     var prettyPrintedJSONString: NSString? { /// NSString gives us a nice sanitized debugDescription
         guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
-              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
-              let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }
-
+            let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+            let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }
+        
         return prettyPrintedString
     }
 }
@@ -65,5 +65,19 @@ extension String {
             }
         }
         return nil
+    }
+}
+
+extension String {
+    func image() -> UIImage? {
+        let size = CGSize(width: 40, height: 40)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        UIColor.white.set()
+        let rect = CGRect(origin: .zero, size: size)
+        UIRectFill(CGRect(origin: .zero, size: size))
+        (self as AnyObject).draw(in: rect, withAttributes: [.font: UIFont.systemFont(ofSize: 40)])
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
 }

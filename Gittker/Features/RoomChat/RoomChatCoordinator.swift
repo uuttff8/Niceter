@@ -13,6 +13,7 @@ class RoomChatCoordinator: Coordinator {
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
+    var currentController: RoomChatViewController?
     var roomId: String
     var isJoined: Bool
     
@@ -20,10 +21,12 @@ class RoomChatCoordinator: Coordinator {
         self.navigationController = navigationController
         self.isJoined = isJoined
         self.roomId = roomId
+        
+        currentController = RoomChatViewController(coordinator: self, roomId: roomId, isJoined: isJoined)
     }
     
     func start() {
-        let vc = RoomChatViewController(coordinator: self, roomId: roomId, isJoined: isJoined)
+        guard let vc = currentController else { return }
         navigationController?.pushViewController(vc, animated: true)
     }
 }
