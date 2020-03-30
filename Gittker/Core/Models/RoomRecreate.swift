@@ -29,17 +29,9 @@ struct RoomRecreateSchema: Codable {
 }
 
 extension RoomRecreateSchema {
-    func toMockMessage() -> MockMessage {
-        let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName)
-        let message = MockMessage(text: self.text, user: user, messageId: self.id, date: Date())
-        return message
-    }
-    
     func toGittkerMessage() -> GittkerMessage {
         let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName)
-        let message = MockMessage(text: self.text, user: user, messageId: self.id, date: Date())
-                
-        
+        let message = MockMessage(text: self.text, user: user, messageId: self.id, date: Date.toGittkerDate(str: self.sent))
         return GittkerMessage(message: message, avatarUrl: self.fromUser.avatarURLMedium)
     }
 }
@@ -50,5 +42,15 @@ extension Array where Element == RoomRecreateSchema {
         return self.map { (roomRecrObject) in
             roomRecrObject.toGittkerMessage()
         }
+    }
+}
+
+private extension Date {
+    static func toGittkerDate(str: String?) -> Date {
+        guard let str = str else { return Date() }
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = .withFullDate
+        // Safety: if error here then backend returned not valid sent date in string
+        return dateFormatter.date(from: str)!
     }
 }
