@@ -13,7 +13,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
     
     private let refreshControl = UIRefreshControl()
     private lazy var dataSource = RoomsDataSource()
-    private var tableDelegate = RoomsTableViewDelegate()
+    private lazy var tableDelegate = RoomsTableViewDelegate(with: self)
     
     private var tableNode: ASTableNode {
         return node

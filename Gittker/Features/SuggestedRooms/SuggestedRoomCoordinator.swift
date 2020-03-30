@@ -13,7 +13,6 @@ class SuggestedRoomsCoordinator: Coordinator {
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
-    weak var tabController: MainTabBarController?
     var currentController: SuggestedRoomsNode?
     
     var rooms: Array<RoomSchema>?

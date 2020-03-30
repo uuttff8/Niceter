@@ -43,6 +43,7 @@
 		4E09AC70240EE6D10028229C /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */; };
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
 		4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */; };
+		4E229FFE24325FBD0096371C /* RoomsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFD24325FBD0096371C /* RoomsService.swift */; };
 		4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* RoomSchema.swift */; };
 		4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */; };
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
@@ -160,6 +161,7 @@
 		4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
 		4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableNode.swift; sourceTree = "<group>"; };
+		4E229FFD24325FBD0096371C /* RoomsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsService.swift; sourceTree = "<group>"; };
 		4E2A7A0C241153C70025F39C /* RoomSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSchema.swift; sourceTree = "<group>"; };
 		4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			children = (
 				4E2A7A312416C6290025F39C /* cells */,
 				4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */,
+				4E229FFD24325FBD0096371C /* RoomsService.swift */,
 				4E09AC5B240EE6660028229C /* RoomsViewController.swift */,
 				4E09AC5D240EE66F0028229C /* RoomsCoordinator.swift */,
 			);
@@ -1026,6 +1029,7 @@
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
+				4E229FFE24325FBD0096371C /* RoomsService.swift in Sources */,
 				4E9D17A5241E42A60066362D /* FayeClient.m in Sources */,
 				4E9D17A1241E42A60066362D /* NSString+Serialize.m in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,

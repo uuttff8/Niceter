@@ -27,7 +27,7 @@ class RoomsViewModel {
                     }
                     return false
                 }
-                                
+                
                 self.dataSource?.data.value = rooms
         }
     }
@@ -75,7 +75,7 @@ class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
             let room = data.value[indexPath.row]
             
             data.value.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.deleteRows(at: [indexPath], with: .left)
             
             leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
                 print(suc)
@@ -97,10 +97,34 @@ class RoomsTableViewDelegate: NSObject, ASTableDelegate {
     var dataSource: [RoomSchema]?
     weak var coordinator: RoomsCoordinator?
     
+    private var vc: UIViewController
+    
+    init(with vc: UIViewController) {
+        self.vc = vc
+    }
+    
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if let roomId = dataSource?[indexPath.item].id {
             coordinator?.showChat(roomId: roomId)
         }
         tableNode.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration {
+        let identifier = "\(indexPath.row)" as NSString
+        
+        return UIContextMenuConfiguration(identifier: identifier, previewProvider: nil) { (menuElement) -> UIMenu? in
+            let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+                RoomsService.share(room: self.dataSource![indexPath.row], in: self.vc)
+            }
+            
+            return UIMenu(title: "", image: nil, children: [shareAction])
+        }
+        
+        #warning("Thread 1: Exception: Invalid parameter not satisfying: container != nil")
+        //    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview {
+        //        return UITargetedPreview(view: UIImageView(image: UIImage(systemName: "people")))
+        //    }
+    }
+    
 }
