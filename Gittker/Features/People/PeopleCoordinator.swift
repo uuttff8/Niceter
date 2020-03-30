@@ -11,7 +11,7 @@ import AsyncDisplayKit
 class PeopleCoordinator: Coordinator {
 
     weak var tabController: MainTabBarController?
-    var currentController: PeopleViewController?
+    var currentController: PeopleViewController
     
     var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
@@ -19,12 +19,12 @@ class PeopleCoordinator: Coordinator {
     init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
         
-        currentController = PeopleViewController.instantiate(from: AppStoryboards.People)
-        currentController?.coordinator = self
+        currentController = PeopleViewController()
+        currentController.coordinator = self
     }
     
     func start() {
-        navigationController?.pushViewController(currentController!, animated: true)
+        navigationController?.pushViewController(currentController, animated: true)
     }
     
 }
