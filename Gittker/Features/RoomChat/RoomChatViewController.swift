@@ -82,6 +82,18 @@ final class RoomChatViewController: RoomChatBaseViewController {
         }
     }
     
+    override func joinButtonHandlder() {
+        print(true)
+        configureMessageInputBarForChat()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if !isJoined {
+            showJoinButton()
+        }
+    }
+    
     // Mark all messages as read
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
