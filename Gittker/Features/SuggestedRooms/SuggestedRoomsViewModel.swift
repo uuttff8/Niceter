@@ -38,13 +38,27 @@ class SuggestedRoomsDataSource: GenericDataSource<SuggestedRoomContent>, ASTable
 }
 
 class SuggestedRoomsTableNodeDelegate: NSObject, ASTableDelegate {
-    var dataSource: [SuggestedRoomContent]?
+    init(dataSource: [SuggestedRoomContent], currentlyJoinedRooms: [RoomSchema], coordinator: SuggestedRoomsCoordinator?) {
+        self.dataSource = dataSource
+        self.currentlyJoinedRooms = currentlyJoinedRooms
+        self.coordinator = coordinator
+    }
+    
+    var dataSource: [SuggestedRoomContent]
+    var currentlyJoinedRooms: [RoomSchema]
     weak var coordinator: SuggestedRoomsCoordinator?
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        if let roomId = dataSource?[indexPath.item].roomId {
-            coordinator?.showChat(roomId: roomId)
+        var isJoined = false
+        
+        let roomId = dataSource[indexPath.item].roomId
+        
+        if let _ = currentlyJoinedRooms.firstIndex(where: { $0.id == roomId }) {
+            isJoined = true
         }
+        
+        coordinator?.showChat(roomId: roomId, isJoined: isJoined)
+        
         tableNode.deselectRow(at: indexPath, animated: true)
     }
 }

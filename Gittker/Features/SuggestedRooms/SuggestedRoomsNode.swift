@@ -15,13 +15,17 @@ class SuggestedRoomsNode: ASDisplayNode {
     let contentNode: ASTableNode
     
     private let dataSource = SuggestedRoomsDataSource()
-    private var tableDelegate = SuggestedRoomsTableNodeDelegate()
+    private lazy var tableDelegate = SuggestedRoomsTableNodeDelegate(dataSource: self.dataSource.data.value,
+                                                                     currentlyJoinedRooms: self.currentlyJoinedRooms,
+                                                                     coordinator: self.coordinator)
+    private let currentlyJoinedRooms: [RoomSchema]
     
     var viewModel: SuggestedRoomsViewModel
     
-    init(rooms: Array<RoomSchema>?, coordinator: SuggestedRoomsCoordinator?) {
+    init(rooms: Array<RoomSchema>?, coordinator: SuggestedRoomsCoordinator?, currentlyJoinedRooms: [RoomSchema]) {
         contentNode = ASTableNode(style: .plain)
         self.coordinator = coordinator
+        self.currentlyJoinedRooms = currentlyJoinedRooms
         
         let suggestedRooms = rooms?.map {
             SuggestedRoomContent(title: $0.name ?? "", avatarUrl: $0.avatarUrl ?? "", roomId: $0.id)
@@ -51,7 +55,6 @@ class SuggestedRoomsNode: ASDisplayNode {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
-                self.tableDelegate.coordinator = self.coordinator
                 self.tableDelegate.dataSource = self.dataSource.data.value
                 self.contentNode.reloadData()
             }

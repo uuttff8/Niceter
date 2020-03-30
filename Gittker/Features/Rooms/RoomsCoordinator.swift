@@ -31,11 +31,11 @@ class RoomsCoordinator: Coordinator {
     }
     
     func showChat(roomId: String) {
-        let coord = RoomChatCoordinator(with: navigationController, roomId: roomId)
+        let coord = RoomChatCoordinator(with: navigationController, roomId: roomId, isJoined: true)
         coord.start()
     }
     
-    func showSuggestedRoom(with rooms: Array<RoomSchema>?) {
-        self.currentController?.view = SuggestedRoomsCoordinator(with: navigationController, rooms: rooms).currentController?.view
+    func showSuggestedRoom(with rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema]) {
+        self.currentController?.view = SuggestedRoomsCoordinator(with: navigationController, rooms: rooms, currentlyJoinedRooms: currentlyJoinedRooms).currentController?.view
     }
 }

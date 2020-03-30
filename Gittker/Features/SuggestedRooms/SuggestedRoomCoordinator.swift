@@ -18,11 +18,11 @@ class SuggestedRoomsCoordinator: Coordinator {
     
     var rooms: Array<RoomSchema>?
     
-    init(with navigationController: ASNavigationController?, rooms: Array<RoomSchema>?) {
+    init(with navigationController: ASNavigationController?, rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema]) {
         self.navigationController = navigationController
         self.rooms = rooms
         
-        currentController = SuggestedRoomsNode(rooms: rooms, coordinator: self)
+        currentController = SuggestedRoomsNode(rooms: rooms, coordinator: self, currentlyJoinedRooms: currentlyJoinedRooms)
         currentController?.coordinator = self
         childCoordinators.append(self)
     }
@@ -31,8 +31,8 @@ class SuggestedRoomsCoordinator: Coordinator {
 //        navigationController?.pushViewController(currentController!, animated: true)
     }
     
-    func showChat(roomId: String) {
-        let coord = RoomChatCoordinator(with: navigationController, roomId: roomId)
+    func showChat(roomId: String, isJoined: Bool) {
+        let coord = RoomChatCoordinator(with: navigationController, roomId: roomId, isJoined: isJoined)
         coord.start()
     }
 }
