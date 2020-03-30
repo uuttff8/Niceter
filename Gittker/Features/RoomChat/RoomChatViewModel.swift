@@ -11,22 +11,23 @@ import Foundation
 class RoomChatViewModel {
     
     private let roomId: String
+    private var messagesListInfo: [RoomRecreateSchema]?
     
     init(roomId: String) {
         self.roomId = roomId
     }
     
-    func loadFirstMessages(completion: @escaping ((Array<GittkerMessage>) -> Void)) {
+    func loadFirstMessages(completion: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             CachedRoomMessagesLoader(cacheKey: self.roomId)
                 .fetchData { (roomRecrList) in
-                    let messages = roomRecrList.toGittkerMessages()
-                    completion(messages)
+                    self.messagesListInfo = roomRecrList
+                    completion(roomRecrList.toGittkerMessages())
             }
         }
     }
     
-    func loadOlderMessages(messageId: String, completion: @escaping ((Array<GittkerMessage>) -> Void)) {
+    func loadOlderMessages(messageId: String, completion: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: self.roomId) { (roomRecrList) in
                 guard let messages = roomRecrList?.toGittkerMessages() else { return }
@@ -50,5 +51,19 @@ class RoomChatViewModel {
         GitterApi.shared.joinRoom(userId: userId, roomId: roomId) { (success) in
             completion(success)
         }
+    }
+    
+    // To implement, we should better use caching to loading part of messages to cache
+    func findFirstUnreadMessage() -> IndexPath? {
+        guard let messages = messagesListInfo else { return nil }
+        
+        if let index = messages.firstIndex(where: { (roomRecrSchema) -> Bool in
+            guard let unread = roomRecrSchema.unread else { return false }
+            return unread == true
+        }) {
+            return IndexPath(row: index, section: 0)
+        }
+        
+        return nil
     }
 }
