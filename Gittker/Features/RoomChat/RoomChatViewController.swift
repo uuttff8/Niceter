@@ -33,7 +33,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     override func loadFirstMessages() {
         viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
@@ -83,8 +83,9 @@ final class RoomChatViewController: RoomChatBaseViewController {
     }
     
     override func joinButtonHandlder() {
-        print(true)
-        configureMessageInputBarForChat()
+        viewModel.joinToChat(userId: userdata!.senderId, roomId: roomId) { (success) in
+            self.configureMessageInputBarForChat()
+        }
     }
     
     override func viewDidLoad() {
