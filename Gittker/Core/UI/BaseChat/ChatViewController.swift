@@ -148,7 +148,6 @@ class ChatViewController: MessagesViewController {
     }
     
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        
         let dateString = formatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
     }
@@ -187,7 +186,9 @@ class ChatViewController: MessagesViewController {
         
         if indexPath.section <= 10 {
             if !isOlderMessageLoading {
+                isOlderMessageLoading = true
                 self.loadOlderMessages()
+                isOlderMessageLoading = false
             }
         }
     }

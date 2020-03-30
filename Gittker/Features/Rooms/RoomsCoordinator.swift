@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 
 class RoomsCoordinator: Coordinator {
-
+    
     var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
@@ -30,12 +30,18 @@ class RoomsCoordinator: Coordinator {
         navigationController?.pushViewController(currentController!, animated: true)
     }
     
-    func showChat(roomId: String) {
-        let coord = RoomChatCoordinator(with: navigationController, roomId: roomId, isJoined: true)
+    func showChat(roomSchema: RoomSchema) {
+        let coord = RoomChatCoordinator(with: navigationController,
+                                        roomSchema: roomSchema,
+                                        isJoined: true)
         coord.start()
     }
     
     func showSuggestedRoom(with rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema]) {
-        self.currentController?.view = SuggestedRoomsCoordinator(with: navigationController, rooms: rooms, currentlyJoinedRooms: currentlyJoinedRooms).currentController?.view
+        self.currentController?.view = SuggestedRoomsCoordinator(
+            with: navigationController,
+            rooms: rooms,
+            currentlyJoinedRooms: currentlyJoinedRooms
+        ).currentController?.view
     }
 }

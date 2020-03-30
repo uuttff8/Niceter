@@ -30,8 +30,8 @@ class SuggestedRoomsCoordinator: Coordinator {
 //        navigationController?.pushViewController(currentController!, animated: true)
     }
     
-    func showChat(roomId: String, isJoined: Bool) {
-        let coord = RoomChatCoordinator(with: navigationController, roomId: roomId, isJoined: isJoined)
+    func showChat(roomSchema: RoomSchema, isJoined: Bool) {
+        let coord = RoomChatCoordinator(with: navigationController, roomSchema: roomSchema, isJoined: isJoined)
         coord.start()
     }
 }

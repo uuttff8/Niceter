@@ -14,15 +14,15 @@ class RoomChatCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     
     var currentController: RoomChatViewController?
-    var roomId: String
+    var roomSchema: RoomSchema
     var isJoined: Bool
     
-    init(with navigationController: ASNavigationController?, roomId: String, isJoined: Bool) {
+    init(with navigationController: ASNavigationController?, roomSchema: RoomSchema, isJoined: Bool) {
         self.navigationController = navigationController
         self.isJoined = isJoined
-        self.roomId = roomId
+        self.roomSchema = roomSchema
         
-        currentController = RoomChatViewController(coordinator: self, roomId: roomId, isJoined: isJoined)
+        currentController = RoomChatViewController(coordinator: self, roomSchema: roomSchema, isJoined: isJoined)
     }
     
     func start() {
