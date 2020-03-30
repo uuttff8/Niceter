@@ -86,6 +86,12 @@ class RoomChatBaseViewController: ChatViewController {
     
     func configureMessageInputBarForChat() {
         messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: false)
+        messageInputBar.delegate = self
+        messageInputBar.sendButton.setTitleColor(.primaryColor, for: .normal)
+        messageInputBar.sendButton.setTitleColor(
+            UIColor.systemBackground.withAlphaComponent(0.3),
+            for: .highlighted
+        )
         messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false)
         messageInputBar.sendButton
             .onSelected { item in
