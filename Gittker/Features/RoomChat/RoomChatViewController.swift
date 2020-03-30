@@ -25,9 +25,8 @@ final class RoomChatViewController: RoomChatBaseViewController {
         self.coordinator = coordinator
         self.roomId = roomId
         self.isJoined = isJoined
-        super.init(nibName: nil, bundle: nil)
         
-        print(isJoined)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +47,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
         FayeEventMessagesBinder(roomId: roomId)
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
+                    // if got message from yourself, do nothing, we handle this message by yourself to provide offline messages
                     if message.message.sender.senderId == self?.userdata?.senderId {
                         return
                     }
@@ -63,7 +63,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     
     override func loadOlderMessages() {
         viewModel.loadOlderMessages(messageId: messageList[0].message.messageId)
-        { (gittMessages) in
+        { (gittMessages: [GittkerMessage]) in
             DispatchQueue.main.async { [weak self] in
                 self?.messageList.insert(contentsOf: gittMessages, at: 0)
                 self?.messagesCollectionView.reloadDataAndKeepOffset()
@@ -95,11 +95,5 @@ final class RoomChatViewController: RoomChatBaseViewController {
         } else {
             configureMessageInputBarForChat()
         }
-    }
-    
-    // Mark all messages as read
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.viewModel.markMessagesAsRead(userId: userdata!.senderId, completion: nil)
     }
 }
