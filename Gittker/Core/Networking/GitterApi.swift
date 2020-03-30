@@ -24,6 +24,7 @@ private enum GitterApiLinks {
     case rooms
     case readMessages(userId: String, roomId: String)
     case removeUser(userId: String, roomId: String) // This can be self-inflicted to leave the the room and remove room from your left menu.
+    case joinRoom(userId: String, roomId: String)
     
     // Messages
     case firstMessages(String)
@@ -50,7 +51,9 @@ private enum GitterApiLinks {
             return "v1/user/\(userId)/rooms/\(roomId)/unreadItems"
         case .removeUser(userId: let userId, roomId: let roomId):
             return "v1/rooms/\(roomId)/users/\(userId)"
-            
+        case .joinRoom(userId: let userId, roomId: _):
+            return "v1/user/\(userId)/rooms"
+        
         case .searchRooms(let query): return "v1/rooms?q=\(query)"
         }
     }
@@ -148,7 +151,25 @@ extension GitterApi {
     }
     
     func removeUserFromRoom(userId: String, roomId: String, completion: @escaping (SuccessSchema) -> Void) {
-        genericRequestData(url: GitterApiLinks.removeUser(userId: userId, roomId: roomId), method: "DELETE", body: nil)
+        genericRequestData(url: GitterApiLinks.removeUser(userId: userId, roomId: roomId),
+                           method: "DELETE",
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
+    
+    func joinRoom(userId: String, roomId: String, completion: @escaping (RoomSchema) -> Void) {
+        guard let body =
+        """
+        {
+            "id":"\(roomId)"
+        }
+        """.convertToDictionary() else { return }
+        
+        genericRequestData(url: GitterApiLinks.joinRoom(userId: userId, roomId: roomId),
+                           method: "POST",
+                           body: body)
         { (data) in
             completion(data)
         }

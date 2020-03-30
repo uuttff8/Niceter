@@ -45,4 +45,10 @@ class RoomChatViewModel {
     func markMessagesAsRead(userId: String, completion: (() -> Void)? = nil) {
         GitterApi.shared.markMessagesAsRead(roomId: self.roomId, userId: userId) { (success) in }
     }
+    
+    func joinToChat(userId: String, roomId: String, completion: @escaping ((RoomSchema) -> Void)) {
+        GitterApi.shared.joinRoom(userId: userId, roomId: roomId) { (success) in
+            completion(success)
+        }
+    }
 }
