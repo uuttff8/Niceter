@@ -30,6 +30,8 @@ private enum GitterApiLinks {
     case firstMessages(String)
     case olderMessages(messageId: String, roomId: String)
     case sendMessage(roomId: String)
+    case listMessagesAround(roomId: String, messageId: String)
+    case listMessagesUnread(roomId: String, skip: Int)
     
     // Search Rooms
     case searchRooms(_ query: String)
@@ -41,6 +43,10 @@ private enum GitterApiLinks {
             return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&beforeId=\(messageId)"
         case .sendMessage(roomId: let roomId):
             return "v1/rooms/\(roomId)/chatMessages"
+        case .listMessagesAround(roomId: let roomId, messageId: let messageId):
+            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)?aroundId=\(messageId)"
+        case .listMessagesUnread(roomId: let roomId, skip: let skip):
+            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)?skip=\(skip)"
             
         case .exchangeToken: return "login/oauth/token"
         case .whoMe: return "v1/user/me"
@@ -53,7 +59,7 @@ private enum GitterApiLinks {
             return "v1/rooms/\(roomId)/users/\(userId)"
         case .joinRoom(userId: let userId, roomId: _):
             return "v1/user/\(userId)/rooms"
-        
+            
         case .searchRooms(let query): return "v1/rooms?q=\(query)"
         }
     }
@@ -65,7 +71,7 @@ class GitterApi {
     private let appSettings = AppSettingsSecret()
     private let httpClient = HTTPClient()
     private let jsonDecoder: JSONDecoder = {
-       let decoder = JSONDecoder()
+        let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         return decoder
     }()
@@ -134,13 +140,13 @@ extension GitterApi {
     
     func markMessagesAsRead(roomId: String, userId: String, completion: @escaping ((SuccessSchema) -> Void)) {
         guard let body =
-        """
-        {
-          "chat": [
-            "\(roomId)"
-          ]
-        }
-        """.convertToDictionary() else { return }
+            """
+                {
+                "chat": [
+                "\(roomId)"
+                ]
+                }
+                """.convertToDictionary() else { return }
         
         postDataReadMessages(url: GitterApiLinks.readMessages(userId: userId, roomId: roomId), body: body) { (data: SuccessSchema) in
             completion(data)
@@ -158,11 +164,11 @@ extension GitterApi {
     
     func joinRoom(userId: String, roomId: String, completion: @escaping (RoomSchema) -> Void) {
         guard let body =
-        """
-        {
-            "id":"\(roomId)"
-        }
-        """.convertToDictionary() else { return }
+            """
+                {
+                "id":"\(roomId)"
+                }
+                """.convertToDictionary() else { return }
         
         genericRequestData(url: GitterApiLinks.joinRoom(userId: userId, roomId: roomId),
                            method: "POST",
@@ -194,6 +200,20 @@ extension GitterApi {
         ]
         
         postDataSendMessage(url: GitterApiLinks.sendMessage(roomId: roomId), body: bodyObject) { (data) in
+            completion(data)
+        }
+    }
+    
+    func listMessagesAround(messageId: String, roomId: String, completion: @escaping (([RoomRecreateSchema]?) -> Void)) {
+        requestData(url: GitterApiLinks.listMessagesAround(roomId: roomId, messageId: messageId))
+        { (data: [RoomRecreateSchema]?) in
+            completion(data)
+        }
+    }
+    
+    func listMessagesUnread(roomId: String, skip: Int, completion: @escaping (([RoomRecreateSchema]?) -> Void)) {
+        requestData(url: GitterApiLinks.listMessagesUnread(roomId: roomId, skip: skip))
+        { (data: [RoomRecreateSchema]?) in
             completion(data)
         }
     }

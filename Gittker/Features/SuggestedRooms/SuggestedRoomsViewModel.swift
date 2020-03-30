@@ -9,10 +9,10 @@
 import AsyncDisplayKit
 
 class SuggestedRoomsViewModel {
-    weak var dataSource : GenericDataSource<SuggestedRoomContent>?
-    private var rooms: Array<SuggestedRoomContent>?
+    weak var dataSource : GenericDataSource<RoomSchema>?
+    private var rooms: Array<RoomSchema>?
     
-    init(dataSource : GenericDataSource<SuggestedRoomContent>?, rooms: Array<SuggestedRoomContent>?) {
+    init(dataSource : GenericDataSource<RoomSchema>?, rooms: Array<RoomSchema>?) {
         self.dataSource = dataSource
         self.rooms = rooms
     }
@@ -22,7 +22,7 @@ class SuggestedRoomsViewModel {
     }
 }
 
-class SuggestedRoomsDataSource: GenericDataSource<SuggestedRoomContent>, ASTableDataSource {
+class SuggestedRoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         data.value.count
     }
@@ -30,7 +30,9 @@ class SuggestedRoomsDataSource: GenericDataSource<SuggestedRoomContent>, ASTable
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
-            let cell = SuggestemRoomTableNode(with: room)
+            let cell = SuggestemRoomTableNode(with: SuggestedRoomContent(title: room.name ?? "",
+                                                                         avatarUrl: room.avatarUrl ?? "",
+                                                                         roomId: room.id))
             
             return cell
         }
@@ -38,26 +40,26 @@ class SuggestedRoomsDataSource: GenericDataSource<SuggestedRoomContent>, ASTable
 }
 
 class SuggestedRoomsTableNodeDelegate: NSObject, ASTableDelegate {
-    init(dataSource: [SuggestedRoomContent], currentlyJoinedRooms: [RoomSchema], coordinator: SuggestedRoomsCoordinator?) {
+    init(dataSource: [RoomSchema], currentlyJoinedRooms: [RoomSchema], coordinator: SuggestedRoomsCoordinator?) {
         self.dataSource = dataSource
         self.currentlyJoinedRooms = currentlyJoinedRooms
         self.coordinator = coordinator
     }
     
-    var dataSource: [SuggestedRoomContent]
+    var dataSource: [RoomSchema]
     var currentlyJoinedRooms: [RoomSchema]
     weak var coordinator: SuggestedRoomsCoordinator?
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         var isJoined = false
         
-        let roomId = dataSource[indexPath.item].roomId
+        let room = dataSource[indexPath.item]
         
-        if let _ = currentlyJoinedRooms.firstIndex(where: { $0.id == roomId }) {
+        if let _ = currentlyJoinedRooms.firstIndex(where: { $0.id == room.id }) {
             isJoined = true
         }
         
-        coordinator?.showChat(roomId: roomId, isJoined: isJoined)
+        coordinator?.showChat(roomSchema: room, isJoined: isJoined)
         
         tableNode.deselectRow(at: indexPath, animated: true)
     }

@@ -10,16 +10,16 @@ import Foundation
 
 class RoomChatViewModel {
     
-    private let roomId: String
+    private let roomSchema: RoomSchema
     private var messagesListInfo: [RoomRecreateSchema]?
     
-    init(roomId: String) {
-        self.roomId = roomId
+    init(roomSchema: RoomSchema) {
+        self.roomSchema = roomSchema
     }
     
     func loadFirstMessages(completion: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            CachedRoomMessagesLoader(cacheKey: self.roomId)
+            CachedRoomMessagesLoader(cacheKey: self.roomSchema.id, skip: self.roomSchema.unreadItems ?? 0)
                 .fetchData { (roomRecrList) in
                     self.messagesListInfo = roomRecrList
                     completion(roomRecrList.toGittkerMessages())
@@ -29,7 +29,7 @@ class RoomChatViewModel {
     
     func loadOlderMessages(messageId: String, completion: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: self.roomId) { (roomRecrList) in
+            GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: self.roomSchema.id) { (roomRecrList) in
                 guard let messages = roomRecrList?.toGittkerMessages() else { return }
                 completion(messages)
             }
@@ -37,14 +37,14 @@ class RoomChatViewModel {
     }
     
     func sendMessage(text: String, completion: @escaping ((Result<RoomRecreateSchema, MessageFailedError>) -> Void)) {
-        GitterApi.shared.sendGitterMessage(roomId: self.roomId, text: text) { (res) in
+        GitterApi.shared.sendGitterMessage(roomId: self.roomSchema.id, text: text) { (res) in
             guard let result = res else { return }
             completion(result)
         }
     }
     
     func markMessagesAsRead(userId: String, completion: (() -> Void)? = nil) {
-        GitterApi.shared.markMessagesAsRead(roomId: self.roomId, userId: userId) { (success) in }
+        GitterApi.shared.markMessagesAsRead(roomId: self.roomSchema.id, userId: userId) { (success) in }
     }
     
     func joinToChat(userId: String, roomId: String, completion: @escaping ((RoomSchema) -> Void)) {
@@ -53,15 +53,15 @@ class RoomChatViewModel {
         }
     }
     
-    // To implement, we should better use caching to loading part of messages to cache
+    // To implement it correct, we should better use caching to loading part of messages to cache
     func findFirstUnreadMessage() -> IndexPath? {
         guard let messages = messagesListInfo else { return nil }
         
-        if let index = messages.firstIndex(where: { (roomRecrSchema) -> Bool in
+        if let firstIndex = messages.firstIndex(where: { (roomRecrSchema) -> Bool in
             guard let unread = roomRecrSchema.unread else { return false }
             return unread == true
         }) {
-            return IndexPath(row: index, section: 0)
+            return IndexPath(row: 0, section: firstIndex - 1)
         }
         
         return nil

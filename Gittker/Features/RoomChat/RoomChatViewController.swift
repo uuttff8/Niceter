@@ -16,14 +16,14 @@ extension UIColor {
 
 final class RoomChatViewController: RoomChatBaseViewController {
     weak var coordinator: RoomChatCoordinator?
-    private lazy var viewModel = RoomChatViewModel(roomId: roomId)
+    private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
     
     private var isJoined: Bool
-    private var roomId: String
+    private var roomSchema: RoomSchema
     
-    init(coordinator: RoomChatCoordinator, roomId: String, isJoined: Bool) {
+    init(coordinator: RoomChatCoordinator, roomSchema: RoomSchema, isJoined: Bool) {
         self.coordinator = coordinator
-        self.roomId = roomId
+        self.roomSchema = roomSchema
         self.isJoined = isJoined
         
         super.init(nibName: nil, bundle: nil)
@@ -38,13 +38,19 @@ final class RoomChatViewController: RoomChatBaseViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.messageList = gittMessages
                 self?.messagesCollectionView.reloadData()
-                self?.messagesCollectionView.scrollToBottom()
+                
+                if let indexPath = self?.viewModel.findFirstUnreadMessage() {
+                    print(indexPath)
+                    self?.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+                } else {
+                    self?.messagesCollectionView.scrollToBottom()
+                }
             }
         }
     }
     
     override func subscribeOnMessagesEvent() {
-        FayeEventMessagesBinder(roomId: roomId)
+        FayeEventMessagesBinder(roomId: roomSchema.id)
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
                     // if got message from yourself, do nothing, we handle this message by yourself to provide offline messages
@@ -83,7 +89,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     }
     
     override func joinButtonHandlder() {
-        viewModel.joinToChat(userId: userdata!.senderId, roomId: roomId) { (success) in
+        viewModel.joinToChat(userId: userdata!.senderId, roomId: roomSchema.id) { (success) in
             self.configureMessageInputBarForChat()
         }
     }

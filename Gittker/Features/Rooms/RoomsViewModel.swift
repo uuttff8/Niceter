@@ -104,8 +104,8 @@ class RoomsTableViewDelegate: NSObject, ASTableDelegate {
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        if let roomId = dataSource?[indexPath.item].id {
-            coordinator?.showChat(roomId: roomId)
+        if let room = dataSource?[indexPath.item] {
+            coordinator?.showChat(roomSchema: room)
         }
         tableNode.deselectRow(at: indexPath, animated: true)
     }

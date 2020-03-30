@@ -27,11 +27,7 @@ class SuggestedRoomsNode: ASDisplayNode {
         self.coordinator = coordinator
         self.currentlyJoinedRooms = currentlyJoinedRooms
         
-        let suggestedRooms = rooms?.map {
-            SuggestedRoomContent(title: $0.name ?? "", avatarUrl: $0.avatarUrl ?? "", roomId: $0.id)
-        }
-                
-        viewModel = SuggestedRoomsViewModel(dataSource: self.dataSource, rooms: suggestedRooms)
+        viewModel = SuggestedRoomsViewModel(dataSource: self.dataSource, rooms: rooms)
         
         super.init()
         
