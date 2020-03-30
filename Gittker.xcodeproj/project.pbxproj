@@ -704,8 +704,8 @@
 			isa = PBXGroup;
 			children = (
 				4EB3FC04242A72A700F3BF88 /* cells */,
-				4EB3FC00242991AC00F3BF88 /* SuggestedRoomsNode.swift */,
 				4EB3FC02242A499300F3BF88 /* SuggestedRoomsViewModel.swift */,
+				4EB3FC00242991AC00F3BF88 /* SuggestedRoomsNode.swift */,
 				4EA628B3242B87480034E66E /* SuggestedRoomCoordinator.swift */,
 			);
 			path = SuggestedRooms;

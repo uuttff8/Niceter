@@ -16,15 +16,18 @@ extension UIColor {
 
 final class RoomChatViewController: RoomChatBaseViewController {
     weak var coordinator: RoomChatCoordinator?
+    private lazy var viewModel = RoomChatViewModel(roomId: roomId)
     
-    lazy var viewModel = RoomChatViewModel(roomId: roomId)
-    
+    private var isJoined: Bool
     private var roomId: String
     
-    init(coordinator: RoomChatCoordinator, roomId: String) {
+    init(coordinator: RoomChatCoordinator, roomId: String, isJoined: Bool) {
         self.coordinator = coordinator
         self.roomId = roomId
+        self.isJoined = isJoined
         super.init(nibName: nil, bundle: nil)
+        
+        print(isJoined)
     }
     
     required init?(coder: NSCoder) {

@@ -95,7 +95,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
         if let text = searchBar.text, text != "" {
             self.viewModel.suggestedRoomsSearchQuery(with: text) { (rooms) in
                 DispatchQueue.main.async { [weak self] in
-                    self?.coordinator?.showSuggestedRoom(with: rooms)
+                    self?.coordinator?.showSuggestedRoom(with: rooms, currentlyJoinedRooms: (self?.viewModel.dataSource?.data.value)!)
                 }
             }
             
@@ -156,7 +156,7 @@ extension RoomsViewController: UISearchControllerDelegate {
     }
     
     private func showSuggestedRooms() {
-        coordinator?.showSuggestedRoom(with: self.viewModel.suggestedRoomsData)
+        coordinator?.showSuggestedRoom(with: self.viewModel.suggestedRoomsData, currentlyJoinedRooms: (self.viewModel.dataSource?.data.value)!)
     }
 }
 
