@@ -92,6 +92,8 @@ final class RoomChatViewController: RoomChatBaseViewController {
         super.viewDidLoad()
         if !isJoined {
             showJoinButton()
+        } else {
+            configureMessageInputBarForChat()
         }
     }
     

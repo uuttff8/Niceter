@@ -64,6 +64,11 @@ class GitterApi {
     
     private let appSettings = AppSettingsSecret()
     private let httpClient = HTTPClient()
+    private let jsonDecoder: JSONDecoder = {
+       let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
 }
 
 // MARK: - Auth
@@ -75,20 +80,12 @@ extension GitterApi {
         self.httpClient.post(url: URL(string: "\(GitterApiLinks.baseUrl + GitterApiLinks.exchangeToken.encode())")!, params: body!) { (res) in
             switch res {
             case .success(let data):
-                let accessToken = try? JSONDecoder().decode(AccessTokenSchema.self, from: data).accessToken
+                let accessToken = try? self.jsonDecoder.decode(AccessTokenSchema.self, from: data).accessToken
                 guard let token = accessToken else { print("\(#line) and \(#file) Broken access token"); return }
                 completion(token)
             default: break
             }
         }
-    }
-    
-    func newJSONDecoder() -> JSONDecoder {
-        let decoder = JSONDecoder()
-        if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-            decoder.dateDecodingStrategy = .iso8601
-        }
-        return decoder
     }
 }
 
@@ -104,7 +101,7 @@ extension GitterApi {
                 let str = String(decoding: data, as: UTF8.self)
                 print(str)
                 
-                let user = try? JSONDecoder().decode(UserSchema.self, from: data)
+                let user = try? self.jsonDecoder.decode(UserSchema.self, from: data)
                 
                 completion(user)
             default: print(""); break
@@ -217,7 +214,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                let room = try! JSONDecoder().decode(T.self, from: data)
+                let room = try! self.jsonDecoder.decode(T.self, from: data)
                 completion(room)
             default: break
             }
@@ -232,7 +229,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                let decoded = try! self.newJSONDecoder().decode(T.self, from: data)
+                let decoded = try! self.jsonDecoder.decode(T.self, from: data)
                 completion(decoded)
             default: break
             }
@@ -251,7 +248,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                guard let type = try? JSONDecoder().decode(T.self, from: data) else { return }
+                guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { return }
                 completion(type)
             default: break
             }
@@ -266,7 +263,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                guard let type = try? JSONDecoder().decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
+                guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
                 completion(.success(type))
             case .failure(.fail):
                 completion(.failure(.sendFailed))
