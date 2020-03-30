@@ -99,6 +99,36 @@ final class HTTPClient: HTTPClientProvider {
                 }
         }.resume()
     }
+    
+    func genericRequest(url: URL, method: String, bodyObject: [String: Any]?, completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
+        guard let accessToken = LoginData.shared.accessToken else {
+            print("Access Token is not provided")
+            return
+        }
+        
+        let config = URLSessionConfiguration.ephemeral
+        config.waitsForConnectivity = true
+        config.httpAdditionalHeaders = [ "Authorization": "Bearer \(accessToken)",
+                                         "Accept": "application/json",
+                                         "Content-Type": "application/json"]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        
+        if let bodyObject = bodyObject {
+            guard let jsonBody = try? JSONSerialization.data(withJSONObject: bodyObject, options: []) else { return }
+            request.httpBody = jsonBody
+        }
+        
+        URLSession(configuration: config,
+                   delegate: INetworkDelegate(),
+                   delegateQueue: OperationQueue.current)
+            .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                if let data = data {
+                    completion(.success(data))
+                }
+        }.resume()
+    }
 }
 
 
