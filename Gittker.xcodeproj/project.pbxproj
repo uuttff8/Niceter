@@ -33,12 +33,8 @@
 		4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC59240EE5FE0028229C /* MainTabBarCoordinator.swift */; };
 		4E09AC5C240EE6660028229C /* RoomsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5B240EE6660028229C /* RoomsViewController.swift */; };
 		4E09AC5E240EE66F0028229C /* RoomsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC5D240EE66F0028229C /* RoomsCoordinator.swift */; };
-		4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC61240EE6820028229C /* SearchViewController.swift */; };
-		4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC63240EE68F0028229C /* SearchCoordinator.swift */; };
-		4E09AC66240EE6950028229C /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC65240EE6950028229C /* Search.storyboard */; };
 		4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC67240EE69D0028229C /* PeopleViewController.swift */; };
 		4E09AC6A240EE6AA0028229C /* PeopleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC69240EE6AA0028229C /* PeopleCoordinator.swift */; };
-		4E09AC6C240EE6AF0028229C /* People.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09AC6B240EE6AF0028229C /* People.storyboard */; };
 		4E09AC6E240EE6C60028229C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6D240EE6C60028229C /* SettingsViewController.swift */; };
 		4E09AC70240EE6D10028229C /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */; };
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
@@ -151,12 +147,8 @@
 		4E09AC59240EE5FE0028229C /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC5B240EE6660028229C /* RoomsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewController.swift; sourceTree = "<group>"; };
 		4E09AC5D240EE66F0028229C /* RoomsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsCoordinator.swift; sourceTree = "<group>"; };
-		4E09AC61240EE6820028229C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		4E09AC63240EE68F0028229C /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
-		4E09AC65240EE6950028229C /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		4E09AC67240EE69D0028229C /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		4E09AC69240EE6AA0028229C /* PeopleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCoordinator.swift; sourceTree = "<group>"; };
-		4E09AC6B240EE6AF0028229C /* People.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = People.storyboard; sourceTree = "<group>"; };
 		4E09AC6D240EE6C60028229C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
@@ -358,7 +350,6 @@
 				4E9D17B0241E7FDA0066362D /* RoomChat */,
 				4E09AC55240EB6760028229C /* Settings */,
 				4E09AC25240D83630028229C /* LoginAuth */,
-				4E09AC53240EB6670028229C /* Search */,
 				4E09AC54240EB66F0028229C /* People */,
 				4E09AC2C240D8CA90028229C /* Rooms */,
 			);
@@ -494,22 +485,11 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		4E09AC53240EB6670028229C /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				4E09AC61240EE6820028229C /* SearchViewController.swift */,
-				4E09AC63240EE68F0028229C /* SearchCoordinator.swift */,
-				4E09AC65240EE6950028229C /* Search.storyboard */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
 		4E09AC54240EB66F0028229C /* People */ = {
 			isa = PBXGroup;
 			children = (
 				4E09AC67240EE69D0028229C /* PeopleViewController.swift */,
 				4E09AC69240EE6AA0028229C /* PeopleCoordinator.swift */,
-				4E09AC6B240EE6AF0028229C /* People.storyboard */,
 			);
 			path = People;
 			sourceTree = "<group>";
@@ -891,10 +871,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */,
-				4E09AC6C240EE6AF0028229C /* People.storyboard in Resources */,
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
-				4E09AC66240EE6950028229C /* Search.storyboard in Resources */,
 				4E09ABEA240D7FA70028229C /* LoginAuth.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1065,14 +1043,12 @@
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
 				4EFC50232425180600295EB1 /* HomeSearchBar.swift in Sources */,
 				4E9D17A6241E42A60066362D /* FayeMessage.m in Sources */,
-				4E09AC62240EE6820028229C /* SearchViewController.swift in Sources */,
 				4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */,
 				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
 				4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
 				4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */,
-				4E09AC64240EE68F0028229C /* SearchCoordinator.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */,
