@@ -11,6 +11,27 @@ import MessageKit
 import Nuke
 
 class RoomChatBaseViewController: ChatViewController {
+    lazy var joinChatButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 16
+        button.backgroundColor = .primaryColor
+        button.setTitle("join", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(UIColor(white: 1, alpha: 0.3), for: .highlighted)
+        button.addTarget(self, action: #selector(joinChat), for: .touchUpInside)
+        return button
+    }()
+    
+    func showJoinButton() {
+        configureMessageInputBar()
+    }
+    
+    @objc
+    func joinChat() {
+        joinButtonHandlder()
+    }
+
+    
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
         
@@ -35,7 +56,7 @@ class RoomChatBaseViewController: ChatViewController {
         messageInputBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         messageInputBar.separatorLine.isHidden = true
         messageInputBar.setRightStackViewWidthConstant(to: 0, animated: false)
-        configureMessageInputBarForChat()
+        messageInputBar.setMiddleContentView(joinChatButton, animated: false)
     }
 
     
@@ -63,7 +84,7 @@ class RoomChatBaseViewController: ChatViewController {
         }
     }
     
-    private func configureMessageInputBarForChat() {
+    func configureMessageInputBarForChat() {
         messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false)
         messageInputBar.sendButton

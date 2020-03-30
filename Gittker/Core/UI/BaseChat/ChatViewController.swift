@@ -30,9 +30,9 @@ class ChatViewController: MessagesViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.systemBackground
         configureMessageCollectionView()
-        configureMessageInputBar()
+        configureMessageInputBarForDarkMode()
     }
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         loadFirstMessages()
         super.viewWillAppear(animated)
@@ -51,6 +51,8 @@ class ChatViewController: MessagesViewController {
     func loadOlderMessages() {  }
     
     func sendMessage(inputBar: MessageInputBar, text: String) { }
+    
+    func joinButtonHandlder() { }
     
     // MARK: - Helpers
     
@@ -99,6 +101,13 @@ class ChatViewController: MessagesViewController {
         }
     }
     
+    private func configureMessageInputBarForDarkMode() {
+        messageInputBar.inputTextView.textColor = .label
+        messageInputBar.inputTextView.placeholderLabel.textColor = .secondaryLabel
+        messageInputBar.backgroundView.backgroundColor = .systemBackground
+    }
+
+    
     func isLastSectionVisible() -> Bool {
         
         guard !messageList.isEmpty else { return false }
@@ -125,10 +134,6 @@ class ChatViewController: MessagesViewController {
     }
     
     func configureMessageInputBar() {
-        messageInputBar.inputTextView.textColor = .label
-        messageInputBar.inputTextView.placeholderLabel.textColor = .secondaryLabel
-        messageInputBar.backgroundView.backgroundColor = .systemBackground
-        
         messageInputBar.delegate = self
         messageInputBar.sendButton.setTitleColor(.primaryColor, for: .normal)
         messageInputBar.sendButton.setTitleColor(
