@@ -12,7 +12,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
     weak var coordinator: RoomsCoordinator?
     
     private let refreshControl = UIRefreshControl()
-    private let dataSource = RoomsDataSource()
+    private lazy var dataSource = RoomsDataSource()
     private var tableDelegate = RoomsTableViewDelegate()
     
     private var tableNode: ASTableNode {

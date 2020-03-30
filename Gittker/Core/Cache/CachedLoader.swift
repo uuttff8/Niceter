@@ -25,15 +25,18 @@ class CachedLoader<T: Codable> {
         
         
         storage = try? Storage<T>(
-          diskConfig: diskConfig,
-          memoryConfig: memoryConfig,
-          transformer: TransformerFactory.forCodable(ofType: T.self) // Storage<User>
+            diskConfig: diskConfig,
+            memoryConfig: memoryConfig,
+            transformer: TransformerFactory.forCodable(ofType: T.self) // Storage<User>
         )
     }
     
     func fetchData(then handler: @escaping Handler) {
-        if let cached = try? storage?.object(forKey: cacheKey) {
-            handler(cached)
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let cached = try? self.storage?.object(forKey: self.cacheKey) {
+                handler(cached)
+            }
+            
         }
     }
 }

@@ -27,6 +27,7 @@ class RoomsViewModel {
                     }
                     return false
                 }
+                                
                 self.dataSource?.data.value = rooms
         }
     }
@@ -41,6 +42,12 @@ class RoomsViewModel {
     func suggestedRoomsSearchQuery(with text: String, completion: @escaping (([RoomSchema]) -> Void)) {
         GitterApi.shared.searchRooms(query: text) { (result) in
             completion(result!.results)
+        }
+    }
+    
+    func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
+        GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
+            completion(res)
         }
     }
 }
@@ -59,6 +66,28 @@ class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
                                                        unreadItems: room.unreadItems ?? 0))
             
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let userId = ShareData().userdata?.id else { return }
+            let room = data.value[indexPath.row]
+            
+            data.value.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
+                print(suc)
+            }
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
+    
+    func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
+        GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
+            completion(res)
         }
     }
 }

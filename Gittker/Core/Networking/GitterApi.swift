@@ -23,6 +23,7 @@ private enum GitterApiLinks {
     case suggestedRooms
     case rooms
     case readMessages(userId: String, roomId: String)
+    case removeUser(userId: String, roomId: String) // This can be self-inflicted to leave the the room and remove room from your left menu.
     
     // Messages
     case firstMessages(String)
@@ -47,6 +48,8 @@ private enum GitterApiLinks {
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
         case .readMessages(userId: let userId, roomId: let roomId):
             return "v1/user/\(userId)/rooms/\(roomId)/unreadItems"
+        case .removeUser(userId: let userId, roomId: let roomId):
+            return "v1/rooms/\(roomId)/users/\(userId)"
             
         case .searchRooms(let query): return "v1/rooms?q=\(query)"
         }
@@ -129,7 +132,7 @@ extension GitterApi {
         }
     }
     
-    func markMessagesAsRead(roomId: String, userId: String,  completion: @escaping ((SuccessSchema) -> Void)) {
+    func markMessagesAsRead(roomId: String, userId: String, completion: @escaping ((SuccessSchema) -> Void)) {
         guard let body =
         """
         {
@@ -140,6 +143,13 @@ extension GitterApi {
         """.convertToDictionary() else { return }
         
         postDataReadMessages(url: GitterApiLinks.readMessages(userId: userId, roomId: roomId), body: body) { (data: SuccessSchema) in
+            completion(data)
+        }
+    }
+    
+    func removeUserFromRoom(userId: String, roomId: String, completion: @escaping (SuccessSchema) -> Void) {
+        genericRequestData(url: GitterApiLinks.removeUser(userId: userId, roomId: roomId), method: "DELETE", body: nil)
+        { (data) in
             completion(data)
         }
     }
@@ -193,7 +203,26 @@ extension GitterApi {
         }
     }
     
+    private func genericRequestData<T: Codable>(url: GitterApiLinks, method: String, body: [String: Any]?, completion: @escaping (T) -> ()) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
+        print(String(describing: url))
+        
+        self.httpClient.genericRequest(url: url, method: method, bodyObject: body)
+        { (res) in
+            switch res {
+            case .success(let data):
+                let decoded = try! self.newJSONDecoder().decode(T.self, from: data)
+                completion(decoded)
+            default: break
+            }
+        }
+    }
+}
+
+// MARK: - Specific Requests
+extension GitterApi {
     private func postDataReadMessages<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> ()) {
+        //                                     changed link
         let url = URL(string: "\(GitterApiLinks.baseUrlApi2)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
@@ -225,7 +254,3 @@ extension GitterApi {
     }
 }
 
-
-// https://gitter.im/api/v1/user/5ac21dd2d73408ce4f940b10/rooms/53d6ed74107e137846ba84d0/unreadItems
-
-// https://gitter.im/api/v1/user/5ac21dd2d73408ce4f940b10/rooms/53d6ed74107e137846ba84d0/unreadItems
