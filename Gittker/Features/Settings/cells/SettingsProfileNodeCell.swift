@@ -9,18 +9,13 @@
 import AsyncDisplayKit
 
 class SettingsProfileNodeCell: ASCellNode {
-    struct Content {
-        let title: String
-        let avatarUrl: String?
-    }
-    
     // MARK: - Variables
     
     private lazy var imageSize: CGSize = {
         return CGSize(width: 50, height: 50)
     }()
     
-    private let content: SettingsProfileNodeCell.Content
+    private let content: UserSchema
     
     private let imageNode = ASNetworkImageNode()
     private let titleNode = ASTextNode()
@@ -33,7 +28,7 @@ class SettingsProfileNodeCell: ASCellNode {
     
     // MARK: - Object life cycle
     
-    init(with content: SettingsProfileNodeCell.Content) {
+    init(with content: UserSchema) {
         self.content = content
         
         super.init()
@@ -51,7 +46,7 @@ class SettingsProfileNodeCell: ASCellNode {
     }
     
     private func setupImageNode() {
-        self.imageNode.url = URL(string: self.content.avatarUrl ?? "")
+        self.imageNode.url = URL(string: self.content.avatarURL ?? "")
         self.imageNode.style.preferredSize = self.imageSize
         
         self.imageNode.cornerRadius = self.imageSize.width / 2
@@ -59,7 +54,7 @@ class SettingsProfileNodeCell: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content.title, attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.content.displayName, attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
@@ -87,6 +82,14 @@ class SettingsProfileNodeCell: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.titleNode.style.flexShrink = 1
+        
+//        let infoSpec = ASStackLayoutSpec(direction: .vertical,
+//                                         spacing: 6,
+//                                         justifyContent: .start,
+//                                         alignItems: .center,
+//                                         children:
+//            [self.titleNode, self.subtitleNode, self.gitInfoNode, self.locationNode, self.emailNode]
+//        )
         
         let finalSpec = ASStackLayoutSpec(direction: .horizontal,
                                           spacing: 10.0,

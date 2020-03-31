@@ -49,6 +49,14 @@ struct TableGroupedContributor: TableGroupedItemProtocol {
     var avatarUrl: String
 }
 
+struct TableGroupedProfile: TableGroupedItemProtocol {
+    var text: String
+    var type: TableGroupedType
+    var value: String
+    var avatarUrl: String
+    var user: UserSchema
+}
+
 struct TableGroupedLicense: TableGroupedItemProtocol {
     var text: String
     var type: TableGroupedType
