@@ -16,6 +16,12 @@ class ChatViewController: MessagesViewController {
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
+    // magical haveMessagesToSend:
+    // when user tap on send in this client then we draw ui for message and haveMessagesToSend is true
+    // when get back from Faye that new message is received then check for haveMessagesToSend and if true then do nothing
+    // then we got response from sendMessage API request and haveMessagesToSend is false
+    open var haveMessagesToSend = false
+    
     var canFetchMoreResults = true
     let userdata = ShareData().userdata?.toMockUser()
     
@@ -74,6 +80,9 @@ class ChatViewController: MessagesViewController {
     }
     
     func deleteMessage(by passedId: String) {
+        print(passedId)
+        print(messageList)
+        
         let index = messageList.firstIndex(where: { (mess) in
             mess.message.messageId == passedId
         })
@@ -374,19 +383,17 @@ extension ChatViewController: MessageInputBarDelegate {
         messageInputBar.invalidatePlugins()
         
         // Send button activity animation
-        messageInputBar.sendButton.startAnimating()
-        messageInputBar.inputTextView.placeholder = "Sending..."
         DispatchQueue.global(qos: .default).async {
             // fake send request task
-            sleep(1)
+//            sleep(2)
             DispatchQueue.main.async { [weak self] in
-                self?.messageInputBar.sendButton.stopAnimating()
                 self?.messageInputBar.inputTextView.placeholder = "Message"
                 self?.insertMessages(components)
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
         }
         
+        self.haveMessagesToSend = true
         self.sendMessage(inputBar: inputBar, text: text)
     }
     

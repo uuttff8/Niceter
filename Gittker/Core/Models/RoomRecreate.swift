@@ -16,27 +16,27 @@ struct UrlSchema: Codable {
 struct RoomRecreateSchema: Codable {
     let id: String
     let v: Int?
-    let fromUser: UserSchema
+    let fromUser: UserSchema?
 //    let issues: [String]?
     let urls: [UrlSchema]?
-    let text: String
+    let text: String?
 //    let mentions: Int?
     let meta: [String]?
     let sent: String?
     let readBy: Int?
     let unread: Bool?
-    let html: String
+    let html: String?
 }
 
 extension RoomRecreateSchema {
     func toGittkerMessage() -> GittkerMessage {
-        let user = MockUser(senderId: fromUser.id, displayName: fromUser.displayName)
-        let message = MockMessage(text: self.text,
+        let user = MockUser(senderId: fromUser?.id ?? "", displayName: fromUser?.displayName ?? "")
+        let message = MockMessage(text: self.text ?? "",
                                   user: user,
                                   messageId: self.id,
                                   date: Date.toGittkerDate(str: self.sent),
                                   unread: unread ?? false)
-        return GittkerMessage(message: message, avatarUrl: self.fromUser.avatarURLMedium)
+        return GittkerMessage(message: message, avatarUrl: self.fromUser?.avatarURLMedium)
     }
 }
 
