@@ -10,16 +10,10 @@ import MessageKit
 
 struct MessagesEventSchema: Codable {
     
-    enum Event: String, Codable {
+    @frozen enum Event: String, Codable {
         case create = "create"
         case update = "update"
         case remove = "remove"
-        
-        enum Key: String, CodingKey {
-            case update = "create"
-            case create = "update"
-            case remove = "remove"
-        }
     }
     
     let operation: Self.Event

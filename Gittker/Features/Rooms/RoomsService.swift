@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum RoomsService {
+@frozen enum RoomsService {
     static func share(room: RoomSchema,
                       in viewController: UIViewController) {
         guard let uri = room.uri else { return }

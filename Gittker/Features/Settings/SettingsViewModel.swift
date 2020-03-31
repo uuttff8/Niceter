@@ -19,19 +19,30 @@ struct SettingsViewModel {
         guard let userdata = ShareData().userdata else { return }
         
         let profile = TableGroupedSection(section: .profile,
-                                          items: [TableGroupedContributor(text: userdata.displayName,
-                                                                          type: .gitter,
-                                                                          value: userdata.username,
-                                                                          avatarUrl: userdata.avatarURL ?? "")],
+                                          items:
+            [TableGroupedContributor(text: userdata.displayName,
+                                     type: .gitter,
+                                     value: userdata.username,
+                                     avatarUrl: userdata.avatarURL ?? ""),
+            ],
                                           footer: nil,
-                                          grouped: false)
+                                          grouped: true)
+        
+        let logout = TableGroupedSection(section: .logout,
+                                         items:
+            [TableGroupedItem(text:  "Logout",
+                              type: .noUrl,
+                              value: "")
+            ],
+                                         footer: nil,
+                                         grouped: true)
         
         
-        self.dataSource?.data.value = [profile]
+        self.dataSource?.data.value = [profile, logout]
     }
 }
 
-class SettingsDataSource: GenericDataSource<TableGroupedSection>, ASTableDataSource {
+class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDataSource, ASTableDelegate {
     func numberOfSections(in tableNode: ASTableNode) -> Int {
         return self.data.value.count
     }
@@ -49,8 +60,10 @@ class SettingsDataSource: GenericDataSource<TableGroupedSection>, ASTableDataSou
             switch section.section {
             case .profile:
                 let item2 = item as? TableGroupedContributor
-                cell = SettingsProfileNodeCell(with: ProfileNodeCellContent(title: item.text, avatarUrl: item2?.avatarUrl))
-                cell.selectionStyle = .none
+                cell = SettingsProfileNodeCell(with: SettingsProfileNodeCell.Content(title: item.text, avatarUrl: item2?.avatarUrl))
+            case .logout:
+                cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: item.text))
+                
             default:
                 cell = ASCellNode()
             }
@@ -59,8 +72,8 @@ class SettingsDataSource: GenericDataSource<TableGroupedSection>, ASTableDataSou
         }
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.setNeedsDisplay()
+    func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+        node.setNeedsDisplay()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -74,4 +87,51 @@ class SettingsDataSource: GenericDataSource<TableGroupedSection>, ASTableDataSou
         
         return section.footer
     }
+    
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        let section = self.data.value[indexPath.section]
+        //        let item = section.items[indexPath.row]
+        
+        switch section.section {
+        case .profile:
+            print("LOL")
+            tableNode.deselectRow(at: indexPath, animated: true)
+        case .logout:
+            self.logout()
+            tableNode.deselectRow(at: indexPath, animated: true)
+            
+        default:
+            break
+        }
+        
+    }
+    
+    private func logout() {
+        LoginData.shared.logout()
+        
+        // Safety: we use only one window
+        guard let window = UIApplication.shared.windows.first else {
+            return
+        }
+        
+        let root = ASNavigationController()
+        window.rootViewController = root
+        root.setNavigationBarHidden(true, animated: false)
+        let child = LoginAuthCoordinator(navigationController: root)
+        child.start()
+        
+        // A mask of options indicating how you want to perform the animations.
+        let options: UIView.AnimationOptions = .transitionCrossDissolve
+
+        // The duration of the transition animation, measured in seconds.
+        let duration: TimeInterval = 0.3
+
+        // Creates a transition animation.
+        // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
+        UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
+        { completed in
+            
+        })
+    }
+
 }

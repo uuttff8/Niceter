@@ -9,7 +9,7 @@
 import Foundation
 import KeychainSwift
 
-enum CustomHttpError: Error {
+@frozen enum CustomHttpError: Error {
     case fail
 }
 

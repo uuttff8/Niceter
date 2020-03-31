@@ -9,7 +9,7 @@
 import Foundation
 
 struct RoomEventSchema: Codable {
-    enum Event: String, Codable {
+    @frozen enum Event: String, Codable {
         case create = "create"
 //        case update = "update"
         case remove = "remove"

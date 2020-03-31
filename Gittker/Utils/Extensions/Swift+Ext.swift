@@ -81,3 +81,14 @@ extension String {
         return image
     }
 }
+
+
+extension UserDefaults {
+    func resetDefaults() {
+        let dictionary = self.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            self.removeObject(forKey: key)
+        }
+    }
+
+}
