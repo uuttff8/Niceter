@@ -54,6 +54,8 @@ class ChatViewController: MessagesViewController {
     
     func joinButtonHandlder() { }
     
+    func markMessagesAsRead(messagesId: [String]) {}
+    
     // MARK: - Helpers
     
     func insertMessage(_ message: GittkerMessage) {
@@ -175,9 +177,25 @@ class ChatViewController: MessagesViewController {
         }
     }
     
+    
+    private var messageIdStoring: [String] = []
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        for cell in messagesCollectionView.visibleCells {
+            let indexPath = messagesCollectionView.indexPath(for: cell)
+            if messageList[indexPath?.section ?? 0].message.unread {
+                messageIdStoring.append(messageList[indexPath?.section ?? 0].message.messageId)
+                
+                if messageIdStoring.count >= 5 {
+//                    print("messageStoring.count >= 5")
+                    markMessagesAsRead(messagesId: messageIdStoring)
+                }
+            }
+        }
+
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         super.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
-        
         if indexPath.section == 20 {
             canFetchMoreResults = false
             self.loadOlderMessages()
@@ -376,10 +394,10 @@ extension ChatViewController: MessageInputBarDelegate {
         for component in data {
             let user = userdata!
             if let str = component as? String {
-                let message = MockMessage(text: str, user: user, messageId: UUID().uuidString, date: Date())
+                let message = MockMessage(text: str, user: user, messageId: UUID().uuidString, date: Date(), unread: false)
                 insertMessage(GittkerMessage(message: message, avatarUrl: nil))
             } else if let img = component as? UIImage {
-                let message = MockMessage(image: img, user: user, messageId: UUID().uuidString, date: Date())
+                let message = MockMessage(image: img, user: user, messageId: UUID().uuidString, date: Date(), unread: false)
                 insertMessage(GittkerMessage(message: message, avatarUrl: nil))
             }
         }

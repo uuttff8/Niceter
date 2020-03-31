@@ -139,15 +139,13 @@ extension GitterApi {
         }
     }
     
-    func markMessagesAsRead(roomId: String, userId: String, completion: @escaping ((SuccessSchema) -> Void)) {
+    func markMessagesAsRead(messagesId: [String], roomId: String, userId: String, completion: @escaping ((SuccessSchema) -> Void)) {
         guard let body =
             """
                 {
-                "chat": [
-                "\(roomId)"
-                ]
+                "chat": \(messagesId)
                 }
-                """.convertToDictionary() else { return }
+            """.convertToDictionary() else { return }
         
         postDataReadMessages(url: GitterApiLinks.readMessages(userId: userId, roomId: roomId), body: body) { (data: SuccessSchema) in
             completion(data)

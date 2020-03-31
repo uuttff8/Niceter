@@ -85,53 +85,55 @@ internal struct MockMessage: MessageType {
     }
     var sentDate: Date
     var kind: MessageKind
+    var unread: Bool
 
     var user: MockUser
 
-    private init(kind: MessageKind, user: MockUser, messageId: String, date: Date) {
+    private init(kind: MessageKind, user: MockUser, messageId: String, date: Date, unread: Bool) {
         self.kind = kind
         self.user = user
         self.messageId = messageId
         self.sentDate = date
+        self.unread = unread
     }
     
-    init(custom: Any?, user: MockUser, messageId: String, date: Date) {
-        self.init(kind: .custom(custom), user: user, messageId: messageId, date: date)
+    init(custom: Any?, user: MockUser, messageId: String, date: Date, unread: Bool) {
+        self.init(kind: .custom(custom), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(text: String, user: MockUser, messageId: String, date: Date) {
-        self.init(kind: .text(text), user: user, messageId: messageId, date: date)
+    init(text: String, user: MockUser, messageId: String, date: Date, unread: Bool) {
+        self.init(kind: .text(text), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(attributedText: NSAttributedString, user: MockUser, messageId: String, date: Date) {
-        self.init(kind: .attributedText(attributedText), user: user, messageId: messageId, date: date)
+    init(attributedText: NSAttributedString, user: MockUser, messageId: String, date: Date, unread: Bool) {
+        self.init(kind: .attributedText(attributedText), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(image: UIImage, user: MockUser, messageId: String, date: Date) {
+    init(image: UIImage, user: MockUser, messageId: String, date: Date, unread: Bool) {
         let mediaItem = ImageMediaItem(image: image)
-        self.init(kind: .photo(mediaItem), user: user, messageId: messageId, date: date)
+        self.init(kind: .photo(mediaItem), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(thumbnail: UIImage, user: MockUser, messageId: String, date: Date) {
+    init(thumbnail: UIImage, user: MockUser, messageId: String, date: Date, unread: Bool) {
         let mediaItem = ImageMediaItem(image: thumbnail)
-        self.init(kind: .video(mediaItem), user: user, messageId: messageId, date: date)
+        self.init(kind: .video(mediaItem), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(location: CLLocation, user: MockUser, messageId: String, date: Date) {
+    init(location: CLLocation, user: MockUser, messageId: String, date: Date, unread: Bool) {
         let locationItem = CoordinateItem(location: location)
-        self.init(kind: .location(locationItem), user: user, messageId: messageId, date: date)
+        self.init(kind: .location(locationItem), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(emoji: String, user: MockUser, messageId: String, date: Date) {
-        self.init(kind: .emoji(emoji), user: user, messageId: messageId, date: date)
+    init(emoji: String, user: MockUser, messageId: String, date: Date, unread: Bool) {
+        self.init(kind: .emoji(emoji), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(audioURL: URL, user: MockUser, messageId: String, date: Date) {
+    init(audioURL: URL, user: MockUser, messageId: String, date: Date, unread: Bool) {
         let audioItem = MockAudiotem(url: audioURL)
-        self.init(kind: .audio(audioItem), user: user, messageId: messageId, date: date)
+        self.init(kind: .audio(audioItem), user: user, messageId: messageId, date: date, unread: unread)
     }
 
-    init(contact: MockContactItem, user: MockUser, messageId: String, date: Date) {
-        self.init(kind: .contact(contact), user: user, messageId: messageId, date: date)
+    init(contact: MockContactItem, user: MockUser, messageId: String, date: Date, unread: Bool) {
+        self.init(kind: .contact(contact), user: user, messageId: messageId, date: date, unread: unread)
     }
 }
