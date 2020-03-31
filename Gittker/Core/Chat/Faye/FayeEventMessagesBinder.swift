@@ -64,9 +64,8 @@ public final class FayeEventMessagesBinder {
         
         client.messageReceivedHandler = { (dict, _) in
             guard let data = dict.jsonData else { return }
-            print(data.prettyPrintedJSONString)
             
-            /*guard*/ let event = try! JSONDecoder().decode(MessagesEventSchema.self, from: data) //else { return }
+            guard let event = try? JSONDecoder().decode(MessagesEventSchema.self, from: data) else { return }
             
             
             switch event.operation {
@@ -77,7 +76,6 @@ public final class FayeEventMessagesBinder {
                 let message = event.model.toGittkerMessage()
                 onUpdate?(message)
             case .remove:
-                print(data.prettyPrintedJSONString)
                 let id = event.model.id
                 onDeleted?(id)
             }
