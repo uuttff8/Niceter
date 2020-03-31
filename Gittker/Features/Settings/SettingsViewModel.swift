@@ -20,10 +20,11 @@ struct SettingsViewModel {
         
         let profile = TableGroupedSection(section: .profile,
                                           items:
-            [TableGroupedContributor(text: userdata.displayName,
+            [TableGroupedProfile(text: userdata.displayName,
                                      type: .gitter,
                                      value: userdata.username,
-                                     avatarUrl: userdata.avatarURL ?? ""),
+                                     avatarUrl: userdata.avatarURL ?? "",
+                                     user: userdata),
             ],
                                           footer: nil,
                                           grouped: true)
@@ -59,8 +60,8 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDat
             
             switch section.section {
             case .profile:
-                let item2 = item as? TableGroupedContributor
-                cell = SettingsProfileNodeCell(with: SettingsProfileNodeCell.Content(title: item.text, avatarUrl: item2?.avatarUrl))
+                guard let item2 = item as? TableGroupedProfile else { return ASCellNode() }
+                cell = SettingsProfileNodeCell(with: item2.user)
             case .logout:
                 cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: item.text))
                 
