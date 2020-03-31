@@ -66,11 +66,9 @@ class CachedRoomLoader: CachedLoader<[RoomSchema]> {
 }
 
 class CachedRoomMessagesLoader: CachedLoader<[RoomRecreateSchema]> {
-    private let skipIndex: Int
     private let roomId: String
     
-    init(cacheKey roomId: String, skip: Int) {
-        self.skipIndex = skip
+    override init(cacheKey roomId: String) {
         self.roomId = roomId
         super.init(cacheKey: roomId)
     }
@@ -79,7 +77,7 @@ class CachedRoomMessagesLoader: CachedLoader<[RoomRecreateSchema]> {
     override func fetchData(then handler: @escaping Handler) {
         super.fetchData(then: handler)
         
-        GitterApi.shared.listMessagesUnread(roomId: roomId, skip: skipIndex) { (roomRecrList) in
+        GitterApi.shared.listMessagesUnread(roomId: roomId) { (roomRecrList) in
             guard let messages = roomRecrList else { return }
             try? self.storage?.setObject(messages, forKey: self.cacheKey)
             handler(messages)

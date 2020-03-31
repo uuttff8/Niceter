@@ -16,7 +16,7 @@ class ChatViewController: MessagesViewController {
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
-    private var isOlderMessageLoading = false
+    var canFetchMoreResults = true
     let userdata = ShareData().userdata?.toMockUser()
     
     let formatter: DateFormatter = {
@@ -32,7 +32,7 @@ class ChatViewController: MessagesViewController {
         configureMessageCollectionView()
         configureMessageInputBarForDarkMode()
     }
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         loadFirstMessages()
         super.viewWillAppear(animated)
@@ -106,7 +106,7 @@ class ChatViewController: MessagesViewController {
         messageInputBar.inputTextView.placeholderLabel.textColor = .secondaryLabel
         messageInputBar.backgroundView.backgroundColor = .systemBackground
     }
-
+    
     
     func isLastSectionVisible() -> Bool {
         
@@ -175,23 +175,32 @@ class ChatViewController: MessagesViewController {
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        var visibleRect = CGRect()
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        super.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
         
-        visibleRect.origin = self.messagesCollectionView.contentOffset
-        visibleRect.size = self.messagesCollectionView.bounds.size
-        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-        
-        guard let indexPath = self.messagesCollectionView.indexPathForItem(at: visiblePoint) else { return }
-        
-        if indexPath.section <= 10 {
-            if !isOlderMessageLoading {
-                isOlderMessageLoading = true
-                self.loadOlderMessages()
-                isOlderMessageLoading = false
-            }
+        if indexPath.section == 20 {
+            canFetchMoreResults = false
+            self.loadOlderMessages()
         }
     }
+    
+    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    //        var visibleRect = CGRect()
+    //
+    //        visibleRect.origin = self.messagesCollectionView.contentOffset
+    //        visibleRect.size = self.messagesCollectionView.bounds.size
+    //        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+    //
+    //        guard let indexPath = self.messagesCollectionView.indexPathForItem(at: visiblePoint) else { return }
+    //
+    //        if indexPath.section <= 10 {
+    //            if !isOlderMessageLoading {
+    //                isOlderMessageLoading = true
+    //                self.loadOlderMessages()
+    //                isOlderMessageLoading = false
+    //            }
+    //        }
+    //    }
 }
 
 extension ChatViewController: MessagesDataSource {
