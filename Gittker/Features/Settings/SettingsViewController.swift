@@ -12,19 +12,17 @@ class SettingsViewController: ASViewController<ASTableNode> {
     
     weak var coordinator: SettingsCoordinator?
     
-    lazy var viewModel: SettingsViewModel = SettingsViewModel(dataSource: self.dataSource)
+    lazy var viewModel: SettingsViewModel = SettingsViewModel(dataSource: self.tableDelegates)
     
-    private let dataSource = SettingsDataSource()
+    private let tableDelegates = SettingsTableDelegates()
     private var tableNode: ASTableNode {
         return node
     }
 
     init(coordinator: SettingsCoordinator) {
         super.init(node: ASTableNode(style: .insetGrouped))
-//        node.backgroundColor = .systemBackground
-//        self.tableNode.view.separatorStyle = .none
-        
-        self.tableNode.dataSource = self.dataSource
+        self.tableNode.dataSource = self.tableDelegates
+        self.tableNode.delegate = self.tableDelegates
     }
     
     required init?(coder: NSCoder) {
@@ -35,7 +33,7 @@ class SettingsViewController: ASViewController<ASTableNode> {
         super.viewDidLoad()
         title = "Settings"
         
-        self.dataSource.data.addAndNotify(observer: self) { [weak self] in
+        self.tableDelegates.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 

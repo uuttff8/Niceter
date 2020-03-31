@@ -40,6 +40,8 @@
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
 		4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */; };
 		4E229FFE24325FBD0096371C /* RoomsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFD24325FBD0096371C /* RoomsService.swift */; };
+		4E22A0002432B2A70096371C /* SettingsButtonNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */; };
+		4E22A00424334B480096371C /* ProfileAdditionalInfoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */; };
 		4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* RoomSchema.swift */; };
 		4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */; };
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
@@ -154,6 +156,8 @@
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
 		4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableNode.swift; sourceTree = "<group>"; };
 		4E229FFD24325FBD0096371C /* RoomsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsService.swift; sourceTree = "<group>"; };
+		4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButtonNodeCell.swift; sourceTree = "<group>"; };
+		4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAdditionalInfoNode.swift; sourceTree = "<group>"; };
 		4E2A7A0C241153C70025F39C /* RoomSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSchema.swift; sourceTree = "<group>"; };
 		4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
@@ -498,9 +502,9 @@
 			isa = PBXGroup;
 			children = (
 				4ED5398E242BB390000874F3 /* cells */,
+				4ED53992242BB7A7000874F3 /* SettingsViewModel.swift */,
 				4E09AC6D240EE6C60028229C /* SettingsViewController.swift */,
 				4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */,
-				4ED53992242BB7A7000874F3 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -732,6 +736,8 @@
 			isa = PBXGroup;
 			children = (
 				4ED5398C242BB37F000874F3 /* SettingsProfileNodeCell.swift */,
+				4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */,
+				4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -1019,6 +1025,7 @@
 				4E09AC5C240EE6660028229C /* RoomsViewController.swift in Sources */,
 				4E9D17BD241E8FC00066362D /* RoomChatCoordinator.swift in Sources */,
 				4E09AC31240D906F0028229C /* ClearCookies.swift in Sources */,
+				4E22A0002432B2A70096371C /* SettingsButtonNodeCell.swift in Sources */,
 				4E9D17B7241E839B0066362D /* GitterFayeClient.swift in Sources */,
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
 				4E9D17A0241E42A60066362D /* NSDate+Serialize.m in Sources */,
@@ -1076,6 +1083,7 @@
 				4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */,
 				4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */,
 				4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */,
+				4E22A00424334B480096371C /* ProfileAdditionalInfoNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,6 +27,15 @@ class LoginData {
     private let keychain = KeychainSwift()
     private let userDefaults = UserDefaults.appShared
     
+    func logout() {
+        // proof
+        keychain.clear()
+        keychain.clear()
+        userDefaults.removeSuite(named: "userDefaults.uuttff8.Gittker")
+        userDefaults.resetDefaults()
+        URLCache.shared.removeAllCachedResponses()
+    }
+    
     func setLoggedIn(_ userId:String) {
         self.userId = userId
     }

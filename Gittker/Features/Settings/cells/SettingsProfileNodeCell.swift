@@ -8,30 +8,37 @@
 
 import AsyncDisplayKit
 
-struct ProfileNodeCellContent {
-    let title: String
-    let avatarUrl: String?
-}
-
 class SettingsProfileNodeCell: ASCellNode {
+    struct Content {
+        let title: String
+        let avatarUrl: String?
+    }
+    
     // MARK: - Variables
     
     private lazy var imageSize: CGSize = {
         return CGSize(width: 50, height: 50)
     }()
     
-    private let room: ProfileNodeCellContent
+    private let content: SettingsProfileNodeCell.Content
     
     private let imageNode = ASNetworkImageNode()
     private let titleNode = ASTextNode()
+    private let subtitleNode = ASTextNode()
+    private let gitInfoNode = ASTextNode()
+    
+    private let locationNode = ProfileAdditionalInfoNode(image: UIImage(systemName: "location")!)
+    private let emailNode = ProfileAdditionalInfoNode(image: UIImage(systemName: "envelope")!)
     private let separatorNode = ASDisplayNode()
     
     // MARK: - Object life cycle
     
-    init(with room: ProfileNodeCellContent) {
-        self.room = room
+    init(with content: SettingsProfileNodeCell.Content) {
+        self.content = content
         
         super.init()
+        selectionStyle = .none
+        
         self.setupNodes()
         self.buildNodeHierarchy()
     }
@@ -44,7 +51,7 @@ class SettingsProfileNodeCell: ASCellNode {
     }
     
     private func setupImageNode() {
-        self.imageNode.url = URL(string: room.avatarUrl ?? "")
+        self.imageNode.url = URL(string: self.content.avatarUrl ?? "")
         self.imageNode.style.preferredSize = self.imageSize
         
         self.imageNode.cornerRadius = self.imageSize.width / 2
@@ -52,7 +59,7 @@ class SettingsProfileNodeCell: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.room.title, attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.content.title, attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }

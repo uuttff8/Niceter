@@ -8,6 +8,7 @@
 
 import Foundation
 
+@frozen
 private enum GitterApiLinks {
     private static let limitMessages = 30 // Limit messages to be loaded
     

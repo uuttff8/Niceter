@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TableGroupedSectionType: String {
+@frozen enum TableGroupedSectionType: String {
     // About
     case profile = "Profile"
 //    case contributors = "Contributors"
@@ -22,10 +22,12 @@ enum TableGroupedSectionType: String {
 //    case notifications = "Notifications"
 //    case openSource = "Open Source"
     case about = "About"
+    
+    case logout = ""
 }
 
 // MARK: -
-enum TableGroupedType: String {
+@frozen enum TableGroupedType: String {
     case gitter
     case url
     case email

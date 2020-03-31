@@ -15,7 +15,7 @@ struct ExchangeTokenSchema: Codable {
     var grantType: String
     var code: String
     
-    enum CodingKeys: String, CodingKey {
+    @frozen enum CodingKeys: String, CodingKey {
         case clientId = "client_id"
         case clientSecret = "client_secret"
         case redirectUri = "redirect_uri"
@@ -32,7 +32,7 @@ struct UserSchema: Codable, Hashable, Equatable {
     let providers: [String]?
     let v: Int?
 
-    enum CodingKeys: String, CodingKey {
+    @frozen enum CodingKeys: String, CodingKey {
         case id, username, displayName, url
         case avatarURL = "avatarUrl"
         case avatarURLSmall = "avatarUrlSmall"
@@ -50,7 +50,7 @@ struct AccessTokenSchema: Codable {
     let accessToken: String
     let tokenType: String
     
-    enum CodingKeys: String, CodingKey {
+    @frozen enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case tokenType = "token_type"
     }
