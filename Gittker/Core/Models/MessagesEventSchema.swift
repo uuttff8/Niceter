@@ -10,7 +10,7 @@ import MessageKit
 
 struct MessagesEventSchema: Codable {
     
-    @frozen enum Event: String, Codable {
+    enum Event: String, Codable {
         case create = "create"
         case update = "update"
         case remove = "remove"
@@ -18,14 +18,6 @@ struct MessagesEventSchema: Codable {
     
     let operation: Self.Event
     let model: RoomRecreateSchema
-    
-    func createGittkerMessage() -> GittkerMessage? {
-        switch operation {
-        case .create:
-            return model.toGittkerMessage()
-        default: return nil
-        }
-    }
 }
 
 

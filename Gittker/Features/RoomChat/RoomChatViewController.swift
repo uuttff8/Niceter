@@ -35,25 +35,6 @@ final class RoomChatViewController: RoomChatBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configureScrollAndPaginate() {
-        // scroll to unread message
-        // note: unread limit is 100
-        if let indexPath = self.viewModel.findFirstUnreadMessage() {
-            // paginate if scrolls at top
-            if indexPath.section <= 20 {
-                self.loadOlderMessages()
-                
-                if cached == 0 {
-                    self.messagesCollectionView.reloadSections(IndexSet(integer: 100))
-                }
-            }
-            self.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
-            
-        } else {
-            self.messagesCollectionView.scrollToBottom()
-        }
-    }
-    
     override func loadFirstMessages() {
         viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
@@ -72,9 +53,13 @@ final class RoomChatViewController: RoomChatBaseViewController {
         FayeEventMessagesBinder(roomId: roomSchema.id)
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
+                    
                     // if got message from yourself, do nothing, we handle this message by yourself to provide offline messages
                     if message.message.sender.senderId == self?.userdata?.senderId {
-                        return
+                        if self!.haveMessagesToSend {
+                            self?.messageList.append(message)
+                            return
+                        }
                     }
                     
                     self?.insertMessage(message)
@@ -103,7 +88,8 @@ final class RoomChatViewController: RoomChatBaseViewController {
     override func sendMessage(inputBar: MessageInputBar, text: String) {
         viewModel.sendMessage(text: text) { (result) in
             switch result {
-            case .success(_):
+            case .success(let res):
+                self.haveMessagesToSend = false
                 print("All is ok")
             case .failure(_):
                 print("All is bad")
@@ -129,4 +115,24 @@ final class RoomChatViewController: RoomChatBaseViewController {
             configureMessageInputBarForChat()
         }
     }
+    
+    private func configureScrollAndPaginate() {
+        // scroll to unread message
+        // note: unread limit is 100
+        if let indexPath = self.viewModel.findFirstUnreadMessage() {
+            // paginate if scrolls at top
+            if indexPath.section <= 20 {
+                self.loadOlderMessages()
+                
+                if cached == 0 {
+                    self.messagesCollectionView.reloadSections(IndexSet(integer: 100))
+                }
+            }
+            self.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+            
+        } else {
+            self.messagesCollectionView.scrollToBottom()
+        }
+    }
+    
 }
