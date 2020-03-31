@@ -94,3 +94,11 @@ struct RoomEventSchema: Codable {
 //  },
 //  "operation" : "patch"
 //}
+
+//{
+//  "model" : {
+//    "id" : "53d6ed74107e137846ba84d0",
+//    "unreadItems" : 63
+//  },
+//  "operation" : "patch"
+//}

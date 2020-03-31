@@ -35,7 +35,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureScrollAndPaginate() {
+    private func configureScrollAndPaginate() {
         // scroll to unread message
         // note: unread limit is 100
         if let indexPath = self.viewModel.findFirstUnreadMessage() {
@@ -60,7 +60,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
                 self?.messageList = gittMessages
                 if self!.cached > 0 {
                     self?.messagesCollectionView.reloadData()
-                    self!.cached - 1
+                    let _ = self!.cached - 1
                 }
                 
                 self?.configureScrollAndPaginate()
@@ -115,6 +115,10 @@ final class RoomChatViewController: RoomChatBaseViewController {
         viewModel.joinToChat(userId: userdata!.senderId, roomId: roomSchema.id) { (success) in
             self.configureMessageInputBarForChat()
         }
+    }
+    
+    override func markMessagesAsRead(messagesId: [String]) {
+        self.viewModel.markMessagesAsRead(userId: userdata!.senderId, messagesId: messagesId)
     }
     
     override func viewDidLoad() {

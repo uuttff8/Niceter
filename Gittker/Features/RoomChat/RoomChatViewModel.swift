@@ -43,8 +43,8 @@ class RoomChatViewModel {
         }
     }
     
-    func markMessagesAsRead(userId: String, completion: (() -> Void)? = nil) {
-        GitterApi.shared.markMessagesAsRead(roomId: self.roomSchema.id, userId: userId) { (success) in }
+    func markMessagesAsRead(userId: String, messagesId: [String], completion: (() -> Void)? = nil) {
+        GitterApi.shared.markMessagesAsRead(messagesId: messagesId, roomId: self.roomSchema.id, userId: userId) { (success) in }
     }
     
     func joinToChat(userId: String, roomId: String, completion: @escaping ((RoomSchema) -> Void)) {
@@ -61,6 +61,7 @@ class RoomChatViewModel {
             guard let unread = roomRecrSchema.unread else { return false }
             return unread == true
         }) {
+            if firstIndex == 0 { return nil}
             return IndexPath(row: 0, section: firstIndex)
         }
         

@@ -137,11 +137,10 @@ class RoomsViewController: ASViewController<ASTableNode> {
                 self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
             
-//            // When lastAcessTime is updated, unreadItems should be zero
-//            if let _ = room.lastAccessTime {
-//                self.viewModel.dataSource?.data.value[index].unreadItems = 0
-//                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-//            }
+            if let newUnreadedItems = room.unreadItems {
+                self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
+                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            }            
         }
     }
 }
