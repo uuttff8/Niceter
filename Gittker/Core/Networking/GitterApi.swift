@@ -10,7 +10,7 @@ import Foundation
 
 @frozen
 private enum GitterApiLinks {
-    private static let limitMessages = 30 // Limit messages to be loaded
+    private static let limitMessages = 100 // because limit of unread is 100
     
     static let baseUrl = "https://gitter.im/"
     static let baseUrlApi2 = "https://gitter.im/api/"
@@ -32,7 +32,7 @@ private enum GitterApiLinks {
     case olderMessages(messageId: String, roomId: String)
     case sendMessage(roomId: String)
     case listMessagesAround(roomId: String, messageId: String)
-    case listMessagesUnread(roomId: String, skip: Int)
+    case listMessagesUnread(roomId: String)
     
     // Search Rooms
     case searchRooms(_ query: String)
@@ -46,8 +46,8 @@ private enum GitterApiLinks {
             return "v1/rooms/\(roomId)/chatMessages"
         case .listMessagesAround(roomId: let roomId, messageId: let messageId):
             return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)?aroundId=\(messageId)"
-        case .listMessagesUnread(roomId: let roomId, skip: let skip):
-            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)?skip=\(skip)"
+        case .listMessagesUnread(roomId: let roomId):
+            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
             
         case .exchangeToken: return "login/oauth/token"
         case .whoMe: return "v1/user/me"
@@ -212,8 +212,8 @@ extension GitterApi {
         }
     }
     
-    func listMessagesUnread(roomId: String, skip: Int, completion: @escaping (([RoomRecreateSchema]?) -> Void)) {
-        requestData(url: GitterApiLinks.listMessagesUnread(roomId: roomId, skip: skip))
+    func listMessagesUnread(roomId: String, completion: @escaping (([RoomRecreateSchema]?) -> Void)) {
+        requestData(url: GitterApiLinks.listMessagesUnread(roomId: roomId))
         { (data: [RoomRecreateSchema]?) in
             completion(data)
         }

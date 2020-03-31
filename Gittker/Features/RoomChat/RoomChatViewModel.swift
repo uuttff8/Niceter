@@ -19,7 +19,7 @@ class RoomChatViewModel {
     
     func loadFirstMessages(completion: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            CachedRoomMessagesLoader(cacheKey: self.roomSchema.id, skip: self.roomSchema.unreadItems ?? 0)
+            CachedRoomMessagesLoader(cacheKey: self.roomSchema.id)
                 .fetchData { (roomRecrList) in
                     self.messagesListInfo = roomRecrList
                     completion(roomRecrList.toGittkerMessages())
@@ -61,7 +61,7 @@ class RoomChatViewModel {
             guard let unread = roomRecrSchema.unread else { return false }
             return unread == true
         }) {
-            return IndexPath(row: 0, section: firstIndex - 1)
+            return IndexPath(row: 0, section: firstIndex)
         }
         
         return nil

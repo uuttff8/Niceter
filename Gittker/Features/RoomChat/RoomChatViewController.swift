@@ -21,6 +21,8 @@ final class RoomChatViewController: RoomChatBaseViewController {
     private var isJoined: Bool
     private var roomSchema: RoomSchema
     
+    private var cached = 2
+    
     init(coordinator: RoomChatCoordinator, roomSchema: RoomSchema, isJoined: Bool) {
         self.coordinator = coordinator
         self.roomSchema = roomSchema
@@ -33,18 +35,35 @@ final class RoomChatViewController: RoomChatBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configureScrollAndPaginate() {
+        // scroll to unread message
+        // note: unread limit is 100
+        if let indexPath = self.viewModel.findFirstUnreadMessage() {
+            // paginate if scrolls at top
+            if indexPath.section <= 20 {
+                self.loadOlderMessages()
+                
+                if cached == 0 {
+                    self.messagesCollectionView.reloadSections(IndexSet(integer: 100))
+                }
+            }
+            self.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+            
+        } else {
+            self.messagesCollectionView.scrollToBottom()
+        }
+    }
+    
     override func loadFirstMessages() {
         viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
                 self?.messageList = gittMessages
-                self?.messagesCollectionView.reloadData()
-                
-                if let indexPath = self?.viewModel.findFirstUnreadMessage() {
-                    print(indexPath)
-                    self?.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
-                } else {
-                    self?.messagesCollectionView.scrollToBottom()
+                if self!.cached > 0 {
+                    self?.messagesCollectionView.reloadData()
+                    self!.cached - 1
                 }
+                
+                self?.configureScrollAndPaginate()
             }
         }
     }
@@ -73,6 +92,10 @@ final class RoomChatViewController: RoomChatBaseViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.messageList.insert(contentsOf: gittMessages, at: 0)
                 self?.messagesCollectionView.reloadDataAndKeepOffset()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self?.canFetchMoreResults = true
+                }
             }
         }
     }
