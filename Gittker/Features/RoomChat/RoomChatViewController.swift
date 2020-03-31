@@ -88,7 +88,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     override func sendMessage(inputBar: MessageInputBar, text: String) {
         viewModel.sendMessage(text: text) { (result) in
             switch result {
-            case .success(let res):
+            case .success(_):
                 self.haveMessagesToSend = false
                 print("All is ok")
             case .failure(_):
