@@ -56,10 +56,6 @@ final class RoomChatViewController: RoomChatBaseViewController {
                     
                     // if got message from yourself, do nothing, we handle this message by yourself to provide offline messages
                     if message.message.sender.senderId == self?.userdata?.senderId {
-                        if self!.haveMessagesToSend {
-                            self?.messageList.append(message)
-                            return
-                        }
                     }
                     
                     self?.insertMessage(message)
@@ -88,8 +84,8 @@ final class RoomChatViewController: RoomChatBaseViewController {
     override func sendMessage(inputBar: MessageInputBar, text: String) {
         viewModel.sendMessage(text: text) { (result) in
             switch result {
-            case .success(_):
-                self.haveMessagesToSend = false
+            case .success(let res):
+                self.messageList.append(res.toGittkerMessage())
                 print("All is ok")
             case .failure(_):
                 print("All is bad")
