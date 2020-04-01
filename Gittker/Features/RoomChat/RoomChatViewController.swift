@@ -128,7 +128,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
                     self.messagesCollectionView.reloadSections(IndexSet(integer: 100))
                 }
             }
-            self.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+            self.messagesCollectionView.scrollToItem(at: indexPath, at: .top, animated: false)
             
         } else {
             self.messagesCollectionView.scrollToBottom()
