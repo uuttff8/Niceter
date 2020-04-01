@@ -738,8 +738,8 @@
 		4ED5398E242BB390000874F3 /* cells */ = {
 			isa = PBXGroup;
 			children = (
-				4ED5398C242BB37F000874F3 /* SettingsProfileNodeCell.swift */,
 				4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */,
+				4ED5398C242BB37F000874F3 /* SettingsProfileNodeCell.swift */,
 				4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */,
 			);
 			path = cells;

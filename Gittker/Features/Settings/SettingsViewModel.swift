@@ -15,20 +15,28 @@ struct SettingsViewModel {
         self.dataSource = dataSource
     }
     
-    func fetchDataSource() {
-        guard let userdata = ShareData().userdata else { return }
+    func fetchDataSourceUser() {
+        guard let userdata = ShareData.init().userdata else { return }
         
-        let profile = TableGroupedSection(section: .profile,
-                                          items:
-            [TableGroupedProfile(text: userdata.displayName,
+        GitterApi.shared.getUser(username: userdata.username ?? "") { (userSchema) in
+            guard let user = userSchema else { return }
+            
+            let profile = TableGroupedSection(section: .profile,
+                                              items:
+                [TableGroupedProfile(text: userdata.displayName ?? "",
                                      type: .gitter,
-                                     value: userdata.username,
+                                     value: userdata.username ?? "",
                                      avatarUrl: userdata.avatarURL ?? "",
-                                     user: userdata),
-            ],
-                                          footer: nil,
-                                          grouped: true)
-        
+                                     user: user),
+                ],
+                                              footer: nil,
+                                              grouped: true)
+            
+            self.dataSource?.data.value.insert(profile, at: 0)
+        }
+    }
+    
+    func fetchDataSourceLocalData() {
         let logout = TableGroupedSection(section: .logout,
                                          items:
             [TableGroupedItem(text:  "Logout",
@@ -39,7 +47,7 @@ struct SettingsViewModel {
                                          grouped: true)
         
         
-        self.dataSource?.data.value = [profile, logout]
+        self.dataSource?.data.value = [logout]
     }
 }
 
@@ -123,16 +131,16 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDat
         
         // A mask of options indicating how you want to perform the animations.
         let options: UIView.AnimationOptions = .transitionCrossDissolve
-
+        
         // The duration of the transition animation, measured in seconds.
         let duration: TimeInterval = 0.3
-
+        
         // Creates a transition animation.
         // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
         UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
-        { completed in
-            
+            { completed in
+                
         })
     }
-
+    
 }
