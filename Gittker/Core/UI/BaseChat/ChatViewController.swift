@@ -12,6 +12,11 @@ import SafariServices
 
 class ChatViewController: MessagesViewController {
     var messageList: [GittkerMessage] = []
+    private var unreadMessagesIdStoring: [String] = []
+    
+    // to read unread messages in backround
+    private var timer = Timer()
+    
     
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
@@ -37,6 +42,7 @@ class ChatViewController: MessagesViewController {
         self.view.backgroundColor = UIColor.systemBackground
         configureMessageCollectionView()
         configureMessageInputBarForDarkMode()
+        configureBackroundMessageReading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,6 +115,24 @@ class ChatViewController: MessagesViewController {
         if let index = index {
             messageList[index].message = newMessage.message
             messagesCollectionView.reloadDataAndKeepOffset()
+        }
+    }
+    
+    private func configureBackroundMessageReading() {
+        // unread messages every 2 second
+        self.timer = Timer.scheduledTimer(timeInterval: 2,
+                                          target: self,
+                                          selector: #selector(self.readMessagesInBackround),
+                                          userInfo: nil,
+                                          repeats: true)
+    }
+    
+    @objc private func readMessagesInBackround() {
+        DispatchQueue.global(qos: .background).async {
+            if self.unreadMessagesIdStoring.count > 0 {
+                self.markMessagesAsRead(messagesId: self.unreadMessagesIdStoring)
+                self.unreadMessagesIdStoring.removeAll()
+            }
         }
     }
     
@@ -186,25 +210,18 @@ class ChatViewController: MessagesViewController {
         }
     }
     
-    
-    private var messageIdStoring: [String] = []
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        super.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
+        
+        // count unreaded messages
         for cell in messagesCollectionView.visibleCells {
             let indexPath = messagesCollectionView.indexPath(for: cell)
             if messageList[indexPath?.section ?? 0].message.unread {
-                messageIdStoring.append(messageList[indexPath?.section ?? 0].message.messageId)
-                
-                if messageIdStoring.count >= 5 {
-//                    print("messageStoring.count >= 5")
-                    markMessagesAsRead(messagesId: messageIdStoring)
-                }
+                unreadMessagesIdStoring.append(messageList[indexPath?.section ?? 0].message.messageId)
             }
         }
 
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        super.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
+        // load older messages at top
         if indexPath.section == 20 {
             canFetchMoreResults = false
             self.loadOlderMessages()
@@ -385,7 +402,7 @@ extension ChatViewController: MessageInputBarDelegate {
         // Send button activity animation
         DispatchQueue.global(qos: .default).async {
             // fake send request task
-//            sleep(2)
+            //            sleep(2)
             DispatchQueue.main.async { [weak self] in
                 self?.messageInputBar.inputTextView.placeholder = "Message"
                 self?.insertMessages(components)

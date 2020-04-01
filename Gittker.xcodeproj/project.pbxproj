@@ -42,6 +42,7 @@
 		4E229FFE24325FBD0096371C /* RoomsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFD24325FBD0096371C /* RoomsService.swift */; };
 		4E22A0002432B2A70096371C /* SettingsButtonNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */; };
 		4E22A00424334B480096371C /* ProfileAdditionalInfoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */; };
+		4E22A01224351EFB0096371C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E22A01124351EFB0096371C /* Extensions.swift */; };
 		4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A0C241153C70025F39C /* RoomSchema.swift */; };
 		4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */; };
 		4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A1424116B620025F39C /* KeychainSwift */; };
@@ -158,6 +159,7 @@
 		4E229FFD24325FBD0096371C /* RoomsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsService.swift; sourceTree = "<group>"; };
 		4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButtonNodeCell.swift; sourceTree = "<group>"; };
 		4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAdditionalInfoNode.swift; sourceTree = "<group>"; };
+		4E22A01124351EFB0096371C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4E2A7A0C241153C70025F39C /* RoomSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSchema.swift; sourceTree = "<group>"; };
 		4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
 		4E2A7A1824116C960025F39C /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */,
 				4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */,
 				4EFC4FC62423746200295EB1 /* Swift+Ext.swift */,
+				4E22A01124351EFB0096371C /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1080,6 +1083,7 @@
 				4E9D182F241FFE820066362D /* FayeEventMessagesBinder.swift in Sources */,
 				4E9D17AD241E46810066362D /* TRConnectionMonitor.m in Sources */,
 				4E09AC6A240EE6AA0028229C /* PeopleCoordinator.swift in Sources */,
+				4E22A01224351EFB0096371C /* Extensions.swift in Sources */,
 				4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */,
 				4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */,
 				4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */,
