@@ -20,13 +20,7 @@ class ChatViewController: MessagesViewController {
     
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
-    
-    // magical haveMessagesToSend:
-    // when user tap on send in this client then we draw ui for message and haveMessagesToSend is true
-    // when get back from Faye that new message is received then check for haveMessagesToSend and if true then do nothing
-    // then we got response from sendMessage API request and haveMessagesToSend is false
-    open var haveMessagesToSend = false
-    
+        
     var canFetchMoreResults = true
     let userdata = ShareData().userdata?.toMockUser()
     
@@ -216,7 +210,7 @@ class ChatViewController: MessagesViewController {
         // count unreaded messages
         for cell in messagesCollectionView.visibleCells {
             let indexPath = messagesCollectionView.indexPath(for: cell)
-            if messageList[indexPath?.section ?? 0].message.unread {
+            if messageList[indexPath!.section].message.unread {
                 unreadMessagesIdStoring.append(messageList[indexPath?.section ?? 0].message.messageId)
             }
         }
@@ -410,7 +404,6 @@ extension ChatViewController: MessageInputBarDelegate {
             }
         }
         
-        self.haveMessagesToSend = true
         self.sendMessage(inputBar: inputBar, text: text)
     }
     
