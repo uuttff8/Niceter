@@ -8,38 +8,69 @@
 
 import AsyncDisplayKit
 
-public final class ProfileAdditionalInfoNode: ASDisplayNode {
-    private let titleNode = ASTextNode()
+public final class ProfileAdditionalInfoNode: ASCellNode {
+    // MARK: - Variables
+    
+    private lazy var imageSize: CGSize = {
+        return CGSize(width: 20, height: 20)
+    }()
+    
     private let imageNode = ASImageNode()
+    private let titleNode = ASTextNode()
     
-    public var image: UIImage
-    public var title: String?
+    var infoTitle: String
+    // MARK: - Object life cycle
     
-    init(image: UIImage) {
-        self.image = image
+    init(with image: UIImage, title: String) {
+        self.infoTitle = title
+        self.imageNode.image = image
         super.init()
         
         self.setupNodes()
         self.buildNodeHierarchy()
     }
     
+    // MARK: - Setup nodes
+    
     private func setupNodes() {
         setupImageNode()
         setupTitleNode()
     }
     
-    private func setupTitleNode() {
-        
+    private func setupImageNode() {
+        self.imageNode.style.preferredSize = self.imageSize
+        self.imageNode.contentMode = .scaleAspectFit
     }
     
-    private func setupImageNode() {
-        
+    private func setupTitleNode() {
+        self.titleNode.attributedText = NSAttributedString(string: self.infoTitle, attributes: self.titleTextAttributes)
+        self.titleNode.maximumNumberOfLines = 1
+        self.titleNode.truncationMode = .byTruncatingTail
     }
+    
+    private var titleTextAttributes = {
+        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
+    }()
+    
+    // MARK: - Build node hierarchy
     
     private func buildNodeHierarchy() {
-        [titleNode, imageNode].forEach { (node) in
+        [imageNode, titleNode].forEach { (node) in
             self.addSubnode(node)
         }
     }
-
+    
+    // MARK: - Layout
+        
+    public override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        self.titleNode.style.flexShrink = 1
+        
+        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
+                                          spacing: 10.0,
+                                          justifyContent: .start,
+                                          alignItems: .center,
+                                          children: [self.imageNode, self.titleNode])
+        
+        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5.0, left: 0.0, bottom: 0.0, right: 0.0), child: finalSpec)
+    }
 }

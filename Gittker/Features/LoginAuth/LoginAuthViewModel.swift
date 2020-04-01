@@ -72,7 +72,7 @@ class LoginAuthViewModel {
     }
 
     func getUser(completionHandler: @escaping (_ userId: UserSchema) -> Void) {
-        GitterApi().getUserId { (user) in
+        GitterApi().getWhoMe { (user) in
             guard let user = user else { return }
             print(user)
             completionHandler(user)

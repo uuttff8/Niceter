@@ -18,6 +18,9 @@ private enum GitterApiLinks {
     
     // Auth
     case exchangeToken
+    
+    // User
+    case user(username: String)
     case whoMe
     
     // Rooms
@@ -51,6 +54,8 @@ private enum GitterApiLinks {
             
         case .exchangeToken: return "login/oauth/token"
         case .whoMe: return "v1/user/me"
+        case .user(username: let username):
+            return "v1/users/\(username)"
             
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
@@ -98,7 +103,7 @@ extension GitterApi {
 
 // MARK: - User
 extension GitterApi {
-    func getUserId(completion: @escaping ((UserSchema?) -> Void)) {
+    func getWhoMe(completion: @escaping ((UserSchema?) -> Void)) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)" + "\(GitterApiLinks.whoMe.encode())")!
         
         self.httpClient.getAuth(url: url)
@@ -113,6 +118,12 @@ extension GitterApi {
                 completion(user)
             default: print(""); break
             }
+        }
+    }
+    
+    func getUser(username: String, completion: @escaping ((UserSchema?) -> Void)) {
+        requestData(url: GitterApiLinks.user(username: username)) { (data) in
+            completion(data)
         }
     }
 }

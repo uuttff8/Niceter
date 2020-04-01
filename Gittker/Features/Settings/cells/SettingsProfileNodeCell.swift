@@ -22,8 +22,16 @@ class SettingsProfileNodeCell: ASCellNode {
     private let subtitleNode = ASTextNode()
     private let gitInfoNode = ASTextNode()
     
-    private let locationNode = ProfileAdditionalInfoNode(image: UIImage(systemName: "location")!)
-    private let emailNode = ProfileAdditionalInfoNode(image: UIImage(systemName: "envelope")!)
+    private lazy var locationNode = ProfileAdditionalInfoNode(with: UIImage(systemName: "location",
+                                                                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 30,
+                                                                                                                           weight: .regular,
+                                                                                                                           scale: .large))!,
+                                                              title: self.content.location ?? "")
+    private lazy var emailNode = ProfileAdditionalInfoNode(with: UIImage(systemName: "envelope",
+                                                                         withConfiguration: UIImage.SymbolConfiguration(pointSize: 30,
+                                                                                                                        weight: .regular,
+                                                                                                                        scale: .large))!,
+                                                           title: self.content.email ?? "")
     private let separatorNode = ASDisplayNode()
     
     // MARK: - Object life cycle
@@ -43,10 +51,13 @@ class SettingsProfileNodeCell: ASCellNode {
     private func setupNodes() {
         setupImageNode()
         setupTitleNode()
+        setupSubtitle()
+        setupGitInfoTitle()
+        setupAdditionalInfo()
     }
     
     private func setupImageNode() {
-        self.imageNode.url = URL(string: self.content.avatarURL ?? "")
+        self.imageNode.url = URL(string: self.content.getGitterImage() ?? "")
         self.imageNode.style.preferredSize = self.imageSize
         
         self.imageNode.cornerRadius = self.imageSize.width / 2
@@ -54,7 +65,7 @@ class SettingsProfileNodeCell: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content.displayName, attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.content.displayName ?? "", attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
@@ -63,12 +74,36 @@ class SettingsProfileNodeCell: ASCellNode {
         return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
     }()
     
-    // MARK: - Build node hierarchy
+    private func setupSubtitle() {
+        self.subtitleNode.attributedText = NSAttributedString(string: self.content.username ?? "", attributes: self.subtitleTextAttributes)
+        self.subtitleNode.maximumNumberOfLines = 1
+        self.subtitleNode.truncationMode = .byTruncatingTail
+    }
     
+    private var subtitleTextAttributes = {
+        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)]
+    }()
+
+    
+    private func setupGitInfoTitle() {
+        self.gitInfoNode.attributedText = NSAttributedString(string:
+            "\(content.github?.followers ?? 0) followers"
+                + " \(content.github?.following ?? 0) following"
+                + " \(self.content.github?.public_repos ?? 0) public repos")
+    }
+    
+    private func setupAdditionalInfo() {
+        self.locationNode.infoTitle = self.content.location ?? ""
+        self.emailNode.infoTitle = self.content.email ?? ""
+    }
+    
+    // MARK: - Build node hierarchy
     private func buildNodeHierarchy() {
-        self.addSubnode(imageNode)
-        self.addSubnode(titleNode)
-        self.addSubnode(separatorNode)
+        [imageNode, titleNode, separatorNode,
+         subtitleNode, gitInfoNode, locationNode, emailNode].forEach { (node) in
+            self.addSubnode(node)
+        }
+        
     }
     
     // MARK: - Layout
@@ -83,19 +118,19 @@ class SettingsProfileNodeCell: ASCellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.titleNode.style.flexShrink = 1
         
-//        let infoSpec = ASStackLayoutSpec(direction: .vertical,
-//                                         spacing: 6,
-//                                         justifyContent: .start,
-//                                         alignItems: .center,
-//                                         children:
-//            [self.titleNode, self.subtitleNode, self.gitInfoNode, self.locationNode, self.emailNode]
-//        )
+        let infoSpec = ASStackLayoutSpec(direction: .vertical,
+                                         spacing: 2,
+                                         justifyContent: .start,
+                                         alignItems: .start,
+                                         children:
+            [self.titleNode, self.subtitleNode, self.gitInfoNode, self.locationNode, self.emailNode]
+        )
         
         let finalSpec = ASStackLayoutSpec(direction: .horizontal,
                                           spacing: 10.0,
                                           justifyContent: .start,
-                                          alignItems: .center,
-                                          children: [self.imageNode, self.titleNode])
+                                          alignItems: .start,
+                                          children: [self.imageNode, infoSpec])
         
         return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0), child: finalSpec)
     }

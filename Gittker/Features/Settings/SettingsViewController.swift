@@ -41,7 +41,8 @@ class SettingsViewController: ASViewController<ASTableNode> {
             }
         }
         
-        self.viewModel.fetchDataSource()
+        self.viewModel.fetchDataSourceLocalData()
+        self.viewModel.fetchDataSourceUser()
     }
     
 }
