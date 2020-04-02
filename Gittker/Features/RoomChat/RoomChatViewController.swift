@@ -53,12 +53,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
         FayeEventMessagesBinder(roomId: roomSchema.id)
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
-                    
-                    // if got message from yourself, do nothing, we handle this message by yourself to provide offline messages
-                    if message.message.sender.senderId == self?.userdata?.senderId {
-                    }
-                    
-                    self?.insertMessage(message)
+                    self?.addToMessageMap(message: message, isFirstly: true)
                 }, onDeleted: { [weak self] (id) in
                     self?.deleteMessage(by: id)
                 }, onUpdate: { [weak self] (message: GittkerMessage) in
@@ -81,18 +76,21 @@ final class RoomChatViewController: RoomChatBaseViewController {
         }
     }
     
-    override func sendMessage(inputBar: MessageInputBar, text: String) {
-        viewModel.sendMessage(text: text) { (result) in
-            switch result {
-            case .success(let res):
-                self.messageList.append(res.toGittkerMessage())
-                print("All is ok")
-            case .failure(_):
-                print("All is bad")
+    override func sendMessage(tmpMessage: MockMessage) {
+        if case let MessageKind.text(text) = tmpMessage.kind {
+            
+            viewModel.sendMessage(text: text) { (result) in
+                switch result {
+                case .success(let res):
+                    print("All is ok")
+                case .failure(_):
+                    print("All is bad")
+                }
             }
+            
         }
     }
-    
+        
     override func joinButtonHandlder() {
         viewModel.joinToChat(userId: userdata!.senderId, roomId: roomSchema.id) { (success) in
             self.configureMessageInputBarForChat()

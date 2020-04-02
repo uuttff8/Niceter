@@ -38,7 +38,7 @@ public final class FayeEventMessagesBinder {
     func loadMessages(loadedMessages: @escaping ((Array<GittkerMessage>) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             if let cached = try? self.storage?.object(forKey: self.roomId) {
-                loadedMessages(cached.toGittkerMessages())
+                loadedMessages(cached.toGittkerMessages(isLoading: false))
             }
 
             self.client.snapshotReceivedHandler = { (snapshot, _) in
@@ -48,7 +48,7 @@ public final class FayeEventMessagesBinder {
                     guard let roomRecr = try? JSONDecoder().decode(Array<RoomRecreateSchema>.self, from: roomRecrData!) else { print("blya"); return }
 
                     try? self.storage?.setObject(roomRecr, forKey: self.roomId)
-                    let mess = roomRecr.toGittkerMessages()
+                    let mess = roomRecr.toGittkerMessages(isLoading: false)
                     
                     loadedMessages(mess)
                 }
@@ -70,10 +70,10 @@ public final class FayeEventMessagesBinder {
             
             switch event.operation {
             case .create:
-                let message = event.model.toGittkerMessage()
+                let message = event.model.toGittkerMessage(isLoading: false)
                 onNew?(message)
             case .update:
-                let message = event.model.toGittkerMessage()
+                let message = event.model.toGittkerMessage(isLoading: false)
                 onUpdate?(message)
             case .remove:
                 let id = event.model.id

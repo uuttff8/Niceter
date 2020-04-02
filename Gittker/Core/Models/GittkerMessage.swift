@@ -12,4 +12,5 @@ import MessageKit
 struct GittkerMessage {
     var message: MockMessage
     let avatarUrl: String?
+    let isLoading: Bool
 }

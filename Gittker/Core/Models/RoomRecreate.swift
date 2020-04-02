@@ -29,22 +29,22 @@ struct RoomRecreateSchema: Codable {
 }
 
 extension RoomRecreateSchema {
-    func toGittkerMessage() -> GittkerMessage {
+    func toGittkerMessage(isLoading: Bool) -> GittkerMessage {
         let user = MockUser(senderId: fromUser?.id ?? "", displayName: fromUser?.displayName ?? "")
         let message = MockMessage(text: self.text ?? "",
                                   user: user,
                                   messageId: self.id,
                                   date: Date.toGittkerDate(str: self.sent),
                                   unread: unread ?? false)
-        return GittkerMessage(message: message, avatarUrl: self.fromUser?.avatarURLMedium)
+        return GittkerMessage(message: message, avatarUrl: self.fromUser?.avatarURLMedium, isLoading: isLoading)
     }
 }
 
 
 extension Array where Element == RoomRecreateSchema {
-    func toGittkerMessages() -> Array<GittkerMessage> {
+    func toGittkerMessages(isLoading: Bool) -> Array<GittkerMessage> {
         return self.map { (roomRecrObject) in
-            roomRecrObject.toGittkerMessage()
+            roomRecrObject.toGittkerMessage(isLoading: isLoading)
         }
     }
 }
