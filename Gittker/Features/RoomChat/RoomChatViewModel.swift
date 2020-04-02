@@ -22,7 +22,7 @@ class RoomChatViewModel {
             CachedRoomMessagesLoader(cacheKey: self.roomSchema.id)
                 .fetchData { (roomRecrList) in
                     self.messagesListInfo = roomRecrList
-                    completion(roomRecrList.toGittkerMessages())
+                    completion(roomRecrList.toGittkerMessages(isLoading: false))
             }
         }
     }
@@ -30,7 +30,7 @@ class RoomChatViewModel {
     func loadOlderMessages(messageId: String, completion: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: self.roomSchema.id) { (roomRecrList) in
-                guard let messages = roomRecrList?.toGittkerMessages() else { return }
+                guard let messages = roomRecrList?.toGittkerMessages(isLoading: false) else { return }
                 completion(messages)
             }
         }

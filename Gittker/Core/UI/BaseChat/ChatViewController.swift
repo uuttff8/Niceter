@@ -10,17 +10,25 @@ import UIKit
 import MessageKit
 import SafariServices
 
+class ConversationTemporaryMessageAdapter {
+    static func generateChildMessageTmpId(userId: String, text: String) -> String {
+        let textSubstring = text.prefix(64)
+        return "tmp-\(userId)-\(textSubstring)"
+    }
+}
+
 class ChatViewController: MessagesViewController {
     var messageList: [GittkerMessage] = []
+//    var loadingMessageList: [GittkerMessage] = []
     private var unreadMessagesIdStoring: [String] = []
-    
+    private var loadingdMessagesIdStoring: [String] = []
     // to read unread messages in backround
     private var timer = Timer()
     
     
     /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
-        
+    
     var canFetchMoreResults = true
     let userdata = ShareData().userdata?.toMockUser()
     
@@ -56,11 +64,11 @@ class ChatViewController: MessagesViewController {
     
     func loadOlderMessages() {  }
     
-    func sendMessage(inputBar: MessageInputBar, text: String) { }
+    func sendMessage(tmpMessage: MockMessage) { }
     
     func joinButtonHandlder() { }
     
-    func markMessagesAsRead(messagesId: [String]) {}
+    func markMessagesAsRead(messagesId: [String]) { }
     
     // MARK: - Helpers
     
@@ -79,16 +87,15 @@ class ChatViewController: MessagesViewController {
         })
     }
     
-    func deleteMessage(by passedId: String) {
-        print(passedId)
-        print(messageList)
-        
+    func deleteMessage(by passedId: String) {        
         let index = messageList.firstIndex(where: { (mess) in
-            mess.message.messageId == passedId
+            passedId == mess.message.messageId
         })
-        
+                
         if let index = index {
             messageList.remove(at: index)
+            
+            UIView.setAnimationsEnabled(false)
             
             messagesCollectionView.performBatchUpdates({
                 messagesCollectionView.deleteSections(IndexSet(integer: index))
@@ -97,6 +104,7 @@ class ChatViewController: MessagesViewController {
                 if self?.isLastSectionVisible() == true {
                     self?.messagesCollectionView.scrollToBottom(animated: true)
                 }
+                UIView.setAnimationsEnabled(true)
             }
         }
     }
@@ -214,31 +222,13 @@ class ChatViewController: MessagesViewController {
                 unreadMessagesIdStoring.append(messageList[indexPath?.section ?? 0].message.messageId)
             }
         }
-
+        
         // load older messages at top
         if indexPath.section == 20 {
             canFetchMoreResults = false
             self.loadOlderMessages()
         }
     }
-    
-    //    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    //        var visibleRect = CGRect()
-    //
-    //        visibleRect.origin = self.messagesCollectionView.contentOffset
-    //        visibleRect.size = self.messagesCollectionView.bounds.size
-    //        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-    //
-    //        guard let indexPath = self.messagesCollectionView.indexPathForItem(at: visiblePoint) else { return }
-    //
-    //        if indexPath.section <= 10 {
-    //            if !isOlderMessageLoading {
-    //                isOlderMessageLoading = true
-    //                self.loadOlderMessages()
-    //                isOlderMessageLoading = false
-    //            }
-    //        }
-    //    }
 }
 
 extension ChatViewController: MessagesDataSource {
@@ -316,18 +306,6 @@ extension ChatViewController: MessageCellDelegate {
         }
     }
     
-    func didStartAudio(in cell: AudioMessageCell) {
-        print("Did start playing audio sound")
-    }
-    
-    func didPauseAudio(in cell: AudioMessageCell) {
-        print("Did pause audio sound")
-    }
-    
-    func didStopAudio(in cell: AudioMessageCell) {
-        print("Did stop audio sound")
-    }
-    
     func didTapAccessoryView(in cell: MessageCollectionViewCell) {
         print("Accessory view tapped")
     }
@@ -382,41 +360,42 @@ extension ChatViewController: MessageInputBarDelegate {
         // Here we can parse for which substrings were autocompleted
         let attributedText = messageInputBar.inputTextView.attributedText!
         let range = NSRange(location: 0, length: attributedText.length)
-        attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in
-            
-            //            let substring = attributedText.attributedSubstring(from: range)
-            //            let context = substring.attribute(.autocompletedContext, at: 0, effectiveRange: nil)
-            //            print("Autocompleted: `", substring, "` with context: ", context ?? [])
-        }
+        attributedText.enumerateAttribute(.autocompleted, in: range, options: []) { (_, range, _) in }
         
-        let components = inputBar.inputTextView.components
-        messageInputBar.inputTextView.text = String()
+        let components = inputBar.inputTextView.text
+        messageInputBar.inputTextView.text = ""
         messageInputBar.invalidatePlugins()
         
         // Send button activity animation
         DispatchQueue.global(qos: .default).async {
             // fake send request task
-            //            sleep(2)
+//                        sleep(3)
             DispatchQueue.main.async { [weak self] in
                 self?.messageInputBar.inputTextView.placeholder = "Message"
-                self?.insertMessages(components)
+                self?.insertMessages(components!)
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }
         }
-        
-        self.sendMessage(inputBar: inputBar, text: text)
     }
     
-    private func insertMessages(_ data: [Any]) {
-        for component in data {
-            let user = userdata!
-            if let str = component as? String {
-                let message = MockMessage(text: str, user: user, messageId: UUID().uuidString, date: Date(), unread: false)
-                insertMessage(GittkerMessage(message: message, avatarUrl: nil))
-            } else if let img = component as? UIImage {
-                let message = MockMessage(image: img, user: user, messageId: UUID().uuidString, date: Date(), unread: false)
-                insertMessage(GittkerMessage(message: message, avatarUrl: nil))
+    private func insertMessages(_ text: String) {
+        guard let userdata = userdata else { return }
+        let tmpMessId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
+        let tmpMessage = MockMessage(text: text, user: userdata, messageId: tmpMessId, date: Date(), unread: false)
+        let gittMess = GittkerMessage(message: tmpMessage, avatarUrl: nil, isLoading: true)
+        
+        addToMessageMap(message: gittMess, isFirstly: false)
+        self.sendMessage(tmpMessage: tmpMessage)
+    }
+    
+    func addToMessageMap(message: GittkerMessage, isFirstly: Bool) {
+        if isFirstly {
+            if case let MessageKind.text(text) = message.message.kind {
+                let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata!.senderId, text: text)
+                self.deleteMessage(by: tmpId)
             }
         }
+        
+        self.insertMessage(message)
     }
 }
