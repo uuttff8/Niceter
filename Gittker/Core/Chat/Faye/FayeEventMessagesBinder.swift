@@ -14,7 +14,7 @@ public final class FayeEventMessagesBinder {
     
     let diskConfig: DiskConfig
     let memoryConfig: MemoryConfig
-    let storage: Storage<Array<RoomRecreateSchema>>?
+    let storage: Storage<[RoomRecreateSchema]>?
 
     public var roomId: String
     
@@ -26,26 +26,26 @@ public final class FayeEventMessagesBinder {
         memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
         
         
-        storage = try? Storage<Array<RoomRecreateSchema>>(
+        storage = try? Storage<[RoomRecreateSchema]>(
           diskConfig: diskConfig,
           memoryConfig: memoryConfig,
-          transformer: TransformerFactory.forCodable(ofType: Array<RoomRecreateSchema>.self)
+          transformer: TransformerFactory.forCodable(ofType: [RoomRecreateSchema].self)
         )
     }
     
     // MARK: - Messages
     
-    func loadMessages(loadedMessages: @escaping ((Array<GittkerMessage>) -> Void)) {
+    func loadMessages(loadedMessages: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             if let cached = try? self.storage?.object(forKey: self.roomId) {
                 loadedMessages(cached.toGittkerMessages(isLoading: false))
             }
 
             self.client.snapshotReceivedHandler = { (snapshot, _) in
-                if let snap = snapshot as? Array<Dictionary<String, Any>> {
+                if let snap = snapshot as? [Dictionary<String, Any>] {
                     let roomRecrData = try? JSONSerialization.data(withJSONObject: snap, options: .prettyPrinted)
 
-                    guard let roomRecr = try? JSONDecoder().decode(Array<RoomRecreateSchema>.self, from: roomRecrData!) else { print("blya"); return }
+                    guard let roomRecr = try? JSONDecoder().decode([RoomRecreateSchema].self, from: roomRecrData!) else { print("blya"); return }
 
                     try? self.storage?.setObject(roomRecr, forKey: self.roomId)
                     let mess = roomRecr.toGittkerMessages(isLoading: false)
@@ -64,9 +64,7 @@ public final class FayeEventMessagesBinder {
         
         client.messageReceivedHandler = { (dict, _) in
             guard let data = dict.jsonData else { return }
-            
             guard let event = try? JSONDecoder().decode(MessagesEventSchema.self, from: data) else { return }
-            
             
             switch event.operation {
             case .create:
