@@ -19,9 +19,9 @@ class ConversationTemporaryMessageAdapter {
 
 class ChatViewController: MessagesViewController {
     var messageList: [GittkerMessage] = []
-//    var loadingMessageList: [GittkerMessage] = []
     private var unreadMessagesIdStoring: [String] = []
     private var loadingdMessagesIdStoring: [String] = []
+    
     // to read unread messages in backround
     private var timer = Timer()
     
@@ -30,14 +30,13 @@ class ChatViewController: MessagesViewController {
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
     var canFetchMoreResults = true
-    let userdata = ShareData().userdata?.toMockUser()
+    let userdata: MockUser = ShareData().userdata?.toMockUser() ?? MockUser(senderId: "", displayName: "")
     
-    let formatter: DateFormatter = {
+    let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
         return formatter
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,9 +93,7 @@ class ChatViewController: MessagesViewController {
                 
         if let index = index {
             messageList.remove(at: index)
-            
-            UIView.setAnimationsEnabled(false)
-            
+                        
             messagesCollectionView.performBatchUpdates({
                 messagesCollectionView.deleteSections(IndexSet(integer: index))
                 messagesCollectionView.reloadSections([messageList.count - 2])
@@ -104,7 +101,6 @@ class ChatViewController: MessagesViewController {
                 if self?.isLastSectionVisible() == true {
                     self?.messagesCollectionView.scrollToBottom(animated: true)
                 }
-                UIView.setAnimationsEnabled(true)
             }
         }
     }
@@ -129,10 +125,12 @@ class ChatViewController: MessagesViewController {
                                           repeats: true)
     }
     
-    @objc private func readMessagesInBackround() {
+    @objc
+    private func readMessagesInBackround() {
         DispatchQueue.global(qos: .background).async {
             if self.unreadMessagesIdStoring.count > 0 {
                 self.markMessagesAsRead(messagesId: self.unreadMessagesIdStoring)
+                // after reading messages delete all messages that are unread
                 self.unreadMessagesIdStoring.removeAll()
             }
         }
@@ -146,7 +144,6 @@ class ChatViewController: MessagesViewController {
     
     
     func isLastSectionVisible() -> Bool {
-        
         guard !messageList.isEmpty else { return false }
         
         let lastIndexPath = IndexPath(item: 0, section: messageList.count - 1)
@@ -156,12 +153,9 @@ class ChatViewController: MessagesViewController {
     
     func configureMessageCollectionView() {
         guard let flowLayout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else {
-            print("Can't get flowLayout")
             return
         }
-        if #available(iOS 13.0, *) {
-            flowLayout.collectionView?.backgroundColor = .systemBackground
-        }
+        flowLayout.collectionView?.backgroundColor = .systemBackground
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
@@ -185,17 +179,10 @@ class ChatViewController: MessagesViewController {
     }
     
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        let dateString = formatter.string(from: message.sentDate)
+        let dateString = dateFormatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
     }
-    
-    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        if indexPath.section % 3 == 0 {
-            return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate), attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-        }
-        return nil
-    }
-    
+
     private func openUrlInsideApp(url: URL) {
         let vc = SFSafariViewController(url: url)
         present(vc, animated: true, completion: nil)
@@ -216,24 +203,24 @@ class ChatViewController: MessagesViewController {
         super.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
         
         // count unreaded messages
-        for cell in messagesCollectionView.visibleCells {
-            let indexPath = messagesCollectionView.indexPath(for: cell)
-            if messageList[indexPath!.section].message.unread {
-                unreadMessagesIdStoring.append(messageList[indexPath?.section ?? 0].message.messageId)
+        for _ in messagesCollectionView.visibleCells {
+            if messageList[indexPath.section].message.unread {
+                unreadMessagesIdStoring.append(messageList[indexPath.section].message.messageId)
             }
         }
         
         // load older messages at top
         if indexPath.section == 20 {
-            canFetchMoreResults = false
-            self.loadOlderMessages()
+            if canFetchMoreResults {
+                self.loadOlderMessages()
+            }
         }
     }
 }
 
 extension ChatViewController: MessagesDataSource {
     func currentSender() -> SenderType {
-        return userdata ?? MockUser(senderId: "1", displayName: "1")
+        return userdata
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -369,7 +356,7 @@ extension ChatViewController: MessageInputBarDelegate {
         // Send button activity animation
         DispatchQueue.global(qos: .default).async {
             // fake send request task
-//                        sleep(3)
+//                        sleep(2)
             DispatchQueue.main.async { [weak self] in
                 self?.messageInputBar.inputTextView.placeholder = "Message"
                 self?.insertMessages(components!)
@@ -379,7 +366,6 @@ extension ChatViewController: MessageInputBarDelegate {
     }
     
     private func insertMessages(_ text: String) {
-        guard let userdata = userdata else { return }
         let tmpMessId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
         let tmpMessage = MockMessage(text: text, user: userdata, messageId: tmpMessId, date: Date(), unread: false)
         let gittMess = GittkerMessage(message: tmpMessage, avatarUrl: nil, isLoading: true)
@@ -391,7 +377,7 @@ extension ChatViewController: MessageInputBarDelegate {
     func addToMessageMap(message: GittkerMessage, isFirstly: Bool) {
         if isFirstly {
             if case let MessageKind.text(text) = message.message.kind {
-                let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata!.senderId, text: text)
+                let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
                 self.deleteMessage(by: tmpId)
             }
         }
