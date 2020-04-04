@@ -71,7 +71,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
                     
                     self.messageList.insert(contentsOf: gittMessages, at: 0)
                     self.insertSectionsAndKeepOffset(gittMessages: gittMessages)
-                                        
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         self.canFetchMoreResults = true
                     }
@@ -80,49 +80,49 @@ final class RoomChatViewController: RoomChatBaseViewController {
         }
     }
     
-    func appendItems(_ items: [GittkerMessage]) {
-//        guard let collectionView = collectionView else { return }
-        let contentOffset = messagesCollectionView.contentOffset
-        
-        let startRange = 0
-        self.messageList.append(contentsOf: items)
-        let endRange = items.count - 1
-        let indexPaths = IndexSet(Array(startRange..<endRange))
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        messagesCollectionView.performBatchUpdates({
-            messagesCollectionView.insertSections(indexPaths)
-        }, completion: { (finished) in
-            self.messagesCollectionView.setContentOffset(CGPoint(x: 0, y: contentOffset.y), animated: false)
-        })
-        CATransaction.commit()
-    }
+    //    func appendItems(_ items: [GittkerMessage]) {
+    //        guard let collectionView = collectionView else { return }
+    //        let contentOffset = messagesCollectionView.contentOffset
+    //
+    //        let startRange = 0
+    //        self.messageList.append(contentsOf: items)
+    //        let endRange = items.count - 1
+    //        let indexPaths = IndexSet(Array(startRange..<endRange))
+    //
+    //        CATransaction.begin()
+    //        CATransaction.setDisableActions(true)
+    //        messagesCollectionView.performBatchUpdates({
+    //            messagesCollectionView.insertSections(indexPaths)
+    //        }, completion: { (finished) in
+    //            self.messagesCollectionView.setContentOffset(CGPoint(x: 0, y: contentOffset.y), animated: false)
+    //        })
+    //        CATransaction.commit()
+    //    }
     
     private func insertSectionsAndKeepOffset(gittMessages: [GittkerMessage]) {
-                
-//         stop scrolling
+        
+        //         stop scrolling
         messagesCollectionView.setContentOffset(messagesCollectionView.contentOffset, animated: false)
-//         calculate the offset and reloadData
+        //         calculate the offset and reloadData
         let beforeContentSize = messagesCollectionView.contentSize
         
-//        CATransaction.begin()
-//        CATransaction.setDisableActions(true)
+        //        CATransaction.begin()
+        //        CATransaction.setDisableActions(true)
         self.messagesCollectionView.performBatchUpdates({
-            let array = Array(0...99)
+            let array = Array(0..<gittMessages.count)
             self.messagesCollectionView.insertSections(IndexSet(array))
         }, completion: { _ in
-//            self.messagesCollectionView.setContentOffset(CGPoint(x: 0, y: contentOffset.y), animated: false)
+            //            self.messagesCollectionView.setContentOffset(CGPoint(x: 0, y: contentOffset.y), animated: false)
             self.messagesCollectionView.layoutIfNeeded()
             let afterContentSize = self.messagesCollectionView.contentSize
-
-//             reset the contentOffset after data is updated
+            
+            //             reset the contentOffset after data is updated
             let newOffset = CGPoint(
                 x: self.messagesCollectionView.contentOffset.x + (afterContentSize.width - beforeContentSize.width),
                 y: self.messagesCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
             self.messagesCollectionView.setContentOffset(newOffset, animated: false)
         })
-
+        
     }
     
     override func sendMessage(tmpMessage: MockMessage) {

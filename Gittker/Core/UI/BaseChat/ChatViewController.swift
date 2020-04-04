@@ -181,6 +181,7 @@ class ChatViewController: MessagesViewController {
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         let dateString = dateFormatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
+//        return NSAttributedString(string: "ASDASDASd")
     }
 
     private func openUrlInsideApp(url: URL) {
@@ -252,22 +253,6 @@ extension ChatViewController: MessageCellDelegate {
         print("Image tapped")
     }
     
-    func didTapCellTopLabel(in cell: MessageCollectionViewCell) {
-        print("Top cell label tapped")
-    }
-    
-    func didTapCellBottomLabel(in cell: MessageCollectionViewCell) {
-        print("Bottom cell label tapped")
-    }
-    
-    func didTapMessageTopLabel(in cell: MessageCollectionViewCell) {
-        print("Top message label tapped")
-    }
-    
-    func didTapMessageBottomLabel(in cell: MessageCollectionViewCell) {
-        print("Bottom label tapped")
-    }
-    
     func didTapPlayButton(in cell: AudioMessageCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell),
             let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
@@ -292,37 +277,14 @@ extension ChatViewController: MessageCellDelegate {
             audioController.playSound(for: message, in: cell)
         }
     }
-    
-    func didTapAccessoryView(in cell: MessageCollectionViewCell) {
-        print("Accessory view tapped")
-    }
-    
 }
 
 // MARK: - MessageLabelDelegate
 
 extension ChatViewController: MessageLabelDelegate {
-    
-    func didSelectAddress(_ addressComponents: [String: String]) {
-        print("Address Selected: \(addressComponents)")
-    }
-    
-    func didSelectDate(_ date: Date) {
-        print("Date Selected: \(date)")
-    }
-    
-    func didSelectPhoneNumber(_ phoneNumber: String) {
-        print("Phone Number Selected: \(phoneNumber)")
-        callNumber(phoneNumber: phoneNumber)
-    }
-    
     func didSelectURL(_ url: URL) {
         print("URL Selected: \(url)")
         openUrlInsideApp(url: url)
-    }
-    
-    func didSelectTransitInformation(_ transitInformation: [String: String]) {
-        print("TransitInformation Selected: \(transitInformation)")
     }
     
     func didSelectHashtag(_ hashtag: String) {
@@ -331,10 +293,6 @@ extension ChatViewController: MessageLabelDelegate {
     
     func didSelectMention(_ mention: String) {
         print("Mention selected: \(mention)")
-    }
-    
-    func didSelectCustom(_ pattern: String, match: String?) {
-        print("Custom data detector patter selected: \(pattern)")
     }
 }
 
