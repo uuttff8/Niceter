@@ -10,21 +10,35 @@ import AsyncDisplayKit
 
 class PeopleCoordinator: Coordinator {
 
-    weak var tabController: MainTabBarController?
-    var currentController: PeopleViewController
-    
     var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
+    
+    weak var tabController: MainTabBarController?
+    var currentController: PeopleViewController?
 
     init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
         
-        currentController = PeopleViewController()
-        currentController.coordinator = self
+        currentController = PeopleViewController(coordinator: self)
+        childCoordinators.append(self)
     }
     
     func start() {
-        navigationController?.pushViewController(currentController, animated: true)
+        navigationController?.pushViewController(currentController!, animated: true)
     }
     
+    func showChat(roomSchema: RoomSchema) {
+        let coord = RoomChatCoordinator(with: navigationController,
+                                        roomSchema: roomSchema,
+                                        isJoined: true)
+        coord.start()
+    }
+    
+    func showSuggestedRoom(with rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema]) {
+        self.currentController?.view = SuggestedRoomsCoordinator(
+            with: navigationController,
+            rooms: rooms,
+            currentlyJoinedRooms: currentlyJoinedRooms
+        ).currentController?.view
+    }
 }

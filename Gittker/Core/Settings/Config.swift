@@ -62,6 +62,7 @@ struct Config {
     
     struct CacheKeys {
         static let roomsKey = "GittkerRoomsCache"
+        static let peopleKey = "GittkerPeopleCache"
         static let roomsChatKey = "GittkerRoomChat"
         static let suggestedRoomsKey = "GittkerSuggestedRoomsKey"
     }

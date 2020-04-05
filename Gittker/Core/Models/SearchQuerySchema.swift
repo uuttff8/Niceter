@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct SearchQuerySchema: Codable {
-    let results: [RoomSchema]
+struct SearchQuerySchema<T: Codable>: Codable {
+    let results: [T]
 }

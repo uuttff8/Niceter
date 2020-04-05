@@ -51,6 +51,8 @@
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
+		4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */; };
+		4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */; };
 		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
 		4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1788241E42A60066362D /* NSString+FayeInflectionSupport.m */; };
 		4E9D179E241E42A60066362D /* NSData+Serialize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D178A241E42A60066362D /* NSData+Serialize.m */; };
@@ -166,6 +168,8 @@
 		4E2A7A1A2411792C0025F39C /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
+		4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeopleService+Cache.swift"; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
 		4E9D1781241E42A60066362D /* FayeClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeClient.h; sourceTree = "<group>"; };
 		4E9D1784241E42A60066362D /* NSDate-UTC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-UTC.h"; sourceTree = "<group>"; };
@@ -494,6 +498,8 @@
 		4E09AC54240EB66F0028229C /* People */ = {
 			isa = PBXGroup;
 			children = (
+				4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */,
+				4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */,
 				4E09AC67240EE69D0028229C /* PeopleViewController.swift */,
 				4E09AC69240EE6AA0028229C /* PeopleCoordinator.swift */,
 			);
@@ -1019,6 +1025,7 @@
 				4E229FFE24325FBD0096371C /* RoomsService+Cache.swift in Sources */,
 				4E9D17A5241E42A60066362D /* FayeClient.m in Sources */,
 				4E9D17A1241E42A60066362D /* NSString+Serialize.m in Sources */,
+				4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
@@ -1037,6 +1044,7 @@
 				4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */,
 				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
 				4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */,
+				4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
 				4E9D17B9241E8FAD0066362D /* RoomChatViewController.swift in Sources */,
 				4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */,

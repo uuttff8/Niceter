@@ -36,10 +36,10 @@ class MainTabBarController: ASTabBarController {
 
         
         let peopleCoordinator = PeopleCoordinator(with: nil)
-        let peopleNavigationController = ASNavigationController(rootViewController: peopleCoordinator.currentController)
+        let peopleNavigationController = ASNavigationController(rootViewController: peopleCoordinator.currentController!)
         peopleCoordinator.navigationController = peopleNavigationController
         peopleCoordinator.tabController = self
-        peopleCoordinator.currentController.tabBarItem = UITabBarItem(title: "People",
+        peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People",
                                                                   image: UIImage(systemName: "person"),
                                                                   tag: 1)
 

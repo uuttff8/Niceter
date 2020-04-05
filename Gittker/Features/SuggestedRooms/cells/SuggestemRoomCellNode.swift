@@ -8,20 +8,20 @@
 
 import AsyncDisplayKit
 
-struct SuggestedRoomContent {
-    let title: String
-    let avatarUrl: String
-    let roomId: String
-}
-
 class SuggestemRoomTableNode: ASCellNode {
+    struct Content {
+        let title: String
+        let avatarUrl: String
+        let roomId: String
+    }
+    
     // MARK: - Variables
     
     private lazy var imageSize: CGSize = {
         return CGSize(width: 40, height: 40)
     }()
     
-    private let room: SuggestedRoomContent
+    private let room: SuggestemRoomTableNode.Content
     
     private let imageNode = ASNetworkImageNode()
     private let titleNode = ASTextNode()
@@ -29,7 +29,7 @@ class SuggestemRoomTableNode: ASCellNode {
     
     // MARK: - Object life cycle
     
-    init(with room: SuggestedRoomContent) {
+    init(with room: SuggestemRoomTableNode.Content) {
         self.room = room
         
         super.init()
