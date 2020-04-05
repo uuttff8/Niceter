@@ -89,8 +89,13 @@ class SettingsProfileNodeCell: ASCellNode {
         self.gitInfoNode.attributedText = NSAttributedString(string:
             "\(content.github?.followers ?? 0) followers"
                 + " \(content.github?.following ?? 0) following"
-                + " \(self.content.github?.public_repos ?? 0) public repos")
+                + " \(self.content.github?.public_repos ?? 0) public repos",
+            attributes: gitInfoAttrubuttes)
     }
+    
+    private var gitInfoAttrubuttes = {
+        return [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium)]
+    }()
     
     private func setupAdditionalInfo() {
         self.locationNode.infoTitle = self.content.location ?? ""
@@ -119,7 +124,7 @@ class SettingsProfileNodeCell: ASCellNode {
         self.titleNode.style.flexShrink = 1
         
         let infoSpec = ASStackLayoutSpec(direction: .vertical,
-                                         spacing: 2,
+                                         spacing: 5,
                                          justifyContent: .start,
                                          alignItems: .start,
                                          children:

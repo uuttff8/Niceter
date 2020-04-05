@@ -39,7 +39,7 @@
 		4E09AC70240EE6D10028229C /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */; };
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
 		4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */; };
-		4E229FFE24325FBD0096371C /* RoomsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFD24325FBD0096371C /* RoomsService.swift */; };
+		4E229FFE24325FBD0096371C /* RoomsService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFD24325FBD0096371C /* RoomsService+Cache.swift */; };
 		4E22A0002432B2A70096371C /* SettingsButtonNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */; };
 		4E22A00424334B480096371C /* ProfileAdditionalInfoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */; };
 		4E22A01224351EFB0096371C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E22A01124351EFB0096371C /* Extensions.swift */; };
@@ -156,7 +156,7 @@
 		4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAuthViewModel.swift; sourceTree = "<group>"; };
 		4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTableNode.swift; sourceTree = "<group>"; };
-		4E229FFD24325FBD0096371C /* RoomsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsService.swift; sourceTree = "<group>"; };
+		4E229FFD24325FBD0096371C /* RoomsService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomsService+Cache.swift"; sourceTree = "<group>"; };
 		4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButtonNodeCell.swift; sourceTree = "<group>"; };
 		4E22A00324334B480096371C /* ProfileAdditionalInfoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAdditionalInfoNode.swift; sourceTree = "<group>"; };
 		4E22A01124351EFB0096371C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -435,7 +435,7 @@
 			children = (
 				4E2A7A312416C6290025F39C /* cells */,
 				4E2A7A1124116A6F0025F39C /* RoomsViewModel.swift */,
-				4E229FFD24325FBD0096371C /* RoomsService.swift */,
+				4E229FFD24325FBD0096371C /* RoomsService+Cache.swift */,
 				4E09AC5B240EE6660028229C /* RoomsViewController.swift */,
 				4E09AC5D240EE66F0028229C /* RoomsCoordinator.swift */,
 			);
@@ -1016,7 +1016,7 @@
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
-				4E229FFE24325FBD0096371C /* RoomsService.swift in Sources */,
+				4E229FFE24325FBD0096371C /* RoomsService+Cache.swift in Sources */,
 				4E9D17A5241E42A60066362D /* FayeClient.m in Sources */,
 				4E9D17A1241E42A60066362D /* NSString+Serialize.m in Sources */,
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,

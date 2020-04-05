@@ -17,18 +17,18 @@ class RoomsViewModel {
         self.dataSource = dataSource
     }
     
+    func fetchRooms() {
+        GitterApi.shared.getRooms { (roomSchemaList) in
+            guard let rooms = roomSchemaList else { return }
+            
+            self.dataSource?.data.value = rooms.sortByUnreadAndLastAccess()
+        }
+    }
+    
     func fetchRoomsCached() {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
             .fetchData { (rooms) in
-                // sort by unreadItems
-                let rooms = rooms.sorted { (a, b) -> Bool in
-                    if let a = a.unreadItems, let b = b.unreadItems {
-                        return a > b
-                    }
-                    return false
-                }
-                
-                self.dataSource?.data.value = rooms
+                self.dataSource?.data.value = rooms.sortByUnreadAndLastAccess()
         }
     }
     
@@ -92,7 +92,7 @@ class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
     }
 }
 
-
+// MARK: - TableView Delegate
 class RoomsTableViewDelegate: NSObject, ASTableDelegate {
     var dataSource: [RoomSchema]?
     weak var coordinator: RoomsCoordinator?
@@ -127,4 +127,25 @@ class RoomsTableViewDelegate: NSObject, ASTableDelegate {
     //        return UITargetedPreview(view: UIImageView(image: UIImage(systemName: "people")))
     //    }
     
+}
+
+// MARK: - Sorting Array
+private extension Array where Element == RoomSchema {
+    func sortByUnreadAndLastAccess() -> [RoomSchema] {
+        let rooms = self.sorted { (a, b) -> Bool in
+            if let a = a.unreadItems, let b = b.unreadItems {
+                if a > 0 || b > 0 {
+                    return a > b
+                }
+            }
+            
+            if let a = a.lastAccessTime, let b = b.lastAccessTime {
+                return a > b
+            }
+            
+            return false
+        }
+        
+        return rooms
+    }
 }

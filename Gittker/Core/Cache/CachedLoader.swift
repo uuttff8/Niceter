@@ -21,7 +21,7 @@ class CachedLoader<T: Codable> {
     init(cacheKey: String) {
         self.cacheKey = cacheKey
         diskConfig  = DiskConfig(name: cacheKey)
-        memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
+        memoryConfig = MemoryConfig(expiry: .seconds(600), countLimit: 10, totalCostLimit: 10) // 10 min
         
         
         storage = try? Storage<T>(
@@ -37,30 +37,6 @@ class CachedLoader<T: Codable> {
                 handler(cached)
             }
             
-        }
-    }
-}
-
-class CachedSuggestedRoomLoader: CachedLoader<[RoomSchema]> {
-    override func fetchData(then handler: @escaping Handler) {
-        super.fetchData(then: handler)
-        
-        GitterApi.shared.getSuggestedRooms { (roomSchemaList) in
-            guard let rooms = roomSchemaList else { return }
-            try? self.storage?.setObject(rooms, forKey: self.cacheKey)
-            handler(rooms)
-        }
-    }
-}
-
-class CachedRoomLoader: CachedLoader<[RoomSchema]> {
-    override func fetchData(then handler: @escaping Handler) {
-        super.fetchData(then: handler)
-        
-        GitterApi.shared.getRooms { (roomSchemaList) in
-            guard let rooms = roomSchemaList else { return }
-            try? self.storage?.setObject(rooms, forKey: self.cacheKey)
-            handler(rooms)
         }
     }
 }
@@ -82,11 +58,5 @@ class CachedRoomMessagesLoader: CachedLoader<[RoomRecreateSchema]> {
             try? self.storage?.setObject(messages, forKey: self.cacheKey)
             handler(messages)
         }
-        
-        //        GitterApi.shared.loadFirstMessages(for: cacheKey) { (roomRecrList) in
-        //            guard let messages = roomRecrList else { return }
-        //            try? self.storage?.setObject(messages, forKey: self.cacheKey)
-        //            handler(messages)
-        //        }
     }
 }

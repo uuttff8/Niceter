@@ -85,7 +85,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
     }
     
     @objc func reloadRooms(_ sender: Any) {
-        self.viewModel.fetchRoomsCached()
+        self.viewModel.fetchRooms()
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
@@ -98,12 +98,14 @@ class RoomsViewController: ASViewController<ASTableNode> {
                     self?.coordinator?.showSuggestedRoom(with: rooms, currentlyJoinedRooms: (self?.viewModel.dataSource?.data.value)!)
                 }
             }
-            
         } else {
             showSuggestedRooms()
         }
     }
-    
+}
+
+// MARK: - Inserting and Deleting
+extension RoomsViewController {
     private func deleteRoom(by passedId: String) {
         if let index = self.viewModel.dataSource?.data.value.firstIndex(where: { (room) in
             room.id == passedId
@@ -140,11 +142,12 @@ class RoomsViewController: ASViewController<ASTableNode> {
             if let newUnreadedItems = room.unreadItems {
                 self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
                 self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-            }            
+            }
         }
     }
 }
 
+// MARK: - Search UI Logic
 extension RoomsViewController: UISearchControllerDelegate {
     func willPresentSearchController(_ searchController: UISearchController) {
         showSuggestedRooms()
@@ -159,6 +162,7 @@ extension RoomsViewController: UISearchControllerDelegate {
     }
 }
 
+// MARK: - Seatch Logic
 extension RoomsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(reload(_:)), object: searchBar)
