@@ -21,7 +21,6 @@ import Foundation
     }
 }
 
-
 class CachedSuggestedRoomLoader: CachedLoader<[RoomSchema]> {
     override func fetchData(then handler: @escaping Handler) {
         super.fetchData(then: handler)

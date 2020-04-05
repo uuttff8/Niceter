@@ -42,8 +42,8 @@ struct RoomSchema: Codable, Equatable {
         case UserChannel = "USER_CHANNEL" // A Gitter channel nested under a GitHub User.
     }
     
-    func toSuggestedRoomContent() -> SuggestedRoomContent {
-        SuggestedRoomContent(title: self.name ?? "", avatarUrl: self.avatarUrl ?? "", roomId: self.id)
+    func toSuggestedRoomContent() -> SuggestemRoomTableNode.Content {
+        SuggestemRoomTableNode.Content(title: self.name ?? "", avatarUrl: self.avatarUrl ?? "", roomId: self.id)
     }
     
     public init(from decoder: Decoder) throws {

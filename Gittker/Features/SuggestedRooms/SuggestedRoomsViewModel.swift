@@ -30,9 +30,9 @@ class SuggestedRoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
-            let cell = SuggestemRoomTableNode(with: SuggestedRoomContent(title: room.name ?? "",
-                                                                         avatarUrl: room.avatarUrl ?? "",
-                                                                         roomId: room.id))
+            let cell = SuggestemRoomTableNode(with: SuggestemRoomTableNode.Content(title: room.name ?? "",
+                                                                                   avatarUrl: room.avatarUrl ?? "",
+                                                                                   roomId: room.id))
             
             return cell
         }
