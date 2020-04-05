@@ -60,10 +60,10 @@ class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
-            let cell = RoomTableNode(with: RoomContent(avatarUrl: room.avatarUrl ?? "",
-                                                       title: room.name ?? "",
-                                                       subtitle: room.topic ?? "",
-                                                       unreadItems: room.unreadItems ?? 0))
+            let cell = RoomTableNode(with: RoomTableNode.Content(avatarUrl: room.avatarUrl ?? "",
+                                                                 title: room.name ?? "",
+                                                                 subtitle: room.topic ?? "",
+                                                                 unreadItems: room.unreadItems ?? 0))
             
             return cell
         }

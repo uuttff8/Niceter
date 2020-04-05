@@ -134,13 +134,18 @@ extension RoomsViewController {
             room.id == roomSchema.id
         }) {
             
-            if let newTopic = room.topic {
-                self.viewModel.dataSource?.data.value[index].topic = newTopic
+            if let newLastAccessTime = room.lastAccessTime {
+                self.viewModel.dataSource?.data.value[index].lastAccessTime = newLastAccessTime
+                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            }
+                        
+            if let newUnreadedItems = room.unreadItems {
+                self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
                 self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
             
-            if let newUnreadedItems = room.unreadItems {
-                self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
+            if let newTopic = room.topic {
+                self.viewModel.dataSource?.data.value[index].topic = newTopic
                 self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
         }
