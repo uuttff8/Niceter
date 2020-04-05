@@ -49,7 +49,7 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
     }
     
     private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium)]
     }()
     
     // MARK: - Build node hierarchy

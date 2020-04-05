@@ -27,9 +27,8 @@ class LoginAuthViewController: UIViewController, Storyboarded {
 
     }
     
-    
     weak var coordinator: LoginAuthCoordinator?
-    
+        
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
