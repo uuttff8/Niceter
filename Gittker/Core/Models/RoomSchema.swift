@@ -83,3 +83,40 @@ struct RoomSchema: Codable, Equatable {
         }
     }
 }
+
+// MARK: - Sorting Array
+extension Array where Element == RoomSchema {
+    func sortByUnreadAndLastAccess() -> [RoomSchema] {
+        let rooms = self.sorted { (a, b) -> Bool in
+            if let a = a.unreadItems, let b = b.unreadItems {
+                if a > 0 || b > 0 {
+                    return a > b
+                }
+            }
+            
+            if let a = a.lastAccessTime, let b = b.lastAccessTime {
+                return a > b
+            }
+            
+            return false
+        }
+        
+        return rooms
+    }
+    
+    func filterByChats() -> [RoomSchema] {
+        let rooms = self.filter { (room) -> Bool in
+            room.oneToOne == false
+        }
+        
+        return rooms
+    }
+    
+    func filterByPeople() -> [RoomSchema] {
+        let rooms = self.filter { (room) -> Bool in
+            room.oneToOne == true
+        }
+        
+        return rooms
+    }
+}
