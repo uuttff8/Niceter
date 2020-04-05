@@ -21,7 +21,7 @@ class CachedLoader<T: Codable> {
     init(cacheKey: String) {
         self.cacheKey = cacheKey
         diskConfig  = DiskConfig(name: cacheKey)
-        memoryConfig = MemoryConfig(expiry: .seconds(600), countLimit: 10, totalCostLimit: 10) // 10 min
+        memoryConfig = MemoryConfig(expiry: .seconds(10), countLimit: 10, totalCostLimit: 10) // 10 min
         
         
         storage = try? Storage<T>(
