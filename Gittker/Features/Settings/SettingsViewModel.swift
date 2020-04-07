@@ -52,6 +52,8 @@ struct SettingsViewModel {
 }
 
 class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDataSource, ASTableDelegate {
+    var logoutAction: (() -> Void)? = nil
+    
     func numberOfSections(in tableNode: ASTableNode) -> Int {
         return self.data.value.count
     }
@@ -106,41 +108,12 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDat
             print("LOL")
             tableNode.deselectRow(at: indexPath, animated: true)
         case .logout:
-            self.logout()
+            self.logoutAction?()
             tableNode.deselectRow(at: indexPath, animated: true)
             
         default:
             break
         }
         
-    }
-    
-    private func logout() {
-        LoginData.shared.logout()
-        
-        // Safety: we use only one window
-        guard let window = UIApplication.shared.windows.first else {
-            return
-        }
-        
-        let root = ASNavigationController()
-        window.rootViewController = root
-        root.setNavigationBarHidden(true, animated: false)
-        let child = LoginAuthCoordinator(navigationController: root)
-        child.start()
-        
-        // A mask of options indicating how you want to perform the animations.
-        let options: UIView.AnimationOptions = .transitionCrossDissolve
-        
-        // The duration of the transition animation, measured in seconds.
-        let duration: TimeInterval = 0.3
-        
-        // Creates a transition animation.
-        // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
-        UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
-            { completed in
-                
-        })
-    }
-    
+    }  
 }

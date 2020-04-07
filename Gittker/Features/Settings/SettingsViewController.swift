@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 class SettingsViewController: ASViewController<ASTableNode> {
     
-    weak var coordinator: SettingsCoordinator?
+    var coordinator: SettingsCoordinator
     
     lazy var viewModel: SettingsViewModel = SettingsViewModel(dataSource: self.tableDelegates)
     
@@ -20,6 +20,7 @@ class SettingsViewController: ASViewController<ASTableNode> {
     }
 
     init(coordinator: SettingsCoordinator) {
+        self.coordinator = coordinator
         super.init(node: ASTableNode(style: .insetGrouped))
         self.tableNode.dataSource = self.tableDelegates
         self.tableNode.delegate = self.tableDelegates
@@ -39,6 +40,37 @@ class SettingsViewController: ASViewController<ASTableNode> {
                 
                 self.tableNode.reloadData()
             }
+        }
+        
+        self.tableDelegates.logoutAction = {
+            LoginData.shared.logout()
+            
+            // Safety: we use only one window
+            guard let window = UIApplication.shared.windows.first else {
+                return
+            }
+            
+            let root = ASNavigationController()
+            window.rootViewController = root
+            root.setNavigationBarHidden(true, animated: false)
+            let child = LoginAuthCoordinator(navigationController: root)
+            
+            self.coordinator.childCoordinators.append(child)
+            child.start()
+            
+            // A mask of options indicating how you want to perform the animations.
+            let options: UIView.AnimationOptions = .transitionCrossDissolve
+            
+            // The duration of the transition animation, measured in seconds.
+            let duration: TimeInterval = 0.3
+            
+            // Creates a transition animation.
+            // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
+            UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
+                { completed in
+                    
+            })
+            
         }
         
         self.viewModel.fetchDataSourceLocalData()
