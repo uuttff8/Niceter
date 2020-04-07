@@ -11,7 +11,7 @@ import AsyncDisplayKit
 class PeopleViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
     
-    var suggestedRoomsData: Array<RoomSchema>?
+    var suggestedRoomsData: Array<UserSchema>?
     
     init(dataSource : GenericDataSource<RoomSchema>?) {
         self.dataSource = dataSource
@@ -34,7 +34,7 @@ class PeopleViewModel {
     func fetchSuggestedRooms() {
         CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
             .fetchData { (rooms) in
-                self.suggestedRoomsData = rooms
+//                self.suggestedRoomsData = rooms
         }
     }
     
@@ -45,7 +45,7 @@ class PeopleViewModel {
     }
     
     func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
-        GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
+        GitterApi.shared.hideRoom(userId: userId, roomId: roomId) { (res) in
             completion(res)
         }
     }
@@ -85,7 +85,7 @@ class PeopleDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
     }
     
     func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
-        GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
+        GitterApi.shared.hideRoom(userId: userId, roomId: roomId) { (res) in
             completion(res)
         }
     }

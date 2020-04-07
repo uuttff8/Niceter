@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class SuggestemRoomTableNode: ASCellNode {
+class SuggestedRoomTableNode: ASCellNode {
     struct Content {
         let title: String
         let avatarUrl: String
@@ -21,7 +21,7 @@ class SuggestemRoomTableNode: ASCellNode {
         return CGSize(width: 40, height: 40)
     }()
     
-    private let room: SuggestemRoomTableNode.Content
+    private let room: SuggestedRoomTableNode.Content
     
     private let imageNode = ASNetworkImageNode()
     private let titleNode = ASTextNode()
@@ -29,7 +29,7 @@ class SuggestemRoomTableNode: ASCellNode {
     
     // MARK: - Object life cycle
     
-    init(with room: SuggestemRoomTableNode.Content) {
+    init(with room: SuggestedRoomTableNode.Content) {
         self.room = room
         
         super.init()

@@ -62,6 +62,16 @@ import Foundation
     }
 }
 
+extension Array where Element == UserSchema {
+    func convertToRoomSchema() -> [RoomSchema] {
+        let rooms = self.map { (user) -> RoomSchema in
+            RoomSchema(id: user.id, avatarUrl: user.avatarURL ?? "", name: user.username ?? "")
+        }
+        
+        return rooms
+    }
+}
+
 // ["access_token": "xxxx", "token_type": Bearer]
 @frozen public struct AccessTokenSchema: Codable {
     let accessToken: String

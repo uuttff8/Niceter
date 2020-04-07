@@ -34,10 +34,10 @@ class PeopleCoordinator: Coordinator {
         coord.start()
     }
     
-    func showSuggestedRoom(with rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema]) {
+    func showSuggestedRoom(with rooms: [UserSchema]?, currentlyJoinedRooms: [RoomSchema]) {
         self.currentController?.view = SuggestedRoomsCoordinator(
             with: navigationController,
-            rooms: rooms,
+            rooms: rooms?.convertToRoomSchema(),
             currentlyJoinedRooms: currentlyJoinedRooms
         ).currentController?.view
     }

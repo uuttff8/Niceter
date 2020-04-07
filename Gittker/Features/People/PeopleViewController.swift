@@ -55,7 +55,6 @@ class PeopleViewController: ASViewController<ASTableNode> {
         }
         
         self.viewModel.fetchRoomsCached()
-        self.viewModel.fetchSuggestedRooms()
         
         subscribeOnEvents()
     }
@@ -91,7 +90,7 @@ class PeopleViewController: ASViewController<ASTableNode> {
             self.viewModel.searchUsers(with: text) { (userSchema) in
                 DispatchQueue.main.async { [weak self] in
                     #warning("Do this")
-//                    self?.coordinator?.showSuggestedRoom(with: <#T##Array<RoomSchema>?#>, currentlyJoinedRooms: <#T##[RoomSchema]#>)
+                    self?.coordinator?.showSuggestedRoom(with: userSchema, currentlyJoinedRooms: (self?.viewModel.dataSource?.data.value)!)
                 }
             }
         } else {
@@ -122,6 +121,8 @@ extension PeopleViewController {
     }
     
     private func insertRoom(with room: RoomSchema) {
+        if checkIfOneToOne(room: room) { return }
+        
         self.viewModel.dataSource?.data.value.append(room)
         self.tableNode.performBatch(animated: true, updates: { [weak self] in
             if let counted = self?.viewModel.dataSource?.data.value.count {
@@ -133,6 +134,8 @@ extension PeopleViewController {
     }
     
     private func diffRoomById(with room: RoomSchema) {
+        if room.oneToOne == false { return }
+        
         if let index = viewModel.dataSource?.data.value.firstIndex(where: { (roomSchema) -> Bool in
             room.id == roomSchema.id
         }) {
@@ -152,6 +155,10 @@ extension PeopleViewController {
                 self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
         }
+    }
+    
+    private func checkIfOneToOne(room: RoomSchema) -> Bool {
+        room.oneToOne == false
     }
 }
 
