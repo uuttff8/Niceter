@@ -42,8 +42,33 @@ struct RoomSchema: Codable, Equatable {
         case UserChannel = "USER_CHANNEL" // A Gitter channel nested under a GitHub User.
     }
     
-    func toSuggestedRoomContent() -> SuggestemRoomTableNode.Content {
-        SuggestemRoomTableNode.Content(title: self.name ?? "", avatarUrl: self.avatarUrl ?? "", roomId: self.id)
+    func toSuggestedRoomContent() -> SuggestedRoomTableNode.Content {
+        SuggestedRoomTableNode.Content(title: self.name ?? "", avatarUrl: self.avatarUrl ?? "", roomId: self.id)
+    }
+    
+    public init(id: String, avatarUrl: String, name: String) {
+        self.id = id
+        self.avatarUrl = avatarUrl
+        self.name = name
+        self.topic = nil
+        self.oneToOne = nil
+        self.uri = nil
+        self.mentions = nil
+        self.public = nil
+        self.groupId = nil
+        self.githubType = nil
+        self.v = nil
+        self.roomMember = nil
+        self.tags = nil
+        self.url = nil
+        self.lurk = nil
+        self.favourite = nil
+        self.lastAccessTime = nil
+        self.unreadItems = nil
+        self.users = nil
+        self.userCount = nil
+        self.security = nil
+        self.noindex = nil
     }
     
     public init(from decoder: Decoder) throws {

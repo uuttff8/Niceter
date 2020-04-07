@@ -23,6 +23,7 @@ private enum GitterApiLinks {
     case user(username: String)
     case whoMe
     case searchUsers(query: String)
+    case hideRoom(userId: String, roomId: String)
     
     // Rooms
     case suggestedRooms
@@ -57,6 +58,8 @@ private enum GitterApiLinks {
             return "v1/users/\(username)"
         case .searchUsers(query: let query):
             return "v1/user?q=\(query)&type=gitter"
+        case .hideRoom(userId: let userId, roomId: let roomId):
+            return "v1/user/\(userId)/rooms/\(roomId)"
             
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
@@ -133,6 +136,16 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func hideRoom(userId: String, roomId: String, completion: @escaping (SuccessSchema) -> Void) {
+        print(userId + " \(roomId)")
+        genericRequestData(url: GitterApiLinks.hideRoom(userId: userId, roomId: roomId),
+                           method: "DELETE",
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
 }
 
 
@@ -186,7 +199,7 @@ extension GitterApi {
                 "id":"\(roomId)"
                 }
                 """.convertToDictionary() else { return }
-        
+        print(body)        
         genericRequestData(url: GitterApiLinks.joinRoom(userId: userId, roomId: roomId),
                            method: "POST",
                            body: body)
@@ -251,6 +264,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
+                print(data.prettyPrintedJSONString)
                 guard let room = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                 completion(room)
             default: break
@@ -266,7 +280,8 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                let decoded = try! self.jsonDecoder.decode(T.self, from: data)
+                print(data.prettyPrintedJSONString)
+                guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { return }
                 completion(decoded)
             default: break
             }

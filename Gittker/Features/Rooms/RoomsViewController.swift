@@ -119,6 +119,8 @@ extension RoomsViewController {
     }
     
     private func insertRoom(with room: RoomSchema) {
+        if !checkIfOneToOne(room: room) { return }
+        
         self.viewModel.dataSource?.data.value.append(room)
         self.tableNode.performBatch(animated: true, updates: { [weak self] in
             if let counted = self?.viewModel.dataSource?.data.value.count {
@@ -149,6 +151,10 @@ extension RoomsViewController {
                 self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
         }
+    }
+    
+    private func checkIfOneToOne(room: RoomSchema) -> Bool {
+        room.oneToOne == false
     }
 }
 
