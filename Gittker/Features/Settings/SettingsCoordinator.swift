@@ -26,5 +26,8 @@ class SettingsCoordinator: Coordinator {
         navigationController?.pushViewController(currentController!, animated: true)
     }
     
+    func logout() {
+        
+    }
 }
 
