@@ -10,6 +10,7 @@ import Foundation
 
 class GitterFayeClient: NSObject, TREventControllerDelegate {
     
+    private var client: TREventController?
     var endpoints: [GitterFayeEndpoints]
     
     init(endpoints: [GitterFayeEndpoints]) {
@@ -29,7 +30,15 @@ class GitterFayeClient: NSObject, TREventControllerDelegate {
             return endpoint.encode()
         }
         
-        let _ = TREventController(delegate: self, andChannels: stringEndpoints)
+        client = TREventController(delegate: self, andChannels: stringEndpoints)
+    }
+    
+    func disconnect() {
+        client?.disconnect()
+    }
+    
+    func reconnect() {
+        client?.reconnect()
     }
     
     func messageReceived(_ messageDict: [AnyHashable : Any], channel: String) {

@@ -24,6 +24,7 @@ private enum GitterApiLinks {
     case whoMe
     case searchUsers(query: String)
     case hideRoom(userId: String, roomId: String)
+    case joinUserRoom
     
     // Rooms
     case suggestedRooms
@@ -60,6 +61,8 @@ private enum GitterApiLinks {
             return "v1/user?q=\(query)&type=gitter"
         case .hideRoom(userId: let userId, roomId: let roomId):
             return "v1/user/\(userId)/rooms/\(roomId)"
+        case .joinUserRoom:
+            return "v1/rooms"
             
         case .rooms: return "v1/rooms"
         case .suggestedRooms: return "v1/user/me/suggestedRooms"
@@ -138,10 +141,25 @@ extension GitterApi {
     }
     
     func hideRoom(userId: String, roomId: String, completion: @escaping (SuccessSchema) -> Void) {
-        print(userId + " \(roomId)")
         genericRequestData(url: GitterApiLinks.hideRoom(userId: userId, roomId: roomId),
                            method: "DELETE",
                            body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
+    
+    func joinUserChat(username: String, completion: @escaping (RoomSchema) -> Void) {
+        guard let body =
+            """
+                {
+                "uri":"\(username)"
+                }
+                """.convertToDictionary() else { return }
+        print(body)
+        genericRequestData(url: GitterApiLinks.joinUserRoom,
+                           method: "POST",
+                           body: body)
         { (data) in
             completion(data)
         }

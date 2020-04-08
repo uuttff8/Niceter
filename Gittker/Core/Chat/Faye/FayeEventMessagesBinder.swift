@@ -79,4 +79,8 @@ public final class FayeEventMessagesBinder {
             }
         }
     }
+    
+    func cancel() {
+        client.disconnect()
+    }
 }

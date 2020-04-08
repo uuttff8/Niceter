@@ -28,7 +28,7 @@ class PeopleCoordinator: Coordinator {
     }
     
     func showChat(roomSchema: RoomSchema) {
-        let coord = RoomChatCoordinator(with: navigationController,
+        let coord = UserChatCoordinator(with: navigationController,
                                         roomSchema: roomSchema,
                                         isJoined: true)
         coord.start()

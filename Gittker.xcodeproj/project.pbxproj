@@ -83,6 +83,9 @@
 		4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC00242991AC00F3BF88 /* SuggestedRoomsNode.swift */; };
 		4EB3FC03242A499300F3BF88 /* SuggestedRoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC02242A499300F3BF88 /* SuggestedRoomsViewModel.swift */; };
 		4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC05242A72B400F3BF88 /* SuggestemRoomCellNode.swift */; };
+		4EC70C6E243DC4910063F323 /* UserChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC70C6D243DC4910063F323 /* UserChatViewModel.swift */; };
+		4EC70C70243DC49B0063F323 /* UserChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC70C6F243DC49B0063F323 /* UserChatViewController.swift */; };
+		4EC70C72243DC4A20063F323 /* UserChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC70C71243DC4A20063F323 /* UserChatCoordinator.swift */; };
 		4ED5398D242BB37F000874F3 /* SettingsProfileNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5398C242BB37F000874F3 /* SettingsProfileNodeCell.swift */; };
 		4ED53991242BB60E000874F3 /* TableGrouped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED53990242BB60E000874F3 /* TableGrouped.swift */; };
 		4ED53993242BB7A7000874F3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED53992242BB7A7000874F3 /* SettingsViewModel.swift */; };
@@ -214,6 +217,9 @@
 		4EB3FC00242991AC00F3BF88 /* SuggestedRoomsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedRoomsNode.swift; sourceTree = "<group>"; };
 		4EB3FC02242A499300F3BF88 /* SuggestedRoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedRoomsViewModel.swift; sourceTree = "<group>"; };
 		4EB3FC05242A72B400F3BF88 /* SuggestemRoomCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestemRoomCellNode.swift; sourceTree = "<group>"; };
+		4EC70C6D243DC4910063F323 /* UserChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatViewModel.swift; sourceTree = "<group>"; };
+		4EC70C6F243DC49B0063F323 /* UserChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatViewController.swift; sourceTree = "<group>"; };
+		4EC70C71243DC4A20063F323 /* UserChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatCoordinator.swift; sourceTree = "<group>"; };
 		4ED5398C242BB37F000874F3 /* SettingsProfileNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProfileNodeCell.swift; sourceTree = "<group>"; };
 		4ED53990242BB60E000874F3 /* TableGrouped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableGrouped.swift; sourceTree = "<group>"; };
 		4ED53992242BB7A7000874F3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -357,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				4EB3FBFF2429919200F3BF88 /* SuggestedRooms */,
+				4EC70C6C243DC4730063F323 /* UserChat */,
 				4E9D17B0241E7FDA0066362D /* RoomChat */,
 				4E09AC55240EB6760028229C /* Settings */,
 				4E09AC25240D83630028229C /* LoginAuth */,
@@ -715,6 +722,16 @@
 			path = cells;
 			sourceTree = "<group>";
 		};
+		4EC70C6C243DC4730063F323 /* UserChat */ = {
+			isa = PBXGroup;
+			children = (
+				4EC70C6D243DC4910063F323 /* UserChatViewModel.swift */,
+				4EC70C6F243DC49B0063F323 /* UserChatViewController.swift */,
+				4EC70C71243DC4A20063F323 /* UserChatCoordinator.swift */,
+			);
+			path = UserChat;
+			sourceTree = "<group>";
+		};
 		4ED53989242BA797000874F3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -1064,11 +1081,13 @@
 				4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */,
 				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
 				4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */,
+				4EC70C72243DC4A20063F323 /* UserChatCoordinator.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
 				4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
+				4EC70C6E243DC4910063F323 /* UserChatViewModel.swift in Sources */,
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
 				4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */,
@@ -1080,6 +1099,7 @@
 				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
 				4ED5398D242BB37F000874F3 /* SettingsProfileNodeCell.swift in Sources */,
 				4ED53991242BB60E000874F3 /* TableGrouped.swift in Sources */,
+				4EC70C70243DC49B0063F323 /* UserChatViewController.swift in Sources */,
 				4E9D17BB241E8FB80066362D /* RoomChatViewModel.swift in Sources */,
 				4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */,
 				4E9D17A4241E42A60066362D /* ObjectiveResourceDateFormatter.m in Sources */,
