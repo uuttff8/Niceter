@@ -65,7 +65,7 @@ import Foundation
 extension Array where Element == UserSchema {
     func convertToRoomSchema() -> [RoomSchema] {
         let rooms = self.map { (user) -> RoomSchema in
-            RoomSchema(id: user.id, avatarUrl: user.avatarURL ?? "", name: user.username ?? "")
+            RoomSchema(from: user)
         }
         
         return rooms

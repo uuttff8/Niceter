@@ -39,4 +39,8 @@ public final class FayeEventRoomBinder {
             }
         }
     }
+    
+    func cancel() {
+        client.disconnect()
+    }
 }

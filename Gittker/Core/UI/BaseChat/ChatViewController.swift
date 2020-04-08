@@ -96,7 +96,7 @@ class ChatViewController: MessagesViewController {
                         
             messagesCollectionView.performBatchUpdates({
                 messagesCollectionView.deleteSections(IndexSet(integer: index))
-                messagesCollectionView.reloadSections([messageList.count - 2])
+//                messagesCollectionView.reloadSections([messageList.count - 2])
             }) { [weak self] _ in
                 if self?.isLastSectionVisible() == true {
                     self?.messagesCollectionView.scrollToBottom(animated: true)

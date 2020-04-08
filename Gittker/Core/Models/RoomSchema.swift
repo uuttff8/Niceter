@@ -46,10 +46,10 @@ struct RoomSchema: Codable, Equatable {
         SuggestedRoomTableNode.Content(title: self.name ?? "", avatarUrl: self.avatarUrl ?? "", roomId: self.id)
     }
     
-    public init(id: String, avatarUrl: String, name: String) {
-        self.id = id
-        self.avatarUrl = avatarUrl
-        self.name = name
+    public init(from user: UserSchema) {
+        self.id = user.id
+        self.avatarUrl = user.avatarURL
+        self.name = user.username
         self.topic = nil
         self.oneToOne = nil
         self.uri = nil
