@@ -34,6 +34,13 @@ class PeopleCoordinator: Coordinator {
         coord.start()
     }
     
+    func previewChat(roomSchema: RoomSchema) -> UserChatViewController {
+        let coord = UserChatCoordinator(with: navigationController,
+                                        roomSchema: roomSchema,
+                                        isJoined: true)
+        return coord.currentController!
+    }
+    
     func showSuggestedRoom(with rooms: [UserSchema]?, currentlyJoinedRooms: [RoomSchema]) {
         self.currentController?.view = SuggestedRoomsCoordinator(
             with: navigationController,

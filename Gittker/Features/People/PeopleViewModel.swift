@@ -109,21 +109,31 @@ class PeopleTableViewDelegate: NSObject, ASTableDelegate {
         tableNode.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration {
-        let identifier = "\(indexPath.row)" as NSString
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let room = dataSource?[indexPath.row] else { return nil }
         
-        return UIContextMenuConfiguration(identifier: identifier, previewProvider: nil) { (menuElement) -> UIMenu? in
-            let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
-                RoomsService.share(room: self.dataSource![indexPath.row], in: self.vc)
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
+            return self.coordinator!.previewChat(roomSchema: room)
+        }) { _ -> UIMenu? in
+            let action = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                RoomsService.share(room: room, in: self.vc)
             }
-            
-            return UIMenu(title: "", image: nil, children: [shareAction])
+            return UIMenu(title: "", children: [action])
         }
+        return configuration
     }
+    
+//        return UIContextMenuConfiguration(identifier: identifier, previewProvider: nil) { (menuElement) -> UIMenu? in
+//            let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+//                RoomsService.share(room: self.dataSource![indexPath.row], in: self.vc)
+//            }
+//
+//            return UIMenu(title: "", image: nil, children: [shareAction])
+//        }
+//    }
     
     #warning("Thread 1: Exception: Invalid parameter not satisfying: container != nil")
     //    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview {
     //        return UITargetedPreview(view: UIImageView(image: UIImage(systemName: "people")))
     //    }
-    
 }

@@ -8,6 +8,10 @@
 
 import MessageKit
 
+class PreviewViewController: UIViewController {
+    
+}
+
 final class UserChatViewController: RoomChatBaseViewController {
     weak var coordinator: UserChatCoordinator?
     private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
