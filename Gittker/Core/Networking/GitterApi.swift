@@ -41,6 +41,7 @@ private enum GitterApiLinks {
     case listMessagesAround(roomId: String, messageId: String)
     case listMessagesUnread(roomId: String)
     case reportMessage(roomId: String, messageId: String)
+    case deleteMessage(roomId: String, messageId: String)
         
     func encode() -> String {
         switch self {
@@ -77,6 +78,8 @@ private enum GitterApiLinks {
             return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
         case .reportMessage(roomId: let roomId, messageId: let messageId):
             return "v1/rooms/\(roomId)/chatMessages/\(messageId)/report"
+        case .deleteMessage(roomId: let roomId, messageId: let messageId):
+            return "v1/rooms/\(roomId)/chatMessages/\(messageId)"
         }
     }
 }
@@ -277,6 +280,15 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func deleteMessage(roomId: String, messageId: String, completion: @escaping (SuccessSchema) -> Void) {
+        genericRequestData(url: GitterApiLinks.deleteMessage(roomId: roomId, messageId: messageId),
+                           method: "DELETE",
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
 }
 
 
@@ -309,6 +321,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
+                print(data.prettyPrintedJSONString)
                 guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { return }
                 completion(decoded)
             default: break

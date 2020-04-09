@@ -60,6 +60,10 @@ class UserChatViewModel {
         }
     }
     
+    func deleteMessage(messageId: String, completion: @escaping (SuccessSchema) -> Void) {
+        GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (successSchema) in }
+    }
+    
     // To implement it correct, we should better use caching to loading part of messages to cache
     func findFirstUnreadMessage() -> IndexPath? {
         guard let messages = messagesListInfo else { return nil }
