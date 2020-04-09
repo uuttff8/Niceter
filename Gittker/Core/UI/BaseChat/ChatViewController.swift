@@ -30,7 +30,7 @@ class ChatViewController: MessagesViewController {
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     
     var canFetchMoreResults = true
-    let userdata: MockUser = ShareData().userdata?.toMockUser() ?? MockUser(senderId: "", displayName: "")
+    let userdata: MockUser = ShareData().userdata?.toMockUser() ?? MockUser(senderId: "", displayName: "", username: "")
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -77,6 +77,8 @@ class ChatViewController: MessagesViewController {
     func reportMessage(message: MockMessage) { }
     
     func deleteMessage(message: MockMessage) { }
+    
+    func showProfileScreen(message: GittkerMessage) { }
     
     // MARK: - Helpers
         
@@ -280,16 +282,16 @@ extension ChatViewController: MessageCellDelegate {
     
     func didTapAvatar(in cell: MessageCollectionViewCell) {
         print("Avatar tapped")
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
+        let message = messageList[indexPath.section]
+        
+        showProfileScreen(message: message)
     }
     
     func didTapMessage(in cell: MessageCollectionViewCell) {
         print("Message tapped")
     }
-    
-    func didTapImage(in cell: MessageCollectionViewCell) {
-        print("Image tapped")
-    }
-    
+        
     func didTapPlayButton(in cell: AudioMessageCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell),
             let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {

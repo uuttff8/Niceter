@@ -18,21 +18,31 @@ struct SettingsViewModel {
     func fetchDataSourceUser() {
         guard let userdata = ShareData.init().userdata else { return }
         
-        GitterApi.shared.getUser(username: userdata.username ?? "") { (userSchema) in
-            guard let user = userSchema else { return }
-            
-            let profile = TableGroupedSection(section: .profile,
-                                              items:
-                [TableGroupedProfile(text: userdata.displayName ?? "",
-                                     type: .gitter,
-                                     value: userdata.username ?? "",
-                                     avatarUrl: userdata.avatarURL ?? "",
-                                     user: user),
-                ],
-                                              footer: nil,
-                                              grouped: true)
-            
-            self.dataSource?.data.value.insert(profile, at: 0)
+        
+        CachedUserLoader.init(cacheKey: userdata.username ?? "")
+            .fetchData { (userSchema) in
+                let profile = TableGroupedSection(section: .profile,
+                                                  items:
+                    [TableGroupedProfile(text: userdata.displayName ?? "",
+                                         type: .gitter,
+                                         value: userdata.username ?? "",
+                                         avatarUrl: userdata.avatarURL ?? "",
+                                         user: userSchema),
+                    ],
+                                                  footer: nil,
+                                                  grouped: true)
+                
+                // Check if profile got cached value and update it
+                if let index = self.dataSource!.data.value.firstIndex(where: { (section) -> Bool in
+                    section.section == TableGroupedSectionType.profile
+                }) {
+                    var prof = self.dataSource!.data.value[index].items[0] as? TableGroupedProfile
+                    prof?.user = userSchema
+                    return
+                }
+                
+                // if no cached value, then insert cell
+                self.dataSource?.data.value.insert(profile, at: 0)
         }
     }
     
@@ -71,7 +81,7 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDat
             switch section.section {
             case .profile:
                 guard let item2 = item as? TableGroupedProfile else { return ASCellNode() }
-                cell = SettingsProfileNodeCell(with: item2.user)
+                cell = ProfileMainNodeCell(with: item2.user)
             case .logout:
                 cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: item.text))
                 

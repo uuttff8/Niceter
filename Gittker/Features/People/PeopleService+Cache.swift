@@ -31,8 +31,8 @@ class CachedPeopleLoader: CachedLoader<[RoomSchema]> {
         }
     }
     
-    func fetchNewAndCache(then handler: @escaping Handler) {
-        // note: not calling super because we won't get cached value
+    override func fetchNewAndCache(then handler: @escaping Handler) {
+        super.fetchNewAndCache(then: handler)
         
         GitterApi.shared.getRooms { (roomSchemaList) in
             guard let rooms = roomSchemaList else { return }

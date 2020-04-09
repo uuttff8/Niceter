@@ -13,7 +13,7 @@ extension UIColor {
 }
 
 final class RoomChatViewController: RoomChatBaseViewController {
-    weak var coordinator: RoomChatCoordinator?
+    var coordinator: RoomChatCoordinator
     private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
     
     private var fayeClient: FayeEventMessagesBinder
@@ -86,6 +86,10 @@ final class RoomChatViewController: RoomChatBaseViewController {
         self.viewModel.deleteMessage(messageId: message.messageId) { (res) in
             print(res)
         }
+    }
+    
+    override func showProfileScreen(message: GittkerMessage) {
+        coordinator.showProfileScreen(username: message.message.user.username)
     }
         
     private func insertSectionsAndKeepOffset(gittMessages: [GittkerMessage]) {

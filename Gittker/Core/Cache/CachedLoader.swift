@@ -12,11 +12,11 @@ import Cache
 class CachedLoader<T: Codable> {
     typealias Handler = (T) -> Void
     
-    let diskConfig: DiskConfig
-    let memoryConfig: MemoryConfig
-    let storage: Storage<T>?
+    var diskConfig: DiskConfig
+    var memoryConfig: MemoryConfig
+    var storage: Storage<T>?
     
-    let cacheKey: String
+    var cacheKey: String
     
     init(cacheKey: String) {
         self.cacheKey = cacheKey
@@ -36,9 +36,10 @@ class CachedLoader<T: Codable> {
             if let cached = try? self.storage?.object(forKey: self.cacheKey) {
                 handler(cached)
             }
-            
         }
     }
+    
+    func fetchNewAndCache(then handler: @escaping Handler) { }
 }
 
 class CachedRoomMessagesLoader: CachedLoader<[RoomRecreateSchema]> {
