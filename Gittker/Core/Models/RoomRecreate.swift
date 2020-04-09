@@ -32,7 +32,7 @@ public struct RoomRecreateSchema: Codable {
 
 extension RoomRecreateSchema {
     func toGittkerMessage(isLoading: Bool) -> GittkerMessage {
-        let user = MockUser(senderId: fromUser?.id ?? "", displayName: fromUser?.displayName ?? "")
+        let user = MockUser(senderId: fromUser?.id ?? "", displayName: fromUser?.displayName ?? "", username: fromUser?.username ?? "")
         let message = MockMessage(text: self.text ?? "",
                                   user: user,
                                   messageId: self.id,

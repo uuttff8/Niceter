@@ -12,9 +12,9 @@ import MessageKit
 public final class FayeEventMessagesBinder {
     private var client: GitterFayeClient
     
-    let diskConfig: DiskConfig
-    let memoryConfig: MemoryConfig
-    let storage: Storage<[RoomRecreateSchema]>?
+    var diskConfig: DiskConfig
+    var memoryConfig: MemoryConfig
+    var storage: Storage<[RoomRecreateSchema]>?
 
     public var roomId: String
     

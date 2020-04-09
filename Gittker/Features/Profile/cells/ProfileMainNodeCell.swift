@@ -8,14 +8,14 @@
 
 import AsyncDisplayKit
 
-class SettingsProfileNodeCell: ASCellNode {
+class ProfileMainNodeCell: ASCellNode {
     // MARK: - Variables
     
     private lazy var imageSize: CGSize = {
         return CGSize(width: 50, height: 50)
     }()
     
-    private let content: UserSchema
+    private var content: UserSchema?
     
     private let imageNode = ASNetworkImageNode()
     private let titleNode = ASTextNode()
@@ -26,17 +26,17 @@ class SettingsProfileNodeCell: ASCellNode {
                                                                             withConfiguration: UIImage.SymbolConfiguration(pointSize: 30,
                                                                                                                            weight: .regular,
                                                                                                                            scale: .large))!,
-                                                              title: self.content.location ?? "")
+                                                              title: self.content?.location ?? "")
     private lazy var emailNode = ProfileAdditionalInfoNode(with: UIImage(systemName: "envelope",
                                                                          withConfiguration: UIImage.SymbolConfiguration(pointSize: 30,
                                                                                                                         weight: .regular,
                                                                                                                         scale: .large))!,
-                                                           title: self.content.email ?? "")
+                                                           title: self.content?.email ?? "")
     private let separatorNode = ASDisplayNode()
     
     // MARK: - Object life cycle
     
-    init(with content: UserSchema) {
+    init(with content: UserSchema?) {
         self.content = content
         
         super.init()
@@ -44,6 +44,11 @@ class SettingsProfileNodeCell: ASCellNode {
         
         self.setupNodes()
         self.buildNodeHierarchy()
+    }
+    
+    func configureCell(with content: UserSchema) {
+        self.content = content
+        setupNodes()
     }
     
     // MARK: - Setup nodes
@@ -57,7 +62,7 @@ class SettingsProfileNodeCell: ASCellNode {
     }
     
     private func setupImageNode() {
-        self.imageNode.url = URL(string: self.content.getGitterImage() ?? "")
+        self.imageNode.url = URL(string: self.content?.getGitterImage() ?? "")
         self.imageNode.style.preferredSize = self.imageSize
         
         self.imageNode.cornerRadius = self.imageSize.width / 2
@@ -65,41 +70,44 @@ class SettingsProfileNodeCell: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content.displayName ?? "", attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.content?.displayName ?? "", attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
     
     private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        return [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16),
+                NSAttributedString.Key.foregroundColor: UIColor.label]
     }()
     
     private func setupSubtitle() {
-        self.subtitleNode.attributedText = NSAttributedString(string: self.content.username ?? "", attributes: self.subtitleTextAttributes)
+        self.subtitleNode.attributedText = NSAttributedString(string: self.content?.username ?? "", attributes: self.subtitleTextAttributes)
         self.subtitleNode.maximumNumberOfLines = 1
         self.subtitleNode.truncationMode = .byTruncatingTail
     }
     
     private var subtitleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold)]
+        return [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+                NSAttributedString.Key.foregroundColor: UIColor.label]
     }()
 
     
     private func setupGitInfoTitle() {
         self.gitInfoNode.attributedText = NSAttributedString(string:
-            "\(content.github?.followers ?? 0) followers"
-                + " \(content.github?.following ?? 0) following"
-                + " \(self.content.github?.public_repos ?? 0) public repos",
+            "\(content?.github?.followers ?? 0) followers"
+                + " \(content?.github?.following ?? 0) following"
+                + " \(self.content?.github?.public_repos ?? 0) public repos",
             attributes: gitInfoAttrubuttes)
     }
     
     private var gitInfoAttrubuttes = {
-        return [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium)]
+        return [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium),
+                NSAttributedString.Key.foregroundColor: UIColor.label]
     }()
     
     private func setupAdditionalInfo() {
-        self.locationNode.infoTitle = self.content.location ?? ""
-        self.emailNode.infoTitle = self.content.email ?? ""
+        self.locationNode.infoTitle = self.content?.location ?? "Not specified"
+        self.emailNode.infoTitle = self.content?.email ?? "Not specified"
     }
     
     // MARK: - Build node hierarchy
@@ -108,7 +116,6 @@ class SettingsProfileNodeCell: ASCellNode {
          subtitleNode, gitInfoNode, locationNode, emailNode].forEach { (node) in
             self.addSubnode(node)
         }
-        
     }
     
     // MARK: - Layout

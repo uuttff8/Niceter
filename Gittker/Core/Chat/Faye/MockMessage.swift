@@ -75,6 +75,7 @@ struct MockContactItem: ContactItem {
 struct MockUser: SenderType, Equatable {
     var senderId: String
     var displayName: String
+    var username: String
 }
 
 struct MockMessage: MessageType {

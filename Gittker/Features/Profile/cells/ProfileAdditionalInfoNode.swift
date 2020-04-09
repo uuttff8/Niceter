@@ -18,7 +18,11 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
     private let imageNode = ASImageNode()
     private let titleNode = ASTextNode()
     
-    var infoTitle: String
+    var infoTitle: String {
+        didSet {
+            setupNodes()
+        }
+    }
     // MARK: - Object life cycle
     
     init(with image: UIImage, title: String) {
@@ -28,6 +32,11 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
         
         self.setupNodes()
         self.buildNodeHierarchy()
+    }
+    
+    func updateCell(with title: String) {
+        self.infoTitle = title
+        setupNodes()
     }
     
     // MARK: - Setup nodes
@@ -49,7 +58,8 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
     }
     
     private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium)]
+        return [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .medium),
+                NSAttributedString.Key.foregroundColor: UIColor.label]
     }()
     
     // MARK: - Build node hierarchy

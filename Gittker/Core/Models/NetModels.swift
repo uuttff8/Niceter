@@ -53,7 +53,7 @@ public struct UserSchema: Codable, Hashable, Equatable {
     }
     
     func toMockUser() -> MockUser {
-        MockUser(senderId: self.id, displayName: self.displayName ?? "")
+        MockUser(senderId: self.id, displayName: self.displayName ?? "", username: self.username ?? "")
     }
     
     func getGitterImage() -> String? {
