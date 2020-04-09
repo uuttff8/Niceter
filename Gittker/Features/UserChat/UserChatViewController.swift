@@ -56,9 +56,9 @@ final class UserChatViewController: RoomChatBaseViewController {
                 onNew: { [weak self] (message: GittkerMessage) in
                     self?.addToMessageMap(message: message, isFirstly: true)
                 }, onDeleted: { [weak self] (id) in
-                    self?.deleteMessage(by: id)
+                    self?.deleteMessageUI(by: id)
                 }, onUpdate: { [weak self] (message: GittkerMessage) in
-                    self?.updateMessage(message)
+                    self?.updateMessageUI(message)
                 }
         )
     }
@@ -80,6 +80,12 @@ final class UserChatViewController: RoomChatBaseViewController {
                     }
                 }
             }
+        }
+    }
+    
+    override func deleteMessage(message: MockMessage) {
+        self.viewModel.deleteMessage(messageId: message.messageId) { (res) in
+            print(res)
         }
     }
     

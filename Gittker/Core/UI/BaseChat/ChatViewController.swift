@@ -41,8 +41,9 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let reportMenuItem = UIMenuItem(title: "Report", action: #selector(MessageCollectionViewCell.report(_:)))
-        UIMenuController.shared.menuItems = [reportMenuItem]
+        let reportMenuItem = UIMenuItem(title: "Report", action: #selector(MessageCollectionViewCell.reportMessageMenuAction(_:)))
+        let deleteMenuItem = UIMenuItem(title: "Delete", action: #selector(MessageCollectionViewCell.deleteMessageMenuAction(_:)))
+        UIMenuController.shared.menuItems = [reportMenuItem, deleteMenuItem]
 
         self.view.backgroundColor = UIColor.systemBackground
         configureMessageCollectionView()
@@ -75,53 +76,10 @@ class ChatViewController: MessagesViewController {
     
     func reportMessage(message: MockMessage) { }
     
+    func deleteMessage(message: MockMessage) { }
+    
     // MARK: - Helpers
-    
-    func insertMessage(_ message: GittkerMessage) {
-        messageList.append(message)
-        // Reload last section to update header/footer labels and insert a new one
-        messagesCollectionView.performBatchUpdates({
-            messagesCollectionView.insertSections([messageList.count - 1])
-            if messageList.count >= 2 {
-                messagesCollectionView.reloadSections([messageList.count - 2])
-            }
-        }, completion: { [weak self] _ in
-            if self?.isLastSectionVisible() == true {
-                self?.messagesCollectionView.scrollToBottom(animated: true)
-            }
-        })
-    }
-    
-    func deleteMessage(by passedId: String) {        
-        let index = messageList.firstIndex(where: { (mess) in
-            passedId == mess.message.messageId
-        })
-                
-        if let index = index {
-            messageList.remove(at: index)
-                        
-            messagesCollectionView.performBatchUpdates({
-                messagesCollectionView.deleteSections(IndexSet(integer: index))
-//                messagesCollectionView.reloadSections([messageList.count - 2])
-            }) { [weak self] _ in
-                if self?.isLastSectionVisible() == true {
-                    self?.messagesCollectionView.scrollToBottom(animated: true)
-                }
-            }
-        }
-    }
-    
-    func updateMessage(_ newMessage: GittkerMessage) {
-        let index = messageList.firstIndex(where: { (mess) in
-            mess.message.messageId == newMessage.message.messageId
-        })
         
-        if let index = index {
-            messageList[index].message = newMessage.message
-            messagesCollectionView.reloadDataAndKeepOffset()
-        }
-    }
-    
     private func configureBackroundMessageReading() {
         // unread messages every 2 second
         self.timer = Timer.scheduledTimer(timeInterval: 2,
@@ -227,18 +185,23 @@ class ChatViewController: MessagesViewController {
     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         let message = messageList[indexPath.section]
         switch action {
-        case NSSelectorFromString("report:"):
+        case NSSelectorFromString("reportMessageMenuAction:"):
             return isFromCurrentSender(message: message.message) ? false : true
+        case NSSelectorFromString("deleteMessageMenuAction:"):
+            #warning("set first value to true when know the api")
+            return isFromCurrentSender(message: message.message) ? false : false
         default:
             return super.collectionView(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender)
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        let message = messageList[indexPath.section]
+        let message = messageList[indexPath.section].message
         switch action {
-        case NSSelectorFromString("report:"):
-            reportMessage(message: message.message)
+        case NSSelectorFromString("reportMessageMenuAction:"):
+            reportMessage(message: message)
+        case NSSelectorFromString("deleteMessageMenuAction:"):
+            deleteMessage(message: message)
         default:
             super.collectionView(collectionView, performAction: action, forItemAt: indexPath, withSender: sender)
         }
@@ -260,6 +223,54 @@ extension ChatViewController: MessagesDataSource {
     
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+    }
+}
+
+// MARK: - Chat Insert, Delete, Update
+extension ChatViewController {
+    func insertMessageUI(_ message: GittkerMessage) {
+        messageList.append(message)
+        // Reload last section to update header/footer labels and insert a new one
+        messagesCollectionView.performBatchUpdates({
+            messagesCollectionView.insertSections([messageList.count - 1])
+            if messageList.count >= 2 {
+                messagesCollectionView.reloadSections([messageList.count - 2])
+            }
+        }, completion: { [weak self] _ in
+            if self?.isLastSectionVisible() == true {
+                self?.messagesCollectionView.scrollToBottom(animated: true)
+            }
+        })
+    }
+    
+    func deleteMessageUI(by passedId: String) {
+        let index = messageList.firstIndex(where: { (mess) in
+            passedId == mess.message.messageId
+        })
+        
+        if let index = index {
+            messageList.remove(at: index)
+            
+            messagesCollectionView.performBatchUpdates({
+                messagesCollectionView.deleteSections(IndexSet(integer: index))
+                //                messagesCollectionView.reloadSections([messageList.count - 2])
+            }) { [weak self] _ in
+                if self?.isLastSectionVisible() == true {
+                    self?.messagesCollectionView.scrollToBottom(animated: true)
+                }
+            }
+        }
+    }
+    
+    func updateMessageUI(_ newMessage: GittkerMessage) {
+        let index = messageList.firstIndex(where: { (mess) in
+            mess.message.messageId == newMessage.message.messageId
+        })
+        
+        if let index = index {
+            messageList[index].message = newMessage.message
+            messagesCollectionView.reloadDataAndKeepOffset()
+        }
     }
 }
 
@@ -362,23 +373,35 @@ extension ChatViewController: MessageInputBarDelegate {
         if isFirstly {
             if case let MessageKind.text(text) = message.message.kind {
                 let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
-                self.deleteMessage(by: tmpId)
+                self.deleteMessageUI(by: tmpId)
             }
         }
         
-        self.insertMessage(message)
+        self.insertMessageUI(message)
     }
 }
 
 extension MessageCollectionViewCell {
-    @objc func report(_ sender: Any?) {
+    @objc func reportMessageMenuAction(_ sender: Any?) {
         // Get the collectionView
         if let collectionView = self.superview as? UICollectionView {
             // Get indexPath
             if let indexPath = collectionView.indexPath(for: self) {
                 // Trigger action
-                collectionView.delegate?.collectionView?(collectionView, performAction: NSSelectorFromString("report:"), forItemAt: indexPath, withSender: sender)
+                collectionView.delegate?.collectionView?(collectionView, performAction: NSSelectorFromString("reportMessageMenuAction:"), forItemAt: indexPath, withSender: sender)
             }
         }
     }
+        
+    @objc func deleteMessageMenuAction(_ sender: Any?) {
+        // Get the collectionView
+        if let collectionView = self.superview as? UICollectionView {
+            // Get indexPath
+            if let indexPath = collectionView.indexPath(for: self) {
+                // Trigger action
+                collectionView.delegate?.collectionView?(collectionView, performAction: NSSelectorFromString("deleteMessageMenuAction:"), forItemAt: indexPath, withSender: sender)
+            }
+        }
+    }
+
 }
