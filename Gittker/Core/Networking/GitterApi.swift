@@ -10,7 +10,7 @@ import Foundation
 
 @frozen
 private enum GitterApiLinks {
-    private static let limitMessages = 100 // because limit of unread is 100
+    private static let limitMessages = 100 // because limit of unread messages is 100
     
     static let baseUrl = "https://gitter.im/"
     static let baseUrlApi2 = "https://gitter.im/api/"
@@ -40,19 +40,10 @@ private enum GitterApiLinks {
     case sendMessage(roomId: String)
     case listMessagesAround(roomId: String, messageId: String)
     case listMessagesUnread(roomId: String)
+    case reportMessage(roomId: String, messageId: String)
         
     func encode() -> String {
         switch self {
-        case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
-        case .olderMessages(messageId: let messageId, roomId: let roomId):
-            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&beforeId=\(messageId)"
-        case .sendMessage(roomId: let roomId):
-            return "v1/rooms/\(roomId)/chatMessages"
-        case .listMessagesAround(roomId: let roomId, messageId: let messageId):
-            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&aroundId=\(messageId)"
-        case .listMessagesUnread(roomId: let roomId):
-            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
-            
         case .exchangeToken: return "login/oauth/token"
         case .whoMe: return "v1/user/me"
         case .user(username: let username):
@@ -72,8 +63,20 @@ private enum GitterApiLinks {
             return "v1/rooms/\(roomId)/users/\(userId)"
         case .joinRoom(userId: let userId, roomId: _):
             return "v1/user/\(userId)/rooms"
+        case .searchRooms(let query):
+            return "v1/rooms?q=\(query)"
             
-        case .searchRooms(let query): return "v1/rooms?q=\(query)"
+        case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
+        case .olderMessages(messageId: let messageId, roomId: let roomId):
+            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&beforeId=\(messageId)"
+        case .sendMessage(roomId: let roomId):
+            return "v1/rooms/\(roomId)/chatMessages"
+        case .listMessagesAround(roomId: let roomId, messageId: let messageId):
+            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&aroundId=\(messageId)"
+        case .listMessagesUnread(roomId: let roomId):
+            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
+        case .reportMessage(roomId: let roomId, messageId: let messageId):
+            return "v1/rooms/\(roomId)/chatMessages/\(messageId)/report"
         }
     }
 }

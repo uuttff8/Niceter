@@ -40,6 +40,10 @@ class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let reportMenuItem = UIMenuItem(title: "Report", action: #selector(MessageCollectionViewCell.report(_:)))
+        UIMenuController.shared.menuItems = [reportMenuItem]
+
         self.view.backgroundColor = UIColor.systemBackground
         configureMessageCollectionView()
         configureMessageInputBarForDarkMode()
@@ -68,6 +72,8 @@ class ChatViewController: MessagesViewController {
     func joinButtonHandlder() { }
     
     func markMessagesAsRead(messagesId: [String]) { }
+    
+    func reportMessage(message: MockMessage) { }
     
     // MARK: - Helpers
     
@@ -217,6 +223,26 @@ class ChatViewController: MessagesViewController {
             }
         }
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        let message = messageList[indexPath.section]
+        switch action {
+        case NSSelectorFromString("report:"):
+            return isFromCurrentSender(message: message.message) ? false : true
+        default:
+            return super.collectionView(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        let message = messageList[indexPath.section]
+        switch action {
+        case NSSelectorFromString("report:"):
+            reportMessage(message: message.message)
+        default:
+            super.collectionView(collectionView, performAction: action, forItemAt: indexPath, withSender: sender)
+        }
+    }
 }
 
 extension ChatViewController: MessagesDataSource {
@@ -341,5 +367,18 @@ extension ChatViewController: MessageInputBarDelegate {
         }
         
         self.insertMessage(message)
+    }
+}
+
+extension MessageCollectionViewCell {
+    @objc func report(_ sender: Any?) {
+        // Get the collectionView
+        if let collectionView = self.superview as? UICollectionView {
+            // Get indexPath
+            if let indexPath = collectionView.indexPath(for: self) {
+                // Trigger action
+                collectionView.delegate?.collectionView?(collectionView, performAction: NSSelectorFromString("report:"), forItemAt: indexPath, withSender: sender)
+            }
+        }
     }
 }
