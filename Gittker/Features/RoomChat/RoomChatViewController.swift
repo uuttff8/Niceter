@@ -154,6 +154,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = roomSchema.name
         if !isJoined {
             showJoinButton()
         } else {
