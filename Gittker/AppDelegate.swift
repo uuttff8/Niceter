@@ -15,6 +15,7 @@ import KeychainSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let appCoordinator = AppCoordinator()
+    var enableAllOrientation = true
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let urlCache = URLCache(memoryCapacity: 4 * 1024 * 1024, diskCapacity: 20 * 1024 * 1024, diskPath: nil)
@@ -23,6 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appCoordinator.window.makeKeyAndVisible()
         
         return true
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if enableAllOrientation {
+            return UIInterfaceOrientationMask.allButUpsideDown
+        }
+        return UIInterfaceOrientationMask.portrait
     }
 
     // MARK: - Core Data stack

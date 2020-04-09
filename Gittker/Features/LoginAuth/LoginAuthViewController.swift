@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginAuthViewController: UIViewController, Storyboarded {
+class LoginAuthViewController: PortaitViewController, Storyboarded {
 
     @IBOutlet weak var signInAcceptTextView: UITextView!
     @IBOutlet weak var gitlabButton: RoundButton! {
