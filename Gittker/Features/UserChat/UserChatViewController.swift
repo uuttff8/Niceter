@@ -127,6 +127,13 @@ final class UserChatViewController: RoomChatBaseViewController {
         self.viewModel.markMessagesAsRead(userId: userdata.senderId, messagesId: messagesId)
     }
     
+    override func reportMessage(message: MockMessage) {
+        print(message.messageId)
+        self.viewModel.reportMessage(messageId: message.messageId) { (reportMessageSchema) in
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = roomSchema.name

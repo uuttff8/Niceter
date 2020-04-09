@@ -153,8 +153,9 @@ final class RoomChatViewController: RoomChatBaseViewController {
     }
     
     override func reportMessage(message: MockMessage) {
-        if case let MessageKind.text(text) = message.kind {
-            
+        print(message.messageId)
+        self.viewModel.reportMessage(messageId: message.messageId) { (reportMessageSchema) in
+            print("reported")
         }
     }
     

@@ -268,6 +268,15 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func reportMessage(roomId: String, messageId: String, completion: @escaping (ReportMessageSchema) -> Void) {
+        genericRequestData(url: GitterApiLinks.reportMessage(roomId: roomId, messageId: messageId),
+                           method: "POST",
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
 }
 
 

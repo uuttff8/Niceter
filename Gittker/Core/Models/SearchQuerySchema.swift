@@ -8,6 +8,7 @@
 
 import Foundation
 
-struct SearchQuerySchema<T: Codable>: Codable {
+@frozen
+public struct SearchQuerySchema<T: Codable>: Codable {
     let results: [T]
 }

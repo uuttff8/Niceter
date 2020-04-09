@@ -54,6 +54,12 @@ class UserChatViewModel {
         }
     }
     
+    func reportMessage(messageId: String, completion: @escaping (ReportMessageSchema) -> Void) {
+        GitterApi.shared.reportMessage(roomId: roomSchema.id, messageId: messageId) { (reportMessageSchema) in
+            completion(reportMessageSchema)
+        }
+    }
+    
     // To implement it correct, we should better use caching to loading part of messages to cache
     func findFirstUnreadMessage() -> IndexPath? {
         guard let messages = messagesListInfo else { return nil }

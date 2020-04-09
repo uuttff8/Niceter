@@ -8,14 +8,16 @@
 
 import Foundation
 
-@frozen public struct ExchangeTokenSchema: Codable {
+@frozen
+public struct ExchangeTokenSchema: Codable {
     var clientId: String
     var clientSecret: String
     var redirectUri: String
     var grantType: String
     var code: String
     
-    @frozen enum CodingKeys: String, CodingKey {
+    @frozen
+    enum CodingKeys: String, CodingKey {
         case clientId = "client_id"
         case clientSecret = "client_secret"
         case redirectUri = "redirect_uri"
@@ -24,7 +26,8 @@ import Foundation
     }
 }
 
-@frozen public struct UserSchema: Codable, Hashable, Equatable {
+@frozen
+public struct UserSchema: Codable, Hashable, Equatable {
     let id: String
     let username: String?
     let displayName, url: String?
