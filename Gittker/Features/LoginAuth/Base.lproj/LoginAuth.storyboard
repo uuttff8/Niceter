@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -13,69 +13,86 @@
             <objects>
                 <viewController storyboardIdentifier="LoginAuthViewController" id="BYZ-38-t0r" customClass="LoginAuthViewController" customModule="Gittker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="cOS-t3-Pt4">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dNH-ds-t1V">
-                                <rect key="frame" x="20" y="580" width="335" height="148"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YwU-mG-WDz">
+                                <rect key="frame" x="16" y="649" width="382" height="213"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMh-dS-wZc" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="44"/>
-                                        <color key="backgroundColor" red="0.92156862745098034" green="0.45882352941176469" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dNH-ds-t1V">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="148"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMh-dS-wZc" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="44"/>
+                                                <color key="backgroundColor" red="0.92156862745098034" green="0.45882352941176469" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="RSm-T1-gRY"/>
+                                                </constraints>
+                                                <state key="normal" title="Sign in with GitLab">
+                                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="gitLabButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FuF-qC-wh1"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFd-RQ-nxn" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="52" width="382" height="44"/>
+                                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="VQ7-Ld-0V6"/>
+                                                </constraints>
+                                                <state key="normal" title="Sign in with GitHub">
+                                                    <color key="titleColor" name="Color"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="gitHubButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nc6-AE-H1v"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8s-u4-iRN" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="104" width="382" height="44"/>
+                                                <color key="backgroundColor" red="0.41568627450980389" green="0.6705882352941176" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="JQm-hc-Kb1"/>
+                                                </constraints>
+                                                <state key="normal" title="Sign in with Twitter">
+                                                    <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="twitterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qqJ-oR-sU0"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="RSm-T1-gRY"/>
+                                            <constraint firstAttribute="height" constant="148" id="DVj-RT-Xvl"/>
                                         </constraints>
-                                        <state key="normal" title="Sign in with GitLab">
-                                            <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="gitLabButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FuF-qC-wh1"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MFd-RQ-nxn" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="52" width="335" height="44"/>
-                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    </stackView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="By signing in you accept  our Terms of use and Privacy Police" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pIW-x0-zG6">
+                                        <rect key="frame" x="0.0" y="158" width="382" height="55"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="VQ7-Ld-0V6"/>
+                                            <constraint firstAttribute="height" constant="55" id="xdc-vD-c4P"/>
                                         </constraints>
-                                        <state key="normal" title="Sign in with GitHub">
-                                            <color key="titleColor" name="Color"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="gitHubButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nc6-AE-H1v"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8s-u4-iRN" customClass="RoundButton" customModule="Gittker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104" width="335" height="44"/>
-                                        <color key="backgroundColor" red="0.41568627450980389" green="0.6705882352941176" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="JQm-hc-Kb1"/>
-                                        </constraints>
-                                        <state key="normal" title="Sign in with Twitter">
-                                            <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="twitterButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qqJ-oR-sU0"/>
-                                        </connections>
-                                    </button>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -83,9 +100,9 @@
                         <constraints>
                             <constraint firstItem="cOS-t3-Pt4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="1yj-jc-6F6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cOS-t3-Pt4" secondAttribute="trailing" id="GMI-q5-8Ij"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dNH-ds-t1V" secondAttribute="trailing" constant="20" id="VU8-XQ-UZQ"/>
-                            <constraint firstItem="dNH-ds-t1V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="a0j-OL-Mw3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dNH-ds-t1V" secondAttribute="bottom" constant="50" id="dFv-b5-kK2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YwU-mG-WDz" secondAttribute="trailing" constant="16" id="bC7-si-KRW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YwU-mG-WDz" secondAttribute="bottom" id="hWi-07-I4A"/>
+                            <constraint firstItem="YwU-mG-WDz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hwP-MR-I0t"/>
                             <constraint firstItem="cOS-t3-Pt4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="stM-2G-FBQ"/>
                             <constraint firstAttribute="bottom" secondItem="cOS-t3-Pt4" secondAttribute="bottom" id="xAA-Ib-mRa"/>
                         </constraints>
@@ -94,12 +111,13 @@
                     <connections>
                         <outlet property="githubButton" destination="MFd-RQ-nxn" id="qVn-yq-dgX"/>
                         <outlet property="gitlabButton" destination="LMh-dS-wZc" id="wDW-v6-1mU"/>
+                        <outlet property="signInAcceptTextView" destination="pIW-x0-zG6" id="bhk-k1-YLx"/>
                         <outlet property="twitterButton" destination="r8s-u4-iRN" id="dd7-CF-3gu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+            <point key="canvasLocation" x="136.875" y="137.32394366197184"/>
         </scene>
     </scenes>
     <resources>
