@@ -9,23 +9,25 @@
 import Foundation
 import MessageKit
 
-struct UrlSchema: Codable {
+@frozen
+public struct UrlSchema: Codable {
     let url: String
 }
 
-struct RoomRecreateSchema: Codable {
+@frozen
+public struct RoomRecreateSchema: Codable {
     let id: String
-    let v: Int?
-    let fromUser: UserSchema?
-//    let issues: [String]?
-    let urls: [UrlSchema]?
     let text: String?
-//    let mentions: Int?
-    let meta: [String]?
-    let sent: String?
-    let readBy: Int?
-    let unread: Bool?
     let html: String?
+    let sent: String?
+    let fromUser: UserSchema?
+    let unread: Bool?
+    let readBy: Int?
+    let urls: [UrlSchema]?
+//    let mentions: Int?
+//    let issues: [String]?
+    let meta: [String]?
+    let v: Int?
 }
 
 extension RoomRecreateSchema {

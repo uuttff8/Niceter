@@ -105,7 +105,6 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDat
         
         switch section.section {
         case .profile:
-            print("LOL")
             tableNode.deselectRow(at: indexPath, animated: true)
         case .logout:
             self.logoutAction?()

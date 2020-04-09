@@ -77,7 +77,7 @@ struct MockUser: SenderType, Equatable {
     var displayName: String
 }
 
-internal struct MockMessage: MessageType {
+struct MockMessage: MessageType {
 
     var messageId: String
     var sender: SenderType {

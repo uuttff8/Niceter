@@ -9,7 +9,8 @@
 import Foundation
 
 // https://developer.gitter.im/docs/rooms-resource
-struct RoomSchema: Codable, Equatable {
+@frozen
+public struct RoomSchema: Codable, Equatable {
     let id: String                       // Room ID.
     let name: String?                    // Room name.
     var topic: String?                   // Room topic. (default: GitHub repo description)
@@ -33,7 +34,8 @@ struct RoomSchema: Codable, Equatable {
     let groupId: String?
     let `public`: Bool?
     
-    enum RoomTypeSchema: String, Codable {
+    @frozen
+    public enum RoomTypeSchema: String, Codable {
         case Org = "ORG" // A room that represents a GitHub Organisation.
         case Repo = "REPO" // A room that represents a GitHub Repository.
         case OneToOne = "ONETOONE" // A one-to-one chat.

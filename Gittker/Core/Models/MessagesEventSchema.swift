@@ -8,9 +8,11 @@
 
 import MessageKit
 
-struct MessagesEventSchema: Codable {
+@frozen
+public struct MessagesEventSchema: Codable {
     
-    enum Event: String, Codable {
+    @frozen
+    public enum Event: String, Codable {
         case create = "create"
         case update = "update"
         case remove = "remove"

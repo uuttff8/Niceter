@@ -8,6 +8,7 @@
 
 import Foundation
 
-struct SuccessSchema: Codable {
+@frozen
+public struct SuccessSchema: Codable {
     let success: Bool
 }
