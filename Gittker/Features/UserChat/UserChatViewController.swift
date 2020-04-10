@@ -8,10 +8,6 @@
 
 import MessageKit
 
-class PreviewViewController: UIViewController {
-    
-}
-
 final class UserChatViewController: RoomChatBaseViewController {
     weak var coordinator: UserChatCoordinator?
     private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
@@ -135,9 +131,12 @@ final class UserChatViewController: RoomChatBaseViewController {
     
     override func reportMessage(message: MockMessage) {
         self.viewModel.reportMessage(messageId: message.messageId) { (reportMessageSchema) in
-            let alert = UIAlertController(title: "Thank You!", message: "Your report will be reviewed by Gitter team very soon.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.present(alert, animated: true)
+            super.showOkAlert(config: SystemAlertConfiguration(title:
+                """
+                Thank You!
+                
+                Your report will be reviewed by Gitter team very soon.
+                """, subtitle: nil))
         }
     }
     
