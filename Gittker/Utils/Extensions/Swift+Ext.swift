@@ -92,3 +92,8 @@ extension UserDefaults {
     }
 
 }
+
+struct SystemAlertConfiguration {
+    let title: String?
+    let subtitle: String?
+}
