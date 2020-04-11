@@ -9,7 +9,8 @@
 import Foundation
 import KeychainSwift
 
-@frozen enum CustomHttpError: Error {
+@frozen
+enum CustomHttpError: Error {
     case fail
 }
 
@@ -73,7 +74,7 @@ final class HTTPClient: HTTPClientProvider {
         }.resume()
     }
     
-    func postAuth(url: URL, bodyObject: [String : Any],  completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
+    func postAuth(url: URL, bodyObject: [String : Any],  completion: @escaping (Result<Data, CustomHttpError>) -> Void) {
         guard let accessToken = LoginData.shared.accessToken else {
             print("Access Token is not provided")
             return
@@ -100,7 +101,7 @@ final class HTTPClient: HTTPClientProvider {
         }.resume()
     }
     
-    func genericRequest(url: URL, method: String, bodyObject: [String: Any]?, completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
+    func genericRequest(url: URL, method: String, bodyObject: [String: Any]?, completion: @escaping (Result<Data, CustomHttpError>) -> Void) {
         guard let accessToken = LoginData.shared.accessToken else {
             print("Access Token is not provided")
             return
@@ -126,6 +127,35 @@ final class HTTPClient: HTTPClientProvider {
             .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
                 if let data = data {
                     completion(.success(data))
+                }
+        }.resume()
+    }
+    
+    func deleteRequest(url: URL, method: String, completion: @escaping (Result<(), CustomHttpError>) -> Void) {
+        guard let accessToken = LoginData.shared.accessToken else {
+            print("Access Token is not provided")
+            return
+        }
+        
+        let config = URLSessionConfiguration.ephemeral
+        config.waitsForConnectivity = true
+        config.httpAdditionalHeaders = [ "Authorization": "Bearer \(accessToken)",
+                                         "Accept": "application/json",
+                                         "Content-Type": "application/json" ]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        
+        URLSession(configuration: config,
+                   delegate: INetworkDelegate(),
+                   delegateQueue: OperationQueue.current)
+            .dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 204 {
+                        completion(.success(()))
+                    } else {
+                        completion(.failure(.fail))
+                    }
                 }
         }.resume()
     }

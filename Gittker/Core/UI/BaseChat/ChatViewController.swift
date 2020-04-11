@@ -190,12 +190,13 @@ class ChatViewController: MessagesViewController {
         case NSSelectorFromString("reportMessageMenuAction:"):
             return isFromCurrentSender(message: message.message) ? false : true
         case NSSelectorFromString("deleteMessageMenuAction:"):
-            #warning("set first value to true when know the api")
-            return isFromCurrentSender(message: message.message) ? false : false
+            return isFromCurrentSender(message: message.message) ? true : false
         default:
             return super.collectionView(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender)
         }
     }
+    
+    
     
     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         let message = messageList[indexPath.section].message

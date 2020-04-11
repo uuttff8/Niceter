@@ -281,12 +281,10 @@ extension GitterApi {
         }
     }
     
-    func deleteMessage(roomId: String, messageId: String, completion: @escaping (SuccessSchema) -> Void) {
-        genericRequestData(url: GitterApiLinks.deleteMessage(roomId: roomId, messageId: messageId),
-                           method: "DELETE",
-                           body: nil)
-        { (data) in
-            completion(data)
+    func deleteMessage(roomId: String, messageId: String, completion: @escaping (()) -> Void) {
+        deleteMessageRequest(url: GitterApiLinks.deleteMessage(roomId: roomId, messageId: messageId))
+        { (_) in
+            completion(())
         }
     }
 }
@@ -332,7 +330,7 @@ extension GitterApi {
 
 // MARK: - Specific Requests
 extension GitterApi {
-    private func postDataReadMessages<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> ()) {
+    private func postDataReadMessages<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> Void) {
         //                                     changed link
         let url = URL(string: "\(GitterApiLinks.baseUrlApi2)\(url.encode())".encodeUrl)!
         print(String(describing: url))
@@ -348,7 +346,7 @@ extension GitterApi {
         }
     }
     
-    private func postDataSendMessage<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (Result<T, MessageFailedError>) -> ()) {
+    private func postDataSendMessage<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (Result<T, MessageFailedError>) -> Void) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
@@ -360,6 +358,20 @@ extension GitterApi {
                 completion(.success(type))
             case .failure(.fail):
                 completion(.failure(.sendFailed))
+            }
+        }
+    }
+    
+    private func deleteMessageRequest(url: GitterApiLinks, completion: @escaping (()) -> Void) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
+        print(String(describing: url))
+        
+        self.httpClient.deleteRequest(url: url, method: "DELETE")
+        { (res) in
+            switch res {
+            case .success(_):
+                completion(())
+            case .failure(_): break
             }
         }
     }

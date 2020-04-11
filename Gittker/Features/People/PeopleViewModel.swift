@@ -122,18 +122,4 @@ class PeopleTableViewDelegate: NSObject, ASTableDelegate {
         }
         return configuration
     }
-    
-//        return UIContextMenuConfiguration(identifier: identifier, previewProvider: nil) { (menuElement) -> UIMenu? in
-//            let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
-//                RoomsService.share(room: self.dataSource![indexPath.row], in: self.vc)
-//            }
-//
-//            return UIMenu(title: "", image: nil, children: [shareAction])
-//        }
-//    }
-    
-    #warning("Thread 1: Exception: Invalid parameter not satisfying: container != nil")
-    //    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview {
-    //        return UITargetedPreview(view: UIImageView(image: UIImage(systemName: "people")))
-    //    }
 }
