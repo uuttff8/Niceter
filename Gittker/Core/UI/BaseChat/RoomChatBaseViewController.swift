@@ -107,7 +107,32 @@ class RoomChatBaseViewController: ChatViewController {
         }
         return nil
     }
+    
+    func insertSectionsAndKeepOffset(gittMessages: [GittkerMessage]) {
+        CATransaction.disableAnimations {
+            // stop scrolling
+            messagesCollectionView.setContentOffset(messagesCollectionView.contentOffset, animated: false)
+            // calculate the offset and reloadData
+            let beforeContentSize = messagesCollectionView.contentSize
+            
+            self.messagesCollectionView.performBatchUpdates({
+                let array = Array(0..<gittMessages.count)
+                self.messagesCollectionView.insertSections(IndexSet(array))
+            }, completion: { _ in
+                self.messagesCollectionView.layoutIfNeeded()
+                let afterContentSize = self.messagesCollectionView.contentSize
+                
+                // reset the contentOffset after data is updated
+                let newOffset = CGPoint(
+                    x: self.messagesCollectionView.contentOffset.x + (afterContentSize.width - beforeContentSize.width),
+                    y: self.messagesCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
+                self.messagesCollectionView.setContentOffset(newOffset, animated: false)
+            })
+
+        }
+    }
 }
+
 
 // MARK: - MessagesDisplayDelegate
 
