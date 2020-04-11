@@ -44,8 +44,9 @@ final class RoomChatViewController: RoomChatBaseViewController {
                     self?.messagesCollectionView.reloadData()
                     let _ = self!.cached - 1
                 }
-                
-                self?.configureScrollAndPaginate()
+                CATransaction.disableAnimations {
+                    self?.configureScrollAndPaginate()
+                }
             }
         }
     }
@@ -91,28 +92,29 @@ final class RoomChatViewController: RoomChatBaseViewController {
     override func showProfileScreen(message: GittkerMessage) {
         coordinator.showProfileScreen(username: message.message.user.username)
     }
-        
+    
     private func insertSectionsAndKeepOffset(gittMessages: [GittkerMessage]) {
-        
-        //         stop scrolling
-        messagesCollectionView.setContentOffset(messagesCollectionView.contentOffset, animated: false)
-        //         calculate the offset and reloadData
-        let beforeContentSize = messagesCollectionView.contentSize
-        
-        self.messagesCollectionView.performBatchUpdates({
-            let array = Array(0..<gittMessages.count)
-            self.messagesCollectionView.insertSections(IndexSet(array))
-        }, completion: { _ in
-            self.messagesCollectionView.layoutIfNeeded()
-            let afterContentSize = self.messagesCollectionView.contentSize
+        CATransaction.disableAnimations {
+                    // stop scrolling
+            messagesCollectionView.setContentOffset(messagesCollectionView.contentOffset, animated: false)
+            // calculate the offset and reloadData
+            let beforeContentSize = messagesCollectionView.contentSize
             
-            //             reset the contentOffset after data is updated
-            let newOffset = CGPoint(
-                x: self.messagesCollectionView.contentOffset.x + (afterContentSize.width - beforeContentSize.width),
-                y: self.messagesCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
-            self.messagesCollectionView.setContentOffset(newOffset, animated: false)
-        })
-        
+            self.messagesCollectionView.performBatchUpdates({
+                let array = Array(0..<gittMessages.count)
+                self.messagesCollectionView.insertSections(IndexSet(array))
+            }, completion: { _ in
+                self.messagesCollectionView.layoutIfNeeded()
+                let afterContentSize = self.messagesCollectionView.contentSize
+                
+                // reset the contentOffset after data is updated
+                let newOffset = CGPoint(
+                    x: self.messagesCollectionView.contentOffset.x + (afterContentSize.width - beforeContentSize.width),
+                    y: self.messagesCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
+                self.messagesCollectionView.setContentOffset(newOffset, animated: false)
+            })
+
+        }
     }
     
     override func sendMessage(tmpMessage: MockMessage) {
@@ -173,13 +175,15 @@ final class RoomChatViewController: RoomChatBaseViewController {
             if indexPath.section <= 20 {
                 self.loadOlderMessages()
                 if cached == 0 {
-                    self.messagesCollectionView.reloadSections(IndexSet(integer: 100))
+                    self.messagesCollectionView.reloadSections(IndexSet(integer: indexPath.section))
                 }
             }
             self.messagesCollectionView.scrollToItem(at: indexPath, at: .top, animated: false)
             
         } else {
-            self.messagesCollectionView.scrollToBottom()
+            UIView.performWithoutAnimation {
+                self.messagesCollectionView.scrollToBottom(animated: false)
+            }
         }
     }
     
