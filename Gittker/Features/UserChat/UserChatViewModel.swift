@@ -61,7 +61,9 @@ class UserChatViewModel {
     }
     
     func deleteMessage(messageId: String, completion: @escaping (SuccessSchema) -> Void) {
-        GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (successSchema) in }
+        GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (emptyTuple) in
+            print(emptyTuple)
+        }
     }
     
     // To implement it correct, we should better use caching to loading part of messages to cache
