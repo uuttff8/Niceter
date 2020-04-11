@@ -21,7 +21,7 @@ public struct RoomSchema: Codable, Equatable {
     let userCount: Int?                  // Count of users in the room.
     var unreadItems: Int?                // Number of unread messages for the current user.
     let mentions: Int?                   // Number of unread mentions for the current user.
-    var lastAccessTime: Date?            // Last time the current user accessed the room in ISO format.
+    var lastAccessTime: String?          // Last time the current user accessed the room in ISO format.
     let favourite: Int?                  // Indicates if the room is on of your favourites.
     let lurk: Bool?                      // Indicates if the current user has disabled notifications.
     let url: String?                     // Path to the room on gitter.
@@ -73,41 +73,12 @@ public struct RoomSchema: Codable, Equatable {
         self.noindex = nil
     }
     
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(String.self, forKey: .id)
-        name = try container.decodeIfPresent(String.self, forKey: .name)
-        topic = try container.decodeIfPresent(String.self, forKey: .topic)
-        avatarUrl = try container.decodeIfPresent(String.self, forKey: .avatarUrl)
-        uri = try container.decodeIfPresent(String.self, forKey: .uri)
-        oneToOne = try container.decodeIfPresent(Bool.self, forKey: .oneToOne)
-        users = try container.decodeIfPresent([UserSchema].self, forKey: .users)
-        userCount = try container.decodeIfPresent(Int.self, forKey: .userCount)
-        unreadItems = try container.decodeIfPresent(Int.self, forKey: .unreadItems)
-        mentions = try container.decodeIfPresent(Int.self, forKey: .mentions)
-        favourite = try container.decodeIfPresent(Int.self, forKey: .favourite)
-        lurk = try container.decodeIfPresent(Bool.self, forKey: .lurk)
-        url = try container.decodeIfPresent(String.self, forKey: .url)
-        githubType = try container.decodeIfPresent(Self.RoomTypeSchema.self, forKey: .githubType)
-        tags = try container.decodeIfPresent([String].self, forKey: .tags)
-        v = try container.decodeIfPresent(Int.self, forKey: .v)
-        security = try container.decodeIfPresent(String.self, forKey: .security)
-        noindex = try container.decodeIfPresent(Bool.self, forKey: .noindex)
-        roomMember = try container.decodeIfPresent(Bool.self, forKey: .roomMember)
-        groupId = try container.decodeIfPresent(String.self, forKey: .groupId)
-        `public` = try container.decodeIfPresent(Bool.self, forKey: .public)
-        
-        // really custom
-        let dateString = try container.decodeIfPresent(String.self, forKey: .lastAccessTime)
+    
+    func getLastAccessDate() -> Date? {
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        
-        if let date = dateFormatter.date(from: dateString ?? "") {
-            lastAccessTime = date
-        } else {
-            lastAccessTime = nil
-//            throw DecodingError.dataCorruptedError(forKey: .lastAccessTime, in: container, debugDescription: "Date string does not match format expected by formatter.")
-        }
+        let date = dateFormatter.date(from: lastAccessTime ?? "")
+        return date
     }
 }
 
@@ -121,7 +92,7 @@ extension Array where Element == RoomSchema {
                 }
             }
             
-            if let a = a.lastAccessTime, let b = b.lastAccessTime {
+            if let a = a.getLastAccessDate(), let b = b.getLastAccessDate() {
                 return a > b
             }
             

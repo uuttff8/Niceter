@@ -15,8 +15,8 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
         return CGSize(width: 20, height: 20)
     }()
     
-    private let imageNode = ASImageNode()
-    private let titleNode = ASTextNode()
+    let imageNode = ASImageNode()
+    let titleNode = ASTextNode()
     
     var infoTitle: String {
         didSet {

@@ -22,15 +22,9 @@ class ProfileMainNodeCell: ASCellNode {
     private let subtitleNode = ASTextNode()
     private let gitInfoNode = ASTextNode()
     
-    private lazy var locationNode = ProfileAdditionalInfoNode(with: UIImage(systemName: "location",
-                                                                            withConfiguration: UIImage.SymbolConfiguration(pointSize: 30,
-                                                                                                                           weight: .regular,
-                                                                                                                           scale: .large))!,
+    private lazy var locationNode = ProfileAdditionalInfoNode(with: Config.Images.profileLocation,
                                                               title: self.content?.location ?? "")
-    private lazy var emailNode = ProfileAdditionalInfoNode(with: UIImage(systemName: "envelope",
-                                                                         withConfiguration: UIImage.SymbolConfiguration(pointSize: 30,
-                                                                                                                        weight: .regular,
-                                                                                                                        scale: .large))!,
+    private lazy var emailNode = ProfileAdditionalInfoNode(with: Config.Images.profileEnvelope,
                                                            title: self.content?.email ?? "")
     private let separatorNode = ASDisplayNode()
     
@@ -49,6 +43,11 @@ class ProfileMainNodeCell: ASCellNode {
     func configureCell(with content: UserSchema) {
         self.content = content
         setupNodes()
+    }
+    
+    override func asyncTraitCollectionDidChange() {
+        locationNode.imageNode.image = Config.Images.profileLocation
+        emailNode.imageNode.image = Config.Images.profileEnvelope
     }
     
     // MARK: - Setup nodes
