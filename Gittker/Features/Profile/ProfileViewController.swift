@@ -34,7 +34,8 @@ class ProfileViewController: ASViewController<ASTableNode> {
     }
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
+        title = username
     }
 }
 

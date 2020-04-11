@@ -42,3 +42,10 @@ extension CATransaction {
     }
 
 }
+
+
+extension UIScreen {
+    var isDarkMode: Bool {
+        return UIScreen.main.traitCollection.userInterfaceStyle == .dark
+    }
+}

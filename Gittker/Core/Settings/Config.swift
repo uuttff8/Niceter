@@ -79,6 +79,29 @@ struct Config {
             UIDevice.current.setValue(value, forKey: "orientation")
         }
     }
+    
+    struct Images {
+        static var profileLocation: UIImage {
+            if UIScreen.main.isDarkMode {
+                let image = UIImage(systemName: "location", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))?
+                    .withTintColor(UIColor.white)
+                return image!
+            } else {
+                return UIImage(systemName: "location", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))!
+            }
+        }
+                
+        static var profileEnvelope: UIImage {
+            if UIScreen.main.isDarkMode {
+                let image = UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))?
+                    .withTintColor(UIColor.white)
+                return image!
+
+            } else {
+                return UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))!
+            }
+        }
+    }
 }
 
 extension Notification.Name {
