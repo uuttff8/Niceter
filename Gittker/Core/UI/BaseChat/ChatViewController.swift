@@ -255,11 +255,14 @@ extension ChatViewController {
             messageList.remove(at: index)
             
             messagesCollectionView.performBatchUpdates({
-                messagesCollectionView.deleteSections(IndexSet(integer: index))
-                //                messagesCollectionView.reloadSections([messageList.count - 2])
+                CATransaction.disableAnimations {
+                    UIView.performWithoutAnimation {
+                        messagesCollectionView.deleteSections(IndexSet(integer: index))
+                    }
+                }
             }) { [weak self] _ in
                 if self?.isLastSectionVisible() == true {
-                    self?.messagesCollectionView.scrollToBottom(animated: true)
+                        self?.messagesCollectionView.scrollToBottom(animated: false)
                 }
             }
         }
@@ -376,7 +379,9 @@ extension ChatViewController: MessageInputBarDelegate {
         if isFirstly {
             if case let MessageKind.text(text) = message.message.kind {
                 let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
-                self.deleteMessageUI(by: tmpId)
+                CATransaction.disableAnimations {
+                    self.deleteMessageUI(by: tmpId)
+                }
             }
         }
         
