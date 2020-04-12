@@ -55,6 +55,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
         fayeClient
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
+                    self?.viewModel.addNewMessageToCache(message: message)
                     self?.addToMessageMap(message: message, isFirstly: true)
                 }, onDeleted: { [weak self] (id) in
                     self?.deleteMessageUI(by: id)
@@ -143,24 +144,25 @@ final class RoomChatViewController: RoomChatBaseViewController {
         fayeClient.cancel()
     }
     
+    #warning("refactor")
     private func configureScrollAndPaginate() {
         // scroll to unread message
         // note: unread limit is 100
-        if let indexPath = self.viewModel.findFirstUnreadMessage() {
-            // paginate if scrolls at top
-            if indexPath.section <= 20 {
-                self.loadOlderMessages()
-                if cached == 0 {
-                    self.messagesCollectionView.reloadSections(IndexSet(integer: indexPath.section))
-                }
-            }
-            self.messagesCollectionView.scrollToItem(at: indexPath, at: .top, animated: false)
-            
-        } else {
-            UIView.performWithoutAnimation {
+//        if let indexPath = self.viewModel.findFirstUnreadMessage() {
+//            // paginate if scrolls at top
+//            if indexPath.section <= 20 {
+//                self.loadOlderMessages()
+//                if cached == 0 {
+//                    self.messagesCollectionView.reloadSections(IndexSet(integer: indexPath.section))
+//                }
+//            }
+//            self.messagesCollectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+//
+//        } else {
+//            UIView.performWithoutAnimation {
                 self.messagesCollectionView.scrollToBottom(animated: false)
-            }
-        }
+//            }
+//        }
     }
     
 }

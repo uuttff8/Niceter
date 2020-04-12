@@ -12,6 +12,7 @@ class RoomChatViewModel {
     
     private let roomSchema: RoomSchema
     private var messagesListInfo: [RoomRecreateSchema]?
+    private lazy var cachedMessageLoader = CachedRoomMessagesLoader(cacheKey: self.roomSchema.id)
     
     init(roomSchema: RoomSchema) {
         self.roomSchema = roomSchema
@@ -19,7 +20,7 @@ class RoomChatViewModel {
     
     func loadFirstMessages(completion: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            CachedRoomMessagesLoader(cacheKey: self.roomSchema.id)
+            self.cachedMessageLoader
                 .fetchData { (roomRecrList) in
                     self.messagesListInfo = roomRecrList
                     completion(roomRecrList.toGittkerMessages(isLoading: false))
@@ -61,6 +62,12 @@ class RoomChatViewModel {
     
     func deleteMessage(messageId: String, completion: @escaping (SuccessSchema) -> Void) {
         GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (successSchema) in }
+    }
+    
+    func addNewMessageToCache(message: GittkerMessage) {
+        DispatchQueue.global(qos: .default).async {
+            self.cachedMessageLoader.addNewMessage(message: message)
+        }
     }
     
     // To implement it correct, we should better use caching to loading part of messages to cache

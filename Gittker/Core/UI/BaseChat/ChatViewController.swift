@@ -255,14 +255,10 @@ extension ChatViewController {
             messageList.remove(at: index)
             
             messagesCollectionView.performBatchUpdates({
-                CATransaction.disableAnimations {
-                    UIView.performWithoutAnimation {
-                        messagesCollectionView.deleteSections(IndexSet(integer: index))
-                    }
-                }
+                messagesCollectionView.deleteSections(IndexSet(integer: index))
             }) { [weak self] _ in
                 if self?.isLastSectionVisible() == true {
-                        self?.messagesCollectionView.scrollToBottom(animated: false)
+                    self?.messagesCollectionView.scrollToBottom(animated: false)
                 }
             }
         }
@@ -276,6 +272,19 @@ extension ChatViewController {
         if let index = index {
             messageList[index].message = newMessage.message
             messagesCollectionView.reloadDataAndKeepOffset()
+        }
+    }
+    
+    private func updateMessageUIAndAvoidMessageResend(tmpId: String, message: GittkerMessage) {
+        let index = messageList.firstIndex(where: { (mess) in
+            tmpId == mess.message.messageId
+        })
+        
+        if let index = index {
+            messageList[index].message = message.message
+            messagesCollectionView.reloadDataAndKeepOffset()
+        } else {
+            self.insertMessageUI(message)
         }
     }
 }
@@ -379,9 +388,10 @@ extension ChatViewController: MessageInputBarDelegate {
         if isFirstly {
             if case let MessageKind.text(text) = message.message.kind {
                 let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
-                CATransaction.disableAnimations {
-                    self.deleteMessageUI(by: tmpId)
-                }
+                
+                self.updateMessageUIAndAvoidMessageResend(tmpId: tmpId, message: message)
+                // if not return, new message will appear again
+                return
             }
         }
         
