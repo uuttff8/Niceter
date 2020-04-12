@@ -13,7 +13,7 @@ class SettingsCoordinator: Coordinator {
     weak var tabController: MainTabBarController?
     var currentController: SettingsViewController?
     
-    var navigationController: ASNavigationController?
+    weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
 
     init(with navigationController: ASNavigationController?) {

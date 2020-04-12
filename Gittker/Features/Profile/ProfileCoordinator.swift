@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 
 class ProfileCoordinator: Coordinator {
-    var navigationController: ASNavigationController?
+    weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     var currentController: ProfileViewController?

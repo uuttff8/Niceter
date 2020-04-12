@@ -9,19 +9,7 @@
 import Foundation
 import Cache
 
-//class CachedSuggestedRoomLoader: CachedLoader<[RoomSchema]> {
-//    override func fetchData(then handler: @escaping Handler) {
-//        super.fetchData(then: handler)
-//        
-//        GitterApi.shared.getSuggestedRooms { (roomSchemaList) in
-//            guard let rooms = roomSchemaList else { return }
-//            try? self.storage?.setObject(rooms, forKey: self.cacheKey)
-//            handler(rooms)
-//        }
-//    }
-//}
-
-class CachedPeopleLoader: CachedLoaderProtocol {
+class CachedPeopleLoader: CachedLoader {
     typealias Handler = ([RoomSchema]) -> Void
     typealias CodeType = [RoomSchema]
     
@@ -55,16 +43,15 @@ class CachedPeopleLoader: CachedLoaderProtocol {
 
         GitterApi.shared.getRooms { (roomsSchema) in
             guard let rooms = roomsSchema else { return }
-            self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { _ in
-                handler(rooms)
-            })
+            self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { _ in })
+            handler(rooms)
         }
     }
     
     func fetchNewAndCache(then handler: @escaping Handler) {
         GitterApi.shared.getRooms { (roomSchemaList) in
             guard let rooms = roomSchemaList else { return }
-            try? self.storage?.setObject(rooms, forKey: self.cacheKey)
+            self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { (_) in })
             handler(rooms)
         }
     }
