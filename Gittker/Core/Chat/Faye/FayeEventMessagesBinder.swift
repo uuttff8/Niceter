@@ -37,8 +37,13 @@ public final class FayeEventMessagesBinder {
     
     func loadMessages(loadedMessages: @escaping (([GittkerMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            if let cached = try? self.storage?.object(forKey: self.roomId) {
-                loadedMessages(cached.toGittkerMessages(isLoading: false))
+            self.storage?.async.object(forKey: self.roomId) { res in
+                switch res {
+                case .value(let user):
+                    loadedMessages(user.toGittkerMessages(isLoading: false))
+                case .error(let error):
+                    break
+                }
             }
 
             self.client.snapshotReceivedHandler = { (snapshot, _) in
@@ -47,7 +52,7 @@ public final class FayeEventMessagesBinder {
 
                     guard let roomRecr = try? JSONDecoder().decode([RoomRecreateSchema].self, from: roomRecrData!) else { print("blya"); return }
 
-                    try? self.storage?.setObject(roomRecr, forKey: self.roomId)
+                    self.storage?.async.setObject(roomRecr, forKey: self.roomId, completion: { (_) in })
                     let mess = roomRecr.toGittkerMessages(isLoading: false)
                     
                     loadedMessages(mess)

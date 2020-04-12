@@ -9,6 +9,8 @@
 import AsyncDisplayKit
 
 class RoomsViewController: ASViewController<ASTableNode> {
+    
+    // MARK: - Variables
     weak var coordinator: RoomsCoordinator?
     
     private let refreshControl = UIRefreshControl()
@@ -39,10 +41,12 @@ class RoomsViewController: ASViewController<ASTableNode> {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Rooms"
         self.setupSearchBar()
+        self.setupNavigationBar()
         
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in
@@ -59,6 +63,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
         subscribeOnEvents()
     }
     
+    // MARK: - Setuping UI
     private func setupSearchBar() {
         navigationItem.searchController = UISearchController()
         navigationItem.searchController?.delegate = self
@@ -67,6 +72,12 @@ class RoomsViewController: ASViewController<ASTableNode> {
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
     }
     
+    private func setupNavigationBar() {
+        let createRoomButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(RoomsViewController.createRoomAction(_:)))
+        navigationItem.rightBarButtonItem = createRoomButton
+    }
+    
+    // MARK: - Events
     private func subscribeOnEvents() {
         guard let userId = ShareData().userdata?.id else { return }
         
@@ -84,11 +95,16 @@ class RoomsViewController: ASViewController<ASTableNode> {
         )
     }
     
+    // Objc Action
     @objc func reloadRooms(_ sender: Any) {
         self.viewModel.fetchRooms()
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+    }
+    
+    @objc func createRoomAction(_ sender: Any) {
+        coordinator?.showCreateRoom()
     }
     
     @objc func reload(_ searchBar: UISearchBar) {

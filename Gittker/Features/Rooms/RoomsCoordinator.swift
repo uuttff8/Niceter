@@ -41,7 +41,7 @@ class RoomsCoordinator: Coordinator {
         let coord = RoomChatCoordinator(with: navigationController,
                                         roomSchema: roomSchema,
                                         isJoined: true)
-        
+        childCoordinators.append(coord)
         return coord.currentController!
     }
     
@@ -51,5 +51,11 @@ class RoomsCoordinator: Coordinator {
             rooms: rooms,
             currentlyJoinedRooms: currentlyJoinedRooms
         ).currentController?.view
+    }
+    
+    func showCreateRoom() {
+        let coord = CreateRoomCoordinator(with: navigationController)
+        childCoordinators.append(coord)
+        coord.start()
     }
 }
