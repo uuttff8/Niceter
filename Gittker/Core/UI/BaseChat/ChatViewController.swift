@@ -39,6 +39,7 @@ class ChatViewController: MessagesViewController {
     }()
     
     override func viewDidLoad() {
+        loadFirstMessages()
         super.viewDidLoad()
         
         let reportMenuItem = UIMenuItem(title: "Report", action: #selector(MessageCollectionViewCell.reportMessageMenuAction(_:)))
@@ -52,7 +53,6 @@ class ChatViewController: MessagesViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadFirstMessages()
         super.viewWillAppear(animated)
         subscribeOnMessagesEvent()
     }
