@@ -26,6 +26,11 @@ class ProfileMainNodeCell: ASCellNode {
                                                               title: self.content?.location ?? "")
     private lazy var emailNode = ProfileAdditionalInfoNode(with: Config.Images.profileEnvelope,
                                                            title: self.content?.email ?? "")
+    private lazy var linkNode = ProfileAdditionalInfoNode(with: Config.Images.profileLink,
+                                                          title: self.content?.website ?? "")
+    private lazy var companyNode = ProfileAdditionalInfoNode(with: Config.Images.profileCompany,
+                                                             title: self.content?.company ?? "")
+    
     private let separatorNode = ASDisplayNode()
     
     // MARK: - Object life cycle
@@ -48,6 +53,8 @@ class ProfileMainNodeCell: ASCellNode {
     override func asyncTraitCollectionDidChange() {
         locationNode.imageNode.image = Config.Images.profileLocation
         emailNode.imageNode.image = Config.Images.profileEnvelope
+        linkNode.imageNode.image = Config.Images.profileLink
+        companyNode.imageNode.image = Config.Images.profileCompany
     }
     
     // MARK: - Setup nodes
@@ -107,12 +114,14 @@ class ProfileMainNodeCell: ASCellNode {
     private func setupAdditionalInfo() {
         self.locationNode.infoTitle = self.content?.location ?? "Not specified"
         self.emailNode.infoTitle = self.content?.email ?? "Not specified"
+        self.linkNode.infoTitle = self.content?.website ?? "Not Specified"
+        self.companyNode.infoTitle = self.content?.company ?? "Not Specified"
     }
     
     // MARK: - Build node hierarchy
     private func buildNodeHierarchy() {
-        [imageNode, titleNode, separatorNode,
-         subtitleNode, gitInfoNode, locationNode, emailNode].forEach { (node) in
+        [imageNode, titleNode, separatorNode, subtitleNode, gitInfoNode,
+         locationNode, emailNode, linkNode, companyNode].forEach { (node) in
             self.addSubnode(node)
         }
     }
@@ -134,7 +143,7 @@ class ProfileMainNodeCell: ASCellNode {
                                          justifyContent: .start,
                                          alignItems: .start,
                                          children:
-            [self.titleNode, self.subtitleNode, self.gitInfoNode, self.locationNode, self.emailNode]
+            [self.titleNode, self.subtitleNode, self.gitInfoNode, self.locationNode, self.emailNode, linkNode, companyNode]
         )
         
         let finalSpec = ASStackLayoutSpec(direction: .horizontal,
