@@ -67,6 +67,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
     
     override func loadOlderMessages() {
         self.canFetchMoreResults = false
+        
         if let firstMessageId = messageList.first?.message.messageId {
             viewModel.loadOlderMessages(messageId: firstMessageId)
             { (gittMessages: [GittkerMessage]) in
@@ -89,11 +90,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
             print(res)
         }
     }
-    
-    override func showProfileScreen(message: GittkerMessage) {
-        coordinator.showProfileScreen(username: message.message.user.username)
-    }
-        
+            
     override func sendMessage(tmpMessage: MockMessage) {
         if case let MessageKind.text(text) = tmpMessage.kind {
             
@@ -118,6 +115,7 @@ final class RoomChatViewController: RoomChatBaseViewController {
         self.viewModel.markMessagesAsRead(userId: userdata.senderId, messagesId: messagesId)
     }
     
+    
     override func reportMessage(message: MockMessage) {
         self.viewModel.reportMessage(messageId: message.messageId) { (reportMessageSchema) in
             super.showOkAlert(config: SystemAlertConfiguration(title:
@@ -127,6 +125,10 @@ final class RoomChatViewController: RoomChatBaseViewController {
                 Your report will be reviewed by Gitter team very soon.
                 """, subtitle: nil))
         }
+    }
+    
+    override func showProfileScreen(message: GittkerMessage) {
+        coordinator.showProfileScreen(username: message.message.user.username)
     }
     
     override func viewDidLoad() {

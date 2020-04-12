@@ -122,10 +122,4 @@ class RoomsTableViewDelegate: NSObject, ASTableDelegate {
         }
         return configuration
     }
-    
-    #warning("Thread 1: Exception: Invalid parameter not satisfying: container != nil")
-    //    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview {
-    //        return UITargetedPreview(view: UIImageView(image: UIImage(systemName: "people")))
-    //    }
-    
 }
