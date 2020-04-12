@@ -51,7 +51,7 @@ extension Array where Element == RoomRecreateSchema {
     }
 }
 
-private extension Date {
+extension Date {
     static func toGittkerDate(str: String?) -> Date {
         guard let str = str else { return Date() }
         let dateFormatter = ISO8601DateFormatter()

@@ -38,6 +38,7 @@
 		4E09AC6E240EE6C60028229C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6D240EE6C60028229C /* SettingsViewController.swift */; };
 		4E09AC70240EE6D10028229C /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC6F240EE6D10028229C /* SettingsCoordinator.swift */; };
 		4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC74240FFF9D0028229C /* LoginAuthViewModel.swift */; };
+		4E1181202443506A001F6D2D /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = 4E11811F2443506A001F6D2D /* SwiftyMarkdown */; };
 		4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1656B8242654AF00C56FC7 /* RoomTableNode.swift */; };
 		4E229FFE24325FBD0096371C /* RoomsService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFD24325FBD0096371C /* RoomsService+Cache.swift */; };
 		4E22A0002432B2A70096371C /* SettingsButtonNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E229FFF2432B2A70096371C /* SettingsButtonNodeCell.swift */; };
@@ -263,6 +264,7 @@
 				4E2A7A302416B23C0025F39C /* Nuke in Frameworks */,
 				4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */,
 				6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */,
+				4E1181202443506A001F6D2D /* SwiftyMarkdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +839,7 @@
 			packageProductDependencies = (
 				4E2A7A1424116B620025F39C /* KeychainSwift */,
 				4E2A7A2F2416B23C0025F39C /* Nuke */,
+				4E11811F2443506A001F6D2D /* SwiftyMarkdown */,
 			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
@@ -916,6 +919,7 @@
 			packageReferences = (
 				4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */,
+				4E11811E2443506A001F6D2D /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
@@ -1500,6 +1504,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E11811E2443506A001F6D2D /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
@@ -1519,6 +1531,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E11811F2443506A001F6D2D /* SwiftyMarkdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E11811E2443506A001F6D2D /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */;
+			productName = SwiftyMarkdown;
+		};
 		4E2A7A1424116B620025F39C /* KeychainSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */;
