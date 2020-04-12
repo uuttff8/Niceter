@@ -9,9 +9,9 @@
 import AsyncDisplayKit
 
 struct SettingsViewModel {
-    weak var dataSource : GenericDataSource<TableGroupedSection>?
+    weak var dataSource : GenericDataSource<TableGroupedSettingsSection>?
     
-    init(dataSource : GenericDataSource<TableGroupedSection>?) {
+    init(dataSource : GenericDataSource<TableGroupedSettingsSection>?) {
         self.dataSource = dataSource
     }
     
@@ -21,7 +21,7 @@ struct SettingsViewModel {
         
         CachedUserLoader.init(cacheKey: userdata.username ?? "")
             .fetchData { (userSchema) in
-                let profile = TableGroupedSection(section: .profile,
+                let profile = TableGroupedSettingsSection(section: .profile,
                                                   items:
                     [TableGroupedProfile(text: userdata.displayName ?? "",
                                          type: .gitter,
@@ -34,7 +34,7 @@ struct SettingsViewModel {
                 
                 // Check if profile got cached value and update it
                 if let index = self.dataSource!.data.value.firstIndex(where: { (section) -> Bool in
-                    section.section == TableGroupedSectionType.profile
+                    section.section == TableGroupedSettingsSectionType.profile
                 }) {
                     var prof = self.dataSource!.data.value[index].items[0] as? TableGroupedProfile
                     prof?.user = userSchema
@@ -47,7 +47,7 @@ struct SettingsViewModel {
     }
     
     func fetchDataSourceLocalData() {
-        let logout = TableGroupedSection(section: .logout,
+        let logout = TableGroupedSettingsSection(section: .logout,
                                          items:
             [TableGroupedItem(text:  "Logout",
                               type: .noUrl,
@@ -61,7 +61,7 @@ struct SettingsViewModel {
     }
 }
 
-class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDataSource, ASTableDelegate {
+class SettingsTableDelegates: GenericDataSource<TableGroupedSettingsSection>, ASTableDataSource, ASTableDelegate {
     var logoutAction: (() -> Void)? = nil
     
     func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -85,8 +85,6 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDat
             case .logout:
                 cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: item.text))
                 
-            default:
-                cell = ASCellNode()
             }
             
             return cell
@@ -120,8 +118,6 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSection>, ASTableDat
             self.logoutAction?()
             tableNode.deselectRow(at: indexPath, animated: true)
             
-        default:
-            break
         }
         
     }  

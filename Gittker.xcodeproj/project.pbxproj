@@ -52,6 +52,11 @@
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
+		4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */; };
+		4E4F7D612443A817009287D8 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */; };
+		4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */; };
+		4E4F7D652443ABAC009287D8 /* CreateRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D642443ABAC009287D8 /* CreateRoomViewModel.swift */; };
+		4E4F7D682443B7B2009287D8 /* DefaultDisclosureNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D672443B7B2009287D8 /* DefaultDisclosureNodeCell.swift */; };
 		4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */; };
 		4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */; };
 		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
@@ -177,6 +182,11 @@
 		4E2A7A1A2411792C0025F39C /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSchema.swift; sourceTree = "<group>"; };
+		4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
+		4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCoordinator.swift; sourceTree = "<group>"; };
+		4E4F7D642443ABAC009287D8 /* CreateRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewModel.swift; sourceTree = "<group>"; };
+		4E4F7D672443B7B2009287D8 /* DefaultDisclosureNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDisclosureNodeCell.swift; sourceTree = "<group>"; };
 		4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeopleService+Cache.swift"; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
@@ -374,6 +384,7 @@
 		4E09AC15240D80F50028229C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4E4F7D5A2443A27F009287D8 /* CreateRoom */,
 				4EC70C7A243FA5E70063F323 /* Profile */,
 				4EB3FBFF2429919200F3BF88 /* SuggestedRooms */,
 				4EC70C6C243DC4730063F323 /* UserChat */,
@@ -513,6 +524,7 @@
 				4ED539A0242FB613000874F3 /* RoomEventSchema.swift */,
 				4ED539A22431332C000874F3 /* SuccessSchema.swift */,
 				4EC70C76243F2FA20063F323 /* ReportMessageSchema.swift */,
+				4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -587,6 +599,25 @@
 				4E9D17AB241E46800066362D /* TRConnectionMonitor.m */,
 			);
 			path = Faye;
+			sourceTree = "<group>";
+		};
+		4E4F7D5A2443A27F009287D8 /* CreateRoom */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F7D662443B766009287D8 /* cells */,
+				4E4F7D642443ABAC009287D8 /* CreateRoomViewModel.swift */,
+				4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */,
+				4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */,
+			);
+			path = CreateRoom;
+			sourceTree = "<group>";
+		};
+		4E4F7D662443B766009287D8 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F7D672443B7B2009287D8 /* DefaultDisclosureNodeCell.swift */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 		4E9D177E241E42890066362D /* Libraries */ = {
@@ -1069,6 +1100,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EB3FBFE24298E7A00F3BF88 /* HomeSearchController.swift in Sources */,
+				4E4F7D652443ABAC009287D8 /* CreateRoomViewModel.swift in Sources */,
 				4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */,
 				4E09AC4C240EA68D0028229C /* NetModels.swift in Sources */,
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
@@ -1096,6 +1128,7 @@
 				4ED539A1242FB613000874F3 /* RoomEventSchema.swift in Sources */,
 				4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */,
 				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
+				4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */,
 				4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */,
 				4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
@@ -1117,6 +1150,7 @@
 				4EFC50232425180600295EB1 /* HomeSearchBar.swift in Sources */,
 				4E9D17A6241E42A60066362D /* FayeMessage.m in Sources */,
 				4E9D182D241FFA650066362D /* KeychainSwiftCBridge.swift in Sources */,
+				4E4F7D612443A817009287D8 /* CreateRoomViewController.swift in Sources */,
 				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
 				4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */,
 				4EC70C72243DC4A20063F323 /* UserChatCoordinator.swift in Sources */,
@@ -1129,6 +1163,7 @@
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
 				4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */,
+				4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
 				4EC70C83243FACBD0063F323 /* CachedLoaderProtocol.swift in Sources */,
 				4EA628B4242B87480034E66E /* SuggestedRoomCoordinator.swift in Sources */,
@@ -1147,6 +1182,7 @@
 				4E09AC5E240EE66F0028229C /* RoomsCoordinator.swift in Sources */,
 				4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */,
 				4E09AC6E240EE6C60028229C /* SettingsViewController.swift in Sources */,
+				4E4F7D682443B7B2009287D8 /* DefaultDisclosureNodeCell.swift in Sources */,
 				4E9D182F241FFE820066362D /* FayeEventMessagesBinder.swift in Sources */,
 				4E9D17AD241E46810066362D /* TRConnectionMonitor.m in Sources */,
 				4E09AC6A240EE6AA0028229C /* PeopleCoordinator.swift in Sources */,

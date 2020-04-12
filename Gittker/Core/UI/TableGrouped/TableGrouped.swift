@@ -8,31 +8,30 @@
 
 import Foundation
 
-@frozen enum TableGroupedSectionType: String {
-    // About
+@frozen
+enum TableGroupedSettingsSectionType: String {
     case profile = "Profile"
-//    case contributors = "Contributors"
-    case licenses = "Licenses"
-//    case evolution = "Evolution App"
-//    case swiftEvolution = "Swift Evolution"
-//    case thanks = "Thanks to"
-    case application = "Application"
-    
-    // Settings
-//    case notifications = "Notifications"
-//    case openSource = "Open Source"
-    case about = "About"
-    
     case logout = ""
 }
 
+@frozen
+enum TableGroupedCreateRoomSectionType: String {
+    case name
+}
+
 // MARK: -
-@frozen enum TableGroupedType: String {
+@frozen
+enum TableGroupedType: String {
     case gitter
     case url
     case email
     case undefined
     case noUrl
+    
+    // CreateRoom
+    case community
+    case roomName
+    case publicPrivate
 }
 
 // MARK: - ItemProtocols
@@ -40,13 +39,6 @@ protocol TableGroupedItemProtocol {
     var text: String { get set }
     var type: TableGroupedType { get  set }
     var value: String { get set }
-}
-
-struct TableGroupedContributor: TableGroupedItemProtocol {
-    var text: String
-    var type: TableGroupedType
-    var value: String
-    var avatarUrl: String
 }
 
 struct TableGroupedProfile: TableGroupedItemProtocol {
@@ -57,28 +49,22 @@ struct TableGroupedProfile: TableGroupedItemProtocol {
     var user: UserSchema
 }
 
-struct TableGroupedLicense: TableGroupedItemProtocol {
-    var text: String
-    var type: TableGroupedType
-    var value: String
-}
-
 struct TableGroupedItem: TableGroupedItemProtocol {
     var text: String
     var type: TableGroupedType
     var value: String
 }
 
-struct TableGroupedSubscription: TableGroupedItemProtocol {
-    var text: String
-    var type: TableGroupedType
-    var value: String
-    var subscribed: Bool
+// MARK: - Settings
+struct TableGroupedSettingsSection {
+    var section: TableGroupedSettingsSectionType
+    var items: [TableGroupedItemProtocol]
+    var footer: String?
+    var grouped: Bool
 }
 
-// MARK: -
-struct TableGroupedSection {
-    var section: TableGroupedSectionType
+struct TableGroupedCreateRoomSection {
+    var section: TableGroupedCreateRoomSectionType
     var items: [TableGroupedItemProtocol]
     var footer: String?
     var grouped: Bool
@@ -91,7 +77,13 @@ extension TableGroupedItemProtocol where Self: Equatable {
     }
 }
 
-extension TableGroupedSectionType: CustomStringConvertible {
+extension TableGroupedSettingsSectionType: CustomStringConvertible {
+    var description: String {
+        return self.rawValue
+    }
+}
+
+extension TableGroupedCreateRoomSectionType: CustomStringConvertible {
     var description: String {
         return self.rawValue
     }

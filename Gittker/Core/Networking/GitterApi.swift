@@ -42,6 +42,11 @@ private enum GitterApiLinks {
     case listMessagesUnread(roomId: String)
     case reportMessage(roomId: String, messageId: String)
     case deleteMessage(roomId: String, messageId: String)
+    
+    // Groups
+    case adminGroups
+    case userGroups
+    case groupById(id: String)
         
     func encode() -> String {
         switch self {
@@ -80,6 +85,13 @@ private enum GitterApiLinks {
             return "v1/rooms/\(roomId)/chatMessages/\(messageId)/report"
         case .deleteMessage(roomId: let roomId, messageId: let messageId):
             return "v1/rooms/\(roomId)/chatMessages/\(messageId)"
+            
+        case .adminGroups:
+            return "v1/groups?type=admin"
+        case .userGroups:
+            return "v1/user/me/groups"
+        case .groupById(id: let id):
+            return "v1/groups/\(id)"
         }
     }
 }
@@ -173,8 +185,18 @@ extension GitterApi {
 }
 
 
-// MARK: - Rooms
+extension GitterApi {
+    func getAdminGroups(completion: @escaping (GroupSchema) -> Void) {
+        genericRequestData(url: GitterApiLinks.adminGroups,
+                           method: "GET",
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
+}
 
+// MARK: - Rooms
 extension GitterApi {
     func getRooms(completion: @escaping ([RoomSchema]?) -> Void) {
         requestData(url: GitterApiLinks.rooms) { (data) in

@@ -13,16 +13,16 @@ extension UIColor {
 }
 
 final class RoomChatViewController: RoomChatBaseViewController {
-    var coordinator: RoomChatCoordinator
+    // Private Elements
+    private var coordinator: RoomChatCoordinator
     private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
-    
     private var fayeClient: FayeEventMessagesBinder
     
     private var isJoined: Bool
     private var roomSchema: RoomSchema
     
-    private var cached = 2
-    
+    private var cached = 2    
+
     init(coordinator: RoomChatCoordinator, roomSchema: RoomSchema, isJoined: Bool) {
         self.coordinator = coordinator
         self.roomSchema = roomSchema
