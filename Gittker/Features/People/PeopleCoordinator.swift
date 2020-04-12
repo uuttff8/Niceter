@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 class PeopleCoordinator: Coordinator {
 
-    var navigationController: ASNavigationController?
+    weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     weak var tabController: MainTabBarController?

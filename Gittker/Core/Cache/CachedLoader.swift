@@ -9,54 +9,42 @@
 import Foundation
 import Cache
 
-class CachedLoader<T: Codable> {
-    typealias Handler = (T) -> Void
+class CachedRoomMessagesLoader: CachedLoader {
+    typealias Handler = ([RoomRecreateSchema]) -> Void
+    typealias CodeType = [RoomRecreateSchema]
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<T>?
+    var storage: Storage<[RoomRecreateSchema]>?
     
     var cacheKey: String
-    
+
     init(cacheKey: String) {
         self.cacheKey = cacheKey
-        diskConfig  = DiskConfig(name: cacheKey)
-        memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10) // 10 min
+        self.diskConfig = DiskConfig(name: cacheKey, expiry: .never)
+        self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
         
-        
-        storage = try? Storage<T>(
+        self.storage = try? Storage<[RoomRecreateSchema]>(
             diskConfig: diskConfig,
             memoryConfig: memoryConfig,
-            transformer: TransformerFactory.forCodable(ofType: T.self) // Storage<User>
+            transformer: TransformerFactory.forCodable(ofType: [RoomRecreateSchema].self)
         )
     }
+
     
     func fetchData(then handler: @escaping Handler) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let cached = try? self.storage?.object(forKey: self.cacheKey) {
-                handler(cached)
+        self.storage?.async.object(forKey: self.cacheKey, completion: { (res) in
+            switch res {
+            case .value(let roomRecrSchema):
+                handler(roomRecrSchema)
+            case .error(let error):
+                break
             }
-        }
-    }
-    
-    func fetchNewAndCache(then handler: @escaping Handler) { }
-}
-
-class CachedRoomMessagesLoader: CachedLoader<[RoomRecreateSchema]> {
-    private let roomId: String
-    
-    override init(cacheKey roomId: String) {
-        self.roomId = roomId
-        super.init(cacheKey: roomId)
-    }
-    
-    
-    override func fetchData(then handler: @escaping Handler) {
-        super.fetchData(then: handler)
+        })
         
-        GitterApi.shared.listMessagesUnread(roomId: roomId) { (roomRecrList) in
+        GitterApi.shared.listMessagesUnread(roomId: self.cacheKey) { (roomRecrList) in
             guard let messages = roomRecrList else { return }
-            try? self.storage?.setObject(messages, forKey: self.cacheKey)
+            self.storage?.async.setObject(messages, forKey: self.cacheKey, completion: { (_) in })
             handler(messages)
         }
     }

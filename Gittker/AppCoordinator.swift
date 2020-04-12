@@ -11,7 +11,7 @@ import AsyncDisplayKit
 class AppCoordinator: Coordinator {
     private(set) var window: UIWindow
 
-    var navigationController: ASNavigationController?
+    weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     init() {

@@ -9,7 +9,7 @@
 import Foundation
 import Cache
 
-class CachedUserLoader: CachedLoaderProtocol {
+class CachedUserLoader: CachedLoader {
     typealias Handler = (UserSchema) -> Void
     typealias CodeType = UserSchema
     
@@ -31,16 +31,19 @@ class CachedUserLoader: CachedLoaderProtocol {
         )
     }
     
-    func fetchData(then handler: @escaping CachedLoader<UserSchema>.Handler) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            if let cached = try? self.storage?.object(forKey: self.cacheKey) {
-                handler(cached)
+    func fetchData(then handler: @escaping Handler) {
+        self.storage?.async.object(forKey: self.cacheKey, completion: { (res) in
+            switch res {
+            case .value(let user):
+                handler(user)
+            case .error(let error):
+                break
             }
-        }
+        })
 
         GitterApi.shared.getUser(username: self.cacheKey) { (userSchema) in
             guard let user = userSchema else { return }
-            try? self.storage?.setObject(user, forKey: self.cacheKey)
+            self.storage?.async.setObject(user, forKey: self.cacheKey, completion: { _ in })
             handler(user)
         }
     }

@@ -22,19 +22,48 @@ import Cache
     }
 }
 
-class CachedSuggestedRoomLoader: CachedLoader<[RoomSchema]> {
-    override func fetchData(then handler: @escaping Handler) {
-        super.fetchData(then: handler)
+class CachedSuggestedRoomLoader: CachedLoader {
+    typealias Handler = ([RoomSchema]) -> Void
+    typealias CodeType = [RoomSchema]
+    
+    var diskConfig: DiskConfig
+    var memoryConfig: MemoryConfig
+    var storage: Storage<[RoomSchema]>?
+    
+    var cacheKey: String
+
+    init(cacheKey: String) {
+        self.cacheKey = cacheKey
+        self.diskConfig = DiskConfig(name: self.cacheKey, expiry: .never)
+        self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
+        
+        self.storage = try? Storage<[RoomSchema]>(
+            diskConfig: diskConfig,
+            memoryConfig: memoryConfig,
+            transformer: TransformerFactory.forCodable(ofType: [RoomSchema].self)
+        )
+    }
+
+    
+    func fetchData(then handler: @escaping Handler) {
+        self.storage?.async.object(forKey: self.cacheKey, completion: { (res) in
+            switch res {
+            case .value(let rooms):
+                handler(rooms)
+            case .error(let error):
+                break
+            }
+        })
         
         GitterApi.shared.getSuggestedRooms { (roomSchemaList) in
             guard let rooms = roomSchemaList else { return }
-            try? self.storage?.setObject(rooms, forKey: self.cacheKey)
+            self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { (_) in })
             handler(rooms)
         }
     }
 }
 
-class CachedRoomLoader: CachedLoaderProtocol {
+class CachedRoomLoader: CachedLoader {
     typealias Handler = ([RoomSchema]) -> Void
     typealias CodeType = [RoomSchema]
     

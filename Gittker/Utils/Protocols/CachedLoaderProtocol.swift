@@ -1,5 +1,5 @@
 //
-//  CachedLoaderProtocol.swift
+//  CachedLoader.swift
 //  Gittker
 //
 //  Created by uuttff8 on 4/9/20.
@@ -9,7 +9,7 @@
 import Foundation
 import Cache
 
-protocol CachedLoaderProtocol {
+protocol CachedLoader {
     associatedtype Handler
     associatedtype CodeType
     
@@ -23,6 +23,6 @@ protocol CachedLoaderProtocol {
     func fetchNewAndCache(then handler: Handler)
 }
 
-extension CachedLoaderProtocol {
+extension CachedLoader {
     func fetchNewAndCache(then handler: Handler) { }
 }

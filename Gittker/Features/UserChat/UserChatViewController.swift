@@ -9,7 +9,7 @@
 import MessageKit
 
 final class UserChatViewController: RoomChatBaseViewController {
-    weak var coordinator: UserChatCoordinator?
+    var coordinator: UserChatCoordinator
     private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
     
     private var fayeClient: FayeEventMessagesBinder
@@ -119,6 +119,10 @@ final class UserChatViewController: RoomChatBaseViewController {
                 Your report will be reviewed by Gitter team very soon.
                 """, subtitle: nil))
         }
+    }
+    
+    override func showProfileScreen(message: GittkerMessage) {
+        coordinator.showProfileScreen(username: message.message.user.username)
     }
     
     override func viewDidLoad() {

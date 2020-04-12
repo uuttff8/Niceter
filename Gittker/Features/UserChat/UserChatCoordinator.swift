@@ -29,4 +29,10 @@ class UserChatCoordinator: Coordinator {
         guard let vc = currentController else { return }
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func showProfileScreen(username: String) {
+        let coord = ProfileCoordinator(with: navigationController, username: username)
+        childCoordinators.append(coord)
+        coord.start()
+    }
 }

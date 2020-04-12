@@ -11,7 +11,7 @@ import AsyncDisplayKit
 class LoginAuthCoordinator: Coordinator {
 
     var childCoordinators = [Coordinator]()
-    var navigationController: ASNavigationController?
+    weak var navigationController: ASNavigationController?
     var currentController: LoginAuthViewController
         
     init(navigationController: ASNavigationController?) {

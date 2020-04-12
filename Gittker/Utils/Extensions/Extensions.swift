@@ -9,7 +9,7 @@
 import Foundation
 
 extension DispatchQueue {
-
+    
     static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .background).async {
             background?()
@@ -20,7 +20,7 @@ extension DispatchQueue {
             }
         }
     }
-
+    
 }
 
 extension UIView {
@@ -33,14 +33,14 @@ extension UIView {
 }
 
 extension CATransaction {
-
+    
     static func disableAnimations(_ completion: () -> Void) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         completion()
         CATransaction.commit()
     }
-
+    
 }
 
 
