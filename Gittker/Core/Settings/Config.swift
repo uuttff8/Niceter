@@ -83,22 +83,42 @@ struct Config {
     struct Images {
         static var profileLocation: UIImage {
             if UIScreen.main.isDarkMode {
-                let image = UIImage(systemName: "location", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))?
+                let image = UIImage(systemName: "location", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))?
                     .withTintColor(UIColor.white)
                 return image!
             } else {
-                return UIImage(systemName: "location", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))!
+                return UIImage(systemName: "location", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))!
             }
         }
                 
         static var profileEnvelope: UIImage {
             if UIScreen.main.isDarkMode {
-                let image = UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))?
+                let image = UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))?
                     .withTintColor(UIColor.white)
                 return image!
 
             } else {
-                return UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .large))!
+                return UIImage(systemName: "envelope", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))!
+            }
+        }
+        
+        static var profileLink: UIImage {
+            if UIScreen.main.isDarkMode {
+                let image = UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))?
+                    .withTintColor(UIColor.white)
+                return image!
+            } else {
+                return UIImage(systemName: "link", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))!
+            }
+        }
+        
+        static var profileCompany: UIImage {
+            if UIScreen.main.isDarkMode {
+                let image = UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))?
+                    .withTintColor(UIColor.white)
+                return image!
+            } else {
+                return UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))!
             }
         }
     }
