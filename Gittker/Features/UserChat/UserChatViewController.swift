@@ -41,7 +41,9 @@ final class UserChatViewController: RoomChatBaseViewController {
                     let _ = self!.cached - 1
                 }
                 
-                self?.configureScrollAndPaginate()
+                CATransaction.disableAnimations {
+                    self?.configureScrollAndPaginate()
+                }
             }
         }
     }
@@ -50,6 +52,7 @@ final class UserChatViewController: RoomChatBaseViewController {
         fayeClient
             .subscribe(
                 onNew: { [weak self] (message: GittkerMessage) in
+                    self?.viewModel.addNewMessageToCache(message: message)
                     self?.addToMessageMap(message: message, isFirstly: true)
                 }, onDeleted: { [weak self] (id) in
                     self?.deleteMessageUI(by: id)
@@ -141,22 +144,23 @@ final class UserChatViewController: RoomChatBaseViewController {
         fayeClient.cancel()
     }
     
+    #warning("refactor")
     private func configureScrollAndPaginate() {
         // scroll to unread message
         // note: unread limit is 100
-        if let indexPath = self.viewModel.findFirstUnreadMessage() {
-            // paginate if scrolls at top
-            if indexPath.section <= 20 {
-                self.loadOlderMessages()
-                if cached == 0 {
-                    self.messagesCollectionView.reloadSections(IndexSet(integer: 100))
-                }
-            }
-            self.messagesCollectionView.scrollToItem(at: indexPath, at: .top, animated: false)
-            
-        } else {
+//        if let indexPath = self.viewModel.findFirstUnreadMessage() {
+//            // paginate if scrolls at top
+//            if indexPath.section <= 20 {
+//                self.loadOlderMessages()
+//                if cached == 0 {
+//                    self.messagesCollectionView.reloadSections(IndexSet(integer: 100))
+//                }
+//            }
+//            self.messagesCollectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+//
+//        } else {
             self.messagesCollectionView.scrollToBottom()
-        }
+//        }
     }
     
 }
