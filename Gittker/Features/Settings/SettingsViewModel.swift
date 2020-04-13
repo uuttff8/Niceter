@@ -83,7 +83,7 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSettingsSection>, AS
                 guard let item2 = item as? TableGroupedProfile else { return ASCellNode() }
                 cell = ProfileMainNodeCell(with: item2.user)
             case .logout:
-                cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: item.text))
+                cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: item.text), state: .destructive)
                 
             }
             

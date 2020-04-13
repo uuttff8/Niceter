@@ -14,12 +14,12 @@ public struct GroupSchema: Codable {
     let name: String
     let uri: String
     let homeUri: String
-    let backedBy: Self.BackedBy
+    let backedBy: Self.BackedBy?
     let avatarUrl: String
     
     @frozen
     public struct BackedBy: Codable {
-        let type: String
-        let linkPath: String
-    }
+        let type: String?
+        let linkPath: String?
+    }    
 }

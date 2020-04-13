@@ -8,8 +8,10 @@
 
 import AsyncDisplayKit
 
-struct CreateRoomViewModel {
+class CreateRoomViewModel {
     weak var dataSource : GenericDataSource<TableGroupedCreateRoomSection>?
+    
+    var adminGroupsData = DynamicValue<[GroupSchema]>([])
     
     init(dataSource : GenericDataSource<TableGroupedCreateRoomSection>?) {
         self.dataSource = dataSource
@@ -39,11 +41,21 @@ struct CreateRoomViewModel {
         
         self.dataSource?.data.value = [name, permissions]
     }
+    
+    
+    func fetchAdminGroups() {
+        GitterApi.shared.getAdminGroups { (groupSchema) in
+            self.adminGroupsData.value = groupSchema
+        }
+    }
 }
-
 
 class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>, ASTableDataSource, ASTableDelegate {
     weak var coordinator: CreateRoomCoordinator?
+    var adminGroups: [GroupSchema] = [GroupSchema]()
+    
+    var subtitleComm = "Required"
+    var subtitleName = "Required"
     
     init(with coord: CreateRoomCoordinator) {
         self.coordinator = coord
@@ -64,9 +76,9 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
             
             switch section.section {
             case .name:
-                return self.createNameCell(by: item.type)
+                return self.createNameCell(by: item)
             case .permissions:
-                return SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private", isSwitcherOn: true))
+                return SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private", isSwitcherOn: false))
             }
         }
     }
@@ -89,23 +101,38 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         let section = self.data.value[indexPath.section]
-        //        let item = section.items[indexPath.row]
+        let item = section.items[indexPath.row]
         
         switch section.section {
         case .name:
-            coordinator?.showEnteringName()
+            
+            switch item.type {
+            case .community:
+                coordinator?.showCommunityPick(adminGroups: adminGroups) { (group) in
+                    self.subtitleComm = group.name
+                    tableNode.reloadData()
+                }
+            case .roomName:
+                coordinator?.showEnteringName { (name: String) in
+                    self.subtitleName = name
+                    tableNode.reloadData()
+                }
+            default: break
+            }
+            
+            
             tableNode.deselectRow(at: indexPath, animated: true)
         case .permissions:
             tableNode.deselectRow(at: indexPath, animated: true)
         }
     }
     
-    private func createNameCell(by type: TableGroupedType) -> ASCellNode {
-        switch type {
+    private func createNameCell(by item: TableGroupedItemProtocol) -> ASCellNode {
+        switch item.type {
         case .community:
-            return DefaultDisclosureNodeCell(with: DefaultDisclosureNodeCell.Content(title: "Community", subtitle: "Required"))
+            return DefaultDisclosureNodeCell(with: DefaultDisclosureNodeCell.Content(title: "Community", subtitle: subtitleComm))
         case .roomName:
-            return DefaultDisclosureNodeCell(with: DefaultDisclosureNodeCell.Content(title: "Room name", subtitle: "Required"))
+            return DefaultDisclosureNodeCell(with: DefaultDisclosureNodeCell.Content(title: "Room name", subtitle: subtitleName))
         default:
             return ASCellNode()
         }

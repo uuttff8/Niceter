@@ -9,17 +9,11 @@
 import AsyncDisplayKit
 
 class CreateRoomNameViewModel {
-    var reloadRepos: (() -> Void)? = nil
-    
-    var repos = [RepoSchema]() {
-        didSet {
-            reloadRepos?()
-        }
-    }
+    var repos = DynamicValue<[RepoSchema]>([])
     
     func getRepos() {
         GitterApi.shared.getRepos { (reposSchema) in
-            self.repos = reposSchema
+            self.repos.value = reposSchema
         }
     }
 }

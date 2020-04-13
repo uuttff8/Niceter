@@ -13,15 +13,21 @@ class SettingsButtonNodeCell: ASCellNode {
         let title: String
     }
     
+    enum State {
+        case `default`
+        case destructive
+    }
+    
     private let titleNode = ASTextNode()
     private let separatorNode = ASDisplayNode()
     
     private let content: SettingsButtonNodeCell.Content
-    
+    private let currentState: State
     // MARK: - Object life cycle
     
-    init(with content: SettingsButtonNodeCell.Content) {
+    init(with content: SettingsButtonNodeCell.Content, state: SettingsButtonNodeCell.State) {
         self.content = content
+        self.currentState = state
         
         super.init()
         self.setupTitleNode()
@@ -34,9 +40,13 @@ class SettingsButtonNodeCell: ASCellNode {
         self.titleNode.truncationMode = .byTruncatingTail
     }
     
-    private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.systemRed, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
-    }()
+    private var titleTextAttributes: [NSAttributedString.Key: NSObject] {
+        if currentState == .destructive {
+            return [NSAttributedString.Key.foregroundColor: UIColor.systemRed, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        } else {
+            return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        }
+    }
     
     // MARK: - Build node hierarchy
     
