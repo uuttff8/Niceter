@@ -28,13 +28,27 @@ struct CreateRoomViewModel {
                                                  footer: "Your room will be ...",
                                                  grouped: true)
         
+        let permissions = TableGroupedCreateRoomSection(section: .permissions,
+                                                        items: [
+                                                            TableGroupedItem(text: "Permission",
+                                                                             type: .publicPrivate,
+                                                                             value: "")
+                                                            ],
+                                                        footer: "Some permission",
+                                                        grouped: true)
         
-        self.dataSource?.data.value = [name]
+        self.dataSource?.data.value = [name, permissions]
     }
 }
 
 
 class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>, ASTableDataSource, ASTableDelegate {
+    weak var coordinator: CreateRoomCoordinator?
+    
+    init(with coord: CreateRoomCoordinator) {
+        self.coordinator = coord
+    }
+
     func numberOfSections(in tableNode: ASTableNode) -> Int {
         return self.data.value.count
     }
@@ -50,7 +64,9 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
             
             switch section.section {
             case .name:
-                return self.createCell(by: item.type)
+                return self.createNameCell(by: item.type)
+            case .permissions:
+                return SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private", isSwitcherOn: true))
             }
         }
     }
@@ -77,11 +93,14 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
         
         switch section.section {
         case .name:
+            coordinator?.showEnteringName()
+            tableNode.deselectRow(at: indexPath, animated: true)
+        case .permissions:
             tableNode.deselectRow(at: indexPath, animated: true)
         }
     }
     
-    private func createCell(by type: TableGroupedType) -> ASCellNode {
+    private func createNameCell(by type: TableGroupedType) -> ASCellNode {
         switch type {
         case .community:
             return DefaultDisclosureNodeCell(with: DefaultDisclosureNodeCell.Content(title: "Community", subtitle: "Required"))

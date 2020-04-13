@@ -47,6 +47,9 @@ private enum GitterApiLinks {
     case adminGroups
     case userGroups
     case groupById(id: String)
+    
+    // Repos
+    case repos
         
     func encode() -> String {
         switch self {
@@ -92,6 +95,9 @@ private enum GitterApiLinks {
             return "v1/user/me/groups"
         case .groupById(id: let id):
             return "v1/groups/\(id)"
+            
+        case .repos:
+            return "v1/user/me/repos"
         }
     }
 }
@@ -184,7 +190,19 @@ extension GitterApi {
     }
 }
 
+// MARK: - Repos
+extension GitterApi {
+    func getRepos(completion: @escaping ([RepoSchema]) -> Void) {
+        genericRequestData(url: GitterApiLinks.repos,
+                           method: "GET",
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
+}
 
+// MARK: - Groups
 extension GitterApi {
     func getAdminGroups(completion: @escaping (GroupSchema) -> Void) {
         genericRequestData(url: GitterApiLinks.adminGroups,
@@ -341,7 +359,6 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                print(data.prettyPrintedJSONString)
                 guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { return }
                 completion(decoded)
             default: break

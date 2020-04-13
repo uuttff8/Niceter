@@ -57,6 +57,12 @@
 		4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */; };
 		4E4F7D652443ABAC009287D8 /* CreateRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D642443ABAC009287D8 /* CreateRoomViewModel.swift */; };
 		4E4F7D682443B7B2009287D8 /* DefaultDisclosureNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D672443B7B2009287D8 /* DefaultDisclosureNodeCell.swift */; };
+		4E4F7D6A24444B2B009287D8 /* SwitchNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D6924444B2A009287D8 /* SwitchNodeCell.swift */; };
+		4E4F7D6D244452AC009287D8 /* CreateRoomNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D6C244452AC009287D8 /* CreateRoomNameViewController.swift */; };
+		4E4F7D6F24445656009287D8 /* CreateRoomNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D6E24445656009287D8 /* CreateRoomNameViewModel.swift */; };
+		4E4F7D7124445713009287D8 /* RepoSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D7024445713009287D8 /* RepoSchema.swift */; };
+		4E4F7D732444594C009287D8 /* TextFieldNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D722444594C009287D8 /* TextFieldNodeCell.swift */; };
+		4E4F7D7524445F31009287D8 /* CreateRoomRepoNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D7424445F31009287D8 /* CreateRoomRepoNodeCell.swift */; };
 		4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */; };
 		4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */; };
 		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
@@ -187,6 +193,12 @@
 		4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCoordinator.swift; sourceTree = "<group>"; };
 		4E4F7D642443ABAC009287D8 /* CreateRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewModel.swift; sourceTree = "<group>"; };
 		4E4F7D672443B7B2009287D8 /* DefaultDisclosureNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDisclosureNodeCell.swift; sourceTree = "<group>"; };
+		4E4F7D6924444B2A009287D8 /* SwitchNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchNodeCell.swift; sourceTree = "<group>"; };
+		4E4F7D6C244452AC009287D8 /* CreateRoomNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomNameViewController.swift; sourceTree = "<group>"; };
+		4E4F7D6E24445656009287D8 /* CreateRoomNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomNameViewModel.swift; sourceTree = "<group>"; };
+		4E4F7D7024445713009287D8 /* RepoSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSchema.swift; sourceTree = "<group>"; };
+		4E4F7D722444594C009287D8 /* TextFieldNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNodeCell.swift; sourceTree = "<group>"; };
+		4E4F7D7424445F31009287D8 /* CreateRoomRepoNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomRepoNodeCell.swift; sourceTree = "<group>"; };
 		4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeopleService+Cache.swift"; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
@@ -525,6 +537,7 @@
 				4ED539A22431332C000874F3 /* SuccessSchema.swift */,
 				4EC70C76243F2FA20063F323 /* ReportMessageSchema.swift */,
 				4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */,
+				4E4F7D7024445713009287D8 /* RepoSchema.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -604,6 +617,7 @@
 		4E4F7D5A2443A27F009287D8 /* CreateRoom */ = {
 			isa = PBXGroup;
 			children = (
+				4E4F7D6B24445292009287D8 /* controllers */,
 				4E4F7D662443B766009287D8 /* cells */,
 				4E4F7D642443ABAC009287D8 /* CreateRoomViewModel.swift */,
 				4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */,
@@ -616,6 +630,26 @@
 			isa = PBXGroup;
 			children = (
 				4E4F7D672443B7B2009287D8 /* DefaultDisclosureNodeCell.swift */,
+				4E4F7D6924444B2A009287D8 /* SwitchNodeCell.swift */,
+				4E4F7D722444594C009287D8 /* TextFieldNodeCell.swift */,
+				4E4F7D7424445F31009287D8 /* CreateRoomRepoNodeCell.swift */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		4E4F7D6B24445292009287D8 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F7D7624446099009287D8 /* cells */,
+				4E4F7D6C244452AC009287D8 /* CreateRoomNameViewController.swift */,
+				4E4F7D6E24445656009287D8 /* CreateRoomNameViewModel.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		4E4F7D7624446099009287D8 /* cells */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -1125,6 +1159,7 @@
 				4E09AC1D240D81920028229C /* Coordinator.swift in Sources */,
 				4E9D17A0241E42A60066362D /* NSDate+Serialize.m in Sources */,
 				4E9D179F241E42A60066362D /* NSDictionary+KeyTranslation.m in Sources */,
+				4E4F7D6D244452AC009287D8 /* CreateRoomNameViewController.swift in Sources */,
 				4ED539A1242FB613000874F3 /* RoomEventSchema.swift in Sources */,
 				4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */,
 				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
@@ -1135,11 +1170,14 @@
 				4E9D17B9241E8FAD0066362D /* RoomChatViewController.swift in Sources */,
 				4EC70C81243FA8D80063F323 /* SettingsCache.swift in Sources */,
 				4E9D17B4241E80220066362D /* GitterFayeEndpoints.swift in Sources */,
+				4E4F7D6F24445656009287D8 /* CreateRoomNameViewModel.swift in Sources */,
 				4E9D18322420006C0066362D /* MockMessage.swift in Sources */,
 				4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */,
 				4EB3FC03242A499300F3BF88 /* SuggestedRoomsViewModel.swift in Sources */,
 				4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */,
+				4E4F7D6A24444B2B009287D8 /* SwitchNodeCell.swift in Sources */,
 				4E9D17AF241E49BE0066362D /* RoomRecreate.swift in Sources */,
+				4E4F7D7124445713009287D8 /* RepoSchema.swift in Sources */,
 				4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */,
 				4EC70C77243F2FA20063F323 /* ReportMessageSchema.swift in Sources */,
 				4E9D1834242003C60066362D /* MessagesEventSchema.swift in Sources */,
@@ -1155,11 +1193,13 @@
 				4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */,
 				4EC70C72243DC4A20063F323 /* UserChatCoordinator.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
+				4E4F7D7524445F31009287D8 /* CreateRoomRepoNodeCell.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
 				4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
 				4EC70C6E243DC4910063F323 /* UserChatViewModel.swift in Sources */,
+				4E4F7D732444594C009287D8 /* TextFieldNodeCell.swift in Sources */,
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
 				4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */,

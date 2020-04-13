@@ -13,7 +13,7 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     
     lazy var viewModel: CreateRoomViewModel = CreateRoomViewModel(dataSource: self.tableDelegates)
     
-    private let tableDelegates = CreateRoomTableDelegates()
+    private lazy var tableDelegates = CreateRoomTableDelegates(with: self.coordinator!)
     private var tableNode: ASTableNode {
         return node
     }
@@ -31,6 +31,8 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Create Room"
+        setupNavigationControllerButtons()
         
         self.tableDelegates.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in
@@ -41,5 +43,15 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
         }
         
         self.viewModel.fetchDataSource()
+    }
+    
+    private func setupNavigationControllerButtons() {
+        let doneButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(doneButtonAction(_:)))
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    @objc private func doneButtonAction(_ sender: Any) {
+        print("123123")
+        self.dismiss(animated: true, completion: nil)
     }
 }
