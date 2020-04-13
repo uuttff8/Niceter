@@ -19,15 +19,13 @@ class CreateRoomNameViewController: ASViewController<ASTableNode> {
     
     private var repoSelected: ((String) -> Void)?
     
+    var completionHandler: ((String) -> Void)?
+    
     init(coordinator: CreateRoomCoordinator) {
         self.coordinator = coordinator
         super.init(node: ASTableNode(style: .grouped))
         self.tableNode.dataSource = self
         self.tableNode.delegate = self
-    }
-    
-    init() {
-        super.init(node: ASTableNode(style: .grouped))
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +36,7 @@ class CreateRoomNameViewController: ASViewController<ASTableNode> {
         super.viewDidLoad()
         viewModel.getRepos()
         
-        viewModel.reloadRepos = {
+        viewModel.repos.addAndNotify(observer: self) {
             self.tableNode.reloadData()
         }
     }
@@ -57,14 +55,17 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
             switch section {
             case .enterName:
                 let content = TextFieldNodeCell.Content(defaultText: nil)
-                let cell = TextFieldNodeCell(with: content)
+                let cell = TextFieldNodeCell(with: content, delegate: self)
+                returnCell = cell
+                
                 self.repoSelected = { (text) in
-                    cell.textFieldNode.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+                    cell.textFieldNode.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.label,
+                                                                                                      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+                    cell.textFieldNode.delegate?.editableTextNodeDidUpdateText?(cell.textFieldNode)
                     returnCell = cell
                 }
-                returnCell = cell
             case .suggested:
-                let repo = self.viewModel.repos[indexPath.row]
+                let repo = self.viewModel.repos.value[indexPath.row]
                 let cell = CreateRoomRepoNodeCell(with: repo)
                 cell.drawPrivateRepoEmoji()
                 returnCell = cell
@@ -79,7 +80,7 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
         
         switch section {
         case .suggested:
-            let repo = self.viewModel.repos[indexPath.row]
+            let repo = self.viewModel.repos.value[indexPath.row]
             repoSelected?(repo.name)
             tableNode.deselectRow(at: indexPath, animated: true)
         default: break
@@ -92,7 +93,7 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
         case CreateRoomNameSection.enterName.rawValue:
             return 1
         case CreateRoomNameSection.suggested.rawValue:
-            return viewModel.repos.count
+            return viewModel.repos.value.count
             
         default:
             return 0
@@ -104,6 +105,17 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
         return section.footerTitle
     }
     
+}
+
+extension CreateRoomNameViewController: ASEditableTextNodeDelegate {
+    func editableTextNodeDidUpdateText(_ editableTextNode: ASEditableTextNode) {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(reloadText(_:)), object: editableTextNode)
+        self.perform(#selector(reloadText(_:)), with: editableTextNode, afterDelay: 0.5)
+    }
+    
+    @objc func reloadText(_ editableTextNode: ASEditableTextNode) {
+        completionHandler?(editableTextNode.attributedText?.string ?? "")
+    }
 }
 
 private enum CreateRoomNameSection: Int, CaseIterable {

@@ -17,13 +17,14 @@ class TextFieldNodeCell: ASCellNode {
     private let content: TextFieldNodeCell.Content
     
     // MARK: - Object life cycle
-    init(with content: TextFieldNodeCell.Content) {
+    init(with content: TextFieldNodeCell.Content, delegate: ASEditableTextNodeDelegate) {
         self.content = content
         
         super.init()
         self.setupSwitchNode()
         self.buildNodeHierarchy()
         self.selectionStyle = .none
+        self.textFieldNode.delegate = delegate
     }
     
     // Internal Setup

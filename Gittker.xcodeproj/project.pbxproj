@@ -63,6 +63,9 @@
 		4E4F7D7124445713009287D8 /* RepoSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D7024445713009287D8 /* RepoSchema.swift */; };
 		4E4F7D732444594C009287D8 /* TextFieldNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D722444594C009287D8 /* TextFieldNodeCell.swift */; };
 		4E4F7D7524445F31009287D8 /* CreateRoomRepoNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D7424445F31009287D8 /* CreateRoomRepoNodeCell.swift */; };
+		4E4F7D7F24447821009287D8 /* CreateRoomCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D7E24447821009287D8 /* CreateRoomCommunityViewController.swift */; };
+		4E4F7D8124447835009287D8 /* CreateRoomCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D8024447835009287D8 /* CreateRoomCommunityViewModel.swift */; };
+		4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */; };
 		4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */; };
 		4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */; };
 		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
@@ -199,6 +202,9 @@
 		4E4F7D7024445713009287D8 /* RepoSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoSchema.swift; sourceTree = "<group>"; };
 		4E4F7D722444594C009287D8 /* TextFieldNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNodeCell.swift; sourceTree = "<group>"; };
 		4E4F7D7424445F31009287D8 /* CreateRoomRepoNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomRepoNodeCell.swift; sourceTree = "<group>"; };
+		4E4F7D7E24447821009287D8 /* CreateRoomCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCommunityViewController.swift; sourceTree = "<group>"; };
+		4E4F7D8024447835009287D8 /* CreateRoomCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCommunityViewModel.swift; sourceTree = "<group>"; };
+		4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomMarkedNodeCell.swift; sourceTree = "<group>"; };
 		4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeopleService+Cache.swift"; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
@@ -640,9 +646,8 @@
 		4E4F7D6B24445292009287D8 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4E4F7D7624446099009287D8 /* cells */,
-				4E4F7D6C244452AC009287D8 /* CreateRoomNameViewController.swift */,
-				4E4F7D6E24445656009287D8 /* CreateRoomNameViewModel.swift */,
+				4E4F7D7D24447804009287D8 /* community */,
+				4E4F7D7C244477F7009287D8 /* name */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -650,6 +655,34 @@
 		4E4F7D7624446099009287D8 /* cells */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
+		4E4F7D7C244477F7009287D8 /* name */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F7D7624446099009287D8 /* cells */,
+				4E4F7D6C244452AC009287D8 /* CreateRoomNameViewController.swift */,
+				4E4F7D6E24445656009287D8 /* CreateRoomNameViewModel.swift */,
+			);
+			path = name;
+			sourceTree = "<group>";
+		};
+		4E4F7D7D24447804009287D8 /* community */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F7D8424448550009287D8 /* cells */,
+				4E4F7D7E24447821009287D8 /* CreateRoomCommunityViewController.swift */,
+				4E4F7D8024447835009287D8 /* CreateRoomCommunityViewModel.swift */,
+			);
+			path = community;
+			sourceTree = "<group>";
+		};
+		4E4F7D8424448550009287D8 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -1139,6 +1172,7 @@
 				4E09AC4C240EA68D0028229C /* NetModels.swift in Sources */,
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
+				4E4F7D8124447835009287D8 /* CreateRoomCommunityViewModel.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
 				4E229FFE24325FBD0096371C /* RoomsService+Cache.swift in Sources */,
 				4EC70C7C243FA5F40063F323 /* ProfileViewController.swift in Sources */,
@@ -1164,6 +1198,7 @@
 				4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */,
 				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
 				4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */,
+				4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */,
 				4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */,
 				4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
@@ -1184,6 +1219,7 @@
 				4E09AC70240EE6D10028229C /* SettingsCoordinator.swift in Sources */,
 				4E9D17A2241E42A60066362D /* NSObject+Serialize.m in Sources */,
 				4E9D179E241E42A60066362D /* NSData+Serialize.m in Sources */,
+				4E4F7D7F24447821009287D8 /* CreateRoomCommunityViewController.swift in Sources */,
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
 				4EFC50232425180600295EB1 /* HomeSearchBar.swift in Sources */,
 				4E9D17A6241E42A60066362D /* FayeMessage.m in Sources */,

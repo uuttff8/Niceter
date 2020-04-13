@@ -29,10 +29,23 @@ class CreateRoomCoordinator: Coordinator {
         self.navigationController?.present(modalNavController, animated: true, completion: nil)
     }
     
-    func showEnteringName() {
+    func showEnteringName(completion: @escaping (String) -> Void) {
         guard let modalNavController = modalNavigationController else { return }
         
         let vc = CreateRoomNameViewController(coordinator: self)
         modalNavController.pushViewController(vc, animated: true)
+        vc.completionHandler = { (name) in
+            completion(name)
+        }
+    }
+    
+    func showCommunityPick(adminGroups: [GroupSchema], completion: @escaping (GroupSchema) -> Void) {
+        guard let modalNavController = modalNavigationController else { return }
+        
+        let vc = CreateRoomCommunityViewController(coordinator: self, adminGroups: adminGroups)
+        modalNavController.pushViewController(vc, animated: true)
+        vc.completionHandler = { (group) in
+            completion(group)
+        }
     }
 }

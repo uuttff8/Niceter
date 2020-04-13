@@ -204,7 +204,7 @@ extension GitterApi {
 
 // MARK: - Groups
 extension GitterApi {
-    func getAdminGroups(completion: @escaping (GroupSchema) -> Void) {
+    func getAdminGroups(completion: @escaping ([GroupSchema]) -> Void) {
         genericRequestData(url: GitterApiLinks.adminGroups,
                            method: "GET",
                            body: nil)
@@ -359,7 +359,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { return }
+                /*guard*/ let decoded = try! self.jsonDecoder.decode(T.self, from: data) // else { return }
                 completion(decoded)
             default: break
             }

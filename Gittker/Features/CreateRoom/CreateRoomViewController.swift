@@ -42,7 +42,13 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
             }
         }
         
+        self.viewModel.adminGroupsData.addAndNotify(observer: self) { [weak self] in
+            guard let self = self else { return }
+            self.tableDelegates.adminGroups = self.viewModel.adminGroupsData.value
+        }
+        
         self.viewModel.fetchDataSource()
+        self.viewModel.fetchAdminGroups()
     }
     
     private func setupNavigationControllerButtons() {
@@ -51,7 +57,6 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     }
     
     @objc private func doneButtonAction(_ sender: Any) {
-        print("123123")
         self.dismiss(animated: true, completion: nil)
     }
 }
