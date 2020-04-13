@@ -29,23 +29,23 @@ class CreateRoomCoordinator: Coordinator {
         self.navigationController?.present(modalNavController, animated: true, completion: nil)
     }
     
-    func showEnteringName(completion: @escaping (String) -> Void) {
+    func showEnteringName(ghRepoEnabled: Bool, completion: @escaping (String) -> Void) {
         guard let modalNavController = modalNavigationController else { return }
         
-        let vc = CreateRoomNameViewController(coordinator: self)
+        let vc = CreateRoomNameViewController(coordinator: self, ghRepoEnabled: ghRepoEnabled)
         modalNavController.pushViewController(vc, animated: true)
         vc.completionHandler = { (name) in
             completion(name)
         }
     }
     
-    func showCommunityPick(adminGroups: [GroupSchema], completion: @escaping (GroupSchema) -> Void) {
+    func showCommunityPick(adminGroups: [GroupSchema], completion: @escaping (GroupSchema, _ ghRepoEnabled: Bool) -> Void) {
         guard let modalNavController = modalNavigationController else { return }
         
         let vc = CreateRoomCommunityViewController(coordinator: self, adminGroups: adminGroups)
         modalNavController.pushViewController(vc, animated: true)
-        vc.completionHandler = { (group) in
-            completion(group)
+        vc.completionHandler = { (group, ghRepoEnabled) in
+            completion(group, ghRepoEnabled)
         }
     }
 }

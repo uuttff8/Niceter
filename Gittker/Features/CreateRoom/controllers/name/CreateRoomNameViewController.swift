@@ -18,11 +18,13 @@ class CreateRoomNameViewController: ASViewController<ASTableNode> {
     }
     
     private var repoSelected: ((String) -> Void)?
+    private var ghRepoEnabled: Bool
     
     var completionHandler: ((String) -> Void)?
     
-    init(coordinator: CreateRoomCoordinator) {
+    init(coordinator: CreateRoomCoordinator, ghRepoEnabled: Bool) {
         self.coordinator = coordinator
+        self.ghRepoEnabled = ghRepoEnabled
         super.init(node: ASTableNode(style: .grouped))
         self.tableNode.dataSource = self
         self.tableNode.delegate = self
@@ -34,10 +36,13 @@ class CreateRoomNameViewController: ASViewController<ASTableNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.getRepos()
         
-        viewModel.repos.addAndNotify(observer: self) {
-            self.tableNode.reloadData()
+        if ghRepoEnabled == false {
+            viewModel.getRepos()
+            
+            viewModel.repos.addAndNotify(observer: self) {
+                self.tableNode.reloadData()
+            }
         }
     }
 }
