@@ -10,6 +10,7 @@ import AsyncDisplayKit
 
 class CreateRoomCoordinator: Coordinator {
     weak var navigationController: ASNavigationController?
+    var modalNavigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     weak var tabController: MainTabBarController?
@@ -19,12 +20,19 @@ class CreateRoomCoordinator: Coordinator {
     init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
         
-        currentController = CreateRoomViewController(coordinator: self)
-        childCoordinators.append(self)
+        self.currentController = CreateRoomViewController(coordinator: self)
+        self.modalNavigationController = ASNavigationController(rootViewController: currentController!)
     }
     
     func start() {
-        guard let currentController = currentController else { return }
-        self.navigationController?.present(currentController, animated: true, completion: nil)
+        guard let modalNavController = modalNavigationController else { return }
+        self.navigationController?.present(modalNavController, animated: true, completion: nil)
+    }
+    
+    func showEnteringName() {
+        guard let modalNavController = modalNavigationController else { return }
+        
+        let vc = CreateRoomNameViewController(coordinator: self)
+        modalNavController.pushViewController(vc, animated: true)
     }
 }
