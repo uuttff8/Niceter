@@ -36,7 +36,7 @@ class CreateRoomViewModel {
                                                                              type: .publicPrivate,
                                                                              value: "")
                                                             ],
-                                                        footer: "Some permission",
+                                                        footer: "When private, only people added to the room can join.",
                                                         grouped: true)
         
         self.dataSource?.data.value = [name, permissions]
@@ -54,8 +54,19 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
     weak var coordinator: CreateRoomCoordinator?
     var adminGroups: [GroupSchema] = [GroupSchema]()
     
-    var subtitleComm = "Required"
-    var subtitleName = "Required"
+    private var subtitleComm = "Required"
+    private var subtitleName = "Required"
+    private var footerName: String {
+        
+        var uri = subtitleName
+        var comm = subtitleComm
+        if uri == "Required" { uri = "..." }
+        if comm == "Required" { comm = "..." }
+        
+        return "Your room will be at gitter.im/\(uri)/\(comm)"
+    }
+    
+    private var ghRepoEnabled: Bool = false
     
     init(with coord: CreateRoomCoordinator) {
         self.coordinator = coord
@@ -96,7 +107,10 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let section = self.data.value[section]
         
-        return section.footer
+        switch section.section {
+        case .name: return footerName
+        default: return section.footer
+        }
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
@@ -108,12 +122,13 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
             
             switch item.type {
             case .community:
-                coordinator?.showCommunityPick(adminGroups: adminGroups) { (group) in
-                    self.subtitleComm = group.name
+                coordinator?.showCommunityPick(adminGroups: adminGroups) { (group, isGhRepo) in
+                    self.subtitleComm = group.uri
+                    self.ghRepoEnabled = isGhRepo
                     tableNode.reloadData()
                 }
             case .roomName:
-                coordinator?.showEnteringName { (name: String) in
+                coordinator?.showEnteringName(ghRepoEnabled: ghRepoEnabled) { (name: String) in
                     self.subtitleName = name
                     tableNode.reloadData()
                 }

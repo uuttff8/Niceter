@@ -20,7 +20,7 @@ class CreateRoomCommunityViewController: ASViewController<ASTableNode> {
     private var groupSelected: ((Bool) -> Void)? = nil
     
     open var selectedCommunity: GroupSchema?
-    open var completionHandler: ((GroupSchema) -> Void)? = nil
+    open var completionHandler: ((GroupSchema, _ ghRepoEnabled: Bool) -> Void)? = nil
     
     init(coordinator: CreateRoomCoordinator, adminGroups: [GroupSchema]) {
         self.coordinator = coordinator
@@ -74,7 +74,7 @@ extension CreateRoomCommunityViewController: ASTableDelegate, ASTableDataSource 
         case .adminGroups:
             let model = self.viewModel.groups.value[indexPath.row]
             selectedCommunity = model
-            completionHandler?(selectedCommunity!)
+            completionHandler?(selectedCommunity!, true)
             
             tableNode.reloadData()
         case .createCommunity:

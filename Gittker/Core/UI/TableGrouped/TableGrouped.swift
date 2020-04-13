@@ -15,7 +15,7 @@ enum TableGroupedSettingsSectionType: String {
 }
 
 @frozen
-enum TableGroupedCreateRoomSectionType: String {
+enum TableGroupedCreateRoomSectionType: String, CaseIterable {
     case name
     case permissions
 }
