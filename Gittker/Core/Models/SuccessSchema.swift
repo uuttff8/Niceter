@@ -12,3 +12,8 @@ import Foundation
 public struct SuccessSchema: Codable {
     let success: Bool
 }
+
+@frozen
+public struct ErrorSchema: Codable {
+    let error: String
+}

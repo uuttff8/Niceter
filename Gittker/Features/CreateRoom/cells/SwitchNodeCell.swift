@@ -8,11 +8,14 @@
 
 import AsyncDisplayKit
 
-class SwitchNodeCell: ASCellNode {
+final class SwitchNodeCell: ASCellNode {
     struct Content {
         let title: String
         let isSwitcherOn: Bool
+        let isSwitcherActive: Bool
     }
+    
+    public var switchChanged: ((Bool) -> Void)?
     
     private let titleNode = ASTextNode()
     private let switchNode = ASDisplayNode { () -> UIView in
@@ -28,7 +31,6 @@ class SwitchNodeCell: ASCellNode {
         
         super.init()
         self.setupTitleNode()
-        self.setupSwitchNode()
         self.buildNodeHierarchy()
         self.selectionStyle = .none
     }
@@ -43,13 +45,17 @@ class SwitchNodeCell: ASCellNode {
         return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }()
     
-    private func setupSwitchNode() {
-        DispatchQueue.main.async {
-            let switcher = self.switchNode.view as? UISwitch
-            switcher?.isOn = self.content.isSwitcherOn
-        }
+    override func layout() {
+        super.layout()
+        let switcher = self.switchNode.view as? UISwitch
+        switcher?.isOn = self.content.isSwitcherOn
+        switcher?.isEnabled = self.content.isSwitcherActive
+        switcher?.addTarget(self, action: #selector(switchAction(_:)), for: .valueChanged)
     }
     
+    @objc private func switchAction(_ sender: UISwitch) {
+        switchChanged?(sender.isOn)
+    }
     
     // MARK: - Build node hierarchy
     private func buildNodeHierarchy() {

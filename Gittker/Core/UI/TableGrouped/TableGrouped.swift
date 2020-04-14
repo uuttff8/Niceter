@@ -16,8 +16,9 @@ enum TableGroupedSettingsSectionType: String {
 
 @frozen
 enum TableGroupedCreateRoomSectionType: String, CaseIterable {
-    case name
     case permissions
+    case ownedCommunities = "OWNED COMMUNITIES"
+    case entername = "NAME"
 }
 
 // MARK: -
@@ -30,9 +31,10 @@ enum TableGroupedType: String {
     case noUrl
     
     // CreateRoom
-    case community
-    case roomName
     case publicPrivate
+    case privateMembers
+    case ownedCommunities = "OWNED COMMUNITIES"
+    case enterName
 }
 
 // MARK: - ItemProtocols

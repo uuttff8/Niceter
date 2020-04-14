@@ -18,55 +18,55 @@ class CreateRoomViewModel {
     }
     
     func fetchDataSource() {
-        let name = TableGroupedCreateRoomSection(section: .name,
-                                                 items:
-            [TableGroupedItem(text:  "Community",
-                              type: .community,
-                              value: ""),
-             TableGroupedItem(text: "Room Name",
-                              type: .roomName,
-                              value: "")
-            ],
-                                                 footer: "Your room will be ...",
-                                                 grouped: true)
+        let nameItem = TableGroupedItem(text: "", type: .enterName, value: "")
+        let permissionItems = [TableGroupedItem(text: "Private", type: .publicPrivate, value: ""),
+                               TableGroupedItem(text: "Members can join this room", type: .privateMembers, value: "")]
+
         
-        let permissions = TableGroupedCreateRoomSection(section: .permissions,
-                                                        items: [
-                                                            TableGroupedItem(text: "Permission",
-                                                                             type: .publicPrivate,
-                                                                             value: "")
-                                                            ],
+        let nameSection = TableGroupedCreateRoomSection(section: .entername,
+                                                        items: [nameItem],
+                                                        footer: "",
+                                                        grouped: true)
+        
+        let permissionsSection = TableGroupedCreateRoomSection(section: .permissions,
+                                                        items: permissionItems,
                                                         footer: "When private, only people added to the room can join.",
                                                         grouped: true)
         
-        self.dataSource?.data.value = [name, permissions]
+        
+        self.dataSource?.data.value = [nameSection, permissionsSection]
     }
     
     
     func fetchAdminGroups() {
         GitterApi.shared.getAdminGroups { (groupSchema) in
             self.adminGroupsData.value = groupSchema
+            
+            let owned = groupSchema.map { (group) in
+                TableGroupedItem(text: "", type: .ownedCommunities, value: "")
+            }
+            
+            let ownedCommunities = TableGroupedCreateRoomSection(section: .ownedCommunities,
+                                                                 items: owned, footer: "", grouped: true)
+            self.dataSource?.data.value.append(ownedCommunities)
+        }
+    }
+    
+    func createRoom(roomName: String, community: GroupSchema, securityPrivate: Bool, privateMembers: Bool, completion: @escaping (Result<(), CreateRoomError>) -> Void) {
+        GitterApi.shared.createRoom(groupId: community.id, roomName: roomName, securityPrivate: securityPrivate, privateMembers: privateMembers) { (res) in
+            completion(res)
         }
     }
 }
 
-class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>, ASTableDataSource, ASTableDelegate {
+final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>, ASTableDataSource, ASTableDelegate {
     weak var coordinator: CreateRoomCoordinator?
     var adminGroups: [GroupSchema] = [GroupSchema]()
+    public var selectedCommunity: GroupSchema?
     
-    private var subtitleComm = "Required"
-    private var subtitleName = "Required"
-    private var footerName: String {
-        
-        var uri = subtitleName
-        var comm = subtitleComm
-        if uri == "Required" { uri = "..." }
-        if comm == "Required" { comm = "..." }
-        
-        return "Your room will be at gitter.im/\(uri)/\(comm)"
-    }
-    
-    private var ghRepoEnabled: Bool = false
+    public var roomName: String? = nil
+    public var isPrivateSwitchActive: Bool = false
+    public var isPrivateMemberSwitchActive: Bool = false
     
     init(with coord: CreateRoomCoordinator) {
         self.coordinator = coord
@@ -81,15 +81,42 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            
             let section = self.data.value[indexPath.section]
             let item = section.items[indexPath.row]
             
             switch section.section {
-            case .name:
-                return self.createNameCell(by: item)
             case .permissions:
-                return SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private", isSwitcherOn: false))
+                
+                switch item.type {
+                case .publicPrivate:
+                    let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private",
+                                                                           isSwitcherOn: false,
+                                                                           isSwitcherActive: true))
+                    cell.switchChanged = { (isOn) in
+                        self.isPrivateSwitchActive = isOn
+                        tableNode.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .none)
+                    }
+                    return cell
+                case .privateMembers:
+                    let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Members can join this room",
+                                                                                         isSwitcherOn: false,
+                                                                                         isSwitcherActive: self.isPrivateSwitchActive))
+                    cell.switchChanged = { (isOn) in
+                        self.isPrivateMemberSwitchActive = isOn
+                    }
+                    return cell
+                default : return ASCellNode()
+                }
+            case .ownedCommunities:
+                let model = self.adminGroups[indexPath.row]
+                let cell = CreateRoomMarkedNodeCell(with: CreateRoomMarkedNodeCell.Content(title: model.name,
+                                                                                           isSelected: self.selectedCommunity?.id == model.id))
+                cell.selectionStyle = .none
+                return cell
+            case .entername:
+                let content = TextFieldNodeCell.Content(defaultText: self.roomName)
+                let cell = TextFieldNodeCell(with: content, delegate: self)
+                return cell
             }
         }
     }
@@ -107,49 +134,28 @@ class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSection>
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let section = self.data.value[section]
         
-        switch section.section {
-        case .name: return footerName
-        default: return section.footer
-        }
+        return section.footer
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         let section = self.data.value[indexPath.section]
-        let item = section.items[indexPath.row]
         
         switch section.section {
-        case .name:
-            
-            switch item.type {
-            case .community:
-                coordinator?.showCommunityPick(adminGroups: adminGroups) { (group, isGhRepo) in
-                    self.subtitleComm = group.uri
-                    self.ghRepoEnabled = isGhRepo
-                    tableNode.reloadData()
-                }
-            case .roomName:
-                coordinator?.showEnteringName(ghRepoEnabled: ghRepoEnabled) { (name: String) in
-                    self.subtitleName = name
-                    tableNode.reloadData()
-                }
-            default: break
-            }
-            
-            
-            tableNode.deselectRow(at: indexPath, animated: true)
         case .permissions:
             tableNode.deselectRow(at: indexPath, animated: true)
-        }
-    }
-    
-    private func createNameCell(by item: TableGroupedItemProtocol) -> ASCellNode {
-        switch item.type {
-        case .community:
-            return DefaultDisclosureNodeCell(with: DefaultDisclosureNodeCell.Content(title: "Community", subtitle: subtitleComm))
-        case .roomName:
-            return DefaultDisclosureNodeCell(with: DefaultDisclosureNodeCell.Content(title: "Room name", subtitle: subtitleName))
-        default:
-            return ASCellNode()
+        case .ownedCommunities:
+            let model = self.adminGroups[indexPath.row]
+            selectedCommunity = model
+            tableNode.reloadSections(IndexSet([2]), with: .none)
+        case .entername:
+            tableNode.deselectRow(at: indexPath, animated: true)
         }
     }
 }
+
+extension CreateRoomTableDelegates: ASEditableTextNodeDelegate {
+    func editableTextNodeDidUpdateText(_ editableTextNode: ASEditableTextNode) {
+        self.roomName = editableTextNode.attributedText?.string
+    }
+}
+
