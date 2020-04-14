@@ -203,7 +203,7 @@ extension RoomChatBaseViewController: MessagesLayoutDelegate {
     }
 }
 
-extension RoomChatBaseViewController {
+extension UIViewController {
     func showOkAlert(config: SystemAlertConfiguration) {
         let alert = UIAlertController(title: config.title, message: config.subtitle, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

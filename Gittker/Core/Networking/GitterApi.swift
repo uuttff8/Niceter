@@ -33,6 +33,7 @@ private enum GitterApiLinks {
     case removeUser(userId: String, roomId: String) // This can be self-inflicted to leave the the room and remove room from your left menu.
     case joinRoom(userId: String, roomId: String)
     case searchRooms(_ query: String)
+    case createRoom(_ groupId: String)
     
     // Messages
     case firstMessages(String)
@@ -74,6 +75,8 @@ private enum GitterApiLinks {
             return "v1/user/\(userId)/rooms"
         case .searchRooms(let query):
             return "v1/rooms?q=\(query)"
+        case .createRoom(let groupId):
+            return "v1/groups/\(groupId)/rooms"
             
         case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
         case .olderMessages(messageId: let messageId, roomId: let roomId):
@@ -271,6 +274,40 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func createRoom(groupId: String, roomName: String, securityPrivate: Bool, privateMembers: Bool, completion: @escaping (Result<(), CreateRoomError>) -> Void) {
+        var securityValue: String
+        var typeValue: AnyHashable?
+        
+        if !securityPrivate && !privateMembers {
+            securityValue = "PUBLIC"
+            typeValue = "GROUP"
+        } else if securityPrivate && privateMembers {
+            securityValue = "INHERITED"
+            typeValue = "GROUP"
+        } else {
+            securityValue = "PRIVATE"
+        }
+        
+        
+        let securityJson: [String: AnyHashable] =
+        [
+            "type": typeValue ?? NSNull() as AnyHashable,
+            "linkPath": NSNull(),
+            "security": "\(securityValue)"
+        ]
+        
+        let bodyJson: [String: AnyHashable] =
+        [
+            "name": "\(roomName)",
+            "security": securityJson,
+            "addBadge": true
+        ]
+                
+        createRoomRequest(url: GitterApiLinks.createRoom(groupId), body: bodyJson) { (res) in
+            completion(res)
+        }
+    }
 }
 
 // MARK: - Messages
@@ -359,7 +396,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                /*guard*/ let decoded = try! self.jsonDecoder.decode(T.self, from: data) // else { return }
+                guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { return }
                 completion(decoded)
             default: break
             }
@@ -414,5 +451,26 @@ extension GitterApi {
             }
         }
     }
+    
+    private func createRoomRequest(url: GitterApiLinks, body: [String : AnyHashable], completion: @escaping (Result<(), CreateRoomError>) -> Void) {
+        let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
+        print(String(describing: url))
+        
+        self.httpClient.genericRequest(url: url, method: "POST", bodyObject: body)
+        { (res) in
+            switch res {
+            case .success(let data):
+                if let _ = try? self.jsonDecoder.decode(ErrorSchema.self, from: data) {
+                    completion(.failure(.conflict))
+                } else {
+                    completion(.success(()))
+                }
+            default: break
+            }
+        }
+    }
 }
 
+enum CreateRoomError: Error {
+    case conflict
+}
