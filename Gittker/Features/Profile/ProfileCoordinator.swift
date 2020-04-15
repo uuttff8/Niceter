@@ -26,5 +26,4 @@ class ProfileCoordinator: Coordinator {
     func start() {
         self.navigationController?.pushViewController(currentController!, animated: true)
     }
-
 }

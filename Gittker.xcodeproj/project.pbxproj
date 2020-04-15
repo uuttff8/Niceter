@@ -66,6 +66,7 @@
 		4E4F7D7F24447821009287D8 /* CreateRoomCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D7E24447821009287D8 /* CreateRoomCommunityViewController.swift */; };
 		4E4F7D8124447835009287D8 /* CreateRoomCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D8024447835009287D8 /* CreateRoomCommunityViewModel.swift */; };
 		4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */; };
+		4E5650A42447977E00B9BBFE /* RoomChatAutocompleteExtend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */; };
 		4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */; };
 		4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */; };
 		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
@@ -205,6 +206,7 @@
 		4E4F7D7E24447821009287D8 /* CreateRoomCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCommunityViewController.swift; sourceTree = "<group>"; };
 		4E4F7D8024447835009287D8 /* CreateRoomCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCommunityViewModel.swift; sourceTree = "<group>"; };
 		4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomMarkedNodeCell.swift; sourceTree = "<group>"; };
+		4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatAutocompleteExtend.swift; sourceTree = "<group>"; };
 		4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeopleService+Cache.swift"; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 			children = (
 				4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */,
 				4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */,
+				4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */,
 			);
 			path = BaseChat;
 			sourceTree = "<group>";
@@ -1241,6 +1244,7 @@
 				4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */,
 				4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
+				4E5650A42447977E00B9BBFE /* RoomChatAutocompleteExtend.swift in Sources */,
 				4EC70C83243FACBD0063F323 /* CachedLoaderProtocol.swift in Sources */,
 				4EA628B4242B87480034E66E /* SuggestedRoomCoordinator.swift in Sources */,
 				4E09AC47240EA3560028229C /* GitterApi.swift in Sources */,
