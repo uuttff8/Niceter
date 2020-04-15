@@ -35,7 +35,6 @@ class RoomChatBaseViewController: ChatViewController {
     func joinChat() {
         joinButtonHandlder()
     }
-
     
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()
