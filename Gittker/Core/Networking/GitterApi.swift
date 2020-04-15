@@ -51,7 +51,7 @@ private enum GitterApiLinks {
     
     // Repos
     case repos
-        
+    
     func encode() -> String {
         switch self {
         case .exchangeToken: return "login/oauth/token"
@@ -243,7 +243,7 @@ extension GitterApi {
                 {
                 "chat": \(messagesId)
                 }
-            """.convertToDictionary() else { return }
+                """.convertToDictionary() else { return }
         
         postDataReadMessages(url: GitterApiLinks.readMessages(userId: userId, roomId: roomId), body: body) { (data: SuccessSchema) in
             completion(data)
@@ -275,7 +275,7 @@ extension GitterApi {
         }
     }
     
-    func createRoom(groupId: String, roomName: String, securityPrivate: Bool, privateMembers: Bool, completion: @escaping (Result<(), CreateRoomError>) -> Void) {
+    func createRoom(groupId: String, roomName: String, securityPrivate: Bool, privateMembers: Bool, completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void) {
         var securityValue: String
         var typeValue: AnyHashable?
         
@@ -291,19 +291,19 @@ extension GitterApi {
         
         
         let securityJson: [String: AnyHashable] =
-        [
-            "type": typeValue ?? NSNull() as AnyHashable,
-            "linkPath": NSNull(),
-            "security": "\(securityValue)"
+            [
+                "type": typeValue ?? NSNull() as AnyHashable,
+                "linkPath": NSNull(),
+                "security": "\(securityValue)"
         ]
         
         let bodyJson: [String: AnyHashable] =
-        [
-            "name": "\(roomName)",
-            "security": securityJson,
-            "addBadge": true
+            [
+                "name": "\(roomName)",
+                "security": securityJson,
+                "addBadge": true
         ]
-                
+        
         createRoomRequest(url: GitterApiLinks.createRoom(groupId), body: bodyJson) { (res) in
             completion(res)
         }
@@ -452,7 +452,7 @@ extension GitterApi {
         }
     }
     
-    private func createRoomRequest(url: GitterApiLinks, body: [String : AnyHashable], completion: @escaping (Result<(), CreateRoomError>) -> Void) {
+    private func createRoomRequest(url: GitterApiLinks, body: [String : AnyHashable], completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
@@ -460,8 +460,15 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                if let _ = try? self.jsonDecoder.decode(ErrorSchema.self, from: data) {
-                    completion(.failure(.conflict))
+                if let decoded = try? self.jsonDecoder.decode(ErrorSchema.self, from: data) {
+                    
+                    // error handling
+                    if decoded.error == "Conflict" {
+                        completion(.failure(.conflict))
+                    } else {
+                        completion(.failure(.unknown))
+                    }
+                    
                 } else {
                     completion(.success(()))
                 }
@@ -471,6 +478,9 @@ extension GitterApi {
     }
 }
 
-enum CreateRoomError: Error {
-    case conflict
+struct GitterApiErrors {
+    enum CreateRoomError: Error {
+        case conflict
+        case unknown
+    }
 }

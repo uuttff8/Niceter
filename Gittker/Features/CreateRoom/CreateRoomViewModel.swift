@@ -52,7 +52,7 @@ class CreateRoomViewModel {
         }
     }
     
-    func createRoom(roomName: String, community: GroupSchema, securityPrivate: Bool, privateMembers: Bool, completion: @escaping (Result<(), CreateRoomError>) -> Void) {
+    func createRoom(roomName: String, community: GroupSchema, securityPrivate: Bool, privateMembers: Bool, completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void) {
         GitterApi.shared.createRoom(groupId: community.id, roomName: roomName, securityPrivate: securityPrivate, privateMembers: privateMembers) { (res) in
             completion(res)
         }

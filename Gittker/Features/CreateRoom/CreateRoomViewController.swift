@@ -83,8 +83,15 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
             switch res {
             case .success(_):
                 self.dismiss(animated: true, completion: nil)
-            case .failure(_):
-                self.showOkAlert(config: .init(title: "There is already a room with that name.", subtitle: nil))
+            case .failure(let error):
+                switch error {
+                    
+                case .conflict:
+                    self.showOkAlert(config: .init(title: "There is already a room with that name.", subtitle: nil))
+                case .unknown:
+                    self.showOkAlert(config: .init(title: "Unknown Error happen. Try agaib Later", subtitle: nil))
+                }
+                
                 sender.isEnabled = true
             }
         }
