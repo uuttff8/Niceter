@@ -16,6 +16,8 @@ private struct Constants {
 
 class RoomChatBaseViewController: ChatViewController {
     private let myBtnView: UIButton = UIButton(type: .custom)
+    private let rightBarImage: String
+    
     lazy var joinChatButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 16
@@ -27,6 +29,18 @@ class RoomChatBaseViewController: ChatViewController {
         return button
     }()
     
+    var rightImageBarButton: UIBarButtonItem
+    
+    init(rightBarImage: String) {
+        self.rightBarImage = rightBarImage
+        rightImageBarButton = UIBarButtonItem()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func showJoinButton() {
         configureMessageInputBarWithJoinButton()
     }
@@ -35,6 +49,42 @@ class RoomChatBaseViewController: ChatViewController {
     func joinChat() {
         joinButtonHandlder()
     }
+    
+    @objc
+    func onAvatarTapped() {
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupRightBarButton()
+    }
+    
+    private func setupRightBarButton() {
+        let button = UIButton(type: .custom)
+        
+        let request = ImageRequest(url: URL(string: rightBarImage)!, processors: [
+            ImageProcessor.Circle()
+        ])
+        
+        ImagePipeline.shared.loadImage(with: request) { result in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    button.setImage(response.image, for: .normal)
+                    button.imageView?.contentMode = .scaleAspectFit
+                }
+            default: break
+            }
+        }
+        
+        button.addTarget(self, action: #selector(onAvatarTapped), for: .touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 45, height: 45)
+
+        rightImageBarButton.customView = button
+        self.navigationItem.rightBarButtonItem = rightImageBarButton
+    }
+    
     
     override func configureMessageCollectionView() {
         super.configureMessageCollectionView()

@@ -25,7 +25,7 @@ final class UserChatViewController: RoomChatBaseViewController {
         self.isJoined = isJoined
         self.fayeClient = FayeEventMessagesBinder(roomId: roomSchema.id)
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(rightBarImage: roomSchema.avatarUrl!)
     }
     
     required init?(coder: NSCoder) {
