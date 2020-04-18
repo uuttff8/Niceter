@@ -5,22 +5,22 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.014683">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.01111">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: increment_build_number" time="1.157582">
+      <testcase classname="fastlane.lanes" name="1: increment_build_number" time="3.467082">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: build_app" time="142.979457">
+      <testcase classname="fastlane.lanes" name="2: build_app" time="137.105319">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: upload_to_testflight" time="159.094233">
+      <testcase classname="fastlane.lanes" name="3: upload_to_testflight" time="621.401754">
         
       </testcase>
     

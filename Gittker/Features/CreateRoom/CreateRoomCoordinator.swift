@@ -13,7 +13,6 @@ class CreateRoomCoordinator: Coordinator {
     var modalNavigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
-    weak var tabController: MainTabBarController?
     var currentController: CreateRoomViewController?
     
     

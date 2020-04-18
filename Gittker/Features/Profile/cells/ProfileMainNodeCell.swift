@@ -22,14 +22,22 @@ class ProfileMainNodeCell: ASCellNode {
     private let subtitleNode = ASTextNode()
     private let gitInfoNode = ASTextNode()
     
-    private lazy var locationNode = ProfileAdditionalInfoNode(with: Config.Images.profileLocation,
-                                                              title: self.content?.location ?? "")
-    private lazy var emailNode = ProfileAdditionalInfoNode(with: Config.Images.profileEnvelope,
-                                                           title: self.content?.email ?? "")
-    private lazy var linkNode = ProfileAdditionalInfoNode(with: Config.Images.profileLink,
-                                                          title: self.content?.website ?? "")
-    private lazy var companyNode = ProfileAdditionalInfoNode(with: Config.Images.profileCompany,
-                                                             title: self.content?.company ?? "")
+    private lazy var locationNode = ProfileAdditionalInfoNode(
+        with: Config.Images.profileLocation,
+        title: self.content?.location ?? ""
+    )
+    private lazy var emailNode = ProfileAdditionalInfoNode(
+        with: Config.Images.profileEnvelope,
+        title: self.content?.email ?? ""
+    )
+    private lazy var linkNode = ProfileAdditionalInfoNode(
+        with: Config.Images.profileLink,
+        title: self.content?.website ?? ""
+    )
+    private lazy var companyNode = ProfileAdditionalInfoNode(
+        with: Config.Images.profileCompany,
+        title: self.content?.company ?? ""
+    )
     
     private let separatorNode = ASDisplayNode()
     

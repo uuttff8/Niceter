@@ -29,11 +29,10 @@ class RoomChatBaseViewController: ChatViewController {
         return button
     }()
     
-    var rightImageBarButton: UIBarButtonItem
+    var rightImageBarButton: UIBarButtonItem?
     
     init(rightBarImage: String) {
         self.rightBarImage = rightBarImage
-        rightImageBarButton = UIBarButtonItem()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,8 +49,7 @@ class RoomChatBaseViewController: ChatViewController {
         joinButtonHandlder()
     }
     
-    @objc
-    func onAvatarTapped() {
+    @objc func onAvatarTapped() {
         
     }
     
@@ -61,7 +59,10 @@ class RoomChatBaseViewController: ChatViewController {
     }
     
     private func setupRightBarButton() {
-        let button = UIButton(type: .custom)
+        self.rightImageBarButton = UIBarButtonItem(image: nil,
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(self.onAvatarTapped))
         
         let request = ImageRequest(url: URL(string: rightBarImage)!, processors: [
             ImageProcessor.Circle()
@@ -71,18 +72,13 @@ class RoomChatBaseViewController: ChatViewController {
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-                    button.setImage(response.image, for: .normal)
-                    button.imageView?.contentMode = .scaleAspectFit
+                    self.rightImageBarButton?.image = response.image.withRenderingMode(.alwaysOriginal)
                 }
             default: break
             }
         }
         
-        button.addTarget(self, action: #selector(onAvatarTapped), for: .touchUpInside)
-        button.frame = CGRect(x: 0, y: 0, width: 45, height: 45)
-
-        rightImageBarButton.customView = button
-        self.navigationItem.rightBarButtonItem = rightImageBarButton
+        self.navigationItem.rightBarButtonItem = self.rightImageBarButton
     }
     
     

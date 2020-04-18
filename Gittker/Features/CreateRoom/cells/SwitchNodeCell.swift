@@ -44,15 +44,7 @@ final class SwitchNodeCell: ASCellNode {
     private var titleTextAttributes = {
         return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }()
-    
-    override func layout() {
-        super.layout()
-        let switcher = self.switchNode.view as? UISwitch
-        switcher?.isOn = self.content.isSwitcherOn
-        switcher?.isEnabled = self.content.isSwitcherActive
-        switcher?.addTarget(self, action: #selector(switchAction(_:)), for: .valueChanged)
-    }
-    
+            
     @objc private func switchAction(_ sender: UISwitch) {
         switchChanged?(sender.isOn)
     }
@@ -65,6 +57,14 @@ final class SwitchNodeCell: ASCellNode {
     }
     
     // MARK: - Layout
+    override func layout() {
+        super.layout()
+        let switcher = self.switchNode.view as? UISwitch
+        switcher?.isOn = self.content.isSwitcherOn
+        switcher?.isEnabled = self.content.isSwitcherActive
+        switcher?.addTarget(self, action: #selector(self.switchAction(_:)), for: .valueChanged)
+    }
+    
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let spacer = ASLayoutSpec()
         spacer.style.flexGrow = 1
