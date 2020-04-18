@@ -32,6 +32,7 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Create Room"
+        self.hideKeyboardWhenTappedAround()
         setupNavigationControllerButtons()
         
         self.tableDelegates.data.addAndNotify(observer: self) { [weak self] in
@@ -55,7 +56,7 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
         let doneButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(doneButtonAction(_:)))
         navigationItem.rightBarButtonItem = doneButton
     }
-    
+        
     @objc private func doneButtonAction(_ sender: UIBarButtonItem) {
         guard let community = self.tableDelegates.selectedCommunity else {
             self.showOkAlert(config: .init(title: "Please, specify community", subtitle: nil))
@@ -63,8 +64,8 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
         }
         
         guard let text = self.tableDelegates.roomName else {
-                self.showOkAlert(config: .init(title: "Room name is not valid", subtitle: nil))
-                return
+            self.showOkAlert(config: .init(title: "Room name is not valid", subtitle: nil))
+            return
         }
         
         guard text.rangeOfCharacter(from: CharacterSet.gitterValidRoomName.inverted) == nil else {
@@ -79,23 +80,28 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
                                   securityPrivate: self.tableDelegates.isPrivateSwitchActive,
                                   privateMembers:  self.tableDelegates.isPrivateMemberSwitchActive)
         { (res) in
-                                    
             switch res {
             case .success(_):
+                // on success, room automatically appears in rooms
                 self.dismiss(animated: true, completion: nil)
             case .failure(let error):
-                switch error {
-                    
-                case .conflict:
-                    self.showOkAlert(config: .init(title: "There is already a room with that name.", subtitle: nil))
-                case .unknown:
-                    self.showOkAlert(config: .init(title: "Unknown Error happen. Try agaib Later", subtitle: nil))
-                }
+                self.handleBackendError(error)
                 
                 sender.isEnabled = true
             }
         }
     }
+    
+    private func handleBackendError(_ error: (GitterApiErrors.CreateRoomError)) {
+        switch error {
+            
+        case .conflict:
+            self.showOkAlert(config: .init(title: "There is already a room with that name.", subtitle: nil))
+        case .unknown:
+            self.showOkAlert(config: .init(title: "Unknown Error happen. Try again Later", subtitle: nil))
+        }
+    }
+
 }
 
 private extension CharacterSet {

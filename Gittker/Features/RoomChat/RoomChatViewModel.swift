@@ -9,6 +9,7 @@
 import Foundation
 
 class RoomChatViewModel {
+    typealias SendMessageCompletion = ((Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>) -> Void)
     
     private let roomSchema: RoomSchema
     private var messagesListInfo: [RoomRecreateSchema]?
@@ -37,7 +38,7 @@ class RoomChatViewModel {
         }
     }
     
-    func sendMessage(text: String, completion: @escaping ((Result<RoomRecreateSchema, MessageFailedError>) -> Void)) {
+    func sendMessage(text: String, completion: @escaping SendMessageCompletion) {
         GitterApi.shared.sendGitterMessage(roomId: self.roomSchema.id, text: text) { (res) in
             guard let result = res else { return }
             completion(result)

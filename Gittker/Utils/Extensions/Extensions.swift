@@ -49,3 +49,69 @@ extension UIScreen {
         return UIScreen.main.traitCollection.userInterfaceStyle == .dark
     }
 }
+
+extension UIView {
+    private static var tapKey = "tapKey"
+
+    func addTap(numberOfTapsRequired: Int = 1, numberOfTouchesRequired: Int = 1, cancelTouchesInView: Bool = true, action: @escaping () -> Void) {
+        isUserInteractionEnabled = true
+        objc_setAssociatedObject(self, &UIView.tapKey, TapAction(action: action), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapView))
+        tapRecognizer.numberOfTapsRequired = numberOfTapsRequired
+        tapRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
+        tapRecognizer.cancelsTouchesInView = cancelTouchesInView
+        addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc private func tapView() {
+        if let tap = objc_getAssociatedObject(self, &UIView.tapKey) as? TapAction {
+            tap.action()
+        }
+    }
+
+    private class TapAction {
+        var action: () -> Void
+        
+        init(action: @escaping () -> Void) {
+            self.action = action
+        }
+    }
+
+    func addLongpress(minimumPressDuration: Double, cancelTouchesInView: Bool = true, action: @escaping () -> Void) {
+        isUserInteractionEnabled = true
+        objc_setAssociatedObject(self, &UIView.tapKey, TapAction(action: action), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        let tapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(tapView))
+        tapRecognizer.minimumPressDuration = minimumPressDuration
+        tapRecognizer.cancelsTouchesInView = cancelTouchesInView
+        addGestureRecognizer(tapRecognizer)
+    }
+}
+
+extension UIBarButtonItem {
+    static func menuButton(_ target: Any?, action: Selector, image: UIImage) -> UIBarButtonItem {
+        let button = UIButton(type: .system)
+        button.setImage(image, for: .normal)
+        button.addTarget(target, action: action, for: .touchUpInside)
+
+        let menuBarItem = UIBarButtonItem(customView: button)
+        menuBarItem.customView?.translatesAutoresizingMaskIntoConstraints = false
+        menuBarItem.customView?.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        menuBarItem.customView?.widthAnchor.constraint(equalToConstant: 24).isActive = true
+
+        return menuBarItem
+    }
+}
+
+extension Dictionary where Key == NSAttributedString.Key, Value == NSObject {
+    static func defaultTitleAttributes(size: CGFloat) -> Dictionary<NSAttributedString.Key, NSObject> {
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: size),
+        ]
+    }
+    
+    static func boldTitleAttributes(size: CGFloat) -> Dictionary<NSAttributedString.Key, NSObject> {
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: size),
+        ]
+    }
+}

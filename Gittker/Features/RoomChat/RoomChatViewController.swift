@@ -51,6 +51,10 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         }
     }
     
+    override func onAvatarTapped() {
+        coordinator.showRoomScreen(roomSchema: self.roomSchema)
+    }
+    
     override func subscribeOnMessagesEvent() {
         fayeClient
             .subscribe(

@@ -8,103 +8,6 @@
 
 import Foundation
 
-@frozen
-private enum GitterApiLinks {
-    private static let limitMessages = 100 // because limit of unread messages is 100
-    
-    static let baseUrl = "https://gitter.im/"
-    static let baseUrlApi2 = "https://gitter.im/api/"
-    static let baseUrlApi = "https://api.gitter.im/"
-    
-    // Auth
-    case exchangeToken
-    
-    // User
-    case user(username: String)
-    case whoMe
-    case searchUsers(query: String)
-    case hideRoom(userId: String, roomId: String)
-    case joinUserRoom
-    
-    // Rooms
-    case suggestedRooms
-    case rooms
-    case readMessages(userId: String, roomId: String)
-    case removeUser(userId: String, roomId: String) // This can be self-inflicted to leave the the room and remove room from your left menu.
-    case joinRoom(userId: String, roomId: String)
-    case searchRooms(_ query: String)
-    case createRoom(_ groupId: String)
-    
-    // Messages
-    case firstMessages(String)
-    case olderMessages(messageId: String, roomId: String)
-    case sendMessage(roomId: String)
-    case listMessagesAround(roomId: String, messageId: String)
-    case listMessagesUnread(roomId: String)
-    case reportMessage(roomId: String, messageId: String)
-    case deleteMessage(roomId: String, messageId: String)
-    
-    // Groups
-    case adminGroups
-    case userGroups
-    case groupById(id: String)
-    
-    // Repos
-    case repos
-    
-    func encode() -> String {
-        switch self {
-        case .exchangeToken: return "login/oauth/token"
-        case .whoMe: return "v1/user/me"
-        case .user(username: let username):
-            return "v1/users/\(username)"
-        case .searchUsers(query: let query):
-            return "v1/user?q=\(query)&type=gitter"
-        case .hideRoom(userId: let userId, roomId: let roomId):
-            return "v1/user/\(userId)/rooms/\(roomId)"
-        case .joinUserRoom:
-            return "v1/rooms"
-            
-        case .rooms: return "v1/rooms"
-        case .suggestedRooms: return "v1/user/me/suggestedRooms"
-        case .readMessages(userId: let userId, roomId: let roomId):
-            return "v1/user/\(userId)/rooms/\(roomId)/unreadItems"
-        case .removeUser(userId: let userId, roomId: let roomId):
-            return "v1/rooms/\(roomId)/users/\(userId)"
-        case .joinRoom(userId: let userId, roomId: _):
-            return "v1/user/\(userId)/rooms"
-        case .searchRooms(let query):
-            return "v1/rooms?q=\(query)"
-        case .createRoom(let groupId):
-            return "v1/groups/\(groupId)/rooms"
-            
-        case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
-        case .olderMessages(messageId: let messageId, roomId: let roomId):
-            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&beforeId=\(messageId)"
-        case .sendMessage(roomId: let roomId):
-            return "v1/rooms/\(roomId)/chatMessages"
-        case .listMessagesAround(roomId: let roomId, messageId: let messageId):
-            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)&aroundId=\(messageId)"
-        case .listMessagesUnread(roomId: let roomId):
-            return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
-        case .reportMessage(roomId: let roomId, messageId: let messageId):
-            return "v1/rooms/\(roomId)/chatMessages/\(messageId)/report"
-        case .deleteMessage(roomId: let roomId, messageId: let messageId):
-            return "v1/rooms/\(roomId)/chatMessages/\(messageId)"
-            
-        case .adminGroups:
-            return "v1/groups?type=admin"
-        case .userGroups:
-            return "v1/user/me/groups"
-        case .groupById(id: let id):
-            return "v1/groups/\(id)"
-            
-        case .repos:
-            return "v1/user/me/repos"
-        }
-    }
-}
-
 class GitterApi {
     static let shared = GitterApi()
     
@@ -168,8 +71,10 @@ extension GitterApi {
     }
     
     func hideRoom(userId: String, roomId: String, completion: @escaping (SuccessSchema) -> Void) {
-        genericRequestData(url: GitterApiLinks.hideRoom(userId: userId, roomId: roomId),
-                           method: "DELETE",
+        let endpoint = GitterApiLinks.hideRoom(userId: userId, roomId: roomId)
+        
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
                            body: nil)
         { (data) in
             completion(data)
@@ -177,6 +82,8 @@ extension GitterApi {
     }
     
     func joinUserChat(username: String, completion: @escaping (RoomSchema) -> Void) {
+        let endpoint = GitterApiLinks.joinUserRoom
+        
         guard let body =
             """
                 {
@@ -184,8 +91,8 @@ extension GitterApi {
                 }
                 """.convertToDictionary() else { return }
         print(body)
-        genericRequestData(url: GitterApiLinks.joinUserRoom,
-                           method: "POST",
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
                            body: body)
         { (data) in
             completion(data)
@@ -208,8 +115,10 @@ extension GitterApi {
 // MARK: - Groups
 extension GitterApi {
     func getAdminGroups(completion: @escaping ([GroupSchema]) -> Void) {
-        genericRequestData(url: GitterApiLinks.adminGroups,
-                           method: "GET",
+        let endpoint = GitterApiLinks.adminGroups
+        
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
                            body: nil)
         { (data) in
             completion(data)
@@ -251,8 +160,10 @@ extension GitterApi {
     }
     
     func removeUserFromRoom(userId: String, roomId: String, completion: @escaping (SuccessSchema) -> Void) {
+        let endpoint = GitterApiLinks.removeUser(userId: userId, roomId: roomId)
+        
         genericRequestData(url: GitterApiLinks.removeUser(userId: userId, roomId: roomId),
-                           method: "DELETE",
+                           method: endpoint.method,
                            body: nil)
         { (data) in
             completion(data)
@@ -260,6 +171,8 @@ extension GitterApi {
     }
     
     func joinRoom(userId: String, roomId: String, completion: @escaping (RoomSchema) -> Void) {
+        let endpoint = GitterApiLinks.joinRoom(userId: userId, roomId: roomId)
+        
         guard let body =
             """
                 {
@@ -267,15 +180,21 @@ extension GitterApi {
                 }
                 """.convertToDictionary() else { return }
         print(body)        
-        genericRequestData(url: GitterApiLinks.joinRoom(userId: userId, roomId: roomId),
-                           method: "POST",
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
                            body: body)
         { (data) in
             completion(data)
         }
     }
     
-    func createRoom(groupId: String, roomName: String, securityPrivate: Bool, privateMembers: Bool, completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void) {
+    func createRoom(
+        groupId: String,
+        roomName: String,
+        securityPrivate: Bool,
+        privateMembers: Bool,
+        completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void)
+    {
         var securityValue: String
         var typeValue: AnyHashable?
         
@@ -308,6 +227,17 @@ extension GitterApi {
             completion(res)
         }
     }
+    
+    func listUsersInRoom(roomId: String, skip: Int, completion: @escaping (([UserSchema]) -> Void)) {
+        let endpoint = GitterApiLinks.listUsers(roomId: roomId, skip: skip)
+        
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
 }
 
 // MARK: - Messages
@@ -324,7 +254,12 @@ extension GitterApi {
         }
     }
     
-    func sendGitterMessage(roomId: String, text: String, status: Bool = false, completion: @escaping (Result<RoomRecreateSchema, MessageFailedError>?) -> Void) {
+    func sendGitterMessage(
+        roomId: String,
+        text: String,
+        status: Bool = false,
+        completion: @escaping (Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>?) -> Void)
+    {
         let bodyObject: [String : Any] = [
             "status": "\(status)",
             "text": "\(text)"
@@ -350,8 +285,10 @@ extension GitterApi {
     }
     
     func reportMessage(roomId: String, messageId: String, completion: @escaping (ReportMessageSchema) -> Void) {
-        genericRequestData(url: GitterApiLinks.reportMessage(roomId: roomId, messageId: messageId),
-                           method: "POST",
+        let endpoint = GitterApiLinks.reportMessage(roomId: roomId, messageId: messageId)
+        
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
                            body: nil)
         { (data) in
             completion(data)
@@ -364,11 +301,6 @@ extension GitterApi {
             completion(())
         }
     }
-}
-
-
-enum MessageFailedError: Error {
-    case sendFailed
 }
 
 // MARK: - Private -
@@ -422,7 +354,13 @@ extension GitterApi {
         }
     }
     
-    private func postDataSendMessage<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (Result<T, MessageFailedError>) -> Void) {
+    private func postDataSendMessage<T>(
+        url: GitterApiLinks,
+        body: [String : Any],
+        completion: @escaping (Result<T, GitterApiErrors.MessageFailedError>) -> Void)
+        where
+        T: Codable
+    {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
@@ -478,9 +416,13 @@ extension GitterApi {
     }
 }
 
-struct GitterApiErrors {
+enum GitterApiErrors {
     enum CreateRoomError: Error {
         case conflict
         case unknown
+    }
+    
+    enum MessageFailedError: Error {
+        case sendFailed
     }
 }

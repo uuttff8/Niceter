@@ -94,6 +94,12 @@
 		4E9D1834242003C60066362D /* MessagesEventSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1833242003C60066362D /* MessagesEventSchema.swift */; };
 		4E9D18372420C5240066362D /* BasicAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D18362420C5240066362D /* BasicAudioController.swift */; };
 		4EA628B4242B87480034E66E /* SuggestedRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA628B3242B87480034E66E /* SuggestedRoomCoordinator.swift */; };
+		4EB082E4244B10DD004F0696 /* RoomInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB082E3244B10DD004F0696 /* RoomInfoController.swift */; };
+		4EB082E6244B1136004F0696 /* RoomInfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB082E5244B1136004F0696 /* RoomInfoCoordinator.swift */; };
+		4EB082E8244B26B7004F0696 /* RoomInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB082E7244B26B7004F0696 /* RoomInfoViewModel.swift */; };
+		4EB082EA244B2DA5004F0696 /* GitterApiLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB082E9244B2DA5004F0696 /* GitterApiLinks.swift */; };
+		4EB082ED244B35E5004F0696 /* RoomInfoGeneralInfoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB082EC244B35E5004F0696 /* RoomInfoGeneralInfoNode.swift */; };
+		4EB082EF244B4385004F0696 /* RoomInfoTopicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB082EE244B4385004F0696 /* RoomInfoTopicNode.swift */; };
 		4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */; };
 		4EB3FBFE24298E7A00F3BF88 /* HomeSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FBFD24298E7A00F3BF88 /* HomeSearchController.swift */; };
 		4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FC00242991AC00F3BF88 /* SuggestedRoomsNode.swift */; };
@@ -248,6 +254,12 @@
 		4E9D1833242003C60066362D /* MessagesEventSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesEventSchema.swift; sourceTree = "<group>"; };
 		4E9D18362420C5240066362D /* BasicAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAudioController.swift; sourceTree = "<group>"; };
 		4EA628B3242B87480034E66E /* SuggestedRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedRoomCoordinator.swift; sourceTree = "<group>"; };
+		4EB082E3244B10DD004F0696 /* RoomInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoController.swift; sourceTree = "<group>"; };
+		4EB082E5244B1136004F0696 /* RoomInfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoCoordinator.swift; sourceTree = "<group>"; };
+		4EB082E7244B26B7004F0696 /* RoomInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoViewModel.swift; sourceTree = "<group>"; };
+		4EB082E9244B2DA5004F0696 /* GitterApiLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterApiLinks.swift; sourceTree = "<group>"; };
+		4EB082EC244B35E5004F0696 /* RoomInfoGeneralInfoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoGeneralInfoNode.swift; sourceTree = "<group>"; };
+		4EB082EE244B4385004F0696 /* RoomInfoTopicNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoTopicNode.swift; sourceTree = "<group>"; };
 		4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatBaseViewController.swift; sourceTree = "<group>"; };
 		4EB3FBFD24298E7A00F3BF88 /* HomeSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchController.swift; sourceTree = "<group>"; };
 		4EB3FC00242991AC00F3BF88 /* SuggestedRoomsNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedRoomsNode.swift; sourceTree = "<group>"; };
@@ -404,6 +416,7 @@
 		4E09AC15240D80F50028229C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4EB082E2244B10C7004F0696 /* RoomInfo */,
 				4E4F7D5A2443A27F009287D8 /* CreateRoom */,
 				4EC70C7A243FA5E70063F323 /* Profile */,
 				4EB3FBFF2429919200F3BF88 /* SuggestedRooms */,
@@ -527,6 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				4E09AC46240EA3560028229C /* GitterApi.swift */,
+				4EB082E9244B2DA5004F0696 /* GitterApiLinks.swift */,
 				4E09AC4D240EAADB0028229C /* HttpClient.swift */,
 			);
 			path = Networking;
@@ -817,6 +831,26 @@
 				4E9D18362420C5240066362D /* BasicAudioController.swift */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		4EB082E2244B10C7004F0696 /* RoomInfo */ = {
+			isa = PBXGroup;
+			children = (
+				4EB082EB244B35D2004F0696 /* cells */,
+				4EB082E7244B26B7004F0696 /* RoomInfoViewModel.swift */,
+				4EB082E3244B10DD004F0696 /* RoomInfoController.swift */,
+				4EB082E5244B1136004F0696 /* RoomInfoCoordinator.swift */,
+			);
+			path = RoomInfo;
+			sourceTree = "<group>";
+		};
+		4EB082EB244B35D2004F0696 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				4EB082EC244B35E5004F0696 /* RoomInfoGeneralInfoNode.swift */,
+				4EB082EE244B4385004F0696 /* RoomInfoTopicNode.swift */,
+			);
+			path = cells;
 			sourceTree = "<group>";
 		};
 		4EB3FBFF2429919200F3BF88 /* SuggestedRooms */ = {
@@ -1185,6 +1219,7 @@
 				4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */,
 				4E9D17AC241E46810066362D /* FayeWrapper.m in Sources */,
 				4E09ABE7240D7FA70028229C /* LoginAuthViewController.swift in Sources */,
+				4EB082EF244B4385004F0696 /* RoomInfoTopicNode.swift in Sources */,
 				4EB3FBFC2429890300F3BF88 /* RoomChatBaseViewController.swift in Sources */,
 				4ED539A32431332C000874F3 /* SuccessSchema.swift in Sources */,
 				4ED53993242BB7A7000874F3 /* SettingsViewModel.swift in Sources */,
@@ -1204,6 +1239,7 @@
 				4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */,
 				4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */,
 				4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */,
+				4EB082E8244B26B7004F0696 /* RoomInfoViewModel.swift in Sources */,
 				4E09AC44240E9C050028229C /* AppSettingsSecret.swift in Sources */,
 				4E9D17B9241E8FAD0066362D /* RoomChatViewController.swift in Sources */,
 				4EC70C81243FA8D80063F323 /* SettingsCache.swift in Sources */,
@@ -1233,11 +1269,14 @@
 				4EC70C72243DC4A20063F323 /* UserChatCoordinator.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E4F7D7524445F31009287D8 /* CreateRoomRepoNodeCell.swift in Sources */,
+				4EB082ED244B35E5004F0696 /* RoomInfoGeneralInfoNode.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
+				4EB082EA244B2DA5004F0696 /* GitterApiLinks.swift in Sources */,
 				4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */,
 				4E09AC5A240EE5FE0028229C /* MainTabBarCoordinator.swift in Sources */,
 				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
 				4EC70C6E243DC4910063F323 /* UserChatViewModel.swift in Sources */,
+				4EB082E6244B1136004F0696 /* RoomInfoCoordinator.swift in Sources */,
 				4E4F7D732444594C009287D8 /* TextFieldNodeCell.swift in Sources */,
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
@@ -1257,6 +1296,7 @@
 				4E9D17BB241E8FB80066362D /* RoomChatViewModel.swift in Sources */,
 				4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */,
 				4E9D17A4241E42A60066362D /* ObjectiveResourceDateFormatter.m in Sources */,
+				4EB082E4244B10DD004F0696 /* RoomInfoController.swift in Sources */,
 				4E1656B9242654AF00C56FC7 /* RoomTableNode.swift in Sources */,
 				4E09AC23240D82B30028229C /* Storyboarded.swift in Sources */,
 				4E09AC5E240EE66F0028229C /* RoomsCoordinator.swift in Sources */,
@@ -1447,7 +1487,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;
@@ -1472,7 +1512,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;
