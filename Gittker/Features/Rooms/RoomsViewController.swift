@@ -97,9 +97,12 @@ class RoomsViewController: ASViewController<ASTableNode> {
     
     // Objc Action
     @objc func reloadRooms(_ sender: Any) {
-        self.viewModel.fetchRooms()
-        if refreshControl.isRefreshing {
-            refreshControl.endRefreshing()
+        self.viewModel.fetchRooms() { [weak self] in
+            guard let self = self else { return }
+            
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
+            }
         }
     }
     
@@ -151,20 +154,20 @@ extension RoomsViewController {
         if let index = viewModel.dataSource?.data.value.firstIndex(where: { (roomSchema) -> Bool in
             room.id == roomSchema.id
         }) {
-            
-            if let newLastAccessTime = room.lastAccessTime {
-                self.viewModel.dataSource?.data.value[index].lastAccessTime = newLastAccessTime
-                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-            }
-                        
-            if let newUnreadedItems = room.unreadItems {
-                self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
-                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-            }
-            
-            if let newTopic = room.topic {
-                self.viewModel.dataSource?.data.value[index].topic = newTopic
-                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            ASPerformBlockOnMainThread {
+                self.tableNode.performBatch(animated: true, updates: {
+                    print(room)
+                    
+                    if let newUnreadedItems = room.unreadItems {
+                        self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
+                        self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    }
+                    
+                    if let newTopic = room.topic {
+                        self.viewModel.dataSource?.data.value[index].topic = newTopic
+                        self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    }
+                }, completion: nil)
             }
         }
     }
