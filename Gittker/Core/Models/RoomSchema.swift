@@ -84,16 +84,16 @@ public struct RoomSchema: Codable, Equatable {
 
 // MARK: - Sorting Array
 extension Array where Element == RoomSchema {
-    func sortByUnreadAndLastAccess() -> [RoomSchema] {
+    func sortByUnreadAndFavourite() -> [RoomSchema] {
         let rooms = self.sorted { (a, b) -> Bool in
+            if a.favourite != nil {
+                return true
+            }
+            
             if let a = a.unreadItems, let b = b.unreadItems {
                 if a > 0 || b > 0 {
                     return a > b
                 }
-            }
-            
-            if let a = a.getLastAccessDate(), let b = b.getLastAccessDate() {
-                return a > b
             }
             
             return false

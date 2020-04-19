@@ -20,14 +20,14 @@ class PeopleViewModel {
     func fetchRooms() {
         CachedPeopleLoader.init(cacheKey: Config.CacheKeys.peopleKey)
             .fetchNewAndCache { (rooms) in
-                self.dataSource?.data.value = rooms.filterByPeople().sortByUnreadAndLastAccess()
+                self.dataSource?.data.value = rooms.filterByPeople().sortByUnreadAndFavourite()
         }
     }
     
     func fetchRoomsCached() {
         CachedPeopleLoader.init(cacheKey: Config.CacheKeys.peopleKey)
             .fetchData { (rooms) in
-                self.dataSource?.data.value = rooms.filterByPeople().sortByUnreadAndLastAccess()
+                self.dataSource?.data.value = rooms.filterByPeople().sortByUnreadAndFavourite()
         }
     }
     

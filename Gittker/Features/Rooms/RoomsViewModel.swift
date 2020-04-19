@@ -17,17 +17,18 @@ class RoomsViewModel {
         self.dataSource = dataSource
     }
     
-    func fetchRooms() {
+    func fetchRooms(completion: @escaping () -> Void) {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
-            .fetchNewAndCache { (rooms) in
-                self.dataSource?.data.value = rooms.filterByChats().sortByUnreadAndLastAccess()
+            .fetchNewAndCache { (rooms) in // fetch new here and cache
+                self.dataSource?.data.value = rooms.filterByChats().sortByUnreadAndFavourite()
+                completion()
         }
     }
     
     func fetchRoomsCached() {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
-            .fetchData { (rooms) in
-                self.dataSource?.data.value = rooms.filterByChats().sortByUnreadAndLastAccess()
+            .fetchData { (rooms) in // return cached values first, then from networking
+                self.dataSource?.data.value = rooms.filterByChats().sortByUnreadAndFavourite()
         }
     }
     
