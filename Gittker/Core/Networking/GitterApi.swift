@@ -313,6 +313,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
+                print(data.prettyPrintedJSONString)
                 guard let room = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                 completion(room)
             default: break
@@ -328,7 +329,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { return }
+                guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                 completion(decoded)
             default: break
             }
@@ -347,7 +348,7 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { return }
+                guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                 completion(type)
             default: break
             }

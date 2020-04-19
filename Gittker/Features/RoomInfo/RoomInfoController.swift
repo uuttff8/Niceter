@@ -18,14 +18,15 @@ class RoomInfoController: ASViewController<ASTableNode> {
         return node
     }
     
-    init(coordinator: RoomInfoCoordinator, roomSchema: RoomSchema) {
+    init(coordinator: RoomInfoCoordinator, roomSchema: RoomSchema, prefetchedUsers: [UserSchema]) {
         self.coordinator = coordinator
         self.roomSchema = roomSchema
-        self.viewModel = RoomInfoViewModel(roomSchema: roomSchema)
+        self.viewModel = RoomInfoViewModel(coordinator: coordinator,
+                                           roomSchema: roomSchema,
+                                           prefetchedUsers: prefetchedUsers)
         super.init(node: ASTableNode(style: .grouped))
         
         self.tableNode.view.separatorStyle = .none
-        self.tableNode.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.tableNode.delegate = viewModel
         self.tableNode.dataSource = viewModel
     }
@@ -37,5 +38,11 @@ class RoomInfoController: ASViewController<ASTableNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = roomSchema.name
+        
+        self.viewModel.roomSchemaPeople.addAndNotify(observer: self) {
+//            self.tableNode.reloadData()
+        }
+        
+        self.viewModel.loadMorePeople()
     }
 }

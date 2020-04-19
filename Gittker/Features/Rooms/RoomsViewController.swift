@@ -156,8 +156,6 @@ extension RoomsViewController {
         }) {
             ASPerformBlockOnMainThread {
                 self.tableNode.performBatch(animated: true, updates: {
-                    print(room)
-                    
                     if let newUnreadedItems = room.unreadItems {
                         self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)

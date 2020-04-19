@@ -52,7 +52,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     }
     
     override func onAvatarTapped() {
-        coordinator.showRoomScreen(roomSchema: self.roomSchema)
+        coordinator.showRoomInfoScreen(roomSchema: self.roomSchema, prefetchedUsers: self.viewModel.roomUsersIn)
     }
     
     override func subscribeOnMessagesEvent() {
@@ -137,6 +137,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.prefetchRoomUsers()
         title = roomSchema.name
         if !isJoined {
             showJoinButton()
