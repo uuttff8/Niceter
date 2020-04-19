@@ -47,7 +47,9 @@ class CreateRoomViewModel {
             }
             
             let ownedCommunities = TableGroupedCreateRoomSection(section: .ownedCommunities,
-                                                                 items: owned, footer: "", grouped: true)
+                                                                 items: owned,
+                                                                 footer: "You must select a community for your room",
+                                                                 grouped: true)
             self.dataSource?.data.value.append(ownedCommunities)
         }
     }

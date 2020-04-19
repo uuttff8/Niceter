@@ -15,6 +15,8 @@ class RoomChatViewModel {
     private var messagesListInfo: [RoomRecreateSchema]?
     private lazy var cachedMessageLoader = CachedRoomMessagesLoader(cacheKey: self.roomSchema.id)
     
+    var roomUsersIn = [UserSchema]()
+    
     init(roomSchema: RoomSchema) {
         self.roomSchema = roomSchema
     }
@@ -62,7 +64,13 @@ class RoomChatViewModel {
     }
     
     func deleteMessage(messageId: String, completion: @escaping (SuccessSchema) -> Void) {
-        GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (successSchema) in }
+        GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (_) in }
+    }
+    
+    func prefetchRoomUsers() {
+        GitterApi.shared.listUsersInRoom(roomId: roomSchema.id, skip: 0) { (userSchema) in
+            self.roomUsersIn = userSchema
+        }
     }
     
     func addNewMessageToCache(message: GittkerMessage) {

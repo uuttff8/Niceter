@@ -36,8 +36,10 @@ class RoomChatCoordinator: Coordinator {
         coord.start()
     }
     
-    func showRoomScreen(roomSchema: RoomSchema) {
-        let coord = RoomInfoCoordinator(with: self.navigationController!, roomSchema: roomSchema)
+    func showRoomInfoScreen(roomSchema: RoomSchema, prefetchedUsers: [UserSchema]) {
+        let coord = RoomInfoCoordinator(with: self.navigationController!,
+                                        roomSchema: roomSchema,
+                                        prefetchedUsers: prefetchedUsers)
         self.childCoordinators.append(coord)
         coord.start()
     }

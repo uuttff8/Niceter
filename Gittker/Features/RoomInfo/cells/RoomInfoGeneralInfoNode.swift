@@ -17,6 +17,7 @@ class RoomInfoGeneralInfoNode: ASCellNode {
     
     private let imageNode = ASNetworkImageNode()
     private let titleNode = ASTextNode()
+    private let separatorNode = ASDisplayNode()
     
     // MARK: - Object life cycle
     
@@ -53,12 +54,22 @@ class RoomInfoGeneralInfoNode: ASCellNode {
     
     // MARK: - Build node hierarchy
     private func buildNodeHierarchy() {
-        [imageNode, titleNode].forEach { (node) in
+        [imageNode, titleNode, separatorNode].forEach { (node) in
             self.addSubnode(node)
         }
     }
     
     // Layout
+    override func layout() {
+        super.layout()
+        let separatorHeight = 1 / UIScreen.main.scale
+        self.separatorNode.frame = CGRect(x: 0.0,
+                                          y: self.calculatedSize.height - 0.5,
+                                          width: self.calculatedSize.width,
+                                          height: separatorHeight)
+        self.separatorNode.backgroundColor = UIColor.separator
+    }
+    
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.titleNode.style.flexShrink = 1
         
