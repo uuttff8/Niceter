@@ -191,6 +191,7 @@ extension GitterApi {
     func createRoom(
         groupId: String,
         roomName: String,
+        topic: String?,
         securityPrivate: Bool,
         privateMembers: Bool,
         completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void)
@@ -209,19 +210,21 @@ extension GitterApi {
         }
         
         
-        let securityJson: [String: AnyHashable] =
-            [
-                "type": typeValue ?? NSNull() as AnyHashable,
-                "linkPath": NSNull(),
-                "security": "\(securityValue)"
+        let securityJson: [String: AnyHashable] = [
+            "type": typeValue ?? NSNull() as AnyHashable,
+            "linkPath": NSNull(),
+            "security": "\(securityValue)"
         ]
         
-        let bodyJson: [String: AnyHashable] =
-            [
-                "name": "\(roomName)",
-                "security": securityJson,
-                "addBadge": true
+        var bodyJson: [String: AnyHashable] = [
+            "name": "\(roomName)",
+            "security": securityJson,
+            "addBadge": true
         ]
+        
+        if let topic = topic {
+            bodyJson["topic"] = topic
+        }
         
         createRoomRequest(url: GitterApiLinks.createRoom(groupId), body: bodyJson) { (res) in
             completion(res)

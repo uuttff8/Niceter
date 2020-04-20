@@ -9,21 +9,24 @@
 import AsyncDisplayKit
 
 class RoomInfoViewModel: NSObject {
+    var updateTableNode: ((_ newList: [UserSchema]) -> Void)? = nil
+    
     weak var coordinator: RoomInfoCoordinator?
     
     let roomSchema: RoomSchema
-    let roomSchemaPeople = DynamicValue<[UserSchema]>([])
+    var roomSchemaPeople = [UserSchema]()
     
     init(coordinator: RoomInfoCoordinator, roomSchema: RoomSchema, prefetchedUsers: [UserSchema]) {
         self.coordinator = coordinator
         self.roomSchema = roomSchema
-        self.roomSchemaPeople.value = prefetchedUsers
+        self.roomSchemaPeople = prefetchedUsers
         super.init()
     }
     
     func loadMorePeople() {
-        GitterApi.shared.listUsersInRoom(roomId: roomSchema.id, skip: roomSchemaPeople.value.count) { userSchemaList in
-            self.roomSchemaPeople.value = userSchemaList
+        GitterApi.shared.listUsersInRoom(roomId: roomSchema.id, skip: roomSchemaPeople.count) { userSchemaList in
+            self.roomSchemaPeople.insert(contentsOf: userSchemaList, at: self.roomSchemaPeople.count - 1)
+            self.updateTableNode?(userSchemaList)
         }
     }
 }
@@ -36,7 +39,7 @@ extension RoomInfoViewModel: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         switch RoomInfoSection.allCases[section] {
-        case .peopleIn: return self.roomSchemaPeople.value.count
+        case .peopleIn: return self.roomSchemaPeople.count
         default: return 1
         }
     }
@@ -53,7 +56,7 @@ extension RoomInfoViewModel: ASTableDelegate, ASTableDataSource {
                 
                 return RoomInfoTopicNode(with: topic)
             case .peopleIn:
-                let user = self.roomSchemaPeople.value[indexPath.row]
+                let user = self.roomSchemaPeople[indexPath.row]
                 return RoomInfoUserInNode(with: RoomInfoUserInNode.Content(title: user.displayName ?? "",
                                                                            image: user.avatarURLSmall ?? ""))
             }
@@ -67,7 +70,7 @@ extension RoomInfoViewModel: ASTableDelegate, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         switch RoomInfoSection.allCases[indexPath.section] {
         case .peopleIn:
-            let user = self.roomSchemaPeople.value[indexPath.row]
+            let user = self.roomSchemaPeople[indexPath.row]
             // Safety: if we have user in room, then we of course have a username
             self.coordinator?.showProfileScreen(username: user.username!)
         default: break

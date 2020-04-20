@@ -39,8 +39,18 @@ class RoomInfoController: ASViewController<ASTableNode> {
         super.viewDidLoad()
         title = roomSchema.name
         
-        self.viewModel.roomSchemaPeople.addAndNotify(observer: self) {
-//            self.tableNode.reloadData()
+                
+        self.viewModel.updateTableNode = { [unowned self] newList in
+            
+            let newIndexpaths =
+                Array(((self.viewModel.roomSchemaPeople.count - 1) - (newList.count - 1) - 1) ..< self.viewModel.roomSchemaPeople.count - 1)
+                    .map { (index) in
+                        IndexPath(row: index, section: 2)
+            }
+            
+            self.tableNode.performBatchUpdates({
+                self.tableNode.insertRows(at: newIndexpaths, with: .automatic)
+            }, completion: nil)
         }
         
         self.viewModel.loadMorePeople()

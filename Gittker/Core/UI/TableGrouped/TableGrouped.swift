@@ -35,6 +35,7 @@ enum TableGroupedType: String {
     case privateMembers
     case ownedCommunities = "OWNED COMMUNITIES"
     case enterName
+    case enterTopic
 }
 
 // MARK: - ItemProtocols
