@@ -59,7 +59,7 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
             
             switch section {
             case .enterName:
-                let content = TextFieldNodeCell.Content(defaultText: nil)
+                let content = TextFieldNodeCell.Content(placeholder: nil, defaultText: nil, height: nil)
                 let cell = TextFieldNodeCell(with: content, delegate: self)
                 returnCell = cell
                 

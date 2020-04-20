@@ -9,8 +9,11 @@
 import AsyncDisplayKit
 
 class TextFieldNodeCell: ASCellNode {
+    /// if height is nil, then it is 1 line textfield
     struct Content {
-        var defaultText: String?
+        let placeholder: String?
+        let defaultText: String?
+        let height: CGFloat?
     }
     
     let textFieldNode = ASEditableTextNode()
@@ -21,21 +24,35 @@ class TextFieldNodeCell: ASCellNode {
         self.content = content
         
         super.init()
-        self.setupSwitchNode()
+        self.setupTextFieldNode()
         self.buildNodeHierarchy()
         self.selectionStyle = .none
         self.textFieldNode.delegate = delegate
     }
     
     // Internal Setup
-    private func setupSwitchNode() {
-        textFieldNode.attributedPlaceholderText = NSAttributedString(string: "Enter room name", attributes: textFieldPlaceholderAttributes)
+    private func setupTextFieldNode() {
+        // placeholder
+        if let placeholder = content.placeholder {
+            textFieldNode.attributedPlaceholderText = NSAttributedString(string: placeholder,
+                                                                         attributes: textFieldPlaceholderAttributes)
+        }
+        
+        // default text
+        if let text = content.defaultText {
+            textFieldNode.attributedText = NSAttributedString(string: text,
+                                                              attributes: textFieldTextAttributes)
+        }
+        
+        // when typing
         textFieldNode.typingAttributes = [NSAttributedString.Key.foregroundColor.rawValue: UIColor.label,
                                           NSAttributedString.Key.font.rawValue: UIFont.systemFont(ofSize: 16)]
-        if let text = content.defaultText {
-            textFieldNode.attributedText = NSAttributedString(string: text, attributes: textFieldTextAttributes)
+        
+        if let height = content.height {
+            textFieldNode.style.preferredSize.height = height
+        } else {
+            textFieldNode.maximumLinesToDisplay = 1
         }
-        textFieldNode.maximumLinesToDisplay = 1
     }
     
     private var textFieldTextAttributes = {

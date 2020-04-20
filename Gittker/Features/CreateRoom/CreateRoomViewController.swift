@@ -76,6 +76,7 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
         sender.isEnabled = false
         
         self.viewModel.createRoom(roomName: text,
+                                  topic: self.tableDelegates.topicDescription,
                                   community: community,
                                   securityPrivate: self.tableDelegates.isPrivateSwitchActive,
                                   privateMembers:  self.tableDelegates.isPrivateMemberSwitchActive)

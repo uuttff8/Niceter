@@ -128,10 +128,26 @@ class ProfileMainNodeCell: ASCellNode {
     
     // MARK: - Build node hierarchy
     private func buildNodeHierarchy() {
-        [imageNode, titleNode, separatorNode, subtitleNode, gitInfoNode,
-         locationNode, emailNode, linkNode, companyNode].forEach { (node) in
+        [imageNode, titleNode, separatorNode, subtitleNode, gitInfoNode,].forEach { (node) in
             self.addSubnode(node)
         }
+        
+        #warning("Delete nodes if values is nil")
+//        if let _ = self.content?.location {
+            self.addSubnode(locationNode)
+//        }
+        
+//        if let _ = self.content?.email {
+            self.addSubnode(emailNode)
+//        }
+        
+//        if let _ = self.content?.website {
+            self.addSubnode(linkNode)
+//        }
+        
+//        if let _ = self.content?.company {
+            self.addSubnode(companyNode)
+//        }
     }
     
     // MARK: - Layout
