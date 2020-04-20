@@ -56,7 +56,7 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
         let doneButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(doneButtonAction(_:)))
         navigationItem.rightBarButtonItem = doneButton
     }
-        
+    
     @objc private func doneButtonAction(_ sender: UIBarButtonItem) {
         guard let community = self.tableDelegates.selectedCommunity else {
             self.showOkAlert(config: .init(title: "Please, specify community", subtitle: nil))

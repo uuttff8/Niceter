@@ -51,7 +51,6 @@ extension ProfileViewController: ASTableDataSource {
             
             CachedUserLoader.init(cacheKey: self.username)
                 .fetchData { (user) in
-                    print(user)
                     cell.configureCell(with: user)
             }
             

@@ -65,6 +65,9 @@ struct Config {
         static let peopleKey = "GittkerPeopleCache"
         static let roomsChatKey = "GittkerRoomChat"
         static let suggestedRoomsKey = "GittkerSuggestedRoomsKey"
+        static func roomUsers(roomId: String) -> String {
+            return "cached-roomUsers-\(roomId)"
+        }
     }
     
     struct Orientation {

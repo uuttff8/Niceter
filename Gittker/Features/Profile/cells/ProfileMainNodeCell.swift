@@ -128,26 +128,10 @@ class ProfileMainNodeCell: ASCellNode {
     
     // MARK: - Build node hierarchy
     private func buildNodeHierarchy() {
-        [imageNode, titleNode, separatorNode, subtitleNode, gitInfoNode,].forEach { (node) in
+        [imageNode, titleNode, separatorNode, subtitleNode, gitInfoNode,
+            locationNode, emailNode, linkNode, companyNode].forEach { (node) in
             self.addSubnode(node)
         }
-        
-        #warning("Delete nodes if values is nil")
-//        if let _ = self.content?.location {
-            self.addSubnode(locationNode)
-//        }
-        
-//        if let _ = self.content?.email {
-            self.addSubnode(emailNode)
-//        }
-        
-//        if let _ = self.content?.website {
-            self.addSubnode(linkNode)
-//        }
-        
-//        if let _ = self.content?.company {
-            self.addSubnode(companyNode)
-//        }
     }
     
     // MARK: - Layout
@@ -162,19 +146,36 @@ class ProfileMainNodeCell: ASCellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.titleNode.style.flexShrink = 1
         
+        var verticalItems: [ASDisplayNode] = [self.titleNode, self.subtitleNode, self.gitInfoNode]
+        
+        if let _ = self.content?.location {
+            verticalItems.append(locationNode)
+        }
+        
+        if let _ = self.content?.email {
+            verticalItems.append(emailNode)
+        }
+        
+        if let _ = self.content?.website {
+            verticalItems.append(linkNode)
+        }
+        
+        if let _ = self.content?.company {
+            verticalItems.append(companyNode)
+        }
+        
         let infoSpec = ASStackLayoutSpec(direction: .vertical,
                                          spacing: 5,
                                          justifyContent: .start,
                                          alignItems: .start,
-                                         children:
-            [self.titleNode, self.subtitleNode, self.gitInfoNode, self.locationNode, self.emailNode, linkNode, companyNode]
-        )
+                                         children:  verticalItems)
         
         let finalSpec = ASStackLayoutSpec(direction: .horizontal,
                                           spacing: 10.0,
                                           justifyContent: .start,
                                           alignItems: .start,
                                           children: [self.imageNode, infoSpec])
+        print(finalSpec.asciiArtString())
         
         return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0), child: finalSpec)
     }

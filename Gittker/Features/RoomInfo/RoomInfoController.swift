@@ -13,6 +13,7 @@ class RoomInfoController: ASViewController<ASTableNode> {
     let viewModel: RoomInfoViewModel
     
     private let roomSchema: RoomSchema
+    private let prefetchedUsers: [UserSchema]
     
     private var tableNode: ASTableNode {
         return node
@@ -21,6 +22,7 @@ class RoomInfoController: ASViewController<ASTableNode> {
     init(coordinator: RoomInfoCoordinator, roomSchema: RoomSchema, prefetchedUsers: [UserSchema]) {
         self.coordinator = coordinator
         self.roomSchema = roomSchema
+        self.prefetchedUsers = prefetchedUsers
         self.viewModel = RoomInfoViewModel(coordinator: coordinator,
                                            roomSchema: roomSchema,
                                            prefetchedUsers: prefetchedUsers)
@@ -39,9 +41,8 @@ class RoomInfoController: ASViewController<ASTableNode> {
         super.viewDidLoad()
         title = roomSchema.name
         
-                
-        self.viewModel.updateTableNode = { [unowned self] newList in
-            
+        
+        self.viewModel.updateTableNode = { [unowned self] (newList) in
             let newIndexpaths =
                 Array(((self.viewModel.roomSchemaPeople.count - 1) - (newList.count - 1) - 1) ..< self.viewModel.roomSchemaPeople.count - 1)
                     .map { (index) in
@@ -53,6 +54,36 @@ class RoomInfoController: ASViewController<ASTableNode> {
             }, completion: nil)
         }
         
-        self.viewModel.loadMorePeople()
+        setupTableNodeData(prefetchedUsers: self.prefetchedUsers) {
+            self.viewModel.loadMorePeople()
+        }
+    }
+    
+    private func setupTableNodeData(prefetchedUsers: [UserSchema], completion: @escaping (() -> Void)) {
+        // if no data from room chat was loaded, then load it (first 30)
+        if prefetchedUsers.isEmpty {
+            CachedPrefetchRoomUsers(cacheKey: Config.CacheKeys.roomUsers(roomId: self.roomSchema.id), roomId: self.roomSchema.id)
+                .fetchNewAndCache { (usersSchema) in
+                    self.viewModel.roomSchemaPeople = usersSchema
+                    self.loadFirstElementsFromNet(newUsers: usersSchema)
+                    
+                    // if loaded users less than, it is bad idea to load more users
+                    if usersSchema.count >= 30 {
+                        completion()
+                    }
+            }
+        } else { // else loading new people
+            completion()
+        }
+    }
+    
+    private func loadFirstElementsFromNet(newUsers: [UserSchema]) {
+        let newIndexpaths = Array(0 ..< newUsers.count) .map { (index) in
+            IndexPath(row: index, section: 2)
+        }
+        
+        self.tableNode.performBatchUpdates({
+            self.tableNode.insertRows(at: newIndexpaths, with: .automatic)
+        }, completion: nil)
     }
 }
