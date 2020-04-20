@@ -128,7 +128,7 @@ extension GitterApi {
 
 // MARK: - Rooms
 extension GitterApi {
-    func getRooms(completion: @escaping ([RoomSchema]?) -> Void) {
+    func getRooms(completion: @escaping ([RoomSchema]) -> Void) {
         requestData(url: GitterApiLinks.rooms) { (data) in
             completion(data)
         }

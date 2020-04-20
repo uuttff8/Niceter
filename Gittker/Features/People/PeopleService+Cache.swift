@@ -42,17 +42,15 @@ class CachedPeopleLoader: CachedLoader {
         })
 
         GitterApi.shared.getRooms { (roomsSchema) in
-            guard let rooms = roomsSchema else { return }
-            self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { _ in })
-            handler(rooms)
+            self.storage?.async.setObject(roomsSchema, forKey: self.cacheKey, completion: { _ in })
+            handler(roomsSchema)
         }
     }
     
     func fetchNewAndCache(then handler: @escaping Handler) {
-        GitterApi.shared.getRooms { (roomSchemaList) in
-            guard let rooms = roomSchemaList else { return }
-            self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { (_) in })
-            handler(rooms)
+        GitterApi.shared.getRooms { (roomsSchema) in
+            self.storage?.async.setObject(roomsSchema, forKey: self.cacheKey, completion: { (_) in })
+            handler(roomsSchema)
         }
     }
 }

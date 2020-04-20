@@ -96,18 +96,63 @@ class CachedRoomLoader: CachedLoader {
         })
 
         GitterApi.shared.getRooms { (roomsSchema) in
-            guard let rooms = roomsSchema else { return }
-            self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { _ in
-                handler(rooms)
-            })
+            self.storage?.async.setObject(roomsSchema, forKey: self.cacheKey, completion: { _ in })
+            handler(roomsSchema)
         }
     }
     
     func fetchNewAndCache(then handler: @escaping Handler) {
-        GitterApi.shared.getRooms { (roomSchemaList) in
-            guard let rooms = roomSchemaList else { return }
-            try? self.storage?.setObject(rooms, forKey: self.cacheKey)
-            handler(rooms)
+        GitterApi.shared.getRooms { (roomsSchema) in
+            self.storage?.async.setObject(roomsSchema, forKey: self.cacheKey, completion: { (_) in })
+            handler(roomsSchema)
+        }
+    }
+}
+
+class CachedPrefetchRoomUsers: CachedLoader {
+    typealias Handler = ([UserSchema]) -> Void
+    typealias CodeType = [UserSchema]
+    
+    var diskConfig: DiskConfig
+    var memoryConfig: MemoryConfig
+    var storage: Storage<[UserSchema]>?
+    
+    var cacheKey: String
+    var roomId: String
+    
+    init(cacheKey: String, roomId: String) {
+        self.roomId = roomId
+        self.cacheKey = cacheKey
+        self.diskConfig = DiskConfig(name: self.cacheKey, expiry: .never)
+        self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
+        
+        self.storage = try? Storage<[UserSchema]>(
+            diskConfig: diskConfig,
+            memoryConfig: memoryConfig,
+            transformer: TransformerFactory.forCodable(ofType: [UserSchema].self)
+        )
+    }
+    
+    func fetchData(then handler: @escaping Handler) {
+        self.storage?.async.object(forKey: self.cacheKey, completion: { result in
+            switch result {
+              case .value(let users):
+                handler(users)
+              case .error(let error):
+                print(error)
+            }
+        })
+
+        GitterApi.shared.listUsersInRoom(roomId: roomId, skip: 0) { (usersSchema) in
+            self.storage?.async.setObject(usersSchema, forKey: self.cacheKey, completion: { _ in })
+            handler(usersSchema)
+        }
+    }
+    
+    func fetchNewAndCache(then handler: @escaping Handler) {
+        GitterApi.shared.listUsersInRoom(roomId: roomId, skip: 0) { (usersSchema) in
+            self.storage?.async.setObject(usersSchema, forKey: self.cacheKey, completion: { _ in })
+            handler(usersSchema)
         }
     }
 }

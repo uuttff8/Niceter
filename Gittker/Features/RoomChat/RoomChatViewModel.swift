@@ -68,8 +68,9 @@ class RoomChatViewModel {
     }
     
     func prefetchRoomUsers() {
-        GitterApi.shared.listUsersInRoom(roomId: roomSchema.id, skip: 0) { (userSchema) in
-            self.roomUsersIn = userSchema
+        CachedPrefetchRoomUsers(cacheKey: Config.CacheKeys.roomUsers(roomId: roomSchema.id), roomId: roomSchema.id)
+            .fetchData { (usersSchema) in
+                self.roomUsersIn = usersSchema
         }
     }
     
