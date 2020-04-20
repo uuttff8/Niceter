@@ -128,6 +128,10 @@ final class UserChatViewController: RoomChatBaseViewController {
         coordinator.showProfileScreen(username: message.message.user.username)
     }
     
+    override func onAvatarTapped() {
+        coordinator.showProfileScreen(username: roomSchema.getUsernameFromUrl())
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = roomSchema.name

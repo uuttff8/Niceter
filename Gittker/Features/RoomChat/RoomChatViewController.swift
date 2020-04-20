@@ -50,11 +50,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
             }
         }
     }
-    
-    override func onAvatarTapped() {
-        coordinator.showRoomInfoScreen(roomSchema: self.roomSchema, prefetchedUsers: self.viewModel.roomUsersIn)
-    }
-    
+        
     override func subscribeOnMessagesEvent() {
         fayeClient
             .subscribe(
@@ -133,6 +129,10 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     
     override func showProfileScreen(message: GittkerMessage) {
         coordinator.showProfileScreen(username: message.message.user.username)
+    }
+    
+    override func onAvatarTapped() {
+        coordinator.showRoomInfoScreen(roomSchema: self.roomSchema, prefetchedUsers: self.viewModel.roomUsersIn)
     }
     
     override func viewDidLoad() {
