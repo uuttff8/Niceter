@@ -54,7 +54,7 @@ public struct RoomSchema: Codable, Equatable {
         self.name = user.username
         self.topic = nil
         self.oneToOne = nil
-        self.uri = nil
+        self.uri = user.displayName
         self.mentions = nil
         self.public = nil
         self.groupId = nil
@@ -79,6 +79,11 @@ public struct RoomSchema: Codable, Equatable {
         dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let date = dateFormatter.date(from: lastAccessTime ?? "")
         return date
+    }
+    
+    func getUsernameFromUrl() -> String { // used in one-to-one
+        let username = self.url ?? ""
+        return username.replacingOccurrences(of: "/", with: "")
     }
 }
 

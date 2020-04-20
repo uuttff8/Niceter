@@ -175,7 +175,6 @@ class ProfileMainNodeCell: ASCellNode {
                                           justifyContent: .start,
                                           alignItems: .start,
                                           children: [self.imageNode, infoSpec])
-        print(finalSpec.asciiArtString())
         
         return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0), child: finalSpec)
     }
