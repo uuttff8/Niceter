@@ -13,6 +13,7 @@ class ProfileViewController: ASViewController<ASTableNode> {
     
     private var profileList = [UserSchema]()
     private var username: String
+    private var currentUser: UserSchema?
     
     private var tableNode: ASTableNode {
         return node
@@ -39,26 +40,69 @@ class ProfileViewController: ASViewController<ASTableNode> {
     }
 }
 
-extension ProfileViewController: ASTableDelegate {
+extension ProfileViewController: ASTableDataSource, ASTableDelegate {
+    func numberOfSections(in tableNode: ASTableNode) -> Int {
+        return ProfileTableSection.allCases.count
+    }
     
-}
-
-
-extension ProfileViewController: ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            let cell = ProfileMainNodeCell(with: nil)
+            let section = ProfileTableSection.allCases[indexPath.section]
             
-            CachedUserLoader.init(cacheKey: self.username)
-                .fetchData { (user) in
-                    cell.configureCell(with: user)
+            switch section {
+            case .info:
+                let cell = ProfileMainNodeCell(with: nil)
+                
+                CachedUserLoader.init(cacheKey: self.username)
+                    .fetchData { (user) in
+                        cell.configureCell(with: user)
+                        self.currentUser = user
+                }
+                
+                return cell
+            case .actions:
+                let cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: "Send a message"), state: .default)
+                return cell
             }
-            
-            return cell
         }
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
+    
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        let section = ProfileTableSection.allCases[indexPath.section]
+        
+        switch section {
+        case .actions:
+            tableNode.deselectRow(at: indexPath, animated: true)
+            
+            switch coordinator?.currentFlow {
+            case .fromSearch:
+                self.navigationController?.popViewController(animated: true)
+            case .fromChat:
+                guard var currentUser: UserSchema = currentUser else { return }
+                guard let users = ShareData().currentlyJoinedUsers else { return }
+                
+                var isJoined: Bool = false
+                
+                if let index = users.firstIndex(where: { $0.name == currentUser.displayName }) {
+                    isJoined = true
+                    currentUser.id = users[index].id // user id is not equal to room id
+                }
+                
+                print(currentUser.toRoomSchema())
+                coordinator?.showChat(roomSchema: currentUser.toRoomSchema(), isJoined: isJoined)
+                
+            default: break
+            }
+        default: break
+        }
+    }
+}
+
+private enum ProfileTableSection: CaseIterable {
+    case info
+    case actions
 }

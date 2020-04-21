@@ -49,7 +49,8 @@ class RoomsCoordinator: Coordinator {
         self.currentController?.view = SuggestedRoomsCoordinator(
             with: navigationController,
             rooms: rooms,
-            currentlyJoinedRooms: currentlyJoinedRooms
+            currentlyJoinedRooms: currentlyJoinedRooms,
+            flow: SuggestedRoomsCoordinator.SuggestedFlow.chat
         ).currentController?.view
     }
     

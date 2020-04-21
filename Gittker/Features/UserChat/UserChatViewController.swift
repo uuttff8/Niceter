@@ -10,7 +10,7 @@ import MessageKit
 
 final class UserChatViewController: RoomChatBaseViewController {
     var coordinator: UserChatCoordinator
-    private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
+    private lazy var viewModel = UserChatViewModel(roomSchema: roomSchema)
     
     private var fayeClient: FayeEventMessagesBinder
     
@@ -25,7 +25,7 @@ final class UserChatViewController: RoomChatBaseViewController {
         self.isJoined = isJoined
         self.fayeClient = FayeEventMessagesBinder(roomId: roomSchema.id)
         
-        super.init(rightBarImage: roomSchema.avatarUrl!)
+        super.init(rightBarImage: roomSchema.avatarUrl ?? "")
     }
     
     required init?(coder: NSCoder) {
@@ -103,7 +103,7 @@ final class UserChatViewController: RoomChatBaseViewController {
         }
     }
     
-    override func joinButtonHandlder() {
+    override func joinButtonHandlder() {        
         viewModel.joinToChat(userId: userdata.senderId, roomId: roomSchema.id) { (success) in
             super.configureMessageInputBarForChat()
         }

@@ -31,7 +31,7 @@ class RoomChatCoordinator: Coordinator {
     }
     
     func showProfileScreen(username: String) {
-        let coord = ProfileCoordinator(with: navigationController, username: username)
+        let coord = ProfileCoordinator(with: navigationController, username: username, flow: ProfileCoordinator.ProfileFlow.fromSearch)
         childCoordinators.append(coord)
         coord.start()
     }

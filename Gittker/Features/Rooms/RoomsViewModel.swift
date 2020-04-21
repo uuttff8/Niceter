@@ -20,7 +20,9 @@ class RoomsViewModel {
     func fetchRooms(completion: @escaping () -> Void) {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
             .fetchNewAndCache { (rooms) in // fetch new here and cache
-                self.dataSource?.data.value = rooms.filterByChats().sortByUnreadAndFavourite()
+                let filteredRooms = rooms.filterByChats().sortByUnreadAndFavourite()
+                self.dataSource?.data.value = filteredRooms
+                ShareData().currentlyJoinedChats = filteredRooms
                 completion()
         }
     }
@@ -28,7 +30,9 @@ class RoomsViewModel {
     func fetchRoomsCached() {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
             .fetchData { (rooms) in // return cached values first, then from networking
-                self.dataSource?.data.value = rooms.filterByChats().sortByUnreadAndFavourite()
+                let filteredRooms = rooms.filterByChats().sortByUnreadAndFavourite()
+                self.dataSource?.data.value = filteredRooms
+                ShareData().currentlyJoinedChats = filteredRooms
         }
     }
     

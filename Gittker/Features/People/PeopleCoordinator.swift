@@ -45,7 +45,8 @@ class PeopleCoordinator: Coordinator {
         self.currentController?.view = SuggestedRoomsCoordinator(
             with: navigationController,
             rooms: rooms?.convertToRoomSchema(),
-            currentlyJoinedRooms: currentlyJoinedRooms
+            currentlyJoinedRooms: currentlyJoinedRooms,
+            flow: SuggestedRoomsCoordinator.SuggestedFlow.user
         ).currentController?.view
     }
 }

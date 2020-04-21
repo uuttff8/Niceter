@@ -71,6 +71,14 @@ extension RoomInfoViewModel: ASTableDelegate, ASTableDataSource {
         switch RoomInfoSection.allCases[indexPath.section] {
         case .peopleIn:
             let user = self.roomSchemaPeople[indexPath.row]
+            
+            // dont select row if user is logined user
+            if let currentUser = ShareData.init().userdata {
+                if currentUser.id == user.id {
+                    return
+                }
+            }
+            
             // Safety: if we have user in room, then we of course have a username
             self.coordinator?.showProfileScreen(username: user.username!)
         default: break

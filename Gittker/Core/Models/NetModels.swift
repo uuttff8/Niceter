@@ -28,7 +28,7 @@ public struct ExchangeTokenSchema: Codable {
 
 @frozen
 public struct UserSchema: Codable, Hashable, Equatable {
-    let id: String
+    var id: String
     let username: String?
     let displayName, url: String?
     let website: String?
@@ -62,6 +62,10 @@ public struct UserSchema: Codable, Hashable, Equatable {
         }
         
         return nil
+    }
+    
+    func toRoomSchema() -> RoomSchema {
+        RoomSchema(from: self)
     }
 }
 

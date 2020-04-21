@@ -9,15 +9,22 @@
 import AsyncDisplayKit
 
 class ProfileCoordinator: Coordinator {
+    enum ProfileFlow {
+        case fromChat
+        case fromSearch
+    }
+    
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     var currentController: ProfileViewController?
     var username: String
+    var currentFlow: ProfileFlow
     
-    init(with navigationController: ASNavigationController?, username: String) {
+    init(with navigationController: ASNavigationController?, username: String, flow: ProfileFlow) {
         self.navigationController = navigationController
         self.username = username
+        self.currentFlow = flow
         
         currentController = ProfileViewController(coordinator: self, username: username)
         childCoordinators.append(self)
@@ -25,5 +32,12 @@ class ProfileCoordinator: Coordinator {
     
     func start() {
         self.navigationController?.pushViewController(currentController!, animated: true)
+    }
+    
+    func showChat(roomSchema: RoomSchema, isJoined: Bool) {
+        let coord = UserChatCoordinator(with: navigationController,
+                                        roomSchema: roomSchema,
+                                        isJoined: isJoined)
+        coord.start()
     }
 }
