@@ -122,6 +122,10 @@ extension PeopleViewController {
     private func insertRoom(with room: RoomSchema) {
         if checkIfOneToOne(room: room) { return }
         
+        guard var current = ShareData().currentlyJoinedUsers else { return }
+        current.append(room)
+        ShareData().currentlyJoinedUsers = current
+        
         self.viewModel.dataSource?.data.value.append(room)
         self.tableNode.performBatch(animated: true, updates: { [weak self] in
             if let counted = self?.viewModel.dataSource?.data.value.count {

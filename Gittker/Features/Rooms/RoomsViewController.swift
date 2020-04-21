@@ -140,6 +140,10 @@ extension RoomsViewController {
     private func insertRoom(with room: RoomSchema) {
         if !checkIfOneToOne(room: room) { return }
         
+        guard var current = ShareData().currentlyJoinedChats else { return }
+        current.append(room)
+        ShareData().currentlyJoinedChats = current
+        
         self.viewModel.dataSource?.data.value.append(room)
         self.tableNode.performBatch(animated: true, updates: { [weak self] in
             if let counted = self?.viewModel.dataSource?.data.value.count {

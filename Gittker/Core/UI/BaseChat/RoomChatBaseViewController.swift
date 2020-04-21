@@ -64,17 +64,19 @@ class RoomChatBaseViewController: ChatViewController {
                                                    target: self,
                                                    action: #selector(self.onAvatarTapped))
         
-        let request = ImageRequest(url: URL(string: rightBarImage)!, processors: [
-            ImageProcessor.Circle()
-        ])
-        
-        ImagePipeline.shared.loadImage(with: request) { result in
-            switch result {
-            case .success(let response):
-                DispatchQueue.main.async {
-                    self.rightImageBarButton?.image = response.image.withRenderingMode(.alwaysOriginal)
+        if let url = URL(string: rightBarImage) {
+            let request = ImageRequest(url: url, processors: [
+                ImageProcessor.Circle()
+            ])
+            
+            ImagePipeline.shared.loadImage(with: request) { result in
+                switch result {
+                case .success(let response):
+                    DispatchQueue.main.async {
+                        self.rightImageBarButton?.image = response.image.withRenderingMode(.alwaysOriginal)
+                    }
+                default: break
                 }
-            default: break
             }
         }
         

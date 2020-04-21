@@ -101,7 +101,10 @@ struct MockMessage: MessageType {
     init(text: String, user: MockUser, messageId: String, date: Date, unread: Bool) {
         self.init(kind: .text(text), user: user, messageId: messageId, date: date, unread: unread)
     }
-
+    
+    func toUserSchema() -> UserSchema {
+        UserSchema(id: self.messageId, username: self.user.username, displayName: self.user.displayName, url: nil, website: nil, avatarURL: nil, avatarURLSmall: nil, avatarURLMedium: nil, company: nil, location: nil, email: nil, github: nil, profile: nil, providers: nil, v: nil)
+    }
 //    init(attributedText: NSAttributedString, user: MockUser, messageId: String, date: Date, unread: Bool) {
 //        self.init(kind: .attributedText(attributedText), user: user, messageId: messageId, date: date, unread: unread)
 //    }

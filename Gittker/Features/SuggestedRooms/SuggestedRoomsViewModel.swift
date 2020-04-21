@@ -51,13 +51,25 @@ class SuggestedRoomsTableNodeDelegate: NSObject, ASTableDelegate {
     weak var coordinator: SuggestedRoomsCoordinator?
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        var room = dataSource[indexPath.item]
+
         var isJoined = false
-        
-        let room = dataSource[indexPath.item]
-        
-        if let _ = currentlyJoinedRooms.firstIndex(where: { $0.id == room.id }) {
-            isJoined = true
+        switch coordinator?.currentFlow {
+        case .chat:
+            
+            if let _ = currentlyJoinedRooms.firstIndex(where: { $0.id == room.id }) {
+                isJoined = true
+            }
+        case .user:
+            guard let users = ShareData().currentlyJoinedUsers else { return }
+            
+            if let index = users.firstIndex(where: { $0.url == room.url }) {
+                isJoined = true
+                room.id = users[index].id // user id is not equal to room id 
+            }
+        default: break
         }
+        
         
         coordinator?.showChat(roomSchema: room, isJoined: isJoined)
         

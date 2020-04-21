@@ -13,6 +13,8 @@ struct ShareDataConstants {
     static let accessToken = "access_token"
     static let userId = "userId"
     static let userdata = "userdata"
+    static let currentlyJoinedChats = "currentlyJoinedChats"
+    static let currentlyJoinedUsers = "currentlyJoinedUsers"
 }
 
 extension UserDefaults {

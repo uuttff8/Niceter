@@ -11,7 +11,7 @@ import Foundation
 // https://developer.gitter.im/docs/rooms-resource
 @frozen
 public struct RoomSchema: Codable, Equatable {
-    let id: String                       // Room ID.
+    var id: String                       // Room ID.
     let name: String?                    // Room name.
     var topic: String?                   // Room topic. (default: GitHub repo description)
     let avatarUrl: String?
@@ -62,7 +62,7 @@ public struct RoomSchema: Codable, Equatable {
         self.v = nil
         self.roomMember = nil
         self.tags = nil
-        self.url = nil
+        self.url = user.url
         self.lurk = nil
         self.favourite = nil
         self.lastAccessTime = nil

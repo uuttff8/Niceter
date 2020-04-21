@@ -25,5 +25,29 @@ class ShareData {
             userDefaults.set(data, forKey: ShareDataConstants.userdata)
         }
     }
+    
+    var currentlyJoinedUsers: [RoomSchema]? {
+        get {
+            guard let data = userDefaults.data(forKey: ShareDataConstants.currentlyJoinedUsers) else {
+                return nil
+            }
+            return try? JSONDecoder().decode([RoomSchema].self, from: data)
+        } set {
+            let data = try? JSONEncoder().encode(newValue)
+            userDefaults.set(data, forKey: ShareDataConstants.currentlyJoinedUsers)
+        }
+    }
+    
+    var currentlyJoinedChats: [RoomSchema]? {
+        get {
+            guard let data = userDefaults.data(forKey: ShareDataConstants.currentlyJoinedChats) else {
+                return nil
+            }
+            return try? JSONDecoder().decode([RoomSchema].self, from: data)
+        } set {
+            let data = try? JSONEncoder().encode(newValue)
+            userDefaults.set(data, forKey: ShareDataConstants.currentlyJoinedChats)
+        }
+    }
 }
 

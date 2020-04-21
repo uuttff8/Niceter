@@ -9,17 +9,22 @@
 import AsyncDisplayKit
 
 class SuggestedRoomsCoordinator: Coordinator {
-
+    enum SuggestedFlow {
+        case chat
+        case user
+    }
+    
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     var currentController: SuggestedRoomsNode?
-    
     var rooms: Array<RoomSchema>?
+    var currentFlow: SuggestedFlow
     
-    init(with navigationController: ASNavigationController?, rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema]) {
+    init(with navigationController: ASNavigationController?, rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema], flow: SuggestedFlow) {
         self.navigationController = navigationController
         self.rooms = rooms
+        self.currentFlow = flow
         
         currentController = SuggestedRoomsNode(rooms: rooms, coordinator: self, currentlyJoinedRooms: currentlyJoinedRooms)
         currentController?.coordinator = self
@@ -31,8 +36,15 @@ class SuggestedRoomsCoordinator: Coordinator {
     }
     
     func showChat(roomSchema: RoomSchema, isJoined: Bool) {
-        let coord = RoomChatCoordinator(with: navigationController, roomSchema: roomSchema, isJoined: isJoined)
-        coord.start()
+        switch currentFlow {
+        case .chat:
+            let coord = RoomChatCoordinator(with: navigationController, roomSchema: roomSchema, isJoined: isJoined)
+            childCoordinators.append(coord)
+            coord.start()
+        case .user:
+            let coord = UserChatCoordinator(with: navigationController, roomSchema: roomSchema, isJoined: isJoined)
+            childCoordinators.append(coord)
+            coord.start()
+        }
     }
 }
-
