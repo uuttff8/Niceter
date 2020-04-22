@@ -55,7 +55,7 @@ class RoomInfoController: ASViewController<ASTableNode> {
         }
         
         setupTableNodeData(prefetchedUsers: self.prefetchedUsers) {
-            self.viewModel.loadMorePeople()
+            self.viewModel.loadMorePeople() { }
         }
     }
     

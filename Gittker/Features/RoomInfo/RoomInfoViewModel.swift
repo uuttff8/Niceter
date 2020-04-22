@@ -16,6 +16,8 @@ class RoomInfoViewModel: NSObject {
     let roomSchema: RoomSchema
     var roomSchemaPeople = [UserSchema]()
     
+    private var isFetchingNewUsers: Bool = false
+    
     init(coordinator: RoomInfoCoordinator, roomSchema: RoomSchema, prefetchedUsers: [UserSchema]) {
         self.coordinator = coordinator
         self.roomSchema = roomSchema
@@ -23,10 +25,11 @@ class RoomInfoViewModel: NSObject {
         super.init()
     }
     
-    func loadMorePeople() {
+    func loadMorePeople(completion: @escaping () -> Void) {
         GitterApi.shared.listUsersInRoom(roomId: roomSchema.id, skip: roomSchemaPeople.count) { userSchemaList in
             self.roomSchemaPeople.insert(contentsOf: userSchemaList, at: self.roomSchemaPeople.count - 1)
             self.updateTableNode?(userSchemaList)
+            completion()
         }
     }
 }
@@ -82,6 +85,20 @@ extension RoomInfoViewModel: ASTableDelegate, ASTableDataSource {
             // Safety: if we have user in room, then we of course have a username
             self.coordinator?.showProfileScreen(username: user.username!)
         default: break
+        }
+    }
+    
+    func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+        guard let indexPathRow = node.indexPath?.row else { return }
+        
+        if indexPathRow >= roomSchemaPeople.count - 21 { // row 20 by the end
+            if !self.isFetchingNewUsers {
+                self.isFetchingNewUsers = true
+                
+                self.loadMorePeople() {
+                    self.isFetchingNewUsers = false
+                }
+            }
         }
     }
 }
