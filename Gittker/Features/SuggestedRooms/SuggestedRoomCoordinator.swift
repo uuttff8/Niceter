@@ -42,7 +42,7 @@ class SuggestedRoomsCoordinator: Coordinator {
             childCoordinators.append(coord)
             coord.start()
         case .user:
-            let coord = UserChatCoordinator(with: navigationController, roomSchema: roomSchema.toIntermediate(), isJoined: isJoined)
+            let coord = UserChatCoordinator(with: navigationController, roomSchema: roomSchema.toIntermediate(isUser: true), isJoined: isJoined)
             childCoordinators.append(coord)
             coord.start()
         }

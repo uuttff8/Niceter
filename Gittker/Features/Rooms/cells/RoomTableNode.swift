@@ -91,8 +91,14 @@ class RoomTableNode: ASCellNode {
     // MARK: - Build node hierarchy
     
     private func buildNodeHierarchy() {
-        [imageNode, titleNode, subtitleNode, unreadNode, unreadNodeText, separatorNode].forEach { (node) in
+        [imageNode, titleNode, subtitleNode, separatorNode].forEach { (node) in
             self.addSubnode(node)
+        }
+        
+        if room.unreadItems > 0 {
+            [unreadNode, unreadNodeText].forEach { (node) in
+                self.addSubnode(node)
+            }
         }
     }
     
@@ -123,12 +129,18 @@ class RoomTableNode: ASCellNode {
         let unreadOverlaySpec = ASOverlayLayoutSpec(child: self.unreadNode, overlay: unreadInsetSpec)
         let unreadStack = ASStackLayoutSpec(direction: .vertical, spacing: 5, justifyContent: .center, alignItems: .center, children: [unreadOverlaySpec])
         
+        let finalItems: [ASLayoutElement]
+        if room.unreadItems > 0 {
+            finalItems = [self.imageNode, titleSubtitleSpec, spacer, unreadStack]
+        } else {
+            finalItems = [self.imageNode, titleSubtitleSpec]
+        }
         
         let finalSpec = ASStackLayoutSpec(direction: .horizontal,
                                           spacing: 10.0,
                                           justifyContent: .start,
                                           alignItems: .stretch,
-                                          children: [self.imageNode, titleSubtitleSpec, spacer, unreadStack])
+                                          children: finalItems)
         
         return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 16.0), child: finalSpec)
     }

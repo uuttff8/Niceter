@@ -86,8 +86,11 @@ public struct RoomSchema: Codable, Equatable {
         return username.replacingOccurrences(of: "/", with: "")
     }
     
-    func toIntermediate() -> UserRoomIntermediate {
-        UserRoomIntermediate(id: self.id, name: self.name, avatarUrl: self.avatarUrl, uri: self.uri)
+    func toIntermediate(isUser: Bool) -> UserRoomIntermediate {
+        if isUser {
+            return UserRoomIntermediate(id: self.id, name: self.name, avatarUrl: self.avatarUrl, uri: self.url?.replacingOccurrences(of: "/", with: ""))
+        }
+        return UserRoomIntermediate(id: self.id, name: self.name, avatarUrl: self.avatarUrl, uri: self.uri)
     }
 }
 
