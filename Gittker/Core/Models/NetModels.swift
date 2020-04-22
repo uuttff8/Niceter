@@ -67,6 +67,10 @@ public struct UserSchema: Codable, Hashable, Equatable {
     func toRoomSchema() -> RoomSchema {
         RoomSchema(from: self)
     }
+    
+    func toIntermediate() -> UserRoomIntermediate {
+        UserRoomIntermediate(id: self.id, name: self.displayName, avatarUrl: self.avatarURL, uri: self.username)
+    }
 }
 
 extension Array where Element == UserSchema {

@@ -34,9 +34,9 @@ class ProfileCoordinator: Coordinator {
         self.navigationController?.pushViewController(currentController!, animated: true)
     }
     
-    func showChat(roomSchema: RoomSchema, isJoined: Bool) {
+    func showChat(intermediate: UserRoomIntermediate, isJoined: Bool) {
         let coord = UserChatCoordinator(with: navigationController,
-                                        roomSchema: roomSchema,
+                                        roomSchema: intermediate,
                                         isJoined: isJoined)
         coord.start()
     }

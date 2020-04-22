@@ -92,8 +92,9 @@ extension ProfileViewController: ASTableDataSource, ASTableDelegate {
                     currentUser.id = users[index].id // user id is not equal to room id
                 }
                 
-                print(currentUser.toRoomSchema())
-                coordinator?.showChat(roomSchema: currentUser.toRoomSchema(), isJoined: isJoined)
+                var intermediate = currentUser.toIntermediate()
+                intermediate.avatarUrl = self.currentUser?.getGitterImage()
+                coordinator?.showChat(intermediate: intermediate, isJoined: isJoined)
                 
             default: break
             }

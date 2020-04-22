@@ -124,6 +124,7 @@
 		4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE0CF872420DD42005BDE24 /* WebKit.framework */; };
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
+		4EE25D852450839E00055A5E /* RoomUserIntermediate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D842450839E00055A5E /* RoomUserIntermediate.swift */; };
 		4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedLoader.swift */; };
 		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
 		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
@@ -285,6 +286,7 @@
 		4EE0CF872420DD42005BDE24 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		4EE25D842450839E00055A5E /* RoomUserIntermediate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomUserIntermediate.swift; sourceTree = "<group>"; };
 		4EFC4FC1242250C500295EB1 /* CachedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedLoader.swift; sourceTree = "<group>"; };
 		4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerMessage.swift; sourceTree = "<group>"; };
 		4EFC4FC62423746200295EB1 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				4EC70C76243F2FA20063F323 /* ReportMessageSchema.swift */,
 				4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */,
 				4E4F7D7024445713009287D8 /* RepoSchema.swift */,
+				4EE25D842450839E00055A5E /* RoomUserIntermediate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1271,6 +1274,7 @@
 				4E2A7A1B2411792C0025F39C /* ShareData.swift in Sources */,
 				4EB3FC06242A72B400F3BF88 /* SuggestemRoomCellNode.swift in Sources */,
 				4EC70C72243DC4A20063F323 /* UserChatCoordinator.swift in Sources */,
+				4EE25D852450839E00055A5E /* RoomUserIntermediate.swift in Sources */,
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E4F7D7524445F31009287D8 /* CreateRoomRepoNodeCell.swift in Sources */,
 				4EB082ED244B35E5004F0696 /* RoomInfoGeneralInfoNode.swift in Sources */,
@@ -1491,7 +1495,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;
@@ -1516,7 +1520,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;
