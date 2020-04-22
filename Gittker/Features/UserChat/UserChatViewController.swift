@@ -10,22 +10,22 @@ import MessageKit
 
 final class UserChatViewController: RoomChatBaseViewController {
     var coordinator: UserChatCoordinator
-    private lazy var viewModel = UserChatViewModel(roomSchema: roomSchema)
+    private lazy var viewModel = UserChatViewModel(roomSchema: intermediate)
     
     private var fayeClient: FayeEventMessagesBinder
     
     private var isJoined: Bool
-    private var roomSchema: RoomSchema
+    private var intermediate: UserRoomIntermediate
     
     private var cached = 2
     
-    init(coordinator: UserChatCoordinator, roomSchema: RoomSchema, isJoined: Bool) {
+    init(coordinator: UserChatCoordinator, intermediate: UserRoomIntermediate, isJoined: Bool) {
         self.coordinator = coordinator
-        self.roomSchema = roomSchema
+        self.intermediate = intermediate
         self.isJoined = isJoined
-        self.fayeClient = FayeEventMessagesBinder(roomId: roomSchema.id)
+        self.fayeClient = FayeEventMessagesBinder(roomId: intermediate.id)
         
-        super.init(rightBarImage: roomSchema.avatarUrl ?? "")
+        super.init(rightBarImage: intermediate.avatarUrl ?? "")
     }
     
     required init?(coder: NSCoder) {
@@ -104,7 +104,7 @@ final class UserChatViewController: RoomChatBaseViewController {
     }
     
     override func joinButtonHandlder() {        
-        viewModel.joinToChat(userId: userdata.senderId, roomId: roomSchema.id) { (success) in
+        viewModel.joinToChat(userId: userdata.senderId, roomId: intermediate.id) { (success) in
             super.configureMessageInputBarForChat()
         }
     }
@@ -129,12 +129,12 @@ final class UserChatViewController: RoomChatBaseViewController {
     }
     
     override func onAvatarTapped() {
-        coordinator.showProfileScreen(username: roomSchema.getUsernameFromUrl())
+        coordinator.showProfileScreen(username: intermediate.uri!)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = roomSchema.name
+        title = intermediate.name
         
         if !isJoined {
             showJoinButton()

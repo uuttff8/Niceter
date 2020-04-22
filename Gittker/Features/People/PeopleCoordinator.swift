@@ -29,14 +29,14 @@ class PeopleCoordinator: Coordinator {
     
     func showChat(roomSchema: RoomSchema) {
         let coord = UserChatCoordinator(with: navigationController,
-                                        roomSchema: roomSchema,
+                                        roomSchema: roomSchema.toIntermediate(),
                                         isJoined: true)
         coord.start()
     }
     
     func previewChat(roomSchema: RoomSchema) -> UserChatViewController {
         let coord = UserChatCoordinator(with: navigationController,
-                                        roomSchema: roomSchema,
+                                        roomSchema: roomSchema.toIntermediate(),
                                         isJoined: true)
         return coord.currentController!
     }

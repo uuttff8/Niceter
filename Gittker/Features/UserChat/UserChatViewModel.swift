@@ -11,11 +11,11 @@ import AsyncDisplayKit
 
 class UserChatViewModel {
     
-    private let roomSchema: RoomSchema
+    private let roomSchema: UserRoomIntermediate
     private var messagesListInfo: [RoomRecreateSchema]?
     private lazy var cachedMessageLoader = CachedRoomMessagesLoader(cacheKey: self.roomSchema.id)
     
-    init(roomSchema: RoomSchema) {
+    init(roomSchema: UserRoomIntermediate) {
         self.roomSchema = roomSchema
     }
     
