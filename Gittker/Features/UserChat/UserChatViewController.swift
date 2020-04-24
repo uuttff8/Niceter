@@ -141,16 +141,7 @@ final class UserChatViewController: RoomChatBaseViewController {
         } else {
             super.configureMessageInputBarForChat()
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        switch coordinator.currentFlow {
-        case .full:
-            self.createPoppingFromView()
-        default: break
-        }
-    }
+    }    
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

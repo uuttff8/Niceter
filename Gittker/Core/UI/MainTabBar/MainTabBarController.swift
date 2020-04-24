@@ -27,7 +27,7 @@ class MainTabBarController: ASTabBarController {
         super.viewDidLoad()
         
         let homeCoordinator = RoomsCoordinator(with: nil, user: userdata)
-        let homeNavigationController = ASNavigationController(rootViewController: homeCoordinator.currentController!)
+        let homeNavigationController = NavigationController(rootViewController: homeCoordinator.currentController!)
         homeCoordinator.navigationController = homeNavigationController
         homeCoordinator.tabController = self
         homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms",
@@ -36,7 +36,7 @@ class MainTabBarController: ASTabBarController {
 
         
         let peopleCoordinator = PeopleCoordinator(with: nil)
-        let peopleNavigationController = ASNavigationController(rootViewController: peopleCoordinator.currentController!)
+        let peopleNavigationController = NavigationController(rootViewController: peopleCoordinator.currentController!)
         peopleCoordinator.navigationController = peopleNavigationController
         peopleCoordinator.tabController = self
         peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People",
@@ -45,7 +45,7 @@ class MainTabBarController: ASTabBarController {
 
         
         let commCoordinator = SettingsCoordinator(with: nil)
-        let commNavigationController = ASNavigationController(rootViewController: commCoordinator.currentController!)
+        let commNavigationController = NavigationController(rootViewController: commCoordinator.currentController!)
         commCoordinator.navigationController = commNavigationController
         commCoordinator.tabController = self
         commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Settings",

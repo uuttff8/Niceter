@@ -38,11 +38,6 @@ class ProfileViewController: ASViewController<ASTableNode> {
         super.viewDidLoad()
         self.title = username
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.createPoppingFromView()
-    }
 }
 
 extension ProfileViewController: ASTableDataSource, ASTableDelegate {

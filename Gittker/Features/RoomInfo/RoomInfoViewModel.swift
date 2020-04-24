@@ -91,6 +91,10 @@ extension RoomInfoViewModel: ASTableDelegate, ASTableDataSource {
     func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
         guard let indexPathRow = node.indexPath?.row else { return }
         
+        if self.roomSchemaPeople.isEmpty {
+            return
+        }
+        
         if indexPathRow >= roomSchemaPeople.count - 21 { // row 20 by the end
             if !self.isFetchingNewUsers {
                 self.isFetchingNewUsers = true

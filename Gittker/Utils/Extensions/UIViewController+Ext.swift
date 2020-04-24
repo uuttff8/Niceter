@@ -36,9 +36,11 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
+}
+
+extension UINavigationController {
     func createPoppingFromView() {
-        let popGestureRecognizer = self.navigationController!.interactivePopGestureRecognizer!
+        let popGestureRecognizer = interactivePopGestureRecognizer!
         if let targets = popGestureRecognizer.value(forKey: "targets") as? NSMutableArray {
           let gestureRecognizer = UIPanGestureRecognizer()
           gestureRecognizer.setValue(targets, forKey: "targets")

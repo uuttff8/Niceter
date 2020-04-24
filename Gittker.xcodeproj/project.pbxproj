@@ -125,6 +125,12 @@
 		4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */; };
 		4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */; };
 		4EE25D852450839E00055A5E /* RoomUserIntermediate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D842450839E00055A5E /* RoomUserIntermediate.swift */; };
+		4EE25D9624534A8A00055A5E /* RoomChatEditingMessageExtend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D9524534A8A00055A5E /* RoomChatEditingMessageExtend.swift */; };
+		4EE25D9824534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
+		4EE25D9924534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
+		4EE25D9A24534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
+		4EE25D9C245351CE00055A5E /* GittkerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D9B245351CE00055A5E /* GittkerLog.swift */; };
+		4EE25D9F2453591B00055A5E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D9E2453591B00055A5E /* NavigationController.swift */; };
 		4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedLoader.swift */; };
 		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
 		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
@@ -287,6 +293,10 @@
 		4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		4EE25D842450839E00055A5E /* RoomUserIntermediate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomUserIntermediate.swift; sourceTree = "<group>"; };
+		4EE25D9524534A8A00055A5E /* RoomChatEditingMessageExtend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatEditingMessageExtend.swift; sourceTree = "<group>"; };
+		4EE25D9724534E7600055A5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4EE25D9B245351CE00055A5E /* GittkerLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerLog.swift; sourceTree = "<group>"; };
+		4EE25D9E2453591B00055A5E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		4EFC4FC1242250C500295EB1 /* CachedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedLoader.swift; sourceTree = "<group>"; };
 		4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerMessage.swift; sourceTree = "<group>"; };
 		4EFC4FC62423746200295EB1 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
@@ -488,6 +498,7 @@
 				4E09ABEE240D7FA90028229C /* Assets.xcassets */,
 				4E09ABF0240D7FA90028229C /* LaunchScreen.storyboard */,
 				4E09ABF3240D7FA90028229C /* Info.plist */,
+				4EE25D9724534E7600055A5E /* GoogleService-Info.plist */,
 				4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */,
 			);
 			path = Resources;
@@ -519,6 +530,7 @@
 			isa = PBXGroup;
 			children = (
 				4E09AC30240D906F0028229C /* ClearCookies.swift */,
+				4EE25D9B245351CE00055A5E /* GittkerLog.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -910,6 +922,7 @@
 		4ED53989242BA797000874F3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				4EE25D9D2453590D00055A5E /* NavigationController */,
 				4ED5398F242BB5FB000874F3 /* TableGrouped */,
 				4EE0CF8E24222364005BDE24 /* BaseChat */,
 				4E09AC56240EE2C90028229C /* MainTabBar */,
@@ -955,8 +968,17 @@
 				4EE0CF8F2422239D005BDE24 /* ChatViewController.swift */,
 				4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */,
 				4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */,
+				4EE25D9524534A8A00055A5E /* RoomChatEditingMessageExtend.swift */,
 			);
 			path = BaseChat;
+			sourceTree = "<group>";
+		};
+		4EE25D9D2453590D00055A5E /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				4EE25D9E2453591B00055A5E /* NavigationController.swift */,
+			);
+			path = NavigationController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1080,6 +1102,7 @@
 			files = (
 				4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */,
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
+				4EE25D9824534E7600055A5E /* GoogleService-Info.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
 				4E09ABEA240D7FA70028229C /* LoginAuth.storyboard in Resources */,
 			);
@@ -1089,6 +1112,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE25D9924534E7600055A5E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1096,6 +1120,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE25D9A24534E7600055A5E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,6 +1265,7 @@
 				4E4F7D6D244452AC009287D8 /* CreateRoomNameViewController.swift in Sources */,
 				4ED539A1242FB613000874F3 /* RoomEventSchema.swift in Sources */,
 				4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */,
+				4EE25D9F2453591B00055A5E /* NavigationController.swift in Sources */,
 				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
 				4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */,
 				4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */,
@@ -1264,6 +1290,7 @@
 				4E9D1834242003C60066362D /* MessagesEventSchema.swift in Sources */,
 				4E09AC70240EE6D10028229C /* SettingsCoordinator.swift in Sources */,
 				4E9D17A2241E42A60066362D /* NSObject+Serialize.m in Sources */,
+				4EE25D9624534A8A00055A5E /* RoomChatEditingMessageExtend.swift in Sources */,
 				4E9D179E241E42A60066362D /* NSData+Serialize.m in Sources */,
 				4E4F7D7F24447821009287D8 /* CreateRoomCommunityViewController.swift in Sources */,
 				4E2A7A1924116C960025F39C /* LoginData.swift in Sources */,
@@ -1292,6 +1319,7 @@
 				4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,
 				4E5650A42447977E00B9BBFE /* RoomChatAutocompleteExtend.swift in Sources */,
+				4EE25D9C245351CE00055A5E /* GittkerLog.swift in Sources */,
 				4EC70C83243FACBD0063F323 /* CachedLoaderProtocol.swift in Sources */,
 				4EA628B4242B87480034E66E /* SuggestedRoomCoordinator.swift in Sources */,
 				4E09AC47240EA3560028229C /* GitterApi.swift in Sources */,

@@ -21,8 +21,18 @@ protocol CachedLoader {
     
     func fetchData(then handler: Handler)
     func fetchNewAndCache(then handler: Handler)
+    func deleteAllData()
 }
 
 extension CachedLoader {
     func fetchNewAndCache(then handler: Handler) { }
+    func deleteAllData() {
+        storage?.async.removeAll(completion: { (res) in
+            switch res {
+            case .error(let error):
+                GittkerLog.logCacheError(title: "removing data failed", error: error as! StorageError)
+            default: break
+            }
+        })
+    }
 }
