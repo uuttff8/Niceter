@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class SuggestedRoomTableNode: ASCellNode {
     struct Content {
@@ -80,14 +81,12 @@ class SuggestedRoomTableNode: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .center,
-                                          children: [self.imageNode, self.titleNode])
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0), child: finalSpec)
+        LayoutSpec {
+            HStackLayout(spacing: 10.0, alignItems: .center) {
+                imageNode
+                titleNode
+                    .flexShrink(1.0)
+            }.padding(UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0))
+        }
     }
 }

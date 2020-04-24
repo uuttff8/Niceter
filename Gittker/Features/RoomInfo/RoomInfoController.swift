@@ -41,7 +41,6 @@ class RoomInfoController: ASViewController<ASTableNode> {
         super.viewDidLoad()
         title = roomSchema.name
         
-        
         self.viewModel.updateTableNode = { [unowned self] (newList) in
             let newIndexpaths =
                 Array(((self.viewModel.roomSchemaPeople.count - 1) - (newList.count - 1) - 1) ..< self.viewModel.roomSchemaPeople.count - 1)
@@ -57,6 +56,11 @@ class RoomInfoController: ASViewController<ASTableNode> {
         setupTableNodeData(prefetchedUsers: self.prefetchedUsers) {
             self.viewModel.loadMorePeople() { }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.createPoppingFromView()
     }
     
     private func setupTableNodeData(prefetchedUsers: [UserSchema], completion: @escaping (() -> Void)) {

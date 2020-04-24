@@ -33,14 +33,16 @@ class RoomsCoordinator: Coordinator {
     func showChat(roomSchema: RoomSchema) {
         let coord = RoomChatCoordinator(with: navigationController,
                                         roomSchema: roomSchema,
-                                        isJoined: true)
+                                        isJoined: true,
+                                        flow: .full)
         coord.start()
     }
     
     func previewChat(roomSchema: RoomSchema) -> RoomChatViewController {
         let coord = RoomChatCoordinator(with: navigationController,
                                         roomSchema: roomSchema,
-                                        isJoined: true)
+                                        isJoined: true,
+                                        flow: .preview)
         childCoordinators.append(coord)
         return coord.currentController!
     }

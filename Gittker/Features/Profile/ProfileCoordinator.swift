@@ -27,17 +27,20 @@ class ProfileCoordinator: Coordinator {
         self.currentFlow = flow
         
         currentController = ProfileViewController(coordinator: self, username: username)
+        
         childCoordinators.append(self)
     }
     
     func start() {
-        self.navigationController?.pushViewController(currentController!, animated: true)
+        guard let vc = currentController else { return }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func showChat(intermediate: UserRoomIntermediate, isJoined: Bool) {
         let coord = UserChatCoordinator(with: navigationController,
                                         roomSchema: intermediate,
-                                        isJoined: isJoined)
+                                        isJoined: isJoined,
+                                        flow: .full)
         coord.start()
     }
 }

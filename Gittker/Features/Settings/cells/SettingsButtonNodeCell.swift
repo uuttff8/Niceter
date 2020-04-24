@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class SettingsButtonNodeCell: ASCellNode {
     struct Content {
@@ -66,15 +67,11 @@ class SettingsButtonNodeCell: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .center,
-                                          children: [self.titleNode])
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0), child: finalSpec)
+        LayoutSpec {
+            HStackLayout(spacing: 10.0, justifyContent: .start, alignItems: .center) {
+                titleNode
+                    .flexShrink(1.0)
+            }.padding(UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0))
+        }
     }
-
 }

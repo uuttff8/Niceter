@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class ProfileMainNodeCell: ASCellNode {
     // MARK: - Variables
@@ -108,9 +109,9 @@ class ProfileMainNodeCell: ASCellNode {
     
     private func setupGitInfoTitle() {
         self.gitInfoNode.attributedText = NSAttributedString(string:
-            "\(content?.github?.followers ?? 0) followers"
-                + " \(content?.github?.following ?? 0) following"
-                + " \(self.content?.github?.public_repos ?? 0) public repos",
+            "\(content?.github?.followers ?? 0) followers \n"
+                + "\(content?.github?.following ?? 0) following \n"
+                + "\(self.content?.github?.public_repos ?? 0) public repos",
             attributes: gitInfoAttrubuttes)
     }
     
@@ -128,10 +129,7 @@ class ProfileMainNodeCell: ASCellNode {
     
     // MARK: - Build node hierarchy
     private func buildNodeHierarchy() {
-        [imageNode, titleNode, separatorNode, subtitleNode, gitInfoNode,
-            locationNode, emailNode, linkNode, companyNode].forEach { (node) in
-            self.addSubnode(node)
-        }
+        self.automaticallyManagesSubnodes = true
     }
     
     // MARK: - Layout
@@ -144,8 +142,18 @@ class ProfileMainNodeCell: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
-        
+        return LayoutSpec {
+            HStackLayout(spacing: 10.0, alignItems: .start) {
+                imageNode
+                VStackLayout(spacing: 5.0, alignItems: .start) {
+                    verticalElementsLayout
+                }
+            }
+            .padding(UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0))
+        }
+    }
+    
+    private var verticalElementsLayout: [ASDisplayNode] {
         var verticalItems: [ASDisplayNode] = [self.titleNode, self.subtitleNode, self.gitInfoNode]
         
         if let _ = self.content?.location {
@@ -164,18 +172,6 @@ class ProfileMainNodeCell: ASCellNode {
             verticalItems.append(companyNode)
         }
         
-        let infoSpec = ASStackLayoutSpec(direction: .vertical,
-                                         spacing: 5,
-                                         justifyContent: .start,
-                                         alignItems: .start,
-                                         children:  verticalItems)
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .start,
-                                          children: [self.imageNode, infoSpec])
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0), child: finalSpec)
+        return verticalItems
     }
 }

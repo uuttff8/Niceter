@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class RoomTableNode: ASCellNode {
     
@@ -112,36 +113,30 @@ class RoomTableNode: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let spacer = ASLayoutSpec()
-        spacer.style.flexGrow = 1
-        
-        self.unreadNode.style.preferredSize = CGSize(width: 40, height: 30)
-        self.titleNode.style.flexShrink = 1
-        let titleSubtitleSpec = ASStackLayoutSpec(direction: .vertical,
-                                                  spacing: 2.0,
-                                                  justifyContent: .start,
-                                                  alignItems: .stretch,
-                                                  children: [self.titleNode, self.subtitleNode])
-        
-        titleSubtitleSpec.style.flexShrink = 1
-        
-        let unreadInsetSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: self.unreadNodeText)
-        let unreadOverlaySpec = ASOverlayLayoutSpec(child: self.unreadNode, overlay: unreadInsetSpec)
-        let unreadStack = ASStackLayoutSpec(direction: .vertical, spacing: 5, justifyContent: .center, alignItems: .center, children: [unreadOverlaySpec])
-        
-        let finalItems: [ASLayoutElement]
-        if room.unreadItems > 0 {
-            finalItems = [self.imageNode, titleSubtitleSpec, spacer, unreadStack]
-        } else {
-            finalItems = [self.imageNode, titleSubtitleSpec]
+        LayoutSpec {
+            HStackLayout(spacing: 10.0) {
+                imageNode
+                VStackLayout(spacing: 2.0) {
+                    titleNode
+                    subtitleNode
+                }
+                .flexShrink(1.0)
+                
+                if room.unreadItems > 0 {
+                    ASLayoutSpec().flexGrow(1)
+                    
+                    VStackLayout(spacing: 5.0, justifyContent: .center, alignItems: .center) {
+                        OverlayLayout(content: {
+                            unreadNode
+                                .preferredSize(CGSize(width: 40, height: 30))
+                        }) {
+                            CenterLayout(centeringOptions: .XY, sizingOptions: .minimumXY) {
+                                unreadNodeText
+                            }
+                        }
+                    }
+                }
+            }.padding(UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 16.0))
         }
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .stretch,
-                                          children: finalItems)
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 16.0), child: finalSpec)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class TextFieldNodeCell: ASCellNode {
     /// if height is nil, then it is 1 line textfield
@@ -72,8 +73,11 @@ class TextFieldNodeCell: ASCellNode {
     
     // MARK: - Layout
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        textFieldNode.style.flexGrow = 1
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0), child: textFieldNode)
+        LayoutSpec {
+            InsetLayout(insets: UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0)) {
+                textFieldNode
+                    .flexGrow(1)
+            }
+        }
     }
 }

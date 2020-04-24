@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class RoomInfoTopicNode: ASCellNode {
     private let content: String
@@ -63,10 +64,11 @@ class RoomInfoTopicNode: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5.0, left: 16.0, bottom: 5.0, right: 16.0), child: self.titleNode)
-
+        LayoutSpec {
+            titleNode
+                .flexShrink(1.0)
+                .padding(UIEdgeInsets(top: 5.0, left: 16.0, bottom: 5.0, right: 16.0))
+        }
     }
 }
 

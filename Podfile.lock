@@ -39,12 +39,15 @@ PODS:
     - Texture/Core
   - Texture/Video (2.8.1):
     - Texture/Core
+  - TextureSwiftSupport (1.5.0):
+    - Texture/Core (~> 2.8)
 
 DEPENDENCIES:
   - Cache
   - MessageKit
   - SocketRocket
   - Texture
+  - TextureSwiftSupport (~> 1.5.0)
 
 SPEC REPOS:
   trunk:
@@ -56,6 +59,7 @@ SPEC REPOS:
     - PINRemoteImage
     - SocketRocket
     - Texture
+    - TextureSwiftSupport
 
 SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
@@ -66,7 +70,8 @@ SPEC CHECKSUMS:
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
+  TextureSwiftSupport: ff4052c7ba9c78b10849b06cee09a0ee33b00997
 
-PODFILE CHECKSUM: 427e24ab68a4aeddfe8423887d5dbf536bd9e085
+PODFILE CHECKSUM: 1ccf8ee8bccd38c3bdcb8ebe7e5f6b96e1a54935
 
 COCOAPODS: 1.9.1

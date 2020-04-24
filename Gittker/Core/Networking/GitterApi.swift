@@ -316,7 +316,6 @@ extension GitterApi {
         { (res) in
             switch res {
             case .success(let data):
-                print(data.prettyPrintedJSONString)
                 guard let room = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                 completion(room)
             default: break

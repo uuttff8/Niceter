@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 final class SwitchNodeCell: ASCellNode {
     struct Content {
@@ -66,18 +67,15 @@ final class SwitchNodeCell: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let spacer = ASLayoutSpec()
-        spacer.style.flexGrow = 1
-        self.titleNode.style.flexShrink = 1
-        
-        let insetLayoutSpec = ASInsetLayoutSpec(insets: UIEdgeInsets(top: 0.0, left: 10.0, bottom: 30.0, right: 56.0), child: switchNode)
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .center,
-                                          children: [self.titleNode, spacer, insetLayoutSpec])
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0), child: finalSpec)
+        LayoutSpec {
+            HStackLayout(spacing: 10.0, justifyContent: .start, alignItems: .center) {
+                titleNode
+                ASLayoutSpec()
+                    .flexGrow(1.0)
+                InsetLayout(insets: UIEdgeInsets(top: 0.0, left: 10.0, bottom: 30.0, right: 56.0)) {
+                    switchNode
+                }
+            }.padding(UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0))
+        }
     }
 }

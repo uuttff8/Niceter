@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class CreateRoomRepoNodeCell: ASCellNode {
     
@@ -52,14 +53,11 @@ class CreateRoomRepoNodeCell: ASCellNode {
     
     // MARK: - Layout
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .center,
-                                          children: [self.titleNode])
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0), child: finalSpec)
+        LayoutSpec {
+            HStackLayout(spacing: 10.0, justifyContent: .start, alignItems: .center) {
+                titleNode
+                    .flexShrink(1.0)
+            }.padding(UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0))
+        }
     }
 }

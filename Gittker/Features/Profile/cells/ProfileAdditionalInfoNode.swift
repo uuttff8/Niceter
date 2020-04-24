@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 public final class ProfileAdditionalInfoNode: ASCellNode {
     // MARK: - Variables
@@ -73,14 +74,12 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
     // MARK: - Layout
         
     public override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .center,
-                                          children: [self.imageNode, self.titleNode])
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 5.0, left: 0.0, bottom: 0.0, right: 0.0), child: finalSpec)
+        LayoutSpec {
+            HStackLayout(spacing: 10.0, alignItems: .center) {
+                imageNode
+                titleNode
+                    .flexShrink(1.0)
+            }.padding(UIEdgeInsets(top: 5.0, left: 0.0, bottom: 0.0, right: 0.0))
+        }
     }
 }

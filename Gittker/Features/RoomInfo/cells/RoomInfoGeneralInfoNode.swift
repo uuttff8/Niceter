@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class RoomInfoGeneralInfoNode: ASCellNode {
     private lazy var imageSize: CGSize = {
@@ -24,6 +25,8 @@ class RoomInfoGeneralInfoNode: ASCellNode {
     init(with content: RoomSchema) {
         self.content = content
         super.init()
+        
+        automaticallyManagesSubnodes = true
         
         self.selectionStyle = .none
         self.backgroundColor = UIColor.systemBackground
@@ -71,14 +74,13 @@ class RoomInfoGeneralInfoNode: ASCellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        self.titleNode.style.flexShrink = 1
-        
-        let finalSpec = ASStackLayoutSpec(direction: .vertical,
-                                          spacing: 10.0,
-                                          justifyContent: .center,
-                                          alignItems: .center,
-                                          children: [self.imageNode, self.titleNode])
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0.0), child: finalSpec)
-
+        LayoutSpec {
+            VStackLayout(spacing: 10.0, justifyContent: .center, alignItems: .center) {
+                imageNode
+                titleNode
+                    .flexShrink(1.0)
+            }
+            .padding(UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
+        }
     }
 }
