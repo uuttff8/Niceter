@@ -78,7 +78,7 @@ class ChatViewController: MessagesViewController {
     
     func deleteMessage(message: MockMessage) { }
     
-    func showProfileScreen(message: GittkerMessage) { }
+    func showProfileScreen(username: String) { }
     
     // MARK: - Helpers
         
@@ -298,7 +298,7 @@ extension ChatViewController: MessageCellDelegate {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
         let message = messageList[indexPath.section]
         
-        showProfileScreen(message: message)
+        showProfileScreen(username: message.message.user.username)
     }
     
     func didTapMessage(in cell: MessageCollectionViewCell) {
@@ -344,7 +344,7 @@ extension ChatViewController: MessageLabelDelegate {
     }
     
     func didSelectMention(_ mention: String) {
-        print("Mention selected: \(mention)")
+        showProfileScreen(username: mention.replacingOccurrences(of: "@", with: ""))
     }
 }
 

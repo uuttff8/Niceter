@@ -132,8 +132,8 @@ final class UserChatViewController: RoomChatBaseViewController {
     }
     
     //MARK: - Navigation
-    override func showProfileScreen(message: GittkerMessage) {
-        coordinator?.showProfileScreen(username: message.message.user.username)
+    override func showProfileScreen(username: String) {
+        coordinator?.showProfileScreen(username: username)
     }
     
     override func onAvatarTapped() {
