@@ -1,8 +1,73 @@
 PODS:
   - Cache (5.2.0)
+  - Firebase/Analytics (6.22.0):
+    - Firebase/Core
+  - Firebase/Core (6.22.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.4.1)
+  - Firebase/CoreOnly (6.22.0):
+    - FirebaseCore (= 6.6.6)
+  - FirebaseAnalytics (6.4.1):
+    - FirebaseCore (~> 6.6)
+    - FirebaseInstallations (~> 1.1)
+    - GoogleAppMeasurement (= 6.4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (= 0.3.9011)
+  - FirebaseCore (6.6.6):
+    - FirebaseCoreDiagnostics (~> 1.2)
+    - FirebaseCoreDiagnosticsInterop (~> 1.2)
+    - GoogleUtilities/Environment (~> 6.5)
+    - GoogleUtilities/Logger (~> 6.5)
+  - FirebaseCoreDiagnostics (1.2.3):
+    - FirebaseCoreDiagnosticsInterop (~> 1.2)
+    - GoogleDataTransportCCTSupport (~> 2.0)
+    - GoogleUtilities/Environment (~> 6.5)
+    - GoogleUtilities/Logger (~> 6.5)
+    - nanopb (~> 0.3.901)
+  - FirebaseCoreDiagnosticsInterop (1.2.0)
+  - FirebaseInstallations (1.1.1):
+    - FirebaseCore (~> 6.6)
+    - GoogleUtilities/UserDefaults (~> 6.5)
+    - PromisesObjC (~> 1.2)
+  - GoogleAppMeasurement (6.4.1):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (= 0.3.9011)
+  - GoogleDataTransport (5.1.1)
+  - GoogleDataTransportCCTSupport (2.0.2):
+    - GoogleDataTransport (~> 5.1)
+    - nanopb (~> 0.3.901)
+  - GoogleUtilities/AppDelegateSwizzler (6.5.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.5.2)
+  - GoogleUtilities/Logger (6.5.2):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.5.2):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.5.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.5.2)"
+  - GoogleUtilities/Reachability (6.5.2):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.5.2):
+    - GoogleUtilities/Logger
   - InputBarAccessoryView (4.2.2)
   - MessageKit (3.0.0):
     - InputBarAccessoryView (~> 4.2.2)
+  - nanopb (0.3.9011):
+    - nanopb/decode (= 0.3.9011)
+    - nanopb/encode (= 0.3.9011)
+  - nanopb/decode (0.3.9011)
+  - nanopb/encode (0.3.9011)
   - PINCache (3.0.1-beta.6):
     - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
     - PINCache/Core (= 3.0.1-beta.6)
@@ -18,6 +83,7 @@ PODS:
   - PINRemoteImage/PINCache (3.0.0-beta.13):
     - PINCache (= 3.0.1-beta.6)
     - PINRemoteImage/Core
+  - PromisesObjC (1.2.8)
   - SocketRocket (0.5.1)
   - Texture (2.8.1):
     - Texture/AssetsLibrary (= 2.8.1)
@@ -44,6 +110,7 @@ PODS:
 
 DEPENDENCIES:
   - Cache
+  - Firebase/Analytics
   - MessageKit
   - SocketRocket
   - Texture
@@ -52,26 +119,50 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Cache
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
+    - FirebaseInstallations
+    - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
+    - GoogleUtilities
     - InputBarAccessoryView
     - MessageKit
+    - nanopb
     - PINCache
     - PINOperation
     - PINRemoteImage
+    - PromisesObjC
     - SocketRocket
     - Texture
     - TextureSwiftSupport
 
 SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
+  Firebase: 32f9520684e87c7af3f0704f7f88042626d6b536
+  FirebaseAnalytics: 83f822fd0d33a46f49f89b8c3ab16ab4d89df08a
+  FirebaseCore: 9aca0f1fffb405176ba15311a5621fcde4106fcf
+  FirebaseCoreDiagnostics: 13a6564cd6d5375066bbc8940cc1753af24497f3
+  FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
+  FirebaseInstallations: acb3216eb9784d3b1d2d2d635ff74fa892cc0c44
+  GoogleAppMeasurement: e49be3954045b17d046f271b9cc1ec052bad9702
+  GoogleDataTransport: 6ffa4dd0b6d547f8d27b91bd92fa9e197a3f5f1f
+  GoogleDataTransportCCTSupport: 12f02e5c8f09c055615de90bcd5ba2c375546051
+  GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
   InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
+  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
+  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
   TextureSwiftSupport: ff4052c7ba9c78b10849b06cee09a0ee33b00997
 
-PODFILE CHECKSUM: 1ccf8ee8bccd38c3bdcb8ebe7e5f6b96e1a54935
+PODFILE CHECKSUM: 8e07b2e2b6e88cad31905742398e85160840872c
 
 COCOAPODS: 1.9.1

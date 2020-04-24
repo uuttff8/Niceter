@@ -139,22 +139,14 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         super.viewDidLoad()
         self.viewModel.prefetchRoomUsers()
         title = roomSchema.name
+        
         if !isJoined {
             showJoinButton()
         } else {
-            configureMessageInputBarForChat()
+            super.configureMessageInputBarForChat()
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        switch coordinator.currentFlow {
-        case .full:
-            self.createPoppingFromView()
-        default: break
-        }
-    }
-    
+        
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fayeClient.cancel()

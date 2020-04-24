@@ -58,11 +58,6 @@ class RoomInfoController: ASViewController<ASTableNode> {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.createPoppingFromView()
-    }
-    
     private func setupTableNodeData(prefetchedUsers: [UserSchema], completion: @escaping (() -> Void)) {
         // if no data from room chat was loaded, then load it (first 30)
         if prefetchedUsers.isEmpty {

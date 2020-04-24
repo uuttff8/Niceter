@@ -37,7 +37,7 @@ class CachedPeopleLoader: CachedLoader {
               case .value(let rooms):
                 handler(rooms)
               case .error(let error):
-                print(error)
+                GittkerLog.logCacheError(title: "Failed to fetch people loader cache", error: error)
             }
         })
 

@@ -78,7 +78,11 @@ class SettingsViewController: ASViewController<ASTableNode> {
             // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
             UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
                 { completed in
-                    
+                    // delete caches, and we cant delete all the cache because we need a info such as id
+                    // but that cache will not appear to new user
+                    CachedRoomLoader(cacheKey: Config.CacheKeys.roomsKey).deleteAllData()
+                    CachedPeopleLoader(cacheKey: Config.CacheKeys.peopleKey).deleteAllData()
+                    CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey).deleteAllData()
             })
         }))
         alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))

@@ -51,7 +51,7 @@ class CachedSuggestedRoomLoader: CachedLoader {
             case .value(let rooms):
                 handler(rooms)
             case .error(let error):
-                break
+                GittkerLog.logCacheError(title: "Failed to prefetch suggested room cache", error: error)
             }
         })
         
@@ -91,7 +91,8 @@ class CachedRoomLoader: CachedLoader {
               case .value(let rooms):
                 handler(rooms)
               case .error(let error):
-                print(error)
+                GittkerLog.logCacheError(title: "Failed to fetch room loader cache", error: error)
+                break
             }
         })
 
@@ -139,7 +140,7 @@ class CachedPrefetchRoomUsers: CachedLoader {
               case .value(let users):
                 handler(users)
               case .error(let error):
-                print(error)
+                GittkerLog.logCacheError(title: "Failed to prefetch room users cache", error: error)
             }
         })
 

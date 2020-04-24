@@ -8,8 +8,7 @@
 
 import UIKit
 import CoreData
-
-import KeychainSwift
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var enableAllOrientation = true
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
+        
         let urlCache = URLCache(memoryCapacity: 4 * 1024 * 1024, diskCapacity: 20 * 1024 * 1024, diskPath: nil)
         URLCache.shared = urlCache
         

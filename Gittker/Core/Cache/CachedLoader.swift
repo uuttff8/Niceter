@@ -38,7 +38,7 @@ class CachedRoomMessagesLoader: CachedLoader {
             case .value(let roomRecrSchema):
                 handler(roomRecrSchema)
             case .error(let error):
-                break
+                GittkerLog.logCacheError(title: "Failed to fetch messages cache", error: error)
             }
         })
         
@@ -51,16 +51,13 @@ class CachedRoomMessagesLoader: CachedLoader {
     
     func addNewMessage(message: GittkerMessage) {
         
-        print("BLYAAA")
         self.storage?.async.object(forKey: self.cacheKey, completion: { (res) in
             switch res {
             case .value(var rooms):
                 rooms.append(message.toRoomRecreate()!)
-                self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { (_) in
-                    print("saved")
-                })
+                self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { (_) in })
             case .error(let error):
-                break
+                GittkerLog.logCacheError(title: "Failed to fetch adding messages cache", error: error)
             }
         })
     }

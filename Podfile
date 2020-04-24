@@ -10,6 +10,7 @@ target 'Gittker' do
   pod 'MessageKit'
   pod 'Cache'
   pod 'TextureSwiftSupport', '~> 1.5.0'
+  pod 'Firebase/Analytics'
 
   target 'GittkerTests' do
     inherit! :search_paths

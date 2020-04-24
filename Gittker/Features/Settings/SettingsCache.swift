@@ -37,7 +37,7 @@ class CachedUserLoader: CachedLoader {
             case .value(let user):
                 handler(user)
             case .error(let error):
-                break
+                GittkerLog.logCacheError(title: "Failed to fetch user cache", error: error)
             }
         })
 
