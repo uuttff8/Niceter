@@ -35,6 +35,7 @@ class RoomsCoordinator: Coordinator {
                                         roomSchema: roomSchema,
                                         isJoined: true,
                                         flow: .full)
+        childCoordinators.append(coord)
         coord.start()
     }
     
@@ -43,7 +44,6 @@ class RoomsCoordinator: Coordinator {
                                         roomSchema: roomSchema,
                                         isJoined: true,
                                         flow: .preview)
-        childCoordinators.append(coord)
         return coord.currentController!
     }
     

@@ -13,16 +13,21 @@ extension UIColor {
 }
 
 final class RoomChatViewController: RoomChatAutocompleteExtend {
-    // Private Elements
-    private var coordinator: RoomChatCoordinator
+    weak var coordinator: RoomChatCoordinator?
+    
+    //MARK: -  Private Elements
     private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
     private var fayeClient: FayeEventMessagesBinder
     
     private var isJoined: Bool
     private var roomSchema: RoomSchema
     
-    private var cached = 2    
+    private var cached = 2
+    
+    private var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
+    private var panGestureRecognizer: UIPanGestureRecognizer!
 
+    //MARK: - Init
     init(coordinator: RoomChatCoordinator, roomSchema: RoomSchema, isJoined: Bool) {
         self.coordinator = coordinator
         self.roomSchema = roomSchema
@@ -36,6 +41,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Faye
     override func loadFirstMessages() {
         viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
@@ -65,6 +71,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         )
     }
     
+    // MARK: - Message actions
     override func loadOlderMessages() {
         self.canFetchMoreResults = false
         
@@ -127,16 +134,19 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         }
     }
     
+    // MARK: - Navigating
     override func showProfileScreen(message: GittkerMessage) {
-        coordinator.showProfileScreen(username: message.message.user.username)
+        coordinator?.showProfileScreen(username: message.message.user.username)
     }
     
     override func onAvatarTapped() {
-        coordinator.showRoomInfoScreen(roomSchema: self.roomSchema, prefetchedUsers: self.viewModel.roomUsersIn)
+        coordinator?.showRoomInfoScreen(roomSchema: self.roomSchema, prefetchedUsers: self.viewModel.roomUsersIn)
     }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         self.viewModel.prefetchRoomUsers()
         title = roomSchema.name
         
@@ -150,7 +160,9 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fayeClient.cancel()
+        coordinator?.removeDependency(coordinator)
     }
+    
     
     #warning("refactor")
     private func configureScrollAndPaginate() {

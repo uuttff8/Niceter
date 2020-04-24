@@ -27,11 +27,11 @@ class ProfileCoordinator: Coordinator {
         self.currentFlow = flow
         
         currentController = ProfileViewController(coordinator: self, username: username)
-        
         childCoordinators.append(self)
     }
     
     func start() {
+        
         guard let vc = currentController else { return }
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -41,6 +41,7 @@ class ProfileCoordinator: Coordinator {
                                         roomSchema: intermediate,
                                         isJoined: isJoined,
                                         flow: .full)
+        childCoordinators.append(coord)
         coord.start()
     }
 }
