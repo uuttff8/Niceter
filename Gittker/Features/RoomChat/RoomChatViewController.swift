@@ -135,8 +135,8 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     }
     
     // MARK: - Navigating
-    override func showProfileScreen(message: GittkerMessage) {
-        coordinator?.showProfileScreen(username: message.message.user.username)
+    override func showProfileScreen(username: String) {
+        coordinator?.showProfileScreen(username: username)
     }
     
     override func onAvatarTapped() {
