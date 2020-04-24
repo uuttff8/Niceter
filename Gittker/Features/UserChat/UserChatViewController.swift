@@ -9,9 +9,10 @@
 import MessageKit
 
 final class UserChatViewController: RoomChatBaseViewController {
-    var coordinator: UserChatCoordinator
-    private lazy var viewModel = UserChatViewModel(roomSchema: intermediate)
+    weak var coordinator: UserChatCoordinator?
     
+    // MARK: - Private Elements
+    private lazy var viewModel = UserChatViewModel(roomSchema: intermediate)
     private var fayeClient: FayeEventMessagesBinder
     
     private var isJoined: Bool
@@ -19,6 +20,10 @@ final class UserChatViewController: RoomChatBaseViewController {
     
     private var cached = 2
     
+    private var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
+    private var panGestureRecognizer: UIPanGestureRecognizer!
+    
+    // MARK: - Init
     init(coordinator: UserChatCoordinator, intermediate: UserRoomIntermediate, isJoined: Bool) {
         self.coordinator = coordinator
         self.intermediate = intermediate
@@ -32,6 +37,22 @@ final class UserChatViewController: RoomChatBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Faye
+    override func subscribeOnMessagesEvent() {
+        fayeClient
+            .subscribe(
+                onNew: { [weak self] (message: GittkerMessage) in
+                    self?.viewModel.addNewMessageToCache(message: message)
+                    self?.addToMessageMap(message: message, isFirstly: true)
+                }, onDeleted: { [weak self] (id) in
+                    self?.deleteMessageUI(by: id)
+                }, onUpdate: { [weak self] (message: GittkerMessage) in
+                    self?.updateMessageUI(message)
+                }
+        )
+    }
+
+    //MARK: - Message actions
     override func loadFirstMessages() {
         viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
@@ -47,21 +68,7 @@ final class UserChatViewController: RoomChatBaseViewController {
             }
         }
     }
-    
-    override func subscribeOnMessagesEvent() {
-        fayeClient
-            .subscribe(
-                onNew: { [weak self] (message: GittkerMessage) in
-                    self?.viewModel.addNewMessageToCache(message: message)
-                    self?.addToMessageMap(message: message, isFirstly: true)
-                }, onDeleted: { [weak self] (id) in
-                    self?.deleteMessageUI(by: id)
-                }, onUpdate: { [weak self] (message: GittkerMessage) in
-                    self?.updateMessageUI(message)
-                }
-        )
-    }
-    
+        
     override func loadOlderMessages() {
         self.canFetchMoreResults = false
         
@@ -124,14 +131,16 @@ final class UserChatViewController: RoomChatBaseViewController {
         }
     }
     
+    //MARK: - Navigation
     override func showProfileScreen(message: GittkerMessage) {
-        coordinator.showProfileScreen(username: message.message.user.username)
+        coordinator?.showProfileScreen(username: message.message.user.username)
     }
     
     override func onAvatarTapped() {
-        coordinator.showProfileScreen(username: intermediate.uri!)
+        coordinator?.showProfileScreen(username: intermediate.uri!)
     }
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = intermediate.name
@@ -146,6 +155,7 @@ final class UserChatViewController: RoomChatBaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fayeClient.cancel()
+        coordinator?.removeDependency(coordinator)
     }
     
     #warning("refactor")

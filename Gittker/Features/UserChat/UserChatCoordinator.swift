@@ -16,12 +16,11 @@ class UserChatCoordinator: Coordinator {
     
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
-    
     var currentController: UserChatViewController?
+    let currentFlow: UserChatCoordinator.UserChatControllerFlow
+    
     private var roomSchema: UserRoomIntermediate
     private var isJoined: Bool
-    var currentFlow: UserChatControllerFlow
-    
     
     init(with navigationController: ASNavigationController?, roomSchema: UserRoomIntermediate, isJoined: Bool, flow: UserChatControllerFlow) {
         self.navigationController = navigationController

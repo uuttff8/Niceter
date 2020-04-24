@@ -1,5 +1,5 @@
 //
-//  NavigationController.swift
+//  SlidableExtend.swift
 //  Gittker
 //
 //  Created by uuttff8 on 4/24/20.
@@ -7,5 +7,3 @@
 //
 
 import Foundation
-import AsyncDisplayKit
-

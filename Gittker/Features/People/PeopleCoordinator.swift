@@ -32,6 +32,7 @@ class PeopleCoordinator: Coordinator {
                                         roomSchema: roomSchema.toIntermediate(isUser: true),
                                         isJoined: true,
                                         flow: .full)
+        childCoordinators.append(coord)
         coord.start()
     }
     

@@ -11,6 +11,9 @@ import AsyncDisplayKit
 class ProfileViewController: ASViewController<ASTableNode> {
     weak var coordinator: ProfileCoordinator?
     
+    private var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
+    private var panGestureRecognizer: UIPanGestureRecognizer!
+    
     private var profileList = [UserSchema]()
     private var username: String
     private var currentUser: UserSchema?
@@ -37,6 +40,11 @@ class ProfileViewController: ASViewController<ASTableNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = username
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.removeDependency(coordinator)
     }
 }
 

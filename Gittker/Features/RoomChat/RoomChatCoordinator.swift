@@ -32,8 +32,7 @@ class RoomChatCoordinator: Coordinator {
     }
     
     func start() {
-        guard let vc = currentController else { return }
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(currentController!, animated: true)
     }
     
     func showProfileScreen(username: String) {
