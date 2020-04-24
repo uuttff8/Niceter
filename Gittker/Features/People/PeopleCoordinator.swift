@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 
 class PeopleCoordinator: Coordinator {
-
+    
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
@@ -28,18 +28,18 @@ class PeopleCoordinator: Coordinator {
     }
     
     func showChat(roomSchema: RoomSchema) {
-        print(roomSchema)
-        print(roomSchema.toIntermediate(isUser: true))
         let coord = UserChatCoordinator(with: navigationController,
                                         roomSchema: roomSchema.toIntermediate(isUser: true),
-                                        isJoined: true)
+                                        isJoined: true,
+                                        flow: .full)
         coord.start()
     }
     
     func previewChat(roomSchema: RoomSchema) -> UserChatViewController {
         let coord = UserChatCoordinator(with: navigationController,
                                         roomSchema: roomSchema.toIntermediate(isUser: true),
-                                        isJoined: true)
+                                        isJoined: true,
+                                        flow: .preview)
         return coord.currentController!
     }
     

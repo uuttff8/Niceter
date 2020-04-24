@@ -9,19 +9,26 @@
 import AsyncDisplayKit
 
 class UserChatCoordinator: Coordinator {
-
+    enum UserChatControllerFlow {
+        case full
+        case preview
+    }
+    
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     var currentController: UserChatViewController?
-    var roomSchema: UserRoomIntermediate
-    var isJoined: Bool
+    private var roomSchema: UserRoomIntermediate
+    private var isJoined: Bool
+    var currentFlow: UserChatControllerFlow
     
-    init(with navigationController: ASNavigationController?, roomSchema: UserRoomIntermediate, isJoined: Bool) {
+    
+    init(with navigationController: ASNavigationController?, roomSchema: UserRoomIntermediate, isJoined: Bool, flow: UserChatControllerFlow) {
         self.navigationController = navigationController
         self.isJoined = isJoined
         self.roomSchema = roomSchema
-        print(roomSchema)
+        self.currentFlow = flow
+        
         currentController = UserChatViewController(coordinator: self, intermediate: roomSchema, isJoined: isJoined)
     }
     

@@ -51,34 +51,38 @@ class SettingsViewController: ASViewController<ASTableNode> {
     }
     
     private func logout() {
-        LoginData.shared.logout()
-        
-        // Safety: we use only one window
-        guard let window = UIApplication.shared.windows.first else {
-            return
-        }
-        
-        let root = ASNavigationController()
-        window.rootViewController = root
-        root.setNavigationBarHidden(true, animated: false)
-        let child = LoginAuthCoordinator(navigationController: root)
-        
-        self.coordinator.childCoordinators.append(child)
-        child.start()
-        
-        // A mask of options indicating how you want to perform the animations.
-        let options: UIView.AnimationOptions = .transitionCrossDissolve
-        
-        // The duration of the transition animation, measured in seconds.
-        let duration: TimeInterval = 0.3
-        
-        // Creates a transition animation.
-        // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
-        UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
-            { completed in
-                
-        })
+        let alert = UIAlertController(title: "Do you really want to exit?", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
+            LoginData.shared.logout()
+            
+            // Safety: we use only one window
+            guard let window = UIApplication.shared.windows.first else {
+                return
+            }
+            
+            let root = ASNavigationController()
+            window.rootViewController = root
+            root.setNavigationBarHidden(true, animated: false)
+            let child = LoginAuthCoordinator(navigationController: root)
+            
+            self.coordinator.childCoordinators.append(child)
+            child.start()
+            
+            // A mask of options indicating how you want to perform the animations.
+            let options: UIView.AnimationOptions = .transitionCrossDissolve
+            
+            // The duration of the transition animation, measured in seconds.
+            let duration: TimeInterval = 0.3
+            
+            // Creates a transition animation.
+            // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
+            UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
+                { completed in
+                    
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
-    
 }
 

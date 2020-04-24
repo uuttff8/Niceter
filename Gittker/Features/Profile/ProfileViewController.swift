@@ -36,7 +36,12 @@ class ProfileViewController: ASViewController<ASTableNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = username
+        self.title = username
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.createPoppingFromView()
     }
 }
 

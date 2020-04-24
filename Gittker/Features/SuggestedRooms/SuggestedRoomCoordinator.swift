@@ -38,11 +38,17 @@ class SuggestedRoomsCoordinator: Coordinator {
     func showChat(roomSchema: RoomSchema, isJoined: Bool) {
         switch currentFlow {
         case .chat:
-            let coord = RoomChatCoordinator(with: navigationController, roomSchema: roomSchema, isJoined: isJoined)
+            let coord = RoomChatCoordinator(with: navigationController,
+                                            roomSchema: roomSchema,
+                                            isJoined: isJoined,
+                                            flow: .full)
             childCoordinators.append(coord)
             coord.start()
         case .user:
-            let coord = UserChatCoordinator(with: navigationController, roomSchema: roomSchema.toIntermediate(isUser: true), isJoined: isJoined)
+            let coord = UserChatCoordinator(with: navigationController,
+                                            roomSchema: roomSchema.toIntermediate(isUser: true),
+                                            isJoined: isJoined,
+                                            flow: .full)
             childCoordinators.append(coord)
             coord.start()
         }

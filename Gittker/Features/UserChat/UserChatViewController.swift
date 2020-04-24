@@ -143,6 +143,15 @@ final class UserChatViewController: RoomChatBaseViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        switch coordinator.currentFlow {
+        case .full:
+            self.createPoppingFromView()
+        default: break
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fayeClient.cancel()

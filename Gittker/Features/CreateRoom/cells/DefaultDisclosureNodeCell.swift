@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import TextureSwiftSupport
 
 class DefaultDisclosureNodeCell: ASCellNode {
     struct Content {
@@ -56,16 +57,14 @@ class DefaultDisclosureNodeCell: ASCellNode {
     
     // MARK: - Layout
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let spacer = ASLayoutSpec()
-        spacer.style.flexGrow = 1
-        self.titleNode.style.flexShrink = 1
-        
-        let finalSpec = ASStackLayoutSpec(direction: .horizontal,
-                                          spacing: 10.0,
-                                          justifyContent: .start,
-                                          alignItems: .center,
-                                          children: [self.titleNode, spacer, self.subtitleNode])
-        
-        return ASInsetLayoutSpec(insets: UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0), child: finalSpec)
+        LayoutSpec {
+            HStackLayout(spacing: 10.0, justifyContent: .start, alignItems: .center) {
+                titleNode
+                    .flexShrink(1.0)
+                ASLayoutSpec()
+                    .flexGrow(1.0)
+                subtitleNode
+            }.padding(UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0))
+        }
     }
 }

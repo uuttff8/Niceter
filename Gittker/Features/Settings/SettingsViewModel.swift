@@ -120,5 +120,9 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSettingsSection>, AS
             
         }
         
-    }  
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
+    }
 }
