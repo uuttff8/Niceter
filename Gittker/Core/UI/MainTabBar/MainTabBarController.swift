@@ -8,6 +8,10 @@
 
 import AsyncDisplayKit
 
+protocol TabBarReselectHandling {
+    func handleReselect()
+}
+
 class MainTabBarController: ASTabBarController {
     
     weak var coordinator: MainTabBarCoordinator?
@@ -25,6 +29,7 @@ class MainTabBarController: ASTabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
         
         let homeCoordinator = RoomsCoordinator(with: nil, user: userdata)
         coordinator?.childCoordinators.append(homeCoordinator)
@@ -63,5 +68,23 @@ class MainTabBarController: ASTabBarController {
         ]
         
         selectedIndex = 1
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(
+        _ tabBarController: UITabBarController,
+        shouldSelect viewController: UIViewController
+    ) -> Bool {
+        let controller = viewController as? ASNavigationController
+        let tabBarControllerVC = tabBarController.selectedViewController as? ASNavigationController
+        if tabBarControllerVC?.viewControllers.first === controller?.viewControllers.first,
+            let handler = tabBarControllerVC?.viewControllers.first as? TabBarReselectHandling {
+            // NOTE: viewController in line above might be a UINavigationController,
+            // in which case you need to access its contents
+            handler.handleReselect()
+        }
+
+        return true
     }
 }
