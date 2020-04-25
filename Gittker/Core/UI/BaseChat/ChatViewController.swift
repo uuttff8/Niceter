@@ -42,10 +42,6 @@ class ChatViewController: MessagesViewController {
         loadFirstMessages()
         super.viewDidLoad()
         
-        let reportMenuItem = UIMenuItem(title: "Report", action: #selector(MessageCollectionViewCell.reportMessageMenuAction(_:)))
-        let deleteMenuItem = UIMenuItem(title: "Delete", action: #selector(MessageCollectionViewCell.deleteMessageMenuAction(_:)))
-        UIMenuController.shared.menuItems = [reportMenuItem, deleteMenuItem]
-
         self.view.backgroundColor = UIColor.systemBackground
         configureMessageCollectionView()
         configureMessageInputBarForDarkMode()
@@ -81,7 +77,7 @@ class ChatViewController: MessagesViewController {
     func showProfileScreen(username: String) { }
     
     // MARK: - Helpers
-        
+    
     private func configureBackroundMessageReading() {
         // unread messages every 2 second
         self.timer = Timer.scheduledTimer(timeInterval: 2,
@@ -147,9 +143,9 @@ class ChatViewController: MessagesViewController {
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         let dateString = dateFormatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-//        return NSAttributedString(string: "ASDASDASd")
+        //        return NSAttributedString(string: "ASDASDASd")
     }
-
+    
     private func openUrlInsideApp(url: URL) {
         let vc = SFSafariViewController(url: url)
         present(vc, animated: true, completion: nil)
@@ -183,31 +179,38 @@ class ChatViewController: MessagesViewController {
             }
         }
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        let message = messageList[indexPath.section]
-        switch action {
-        case NSSelectorFromString("reportMessageMenuAction:"):
-            return isFromCurrentSender(message: message.message) ? false : true
-        case NSSelectorFromString("deleteMessageMenuAction:"):
-            return isFromCurrentSender(message: message.message) ? true : false
-        default:
-            return super.collectionView(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender)
-        }
-    }
-    
-    
-    
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+            
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let message = messageList[indexPath.section].message
-        switch action {
-        case NSSelectorFromString("reportMessageMenuAction:"):
-            reportMessage(message: message)
-        case NSSelectorFromString("deleteMessageMenuAction:"):
-            deleteMessage(message: message)
-        default:
-            super.collectionView(collectionView, performAction: action, forItemAt: indexPath, withSender: sender)
+        
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
+            let copyAction = UIAction(title: "Copy", image: UIImage(systemName: "doc.on.doc")) { (_) in
+                if case .text(let text) = message.kind {
+                    UIPasteboard.general.string = text
+                }
+            }
+            
+            if self.isFromCurrentSender(message: message) {
+                
+                let editAction = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { _ in
+                    print("Edit")
+                }
+                
+                let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash")) { _ in
+                    self.deleteMessage(message: message)
+                }
+                
+                return UIMenu(title: "", children: [deleteAction, editAction, copyAction])
+            } else {
+                let reportAction = UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble")) { (_) in
+                    self.reportMessage(message: message)
+                }
+                
+                return UIMenu(title: "", children: [reportAction, copyAction])
+            }
         }
+        
+        return config
     }
 }
 
@@ -294,7 +297,6 @@ extension ChatViewController {
 extension ChatViewController: MessageCellDelegate {
     
     func didTapAvatar(in cell: MessageCollectionViewCell) {
-        print("Avatar tapped")
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
         let message = messageList[indexPath.section]
         
@@ -303,31 +305,6 @@ extension ChatViewController: MessageCellDelegate {
     
     func didTapMessage(in cell: MessageCollectionViewCell) {
         print("Message tapped")
-    }
-        
-    func didTapPlayButton(in cell: AudioMessageCell) {
-        guard let indexPath = messagesCollectionView.indexPath(for: cell),
-            let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
-                print("Failed to identify message when audio cell receive tap gesture")
-                return
-        }
-        guard audioController.state != .stopped else {
-            // There is no audio sound playing - prepare to start playing for given audio message
-            audioController.playSound(for: message, in: cell)
-            return
-        }
-        if audioController.playingMessage?.messageId == message.messageId {
-            // tap occur in the current cell that is playing audio sound
-            if audioController.state == .playing {
-                audioController.pauseSound(for: message, in: cell)
-            } else {
-                audioController.resumeSound()
-            }
-        } else {
-            // tap occur in a difference cell that the one is currently playing sound. First stop currently playing and start the sound for given message
-            audioController.stopAnyOngoingPlaying()
-            audioController.playSound(for: message, in: cell)
-        }
     }
 }
 
@@ -366,7 +343,7 @@ extension ChatViewController: MessageInputBarDelegate {
         // Send button activity animation
         DispatchQueue.global(qos: .default).async {
             // fake send request task
-//                        sleep(2)
+            //                        sleep(2)
             DispatchQueue.main.async { [weak self] in
                 self?.messageInputBar.inputTextView.placeholder = "Message"
                 self?.insertMessages(components!)
@@ -397,29 +374,4 @@ extension ChatViewController: MessageInputBarDelegate {
         
         self.insertMessageUI(message)
     }
-}
-
-extension MessageCollectionViewCell {
-    @objc func reportMessageMenuAction(_ sender: Any?) {
-        // Get the collectionView
-        if let collectionView = self.superview as? UICollectionView {
-            // Get indexPath
-            if let indexPath = collectionView.indexPath(for: self) {
-                // Trigger action
-                collectionView.delegate?.collectionView?(collectionView, performAction: NSSelectorFromString("reportMessageMenuAction:"), forItemAt: indexPath, withSender: sender)
-            }
-        }
-    }
-        
-    @objc func deleteMessageMenuAction(_ sender: Any?) {
-        // Get the collectionView
-        if let collectionView = self.superview as? UICollectionView {
-            // Get indexPath
-            if let indexPath = collectionView.indexPath(for: self) {
-                // Trigger action
-                collectionView.delegate?.collectionView?(collectionView, performAction: NSSelectorFromString("deleteMessageMenuAction:"), forItemAt: indexPath, withSender: sender)
-            }
-        }
-    }
-
 }
