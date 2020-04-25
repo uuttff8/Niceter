@@ -201,3 +201,9 @@ extension RoomsViewController: UISearchBarDelegate {
         self.perform(#selector(reload(_:)), with: searchBar, afterDelay: 0.5)
     }
 }
+
+extension RoomsViewController: TabBarReselectHandling {
+    func handleReselect() {
+        tableNode.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+    }
+}
