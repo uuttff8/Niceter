@@ -130,6 +130,7 @@
 		4EE25D9924534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
 		4EE25D9A24534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
 		4EE25D9C245351CE00055A5E /* GittkerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D9B245351CE00055A5E /* GittkerLog.swift */; };
+		4EE25DB224544E0D00055A5E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE25DB124544E0D00055A5E /* SnapKit */; };
 		4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedLoader.swift */; };
 		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
 		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
@@ -317,6 +318,7 @@
 				4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */,
 				4E2A7A302416B23C0025F39C /* Nuke in Frameworks */,
 				4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */,
+				4EE25DB224544E0D00055A5E /* SnapKit in Frameworks */,
 				6532D043262CC4624D78B0B9 /* Pods_Gittker.framework in Frameworks */,
 				4E1181202443506A001F6D2D /* SwiftyMarkdown in Frameworks */,
 			);
@@ -992,6 +994,7 @@
 				4E2A7A1424116B620025F39C /* KeychainSwift */,
 				4E2A7A2F2416B23C0025F39C /* Nuke */,
 				4E11811F2443506A001F6D2D /* SwiftyMarkdown */,
+				4EE25DB124544E0D00055A5E /* SnapKit */,
 			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
@@ -1072,6 +1075,7 @@
 				4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */,
 				4E11811E2443506A001F6D2D /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
+				4EE25DB024544E0D00055A5E /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
@@ -1708,6 +1712,14 @@
 				minimumVersion = 8.4.0;
 			};
 		};
+		4EE25DB024544E0D00055A5E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1725,6 +1737,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
+		};
+		4EE25DB124544E0D00055A5E /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EE25DB024544E0D00055A5E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 

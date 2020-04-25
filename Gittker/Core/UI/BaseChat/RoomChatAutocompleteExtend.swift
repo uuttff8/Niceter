@@ -10,7 +10,7 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 
-class RoomChatAutocompleteExtend: RoomChatBaseViewController {
+class RoomChatAutocompleteExtend: RoomChatEditingMessageExtend {
     /// The object that manages autocomplete, from InputBarAccessoryView
     lazy var autocompleteManager: AutocompleteManager = { [unowned self] in
         let manager = AutocompleteManager(for: self.messageInputBar.inputTextView)

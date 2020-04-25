@@ -304,6 +304,21 @@ extension GitterApi {
             completion(())
         }
     }
+    
+    func updateMessage(text: String, roomId: String, messageId: String, completion: @escaping (RoomRecreateSchema) -> Void) {
+        let endpoint = GitterApiLinks.updateMessage(roomId: roomId, messageId: messageId)
+        
+        let bodyObject: [String : Any] = [
+            "text": "\(text)"
+        ]
+        
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
+                           body: bodyObject)
+        { (data) in
+            completion(data)
+        }
+    }
 }
 
 // MARK: - Private -

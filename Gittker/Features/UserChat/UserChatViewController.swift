@@ -8,7 +8,7 @@
 
 import MessageKit
 
-final class UserChatViewController: RoomChatBaseViewController {
+final class UserChatViewController: RoomChatEditingMessageExtend {
     weak var coordinator: UserChatCoordinator?
     
     // MARK: - Private Elements

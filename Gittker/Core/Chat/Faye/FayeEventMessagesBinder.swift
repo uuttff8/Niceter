@@ -42,7 +42,7 @@ public final class FayeEventMessagesBinder {
                 case .value(let user):
                     loadedMessages(user.toGittkerMessages(isLoading: false))
                 case .error(let error):
-//                    GittkerLog.logCacheError(title: "Failed to fetch loading messages cache", error: error)
+                    GittkerLog.logCacheError(title: "Failed to fetch loading messages cache", error: error)
                     break
                 }
             }
