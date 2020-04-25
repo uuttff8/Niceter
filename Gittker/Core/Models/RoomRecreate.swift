@@ -56,6 +56,7 @@ extension Date {
         guard let str = str else { return Date() }
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        dateFormatter.timeZone = TimeZone.current
         // Safety: if error here then backend returned not valid sent date in string
         return dateFormatter.date(from: str)!
     }

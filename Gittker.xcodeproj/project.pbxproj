@@ -130,11 +130,6 @@
 		4EE25D9924534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
 		4EE25D9A24534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
 		4EE25D9C245351CE00055A5E /* GittkerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D9B245351CE00055A5E /* GittkerLog.swift */; };
-		4EE25D9F2453591B00055A5E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D9E2453591B00055A5E /* NavigationController.swift */; };
-		4EE25DA124536AE200055A5E /* SlideAnimatedTransiting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DA024536AE200055A5E /* SlideAnimatedTransiting.swift */; };
-		4EE25DA424536B0600055A5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DA324536B0600055A5E /* ViewController.swift */; };
-		4EE25DA6245380B100055A5E /* SlidableExtend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25DA5245380B100055A5E /* SlidableExtend.swift */; };
-		4EE25DA9245393A100055A5E /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE25DA8245393A100055A5E /* PinLayout */; };
 		4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedLoader.swift */; };
 		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
 		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
@@ -300,10 +295,6 @@
 		4EE25D9524534A8A00055A5E /* RoomChatEditingMessageExtend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatEditingMessageExtend.swift; sourceTree = "<group>"; };
 		4EE25D9724534E7600055A5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4EE25D9B245351CE00055A5E /* GittkerLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerLog.swift; sourceTree = "<group>"; };
-		4EE25D9E2453591B00055A5E /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		4EE25DA024536AE200055A5E /* SlideAnimatedTransiting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimatedTransiting.swift; sourceTree = "<group>"; };
-		4EE25DA324536B0600055A5E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4EE25DA5245380B100055A5E /* SlidableExtend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidableExtend.swift; sourceTree = "<group>"; };
 		4EFC4FC1242250C500295EB1 /* CachedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedLoader.swift; sourceTree = "<group>"; };
 		4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerMessage.swift; sourceTree = "<group>"; };
 		4EFC4FC62423746200295EB1 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
@@ -323,7 +314,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EE25DA9245393A100055A5E /* PinLayout in Frameworks */,
 				4E2A7A1524116B620025F39C /* KeychainSwift in Frameworks */,
 				4E2A7A302416B23C0025F39C /* Nuke in Frameworks */,
 				4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */,
@@ -930,8 +920,6 @@
 		4ED53989242BA797000874F3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				4EE25DA224536AFC00055A5E /* ViewController */,
-				4EE25D9D2453590D00055A5E /* NavigationController */,
 				4ED5398F242BB5FB000874F3 /* TableGrouped */,
 				4EE0CF8E24222364005BDE24 /* BaseChat */,
 				4E09AC56240EE2C90028229C /* MainTabBar */,
@@ -978,26 +966,8 @@
 				4EB3FBFB2429890300F3BF88 /* RoomChatBaseViewController.swift */,
 				4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */,
 				4EE25D9524534A8A00055A5E /* RoomChatEditingMessageExtend.swift */,
-				4EE25DA5245380B100055A5E /* SlidableExtend.swift */,
 			);
 			path = BaseChat;
-			sourceTree = "<group>";
-		};
-		4EE25D9D2453590D00055A5E /* NavigationController */ = {
-			isa = PBXGroup;
-			children = (
-				4EE25D9E2453591B00055A5E /* NavigationController.swift */,
-				4EE25DA024536AE200055A5E /* SlideAnimatedTransiting.swift */,
-			);
-			path = NavigationController;
-			sourceTree = "<group>";
-		};
-		4EE25DA224536AFC00055A5E /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4EE25DA324536B0600055A5E /* ViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1022,7 +992,6 @@
 				4E2A7A1424116B620025F39C /* KeychainSwift */,
 				4E2A7A2F2416B23C0025F39C /* Nuke */,
 				4E11811F2443506A001F6D2D /* SwiftyMarkdown */,
-				4EE25DA8245393A100055A5E /* PinLayout */,
 			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Gittker.app */;
@@ -1103,7 +1072,6 @@
 				4E2A7A1324116B620025F39C /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */,
 				4E11811E2443506A001F6D2D /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
-				4EE25DA7245393A100055A5E /* XCRemoteSwiftPackageReference "PinLayout" */,
 			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
@@ -1286,7 +1254,6 @@
 				4E4F7D6D244452AC009287D8 /* CreateRoomNameViewController.swift in Sources */,
 				4ED539A1242FB613000874F3 /* RoomEventSchema.swift in Sources */,
 				4ED5399B242F61C3000874F3 /* SearchQuerySchema.swift in Sources */,
-				4EE25D9F2453591B00055A5E /* NavigationController.swift in Sources */,
 				4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */,
 				4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */,
 				4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */,
@@ -1333,7 +1300,6 @@
 				4EE0CF902422239D005BDE24 /* ChatViewController.swift in Sources */,
 				4EC70C6E243DC4910063F323 /* UserChatViewModel.swift in Sources */,
 				4EB082E6244B1136004F0696 /* RoomInfoCoordinator.swift in Sources */,
-				4EE25DA424536B0600055A5E /* ViewController.swift in Sources */,
 				4E4F7D732444594C009287D8 /* TextFieldNodeCell.swift in Sources */,
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
@@ -1350,7 +1316,6 @@
 				4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */,
 				4ED5398D242BB37F000874F3 /* ProfileMainNodeCell.swift in Sources */,
 				4ED53991242BB60E000874F3 /* TableGrouped.swift in Sources */,
-				4EE25DA124536AE200055A5E /* SlideAnimatedTransiting.swift in Sources */,
 				4EC70C70243DC49B0063F323 /* UserChatViewController.swift in Sources */,
 				4E9D17BB241E8FB80066362D /* RoomChatViewModel.swift in Sources */,
 				4E2A7A1224116A6F0025F39C /* RoomsViewModel.swift in Sources */,
@@ -1368,7 +1333,6 @@
 				4E22A01224351EFB0096371C /* Extensions.swift in Sources */,
 				4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */,
 				4EC70C7E243FA6240063F323 /* ProfileCoordinator.swift in Sources */,
-				4EE25DA6245380B100055A5E /* SlidableExtend.swift in Sources */,
 				4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */,
 				4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */,
 				4E22A00424334B480096371C /* ProfileAdditionalInfoNode.swift in Sources */,
@@ -1744,14 +1708,6 @@
 				minimumVersion = 8.4.0;
 			};
 		};
-		4EE25DA7245393A100055A5E /* XCRemoteSwiftPackageReference "PinLayout" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/layoutBox/PinLayout.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.8.13;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1769,11 +1725,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
-		};
-		4EE25DA8245393A100055A5E /* PinLayout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EE25DA7245393A100055A5E /* XCRemoteSwiftPackageReference "PinLayout" */;
-			productName = PinLayout;
 		};
 /* End XCSwiftPackageProductDependency section */
 
