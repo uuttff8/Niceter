@@ -63,8 +63,10 @@ class RoomChatViewModel {
         }
     }
     
-    func deleteMessage(messageId: String, completion: @escaping (SuccessSchema) -> Void) {
-        GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (_) in }
+    func deleteMessage(messageId: String, completion: @escaping () -> Void) {
+        GitterApi.shared.deleteMessage(roomId: roomSchema.id, messageId: messageId) { (_) in
+            completion()
+        }
     }
     
     func prefetchRoomUsers() {
@@ -78,6 +80,10 @@ class RoomChatViewModel {
         DispatchQueue.global(qos: .default).async {
             self.cachedMessageLoader.addNewMessage(message: message)
         }
+    }
+    
+    func editMessage(text: String, messageId: String, completion: @escaping (RoomRecreateSchema) -> Void) {
+        GitterApi.shared.updateMessage(text: text, roomId: roomSchema.id, messageId: messageId, completion: completion)
     }
     
     // To implement it correct, we should better use caching to loading part of messages to cache

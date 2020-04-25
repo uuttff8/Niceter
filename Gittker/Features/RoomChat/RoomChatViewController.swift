@@ -8,11 +8,15 @@
 
 import MessageKit
 
-extension UIColor {
-    static let primaryColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+extension BidirectionalCollection where Element : Equatable {
+  public func difference<C: BidirectionalCollection>(
+    from other: C
+  ) -> CollectionDifference<Element> where C.Element == Self.Element {
+    return difference(from: other, by: ==)
+  }
 }
 
-final class RoomChatViewController: RoomChatAutocompleteExtend {
+final class RoomChatViewController: RoomChatEditingMessageExtend {
     weak var coordinator: RoomChatCoordinator?
     
     //MARK: -  Private Elements
@@ -22,7 +26,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     private var isJoined: Bool
     private var roomSchema: RoomSchema
     
-    private var cached = 2
+    private var cached = 1
     
     private var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
     private var panGestureRecognizer: UIPanGestureRecognizer!
@@ -93,9 +97,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     }
     
     override func deleteMessage(message: MockMessage) {
-        self.viewModel.deleteMessage(messageId: message.messageId) { (res) in
-            print(res)
-        }
+        self.viewModel.deleteMessage(messageId: message.messageId) { () in }
     }
             
     override func sendMessage(tmpMessage: MockMessage) {
@@ -131,6 +133,14 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
                 
                 Your report will be reviewed by Gitter team very soon.
                 """, subtitle: nil))
+        }
+    }
+    
+    override func editMessage(message: MockMessage) {
+        guard case .text(let messageText) = message.kind else { return }
+        self.viewModel.editMessage(text: messageText, messageId: message.messageId) { (roomRecrSchema) in
+//            print(roomRecrSchema)
+            self.editingMessage(self.editingMessagePlugin, shouldBecomeVisible: false)
         }
     }
     

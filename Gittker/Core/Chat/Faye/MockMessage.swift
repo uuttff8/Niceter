@@ -109,3 +109,25 @@ struct MockMessage: MessageType {
 //        self.init(kind: .attributedText(attributedText), user: user, messageId: messageId, date: date, unread: unread)
 //    }
 }
+
+extension MessageKind: Equatable {
+    public static func ==(lhs: MessageKind, rhs: MessageKind) -> Bool {
+        switch (lhs, rhs) {
+        case let (.text(l), .text(r)): return l == r
+        case let (.attributedText(l), .attributedText(r)): return l == r
+        default: return false
+        }
+    }
+}
+
+
+extension MockMessage: Equatable {
+    static func == (lhs: MockMessage, rhs: MockMessage) -> Bool {
+        return
+            lhs.messageId == rhs.messageId &&
+                lhs.sentDate == rhs.sentDate &&
+                lhs.unread == rhs.unread &&
+                lhs.user == rhs.user &&
+                lhs.kind == rhs.kind
+    }
+}

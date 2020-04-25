@@ -44,6 +44,7 @@ enum GitterApiLinks {
     case listMessagesUnread(roomId: String)
     case reportMessage(roomId: String, messageId: String)
     case deleteMessage(roomId: String, messageId: String)
+    case updateMessage(roomId: String, messageId: String)
     
     // Groups
     case adminGroups
@@ -94,6 +95,8 @@ enum GitterApiLinks {
             return "v1/rooms/\(roomId)/chatMessages/\(messageId)/report"
         case .deleteMessage(roomId: let roomId, messageId: let messageId):
             return "v1/rooms/\(roomId)/chatMessages/\(messageId)"
+        case .updateMessage(roomId: let roomId, messageId: let messageId):
+            return "/v1/rooms/\(roomId)/chatMessages/\(messageId)"
             
         case .adminGroups:
             return "v1/groups?type=admin"
@@ -119,6 +122,8 @@ enum GitterApiLinks {
             return "POST"
         case .reportMessage(roomId: _, messageId: _):
             return "POST"
+        case .updateMessage(roomId: _, messageId: _):
+            return "PUT"
         default: return "GET"
         }
     }

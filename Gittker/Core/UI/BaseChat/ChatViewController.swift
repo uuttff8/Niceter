@@ -74,7 +74,11 @@ class ChatViewController: MessagesViewController {
     
     func deleteMessage(message: MockMessage) { }
     
+    func editMessage(message: MockMessage) { }
+    
     func showProfileScreen(username: String) { }
+    
+    func editMessageUI(message: MockMessage) { }
     
     // MARK: - Helpers
     
@@ -102,6 +106,7 @@ class ChatViewController: MessagesViewController {
         messageInputBar.inputTextView.textColor = .label
         messageInputBar.inputTextView.placeholderLabel.textColor = .secondaryLabel
         messageInputBar.backgroundView.backgroundColor = .systemBackground
+        messageInputBar.inputTextView.placeholderLabel.text = "Message"
     }
     
     
@@ -184,29 +189,40 @@ class ChatViewController: MessagesViewController {
         let message = messageList[indexPath.section].message
         
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
+            var actionList = [UIMenuElement]()
+            
             let copyAction = UIAction(title: "Copy", image: UIImage(systemName: "doc.on.doc")) { (_) in
                 if case .text(let text) = message.kind {
                     UIPasteboard.general.string = text
                 }
             }
+            actionList.append(copyAction)
             
             if self.isFromCurrentSender(message: message) {
                 
-                let editAction = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { _ in
-                    print("Edit")
+                                                            // 5 min
+                if Date() < message.sentDate.addingTimeInterval(300) {
+                    let editAction = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { _ in
+                        self.editMessageUI(message: message)
+                    }
+                    actionList.append(editAction)
                 }
+                
+                
                 
                 let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash")) { _ in
                     self.deleteMessage(message: message)
                 }
+                actionList.append(deleteAction)
                 
-                return UIMenu(title: "", children: [deleteAction, editAction, copyAction])
+                return UIMenu(title: "", children: actionList)
             } else {
                 let reportAction = UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble")) { (_) in
                     self.reportMessage(message: message)
                 }
+                actionList.append(reportAction)
                 
-                return UIMenu(title: "", children: [reportAction, copyAction])
+                return UIMenu(title: "", children: actionList)
             }
         }
         
@@ -329,7 +345,7 @@ extension ChatViewController: MessageLabelDelegate {
 
 extension ChatViewController: MessageInputBarDelegate {
     
-    func inputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+    @objc func inputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         
         // Here we can parse for which substrings were autocompleted
         let attributedText = messageInputBar.inputTextView.attributedText!
