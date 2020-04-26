@@ -105,10 +105,8 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
             
             viewModel.sendMessage(text: text) { (result) in
                 switch result {
-                case .success(_):
-                    print("All is ok")
-                case .failure(_):
-                    print("All is bad")
+                case .success(_): break
+                case .failure(_): break
                 }
             }
         }
