@@ -138,7 +138,6 @@ class RoomChatBaseViewController: ChatViewController {
     func configureMessageInputBarForChat() {
         super.configureMessageInputBar()
         messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: false)
-        messageInputBar.setRightStackViewWidthConstant(to: 52, animated: false)
         messageInputBar.sendButton
             .onSelected { item in
                 item.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
