@@ -141,17 +141,17 @@ class ChatViewController: MessagesViewController {
             UIColor.systemBackground.withAlphaComponent(0.3),
             for: .highlighted
         )
-        
+        messageInputBar.setRightStackViewWidthConstant(to: 34, animated: false)
     }
     
     func messageTopLabelAttributedText(for message: MessageType,
                                        at indexPath: IndexPath
     ) -> NSAttributedString? {
         let name = message.sender.displayName
-        return NSAttributedString(string: name,
-                                  attributes: [
-                                    NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)
-        ])
+        return NSAttributedString(
+            string: name,
+            attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)]
+        )
     }
     
     func messageBottomLabelAttributedText(
@@ -159,10 +159,10 @@ class ChatViewController: MessagesViewController {
         at indexPath: IndexPath
     ) -> NSAttributedString? {
         let dateString = dateFormatter.string(from: message.sentDate)
-        return NSAttributedString(string: dateString,
-                                  attributes: [
-                                    NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)
-        ])
+        return NSAttributedString(
+            string: dateString,
+            attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)]
+        )
     }
     
     private func openUrlInsideApp(url: URL) {
