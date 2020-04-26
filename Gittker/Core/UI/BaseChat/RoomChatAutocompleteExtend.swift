@@ -14,6 +14,7 @@ class RoomChatAutocompleteExtend: RoomChatEditingMessageExtend {
     /// The object that manages autocomplete, from InputBarAccessoryView
     lazy var autocompleteManager: AutocompleteManager = { [unowned self] in
         let manager = AutocompleteManager(for: self.messageInputBar.inputTextView)
+        manager.tableView.backgroundColor = .black
         manager.delegate = self
         manager.dataSource = self
         return manager
