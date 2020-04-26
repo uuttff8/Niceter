@@ -27,7 +27,7 @@ class RoomInfoViewModel: NSObject {
     
     func loadMorePeople(completion: @escaping () -> Void) {
         GitterApi.shared.listUsersInRoom(roomId: roomSchema.id, skip: roomSchemaPeople.count) { userSchemaList in
-            self.roomSchemaPeople.insert(contentsOf: userSchemaList, at: self.roomSchemaPeople.count - 1)
+            self.roomSchemaPeople.insert(contentsOf: userSchemaList, at: self.roomSchemaPeople.count)
             self.updateTableNode?(userSchemaList)
             completion()
         }
