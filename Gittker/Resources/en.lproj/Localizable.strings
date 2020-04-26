@@ -32,3 +32,5 @@
 "Names must be alphanumeric with no spaces. Dashes are allowed" = "Names must be alphanumeric with no spaces. Dashes are allowed";
 "Create" = "Create";
 "Create Room" = "Create Room";
+"Send a message" = "Send a message";
+"Message" = "Message";
