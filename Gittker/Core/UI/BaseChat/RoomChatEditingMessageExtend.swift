@@ -12,7 +12,6 @@ import SnapKit
 
 protocol EditingMessagePluginDelegate: AnyObject {
     func editingMessage(_ manager: EditingMessageInputPlugin, shouldBecomeVisible: Bool)
-    func cancelEditingMessage(_ manager: EditingMessageInputPlugin)
 }
 
 final class EditingMessageView: UIView {
@@ -89,6 +88,8 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
     }()
     
     private var message: MockMessage?
+    private var previousText: String?
+    
     private var isEditingEnabled: Bool = false
     
     override func viewDidLoad() {
@@ -101,6 +102,7 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
         self.message = message
         
         guard case .text(let messageText) = self.message?.kind else { return }
+        self.previousText = messageText
         editingMessagePlugin.showEditingMessage(message: messageText)
     }
     
@@ -111,6 +113,8 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
         if shouldBecomeVisible && !topStackView.arrangedSubviews.contains(editingMessagePlugin.editingMessageView) {
             self.isEditingEnabled = true
             messageInputBar.inputTextView.text = messageText
+            messageInputBar.sendButton.isEnabled = false
+            messageInputBar.inputTextView.delegate = self
             
             topStackView.insertArrangedSubview(editingMessagePlugin.editingMessageView, at: topStackView.arrangedSubviews.count)
             topStackView.layoutIfNeeded()
@@ -118,6 +122,7 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
         } else if !shouldBecomeVisible && topStackView.arrangedSubviews.contains(editingMessagePlugin.editingMessageView) {
             self.isEditingEnabled = false
             messageInputBar.inputTextView.text = ""
+            messageInputBar.inputTextView.delegate = nil
             
             topStackView.removeArrangedSubview(editingMessagePlugin.editingMessageView)
             editingMessagePlugin.editingMessageView.removeFromSuperview()
@@ -126,9 +131,7 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
         
         messageInputBar.invalidateIntrinsicContentSize()
     }
-    
-    func cancelEditingMessage(_ manager: EditingMessageInputPlugin) {  }
-    
+        
     override func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         if isEditingEnabled {
             // if editing enabled then message is not nil
@@ -141,3 +144,19 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
     }
 }
 
+extension RoomChatEditingMessageExtend: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        
+        if self.previousText != textView.text &&
+            messageInputBar.sendButton.isEnabled &&
+            self.messageInputBar.sendButton.isUserInteractionEnabled {
+            return
+        } else if self.previousText != textView.text {
+            self.messageInputBar.sendButton.isEnabled = true
+            self.messageInputBar.sendButton.isUserInteractionEnabled = true
+        } else if self.previousText == textView.text {
+            self.messageInputBar.sendButton.isEnabled = false
+            self.messageInputBar.sendButton.isUserInteractionEnabled = false
+        }
+    }
+}
