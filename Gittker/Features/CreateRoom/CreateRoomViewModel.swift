@@ -20,8 +20,8 @@ class CreateRoomViewModel {
     func fetchDataSource() {
         let nameItems = [TableGroupedItem(text: "", type: .enterName, value: ""),
                         TableGroupedItem(text: "", type: .enterTopic, value: "")]
-        let permissionItems = [TableGroupedItem(text: "Private", type: .publicPrivate, value: ""),
-                               TableGroupedItem(text: "Members can join this room", type: .privateMembers, value: "")]
+        let permissionItems = [TableGroupedItem(text: "Private".localized(), type: .publicPrivate, value: ""),
+                               TableGroupedItem(text: "Members can join this room".localized(), type: .privateMembers, value: "")]
 
         
         let nameSection = TableGroupedCreateRoomSection(section: .entername,
@@ -31,7 +31,7 @@ class CreateRoomViewModel {
         
         let permissionsSection = TableGroupedCreateRoomSection(section: .permissions,
                                                         items: permissionItems,
-                                                        footer: "When private, only people added to the room can join.",
+                                                        footer: "When private, only people added to the room can join.".localized(),
                                                         grouped: true)
         
         
@@ -49,7 +49,7 @@ class CreateRoomViewModel {
             
             let ownedCommunities = TableGroupedCreateRoomSection(section: .ownedCommunities,
                                                                  items: owned,
-                                                                 footer: "You must select a community for your room",
+                                                                 footer: "You must select a community for your room".localized(),
                                                                  grouped: true)
             self.dataSource?.data.value.append(ownedCommunities)
         }
@@ -155,7 +155,7 @@ extension CreateRoomTableDelegates {
     private func createPermissionCells(_ item: TableGroupedItemProtocol, tableNode: ASTableNode) -> ASCellNode {
         switch item.type {
         case .publicPrivate:
-            let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private",
+            let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private".localized(),
                                                                    isSwitcherOn: false,
                                                                    isSwitcherActive: true))
             cell.switchChanged = { (isOn) in
@@ -164,7 +164,7 @@ extension CreateRoomTableDelegates {
             }
             return cell
         case .privateMembers:
-            let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Members can join this room",
+            let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Members can join this room".localized(),
                                                                    isSwitcherOn: false,
                                                                    isSwitcherActive: self.isPrivateSwitchActive))
             cell.switchChanged = { (isOn) in
@@ -178,12 +178,16 @@ extension CreateRoomTableDelegates {
     private func createEnterCells(_ item: TableGroupedItemProtocol) -> ASCellNode {
         switch item.type {
         case .enterName:
-            let content = TextFieldNodeCell.Content(placeholder: "Enter a room name", defaultText: self.roomName, height: nil)
+            let content = TextFieldNodeCell.Content(placeholder: "Enter a room name".localized(),
+                                                    defaultText: self.roomName,
+                                                    height: nil)
             let cell = TextFieldNodeCell(with: content, delegate: self)
             self.roomNameTextField = cell.textFieldNode
             return cell
         case .enterTopic:
-            let content = TextFieldNodeCell.Content(placeholder: "Enter a topic (optional)", defaultText: self.roomName, height: 58)
+            let content = TextFieldNodeCell.Content(placeholder: "Enter a topic (optional)".localized(),
+                                                    defaultText: self.roomName,
+                                                    height: 58)
             let cell = TextFieldNodeCell(with: content, delegate: self)
             self.topicTextField = cell.textFieldNode
             return cell

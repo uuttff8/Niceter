@@ -42,7 +42,7 @@ class PeopleViewController: ASViewController<ASTableNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "People"
+        title = "People".localized()
         self.setupSearchBar()
         
         self.dataSource.data.addAndNotify(observer: self) { [weak self] in

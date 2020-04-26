@@ -44,7 +44,7 @@ class RoomsViewController: ASViewController<ASTableNode> {
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Rooms"
+        title = "Rooms".localized()
         self.setupSearchBar()
         self.setupNavigationBar()
         

@@ -58,11 +58,15 @@ class RoomInfoController: ASViewController<ASTableNode> {
         }
     }
     
-    private func setupTableNodeData(prefetchedUsers: [UserSchema], completion: @escaping (() -> Void)) {
+    private func setupTableNodeData(prefetchedUsers: [UserSchema],
+                                    completion: @escaping (() -> Void)) {
         // if no data from room chat was loaded, then load it (first 30)
         if prefetchedUsers.isEmpty {
-            CachedPrefetchRoomUsers(cacheKey: Config.CacheKeys.roomUsers(roomId: self.roomSchema.id), roomId: self.roomSchema.id)
-                .fetchNewAndCache { (usersSchema) in
+            
+            CachedPrefetchRoomUsers(
+                cacheKey: Config.CacheKeys.roomUsers(roomId: self.roomSchema.id),
+                roomId: self.roomSchema.id
+            ).fetchNewAndCache { (usersSchema) in
                     self.viewModel.roomSchemaPeople = usersSchema
                     self.loadFirstElementsFromNet(newUsers: usersSchema)
                     

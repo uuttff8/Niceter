@@ -690,17 +690,9 @@
 			path = controllers;
 			sourceTree = "<group>";
 		};
-		4E4F7D7624446099009287D8 /* cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = cells;
-			sourceTree = "<group>";
-		};
 		4E4F7D7C244477F7009287D8 /* name */ = {
 			isa = PBXGroup;
 			children = (
-				4E4F7D7624446099009287D8 /* cells */,
 				4E4F7D6C244452AC009287D8 /* CreateRoomNameViewController.swift */,
 				4E4F7D6E24445656009287D8 /* CreateRoomNameViewModel.swift */,
 			);
