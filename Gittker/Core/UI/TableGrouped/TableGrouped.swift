@@ -9,16 +9,34 @@
 import Foundation
 
 @frozen
-enum TableGroupedSettingsSectionType: String {
-    case profile = "Profile"
-    case logout = ""
+enum TableGroupedSettingsSectionType {
+    case profile
+    case logout
+    
+    var headerTitle: String {
+        switch self {
+        case .profile:
+            return "Profile".localized().uppercased()
+        default: return ""
+        }
+    }
 }
 
 @frozen
-enum TableGroupedCreateRoomSectionType: String, CaseIterable {
+enum TableGroupedCreateRoomSectionType: CaseIterable {
     case permissions
-    case ownedCommunities = "OWNED COMMUNITIES"
-    case entername = "NAME"
+    case ownedCommunities
+    case entername
+    
+    var headerTitle: String {
+        switch self {
+        case .ownedCommunities:
+            return "Owned сommunities".localized().uppercased()
+        case .entername:
+            return "Name".localized().uppercased()
+        default: return ""
+        }
+    }
 }
 
 // MARK: -
@@ -33,7 +51,7 @@ enum TableGroupedType: String {
     // CreateRoom
     case publicPrivate
     case privateMembers
-    case ownedCommunities = "OWNED COMMUNITIES"
+    case ownedCommunities
     case enterName
     case enterTopic
 }
@@ -83,12 +101,12 @@ extension TableGroupedItemProtocol where Self: Equatable {
 
 extension TableGroupedSettingsSectionType: CustomStringConvertible {
     var description: String {
-        return self.rawValue
+        return self.headerTitle
     }
 }
 
 extension TableGroupedCreateRoomSectionType: CustomStringConvertible {
     var description: String {
-        return self.rawValue
+        return self.headerTitle
     }
 }
