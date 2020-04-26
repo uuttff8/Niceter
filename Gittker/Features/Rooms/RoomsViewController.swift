@@ -163,6 +163,7 @@ extension RoomsViewController {
                     if let newUnreadedItems = room.unreadItems {
                         self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                        self.tableNode.moveRow(at: IndexPath(row: index, section: 0), to: IndexPath(row: 0, section: 0))
                     }
                     
                     if let newTopic = room.topic {

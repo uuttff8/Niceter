@@ -62,15 +62,25 @@ class LoginAuthViewController: PortaitViewController, Storyboarded {
     }
     
     private var acceptAttributedString: NSMutableAttributedString = {
-        let plainAttributedString = NSMutableAttributedString(string: "By signing in you accept our ",
-                                                              attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
-        let attributedLinkStringTerms = NSMutableAttributedString(string: "Terms of use",
-                                                                  attributes: [NSAttributedString.Key.link: URL(string: "https://about.gitlab.com/terms/")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        let plainAttributedString = NSMutableAttributedString(
+            string: "By signing in you accept our ".localized(),
+            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         )
         
-        let attributeAnd = NSMutableAttributedString(string: " and ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
-        let attributedLinkStringPrivacy = NSMutableAttributedString(string: "Privacy Policy",
-                                                                    attributes: [NSAttributedString.Key.link: URL(string: "https://about.gitlab.com/privacy/")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        let attributedLinkStringTerms = NSMutableAttributedString(
+            string: "Terms of use",
+            attributes: [NSAttributedString.Key.link: URL(string: "https://about.gitlab.com/terms/")!,
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        )
+        
+        let attributeAnd = NSMutableAttributedString(
+            string: " and ".localized(),
+            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        )
+        let attributedLinkStringPrivacy = NSMutableAttributedString(
+            string: "Privacy Policy",
+            attributes: [NSAttributedString.Key.link: URL(string: "https://about.gitlab.com/privacy/")!,
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
         )
         
         let fullAttributedString = NSMutableAttributedString()
