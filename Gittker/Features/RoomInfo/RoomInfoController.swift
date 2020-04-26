@@ -42,8 +42,10 @@ class RoomInfoController: ASViewController<ASTableNode> {
         title = roomSchema.name
         
         self.viewModel.updateTableNode = { [unowned self] (newList) in
+            let endOfTableView = (self.viewModel.roomSchemaPeople.count - 1) - (newList.count - 1)
+            let newlyPeople = self.viewModel.roomSchemaPeople.count
             let newIndexpaths =
-                Array(((self.viewModel.roomSchemaPeople.count - 1) - (newList.count - 1) - 1) ..< self.viewModel.roomSchemaPeople.count - 1)
+                Array(endOfTableView ..< newlyPeople)
                     .map { (index) in
                         IndexPath(row: index, section: 2)
             }
