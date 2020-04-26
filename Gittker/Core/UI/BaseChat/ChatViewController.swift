@@ -10,10 +10,16 @@ import UIKit
 import MessageKit
 import SafariServices
 
-class ConversationTemporaryMessageAdapter {
+private class ConversationTemporaryMessageAdapter {
     static func generateChildMessageTmpId(userId: String, text: String) -> String {
         let textSubstring = text.prefix(64)
         return "tmp-\(userId)-\(textSubstring)"
+    }
+}
+
+private class DefaultErrorData {
+    static var defaultUser: MockUser {
+        MockUser(senderId: "", displayName: "", username: "")
     }
 }
 
@@ -25,12 +31,8 @@ class ChatViewController: MessagesViewController {
     // to read unread messages in backround
     private var timer = Timer()
     
-    
-    /// The `BasicAudioController` controll the AVAudioPlayer state (play, pause, stop) and udpate audio cell UI accordingly.
-    open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
-    
     var canFetchMoreResults = true
-    let userdata: MockUser = ShareData().userdata?.toMockUser() ?? MockUser(senderId: "", displayName: "", username: "")
+    let userdata: MockUser = ShareData().userdata?.toMockUser() ?? DefaultErrorData.defaultUser
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -120,7 +122,8 @@ class ChatViewController: MessagesViewController {
     }
     
     func configureMessageCollectionView() {
-        guard let flowLayout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else {
+        guard let flowLayout =
+            messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else {
             return
         }
         flowLayout.collectionView?.backgroundColor = .systemBackground
@@ -138,17 +141,28 @@ class ChatViewController: MessagesViewController {
             UIColor.systemBackground.withAlphaComponent(0.3),
             for: .highlighted
         )
+        
     }
     
-    func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    func messageTopLabelAttributedText(for message: MessageType,
+                                       at indexPath: IndexPath
+    ) -> NSAttributedString? {
         let name = message.sender.displayName
-        return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+        return NSAttributedString(string: name,
+                                  attributes: [
+                                    NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)
+        ])
     }
     
-    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    func messageBottomLabelAttributedText(
+        for message: MessageType,
+        at indexPath: IndexPath
+    ) -> NSAttributedString? {
         let dateString = dateFormatter.string(from: message.sentDate)
-        return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-        //        return NSAttributedString(string: "ASDASDASd")
+        return NSAttributedString(string: dateString,
+                                  attributes: [
+                                    NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)
+        ])
     }
     
     private func openUrlInsideApp(url: URL) {
@@ -167,7 +181,11 @@ class ChatViewController: MessagesViewController {
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
         super.collectionView(collectionView, willDisplay: cell, forItemAt: indexPath)
         
         // count unreaded messages
@@ -185,7 +203,11 @@ class ChatViewController: MessagesViewController {
         }
     }
             
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfigurationForItemAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
         let message = messageList[indexPath.section].message
         
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
@@ -199,34 +221,48 @@ class ChatViewController: MessagesViewController {
             actionList.append(copyAction)
             
             if self.isFromCurrentSender(message: message) {
-                
-                                                            // 5 min
-                if Date() < message.sentDate.addingTimeInterval(300) {
-                    let editAction = UIAction(title: "Edit", image: UIImage(systemName: "square.and.pencil")) { _ in
-                        self.editMessageUI(message: message)
-                    }
-                    actionList.append(editAction)
-                }
-                
-                
-                
-                let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash")) { _ in
-                    self.deleteMessage(message: message)
-                }
-                actionList.append(deleteAction)
-                
-                return UIMenu(title: "", children: actionList)
+                return self.createCtxMenuForCurrentSender(message: message, default: &actionList)
             } else {
-                let reportAction = UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble")) { (_) in
-                    self.reportMessage(message: message)
-                }
-                actionList.append(reportAction)
-                
-                return UIMenu(title: "", children: actionList)
+                return self.createCtxMenuForAnotherSender(message: message, default: &actionList)
             }
         }
         
         return config
+    }
+    
+    private func createCtxMenuForCurrentSender(
+        message: MockMessage,
+        default actionList: inout [UIMenuElement]
+    ) -> UIMenu {
+                                                    // 5 min
+        if Date() < message.sentDate.addingTimeInterval(300) {
+            let editAction = UIAction(title: "Edit",
+                                      image: UIImage(systemName: "square.and.pencil")) { _ in
+                self.editMessageUI(message: message)
+            }
+            actionList.append(editAction)
+        }
+        
+        let deleteAction = UIAction(title: "Delete",
+                                    image: UIImage(systemName: "trash")) { _ in
+            self.deleteMessage(message: message)
+        }
+        actionList.append(deleteAction)
+        
+        return UIMenu(title: "", children: actionList)
+    }
+    
+    private func createCtxMenuForAnotherSender(
+        message: MockMessage,
+        default actionList: inout [UIMenuElement]
+    ) -> UIMenu {
+        let reportAction = UIAction(title: "Report",
+                                    image: UIImage(systemName: "exclamationmark.bubble")) { (_) in
+            self.reportMessage(message: message)
+        }
+        actionList.append(reportAction)
+        
+        return UIMenu(title: "", children: actionList)
     }
 }
 
@@ -244,7 +280,11 @@ extension ChatViewController: MessagesDataSource {
     }
     
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+        return NSAttributedString(
+            string: "Read",
+            attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
+                         NSAttributedString.Key.foregroundColor: UIColor.darkGray]
+        )
     }
 }
 
