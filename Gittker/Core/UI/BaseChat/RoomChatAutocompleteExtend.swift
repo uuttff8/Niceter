@@ -29,7 +29,9 @@ class RoomChatAutocompleteExtend: RoomChatEditingMessageExtend {
         autocompleteManager.register(prefix: "@", with: [.font: UIFont.preferredFont(forTextStyle: .body)])
         
         // Set plugins
-        messageInputBar.inputPlugins = [autocompleteManager]
+        messageInputBar.inputPlugins.append(autocompleteManager)
+        autocompleteManager.defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label,
+                                                     .font: UIFont.systemFont(ofSize: 17)]
     }
 }
 
