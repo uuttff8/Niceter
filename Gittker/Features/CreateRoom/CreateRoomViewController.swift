@@ -31,7 +31,7 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Create Room"
+        title = "Create Room".localized()
         self.hideKeyboardWhenTappedAround()
         setupNavigationControllerButtons()
         
@@ -53,23 +53,29 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     }
     
     private func setupNavigationControllerButtons() {
-        let doneButton = UIBarButtonItem(title: "Create", style: .done, target: self, action: #selector(doneButtonAction(_:)))
+        let doneButton = UIBarButtonItem(title: "Create".localized(),
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(doneButtonAction(_:)))
         navigationItem.rightBarButtonItem = doneButton
     }
     
     @objc private func doneButtonAction(_ sender: UIBarButtonItem) {
         guard let community = self.tableDelegates.selectedCommunity else {
-            self.showOkAlert(config: .init(title: "Please, specify community", subtitle: nil))
+            self.showOkAlert(config: .init(title: "Please, specify community".localized(),
+                                           subtitle: nil))
             return
         }
         
         guard let text = self.tableDelegates.roomName else {
-            self.showOkAlert(config: .init(title: "Room name is not valid", subtitle: nil))
+            self.showOkAlert(config: .init(title: "Room name is not valid".localized(),
+                                           subtitle: nil))
             return
         }
         
         guard text.rangeOfCharacter(from: CharacterSet.gitterValidRoomName.inverted) == nil else {
-            self.showOkAlert(config: .init(title: "Names must be alphanumeric with no spaces. Dashes are allowed", subtitle: nil))
+            self.showOkAlert(config: .init(title: "Names must be alphanumeric with no spaces. Dashes are allowed".localized(),
+                                           subtitle: nil))
             return
         }
         

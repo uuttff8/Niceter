@@ -32,7 +32,7 @@ class SettingsViewController: ASViewController<ASTableNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Settings"
+        title = "Settings".localized()
         
         self.tableDelegates.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in

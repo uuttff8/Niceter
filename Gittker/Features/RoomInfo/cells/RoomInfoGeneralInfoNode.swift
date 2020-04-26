@@ -50,7 +50,10 @@ class RoomInfoGeneralInfoNode: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content.name ?? "", attributes: Dictionary.boldTitleAttributes(size: 23))
+        self.titleNode.attributedText = NSAttributedString(
+            string: self.content.name ?? "",
+            attributes: Dictionary.boldTitleAttributes(size: 23)
+        )
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }

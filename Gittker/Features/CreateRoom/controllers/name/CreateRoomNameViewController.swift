@@ -52,7 +52,10 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
         return CreateRoomNameSection.allCases.count
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+    func tableNode(
+        _ tableNode: ASTableNode,
+        nodeBlockForRowAt indexPath: IndexPath
+    ) -> ASCellNodeBlock {
         let section = CreateRoomNameSection.allCases[indexPath.section]
         return {
             var returnCell = ASCellNode()
@@ -64,8 +67,11 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
                 returnCell = cell
                 
                 self.repoSelected = { (text) in
-                    cell.textFieldNode.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.label,
-                                                                                                      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+                    cell.textFieldNode.attributedText = NSAttributedString(
+                        string: text,
+                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.label,
+                                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+                    )
                     cell.textFieldNode.delegate?.editableTextNodeDidUpdateText?(cell.textFieldNode)
                     returnCell = cell
                 }
@@ -114,7 +120,9 @@ extension CreateRoomNameViewController: ASTableDelegate, ASTableDataSource {
 
 extension CreateRoomNameViewController: ASEditableTextNodeDelegate {
     func editableTextNodeDidUpdateText(_ editableTextNode: ASEditableTextNode) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(reloadText(_:)), object: editableTextNode)
+        NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                               selector: #selector(reloadText(_:)),
+                                               object: editableTextNode)
         self.perform(#selector(reloadText(_:)), with: editableTextNode, afterDelay: 0.5)
     }
     

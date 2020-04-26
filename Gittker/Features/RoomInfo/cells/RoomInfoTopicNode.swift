@@ -36,7 +36,10 @@ class RoomInfoTopicNode: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content, attributes: Dictionary.defaultTitleAttributes(size: 16))
+        self.titleNode.attributedText = NSAttributedString(
+            string: self.content,
+            attributes: Dictionary.defaultTitleAttributes(size: 16)
+        )
         self.titleNode.maximumNumberOfLines = 0
         self.titleNode.truncationMode = .byTruncatingTail
     }
@@ -53,7 +56,10 @@ class RoomInfoTopicNode: ASCellNode {
         super.layout()
         
         let separatorHeight = 1 / UIScreen.main.scale
-        self.separatorNodeTop.frame = CGRect(x: 0.0, y: 0.0, width: self.calculatedSize.width, height: separatorHeight)
+        self.separatorNodeTop.frame = CGRect(x: 0.0,
+                                             y: 0.0,
+                                             width: self.calculatedSize.width,
+                                             height: separatorHeight)
         self.separatorNodeBottom.frame = CGRect(x: 0.0,
                                                 y: self.calculatedSize.height - 0.5,
                                                 width: self.calculatedSize.width,

@@ -36,7 +36,7 @@ class MainTabBarController: ASTabBarController {
         let homeNavigationController = ASNavigationController(rootViewController: homeCoordinator.currentController!)
         homeCoordinator.navigationController = homeNavigationController
         homeCoordinator.tabController = self
-        homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms",
+        homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms".localized(),
                                                                   image: UIImage(systemName: "message"),
                                                                   tag: 0)
 
@@ -46,7 +46,7 @@ class MainTabBarController: ASTabBarController {
         let peopleNavigationController = ASNavigationController(rootViewController: peopleCoordinator.currentController!)
         peopleCoordinator.navigationController = peopleNavigationController
         peopleCoordinator.tabController = self
-        peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People",
+        peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People".localized(),
                                                                   image: UIImage(systemName: "person"),
                                                                   tag: 1)
 
@@ -56,7 +56,7 @@ class MainTabBarController: ASTabBarController {
         let commNavigationController = ASNavigationController(rootViewController: commCoordinator.currentController!)
         commCoordinator.navigationController = commNavigationController
         commCoordinator.tabController = self
-        commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Settings",
+        commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Settings".localized(),
                                                                   image: UIImage(systemName: "gear"),
                                                                   tag: 2)
         

@@ -109,9 +109,9 @@ class ProfileMainNodeCell: ASCellNode {
     
     private func setupGitInfoTitle() {
         self.gitInfoNode.attributedText = NSAttributedString(string:
-            "\(content?.github?.followers ?? 0) followers \n"
-                + "\(content?.github?.following ?? 0) following \n"
-                + "\(self.content?.github?.public_repos ?? 0) public repos",
+            "\(content?.github?.followers ?? 0) " + "followers".localized() + "\n"
+            + "\(content?.github?.following ?? 0) " + "following".localized() + "\n"
+                + "\(self.content?.github?.public_repos ?? 0) " + "public repos".localized(),
             attributes: gitInfoAttrubuttes)
     }
     
@@ -121,10 +121,10 @@ class ProfileMainNodeCell: ASCellNode {
     }()
     
     private func setupAdditionalInfo() {
-        self.locationNode.infoTitle = self.content?.location ?? "Not specified"
-        self.emailNode.infoTitle = self.content?.email ?? "Not specified"
-        self.linkNode.infoTitle = self.content?.website ?? "Not Specified"
-        self.companyNode.infoTitle = self.content?.company ?? "Not Specified"
+        self.locationNode.infoTitle = self.content?.location ?? "Not specified".localized()
+        self.emailNode.infoTitle = self.content?.email ?? "Not specified".localized()
+        self.linkNode.infoTitle = self.content?.website ?? "Not Specified".localized()
+        self.companyNode.infoTitle = self.content?.company ?? "Not Specified".localized()
     }
     
     // MARK: - Build node hierarchy

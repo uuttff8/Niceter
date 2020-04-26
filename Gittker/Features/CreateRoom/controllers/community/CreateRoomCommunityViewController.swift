@@ -58,7 +58,7 @@ extension CreateRoomCommunityViewController: ASTableDelegate, ASTableDataSource 
                 
                 returnCell = cell
             case .createCommunity:
-                let cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: "Create new community"), state: .default)
+                let cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: "Create new community".localized()), state: .default)
                 cell.accessoryType = .disclosureIndicator
                 returnCell = cell
             }
