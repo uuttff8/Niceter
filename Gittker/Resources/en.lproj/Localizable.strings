@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Gittker
+
+  Created by uuttff8 on 4/26/20.
+  Copyright © 2020 Anton Kuzmin. All rights reserved.
+*/
+
+"By signing in you accept our " = "By signing in you accept our ";
+"Do you really want to exit?" = "Do you really want to exit?";
+"Yes" = "Yes";
+"No" = "No";
+"Logout" = "Logout";

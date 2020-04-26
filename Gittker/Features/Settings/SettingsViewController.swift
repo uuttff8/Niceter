@@ -51,8 +51,8 @@ class SettingsViewController: ASViewController<ASTableNode> {
     }
     
     private func logout() {
-        let alert = UIAlertController(title: "Do you really want to exit?", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (_) in
+        let alert = UIAlertController(title: "Do you really want to exit?".localized(), message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Yes".localized(), style: .destructive, handler: { (_) in
             LoginData.shared.logout()
             
             // Safety: we use only one window
@@ -85,7 +85,7 @@ class SettingsViewController: ASViewController<ASTableNode> {
                     CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey).deleteAllData()
             })
         }))
-        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "No".localized(), style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }

@@ -1,0 +1,12 @@
+
+/* Class = "UIButton"; normalTitle = "Sign in with GitLab"; ObjectID = "LMh-dS-wZc"; */
+"LMh-dS-wZc.normalTitle" = "Войти с GitLab";
+
+/* Class = "UIButton"; normalTitle = "Sign in with GitHub"; ObjectID = "MFd-RQ-nxn"; */
+"MFd-RQ-nxn.normalTitle" = "Войти с GitHub";
+
+/* Class = "UITextView"; text = "By signing in you accept  our Terms of use and Privacy Police"; ObjectID = "pIW-x0-zG6"; */
+"pIW-x0-zG6.text" = "Входя, вы принимаете наши Terms of use и Privacy Police";
+
+/* Class = "UIButton"; normalTitle = "Sign in with Twitter"; ObjectID = "r8s-u4-iRN"; */
+"r8s-u4-iRN.normalTitle" = "Войти с Twitter";

@@ -131,6 +131,7 @@
 		4EE25D9A24534E7600055A5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25D9724534E7600055A5E /* GoogleService-Info.plist */; };
 		4EE25D9C245351CE00055A5E /* GittkerLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE25D9B245351CE00055A5E /* GittkerLog.swift */; };
 		4EE25DB224544E0D00055A5E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE25DB124544E0D00055A5E /* SnapKit */; };
+		4EE25DB92455BA0200055A5E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EE25DBB2455BA0200055A5E /* Localizable.strings */; };
 		4EFC4FC2242250C500295EB1 /* CachedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC1242250C500295EB1 /* CachedLoader.swift */; };
 		4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */; };
 		4EFC4FC72423746200295EB1 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC4FC62423746200295EB1 /* Swift+Ext.swift */; };
@@ -296,6 +297,9 @@
 		4EE25D9524534A8A00055A5E /* RoomChatEditingMessageExtend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatEditingMessageExtend.swift; sourceTree = "<group>"; };
 		4EE25D9724534E7600055A5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4EE25D9B245351CE00055A5E /* GittkerLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerLog.swift; sourceTree = "<group>"; };
+		4EE25DBA2455BA0200055A5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4EE25DBC2455BA1A00055A5E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LoginAuth.strings; sourceTree = "<group>"; };
+		4EE25DBD2455BA1A00055A5E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4EFC4FC1242250C500295EB1 /* CachedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedLoader.swift; sourceTree = "<group>"; };
 		4EFC4FC424236B1B00295EB1 /* GittkerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerMessage.swift; sourceTree = "<group>"; };
 		4EFC4FC62423746200295EB1 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
@@ -500,6 +504,7 @@
 				4E09ABF3240D7FA90028229C /* Info.plist */,
 				4EE25D9724534E7600055A5E /* GoogleService-Info.plist */,
 				4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */,
+				4EE25DBB2455BA0200055A5E /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1069,6 +1074,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 4E09ABD6240D7FA70028229C;
 			packageReferences = (
@@ -1094,6 +1100,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */,
+				4EE25DB92455BA0200055A5E /* Localizable.strings in Resources */,
 				4E09AC40240E9B8C0028229C /* GitterSecrets-Dev.plist in Resources */,
 				4EE25D9824534E7600055A5E /* GoogleService-Info.plist in Resources */,
 				4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */,
@@ -1379,6 +1386,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4E09ABE9240D7FA70028229C /* Base */,
+				4EE25DBC2455BA1A00055A5E /* ru */,
 			);
 			name = LoginAuth.storyboard;
 			sourceTree = "<group>";
@@ -1391,6 +1399,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		4EE25DBB2455BA0200055A5E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EE25DBA2455BA0200055A5E /* en */,
+				4EE25DBD2455BA1A00055A5E /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1398,6 +1415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1444,7 +1462,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1458,6 +1476,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1498,7 +1517,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1515,7 +1534,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;
@@ -1540,7 +1559,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gittker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Gittker/Resources/Info.plist;

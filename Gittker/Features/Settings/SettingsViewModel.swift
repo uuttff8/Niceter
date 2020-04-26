@@ -49,7 +49,7 @@ struct SettingsViewModel {
     func fetchDataSourceLocalData() {
         let logout = TableGroupedSettingsSection(section: .logout,
                                          items:
-            [TableGroupedItem(text:  "Logout",
+            [TableGroupedItem(text:  "Logout".localized(),
                               type: .noUrl,
                               value: "")
             ],
