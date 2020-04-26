@@ -133,7 +133,7 @@ class ChatViewController: MessagesViewController {
     
     func configureMessageInputBar() {
         messageInputBar.delegate = self
-        messageInputBar.sendButton.setImage(UIImage(named: "send"), for: .normal)
+        messageInputBar.sendButton.setImage(UIImage(named: "right-arrow"), for: .normal)
         messageInputBar.sendButton.setTitleColor(
             UIColor.systemBackground.withAlphaComponent(0.3),
             for: .highlighted
