@@ -91,8 +91,14 @@ class RoomChatBaseViewController: ChatViewController {
         layout?.sectionInset = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 8)
         layout?.setMessageOutgoingCellBottomLabelAlignment(.init(textAlignment: .right, textInsets: .zero))
         layout?.setMessageOutgoingAvatarSize(.zero)
-        layout?.setMessageOutgoingMessageTopLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)))
-        layout?.setMessageOutgoingMessageBottomLabelAlignment(LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)))
+        layout?.setMessageOutgoingMessageTopLabelAlignment(
+            LabelAlignment(textAlignment: .right,
+                           textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12))
+        )
+        layout?.setMessageOutgoingMessageBottomLabelAlignment(
+            LabelAlignment(textAlignment: .right,
+                           textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12))
+        )
         
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
@@ -149,7 +155,8 @@ class RoomChatBaseViewController: ChatViewController {
     override func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if !isPreviousMessageSameSender(at: indexPath) {
             let name = message.sender.displayName
-            return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+            return NSAttributedString(string: name,
+                                      attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
         }
         return nil
     }

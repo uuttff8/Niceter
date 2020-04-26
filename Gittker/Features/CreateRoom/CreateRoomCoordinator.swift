@@ -38,7 +38,8 @@ class CreateRoomCoordinator: Coordinator {
         }
     }
     
-    func showCommunityPick(adminGroups: [GroupSchema], completion: @escaping (GroupSchema, _ ghRepoEnabled: Bool) -> Void) {
+    func showCommunityPick(adminGroups: [GroupSchema],
+                           completion: @escaping (GroupSchema, _ ghRepoEnabled: Bool) -> Void) {
         guard let modalNavController = modalNavigationController else { return }
         
         let vc = CreateRoomCommunityViewController(coordinator: self, adminGroups: adminGroups)

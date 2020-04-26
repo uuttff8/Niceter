@@ -102,7 +102,10 @@ final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSe
         return self.data.value[section].items.count
     }
         
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+    func tableNode(
+        _ tableNode: ASTableNode,
+        nodeBlockForRowAt indexPath: IndexPath
+    ) -> ASCellNodeBlock {
         return {
             let section = self.data.value[indexPath.section]
             let item = section.items[indexPath.row]
@@ -113,11 +116,7 @@ final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSe
             case .permissions:
                 return self.createPermissionCells(item, tableNode: tableNode)
             case .ownedCommunities:
-                let model = self.adminGroups[indexPath.row]
-                let cell = CreateRoomMarkedNodeCell(with: CreateRoomMarkedNodeCell.Content(title: model.name,
-                                                                                           isSelected: self.selectedCommunity?.id == model.id))
-                cell.selectionStyle = .none
-                return cell
+                return self.createOwnedCommunites(at: indexPath)
             }
         }
     }
@@ -152,21 +151,26 @@ final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSe
 
 // MARK: - Creating Cells
 extension CreateRoomTableDelegates {
-    private func createPermissionCells(_ item: TableGroupedItemProtocol, tableNode: ASTableNode) -> ASCellNode {
+    private func createPermissionCells(
+        _ item: TableGroupedItemProtocol,
+        tableNode: ASTableNode
+    ) -> ASCellNode {
         switch item.type {
         case .publicPrivate:
-            let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Private".localized(),
-                                                                   isSwitcherOn: false,
-                                                                   isSwitcherActive: true))
+            let content = SwitchNodeCell.Content(title: "Private".localized(),
+                                                 isSwitcherOn: false,
+                                                 isSwitcherActive: true)
+            let cell = SwitchNodeCell(with: content)
             cell.switchChanged = { (isOn) in
                 self.isPrivateSwitchActive = isOn
                 tableNode.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .none)
             }
             return cell
         case .privateMembers:
-            let cell = SwitchNodeCell(with: SwitchNodeCell.Content(title: "Members can join this room".localized(),
-                                                                   isSwitcherOn: false,
-                                                                   isSwitcherActive: self.isPrivateSwitchActive))
+            let content = SwitchNodeCell.Content(title: "Members can join this room".localized(),
+                                                 isSwitcherOn: false,
+                                                 isSwitcherActive: self.isPrivateSwitchActive)
+            let cell = SwitchNodeCell(with: content)
             cell.switchChanged = { (isOn) in
                 self.isPrivateMemberSwitchActive = isOn
             }
@@ -193,6 +197,15 @@ extension CreateRoomTableDelegates {
             return cell
         default: return ASCellNode()
         }
+    }
+    
+    private func createOwnedCommunites(at indexPath: IndexPath) -> ASCellNode {
+        let model = self.adminGroups[indexPath.row]
+        let content = CreateRoomMarkedNodeCell.Content(title: model.name,
+                                                       isSelected: self.selectedCommunity?.id == model.id)
+        let cell = CreateRoomMarkedNodeCell(with: content)
+        cell.selectionStyle = .none
+        return cell
     }
 }
 

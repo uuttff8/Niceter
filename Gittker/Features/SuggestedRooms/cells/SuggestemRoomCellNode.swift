@@ -54,13 +54,15 @@ class SuggestedRoomTableNode: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.room.title, attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.room.title,
+                                                           attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
     
     private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
     }()
     
     // MARK: - Build node hierarchy
@@ -76,7 +78,10 @@ class SuggestedRoomTableNode: ASCellNode {
     override func layout() {
         super.layout()
         let separatorHeight = 1 / UIScreen.main.scale
-        self.separatorNode.frame = CGRect(x: 0.0, y: 0.0, width: self.calculatedSize.width, height: separatorHeight)
+        self.separatorNode.frame = CGRect(x: 0.0,
+                                          y: 0.0,
+                                          width: self.calculatedSize.width,
+                                          height: separatorHeight)
         self.separatorNode.backgroundColor = UIColor.separator
     }
     

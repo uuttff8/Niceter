@@ -10,10 +10,7 @@ import AsyncDisplayKit
 
 class ProfileViewController: ASViewController<ASTableNode> {
     weak var coordinator: ProfileCoordinator?
-    
-    private var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
-    private var panGestureRecognizer: UIPanGestureRecognizer!
-    
+        
     private var profileList = [UserSchema]()
     private var username: String
     private var currentUser: UserSchema?
@@ -53,7 +50,10 @@ extension ProfileViewController: ASTableDataSource, ASTableDelegate {
         return ProfileTableSection.allCases.count
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+    func tableNode(
+        _ tableNode: ASTableNode,
+        nodeBlockForRowAt indexPath: IndexPath
+    ) -> ASCellNodeBlock {
         return {
             let section = ProfileTableSection.allCases[indexPath.section]
             
@@ -69,7 +69,9 @@ extension ProfileViewController: ASTableDataSource, ASTableDelegate {
                 
                 return cell
             case .actions:
-                let cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: "Send a message".localized()), state: .default)
+                let content = SettingsButtonNodeCell.Content(title: "Send a message".localized())
+                let cell = SettingsButtonNodeCell(with: content,
+                                                  state: .default)
                 return cell
             }
         }

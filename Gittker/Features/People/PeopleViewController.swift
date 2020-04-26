@@ -89,7 +89,8 @@ class PeopleViewController: ASViewController<ASTableNode> {
         if let text = searchBar.text, text != "" {
             self.viewModel.searchUsers(with: text) { (userSchema) in
                 DispatchQueue.main.async { [weak self] in
-                    self?.coordinator?.showSuggestedRoom(with: userSchema, currentlyJoinedRooms: (self?.viewModel.dataSource?.data.value)!)
+                    self?.coordinator?.showSuggestedRoom(with: userSchema,
+                                                         currentlyJoinedRooms: (self?.viewModel.dataSource?.data.value)!)
                 }
             }
         } else {

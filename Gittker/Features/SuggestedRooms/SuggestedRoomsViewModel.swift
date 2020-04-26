@@ -27,12 +27,16 @@ class SuggestedRoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource
         data.value.count
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+    func tableNode(
+        _ tableNode: ASTableNode,
+        nodeBlockForRowAt indexPath: IndexPath
+    ) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
-            let cell = SuggestedRoomTableNode(with: SuggestedRoomTableNode.Content(title: room.name ?? "",
-                                                                                   avatarUrl: room.avatarUrl ?? "",
-                                                                                   roomId: room.id))
+            let content = SuggestedRoomTableNode.Content(title: room.name ?? "",
+                                                         avatarUrl: room.avatarUrl ?? "",
+                                                         roomId: room.id)
+            let cell = SuggestedRoomTableNode(with: content)
             
             return cell
         }
@@ -40,7 +44,9 @@ class SuggestedRoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource
 }
 
 class SuggestedRoomsTableNodeDelegate: NSObject, ASTableDelegate {
-    init(dataSource: [RoomSchema], currentlyJoinedRooms: [RoomSchema], coordinator: SuggestedRoomsCoordinator?) {
+    init(dataSource: [RoomSchema],
+         currentlyJoinedRooms: [RoomSchema],
+         coordinator: SuggestedRoomsCoordinator?) {
         self.dataSource = dataSource
         self.currentlyJoinedRooms = currentlyJoinedRooms
         self.coordinator = coordinator

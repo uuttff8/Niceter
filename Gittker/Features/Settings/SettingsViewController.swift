@@ -51,7 +51,9 @@ class SettingsViewController: ASViewController<ASTableNode> {
     }
     
     private func logout() {
-        let alert = UIAlertController(title: "Do you really want to exit?".localized(), message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Do you really want to exit?".localized(),
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes".localized(), style: .destructive, handler: { (_) in
             LoginData.shared.logout()
             
