@@ -16,7 +16,7 @@ extension BidirectionalCollection where Element : Equatable {
   }
 }
 
-final class RoomChatViewController: RoomChatEditingMessageExtend {
+final class RoomChatViewController: RoomChatAutocompleteExtend {
     weak var coordinator: RoomChatCoordinator?
     
     //MARK: -  Private Elements

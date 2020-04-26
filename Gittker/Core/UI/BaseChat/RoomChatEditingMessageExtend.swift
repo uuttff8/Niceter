@@ -79,13 +79,14 @@ open class EditingMessageInputPlugin: NSObject, InputPlugin {
 
 class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePluginDelegate {
     
+    // should be implemented
     func updateMessageRequest(message: MockMessage) { }
     
     lazy var editingMessagePlugin: EditingMessageInputPlugin = { [unowned self] in
         let plug = EditingMessageInputPlugin()
         plug.delegate = self
         return plug
-        }()
+    }()
     
     private var message: MockMessage?
     private var isEditingEnabled: Bool = false
@@ -108,14 +109,14 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
         guard case .text(let messageText) = self.message?.kind else { return }
         
         if shouldBecomeVisible && !topStackView.arrangedSubviews.contains(editingMessagePlugin.editingMessageView) {
-            isEditingEnabled = true
+            self.isEditingEnabled = true
             messageInputBar.inputTextView.text = messageText
             
             topStackView.insertArrangedSubview(editingMessagePlugin.editingMessageView, at: topStackView.arrangedSubviews.count)
             topStackView.layoutIfNeeded()
             
         } else if !shouldBecomeVisible && topStackView.arrangedSubviews.contains(editingMessagePlugin.editingMessageView) {
-            isEditingEnabled = false
+            self.isEditingEnabled = false
             messageInputBar.inputTextView.text = ""
             
             topStackView.removeArrangedSubview(editingMessagePlugin.editingMessageView)

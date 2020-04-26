@@ -57,7 +57,7 @@ class ChatViewController: MessagesViewController {
         super.viewWillDisappear(animated)
     }
     
-    // SHOULD BE IMPLEMENTED
+    //MARK: - SHOULD BE IMPLEMENTED
     func subscribeOnMessagesEvent() { }
     
     func loadFirstMessages() { }
@@ -76,12 +76,13 @@ class ChatViewController: MessagesViewController {
     
     func editMessage(message: MockMessage) { }
     
+    // navigation
     func showProfileScreen(username: String) { }
     
+    // for use in editing message extend
     func editMessageUI(message: MockMessage) { }
     
     // MARK: - Helpers
-    
     private func configureBackroundMessageReading() {
         // unread messages every 2 second
         self.timer = Timer.scheduledTimer(timeInterval: 2,
@@ -127,7 +128,6 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         
-        //        scrollsToBottomOnKeyboardBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
     }
     
