@@ -91,6 +91,7 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
     
     private var message: MockMessage?
     private var previousText: String?
+    private var previousTextInTextView: String?
     
     private var isEditingEnabled: Bool = false
     
@@ -102,6 +103,7 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
     
     override func editMessageUI(message: MockMessage) {
         self.message = message
+        self.previousTextInTextView = messageInputBar.inputTextView.text
         
         guard case .text(let messageText) = self.message?.kind else { return }
         self.previousText = messageText
@@ -123,7 +125,7 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
             
         } else if !shouldBecomeVisible && topStackView.arrangedSubviews.contains(editingMessagePlugin.editingMessageView) {
             self.isEditingEnabled = false
-            messageInputBar.inputTextView.text = ""
+            messageInputBar.inputTextView.text = previousTextInTextView
             messageInputBar.inputTextView.delegate = nil
             
             topStackView.removeArrangedSubview(editingMessagePlugin.editingMessageView)
