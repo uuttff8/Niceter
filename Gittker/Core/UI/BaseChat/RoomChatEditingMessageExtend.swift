@@ -25,11 +25,13 @@ open class EditingMessageInputPlugin: NSObject, InputPlugin {
     
     open lazy var editingMessageView: UIView = { [weak self] in
         let view = EditingMessageView()
+        view.backgroundColor = UIColor.systemBackground
         return view
         }()
     
     let previousMessageLabel: UILabel = {
         let lbl = UILabel()
+        lbl.textColor = UIColor.label
         return lbl
     }()
     
