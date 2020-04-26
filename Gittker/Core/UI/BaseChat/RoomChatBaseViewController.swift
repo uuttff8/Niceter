@@ -175,7 +175,6 @@ class RoomChatBaseViewController: ChatViewController {
                     y: self.messagesCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
                 self.messagesCollectionView.setContentOffset(newOffset, animated: false)
             })
-
         }
     }
 }
