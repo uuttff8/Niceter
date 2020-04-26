@@ -107,7 +107,7 @@ class ChatViewController: MessagesViewController {
         messageInputBar.inputTextView.textColor = .label
         messageInputBar.inputTextView.placeholderLabel.textColor = .secondaryLabel
         messageInputBar.backgroundView.backgroundColor = .systemBackground
-        messageInputBar.inputTextView.placeholderLabel.text = "Message"
+        messageInputBar.inputTextView.placeholderLabel.text = "Message".localized()
     }
     
     
@@ -133,6 +133,7 @@ class ChatViewController: MessagesViewController {
     
     func configureMessageInputBar() {
         messageInputBar.delegate = self
+        messageInputBar.sendButton.setImage(UIImage(named: "send"), for: .normal)
         messageInputBar.sendButton.setTitleColor(
             UIColor.systemBackground.withAlphaComponent(0.3),
             for: .highlighted
@@ -360,7 +361,7 @@ extension ChatViewController: MessageInputBarDelegate {
             // fake send request task
             //                        sleep(2)
             DispatchQueue.main.async { [weak self] in
-                self?.messageInputBar.inputTextView.placeholder = "Message"
+                self?.messageInputBar.inputTextView.placeholder = "Message".localized()
                 self?.insertMessages(components!)
                 self?.messagesCollectionView.scrollToBottom(animated: true)
             }

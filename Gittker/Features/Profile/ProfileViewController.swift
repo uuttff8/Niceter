@@ -69,7 +69,7 @@ extension ProfileViewController: ASTableDataSource, ASTableDelegate {
                 
                 return cell
             case .actions:
-                let cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: "Send a message"), state: .default)
+                let cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: "Send a message".localized()), state: .default)
                 return cell
             }
         }
