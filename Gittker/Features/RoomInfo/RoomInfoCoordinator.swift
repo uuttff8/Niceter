@@ -19,7 +19,9 @@ class RoomInfoCoordinator: Coordinator {
         self.navigationController = navigation
         self.prefetchedUsers = prefetchedUsers
         
-        self.currentController = RoomInfoController(coordinator: self, roomSchema: roomSchema, prefetchedUsers: prefetchedUsers)
+        self.currentController = RoomInfoController(coordinator: self,
+                                                    roomSchema: roomSchema,
+                                                    prefetchedUsers: prefetchedUsers)
     }
     
     func start() {
@@ -29,7 +31,9 @@ class RoomInfoCoordinator: Coordinator {
     }
     
     func showProfileScreen(username: String) {
-        let coord = ProfileCoordinator(with: navigationController, username: username, flow: ProfileCoordinator.ProfileFlow.fromChat)
+        let coord = ProfileCoordinator(with: navigationController,
+                                       username: username,
+                                       flow: ProfileCoordinator.ProfileFlow.fromChat)
         childCoordinators.append(coord)
         coord.start()
     }

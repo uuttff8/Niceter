@@ -123,7 +123,8 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     override func reportMessage(message: MockMessage) {
         self.viewModel.reportMessage(messageId: message.messageId) { (reportMessageSchema) in
             super.showOkAlert(config: SystemAlertConfiguration(title:
-                "Thank You!\n\nYour report will be reviewed by Gitter team very soon.".localized(), subtitle: nil))
+                "Thank You!\n\nYour report will be reviewed by Gitter team very soon.".localized(),
+                                                               subtitle: nil))
         }
     }
     

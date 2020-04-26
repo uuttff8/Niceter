@@ -73,7 +73,9 @@ class RoomsViewController: ASViewController<ASTableNode> {
     }
     
     private func setupNavigationBar() {
-        let createRoomButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(RoomsViewController.createRoomAction(_:)))
+        let createRoomButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                               target: self,
+                                               action: #selector(RoomsViewController.createRoomAction(_:)))
         navigationItem.rightBarButtonItem = createRoomButton
     }
     
@@ -114,7 +116,8 @@ class RoomsViewController: ASViewController<ASTableNode> {
         if let text = searchBar.text, text != "" {
             self.viewModel.suggestedRoomsSearchQuery(with: text) { (rooms) in
                 DispatchQueue.main.async { [weak self] in
-                    self?.coordinator?.showSuggestedRoom(with: rooms, currentlyJoinedRooms: (self?.viewModel.dataSource?.data.value)!)
+                    self?.coordinator?.showSuggestedRoom(with: rooms,
+                                                         currentlyJoinedRooms: (self?.viewModel.dataSource?.data.value)!)
                 }
             }
         } else {
@@ -191,14 +194,17 @@ extension RoomsViewController: UISearchControllerDelegate {
     }
     
     private func showSuggestedRooms() {
-        coordinator?.showSuggestedRoom(with: self.viewModel.suggestedRoomsData, currentlyJoinedRooms: (self.viewModel.dataSource?.data.value)!)
+        coordinator?.showSuggestedRoom(with: self.viewModel.suggestedRoomsData,
+                                       currentlyJoinedRooms: (self.viewModel.dataSource?.data.value)!)
     }
 }
 
 // MARK: - Seatch Logic
 extension RoomsViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(reload(_:)), object: searchBar)
+        NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                               selector: #selector(reload(_:)),
+                                               object: searchBar)
         self.perform(#selector(reload(_:)), with: searchBar, afterDelay: 0.5)
     }
 }

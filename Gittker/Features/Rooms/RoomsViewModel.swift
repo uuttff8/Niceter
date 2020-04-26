@@ -73,7 +73,11 @@ class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         if editingStyle == .delete {
             guard let userId = ShareData().userdata?.id else { return }
             let room = data.value[indexPath.row]
@@ -114,7 +118,11 @@ class RoomsTableViewDelegate: NSObject, ASTableDelegate {
         tableNode.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
         guard let room = dataSource?[indexPath.row] else { return nil }
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in

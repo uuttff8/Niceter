@@ -37,13 +37,15 @@ final class SwitchNodeCell: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content.title, attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.content.title,
+                                                           attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
     
     private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }()
             
     @objc private func switchAction(_ sender: UISwitch) {

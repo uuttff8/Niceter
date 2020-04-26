@@ -26,20 +26,23 @@ class CreateRoomRepoNodeCell: ASCellNode {
     
     // Internal Setup
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content.name, attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.content.name,
+                                                           attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
     
 
     private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }()
     
     // External Setup
     func drawPrivateRepoEmoji() {
         if content.private {
-            self.titleNode.attributedText = NSAttributedString(string: self.content.name + " 🔒", attributes: self.titleTextAttributes)
+            self.titleNode.attributedText = NSAttributedString(string: self.content.name + " 🔒",
+                                                               attributes: self.titleTextAttributes)
         }
     }
     

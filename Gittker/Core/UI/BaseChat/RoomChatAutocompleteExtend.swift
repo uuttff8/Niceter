@@ -37,7 +37,10 @@ class RoomChatAutocompleteExtend: RoomChatEditingMessageExtend {
 }
 
 extension RoomChatAutocompleteExtend: AutocompleteManagerDelegate, AutocompleteManagerDataSource {
-    func autocompleteManager(_ manager: AutocompleteManager, autocompleteSourceFor prefix: String) -> [AutocompleteCompletion] {
+    func autocompleteManager(
+        _ manager: AutocompleteManager,
+        autocompleteSourceFor prefix: String
+    ) -> [AutocompleteCompletion] {
         
         struct Internal: Hashable {
             let name: String
@@ -66,7 +69,8 @@ extension RoomChatAutocompleteExtend: AutocompleteManagerDelegate, AutocompleteM
     private func setAutocompleteManager(active: Bool) {
         let topStackView = messageInputBar.topStackView
         if active && !topStackView.arrangedSubviews.contains(autocompleteManager.tableView) {
-            topStackView.insertArrangedSubview(autocompleteManager.tableView, at: topStackView.arrangedSubviews.count)
+            topStackView.insertArrangedSubview(autocompleteManager.tableView,
+                                               at: topStackView.arrangedSubviews.count)
             topStackView.layoutIfNeeded()
         } else if !active && topStackView.arrangedSubviews.contains(autocompleteManager.tableView) {
             topStackView.removeArrangedSubview(autocompleteManager.tableView)

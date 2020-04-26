@@ -51,7 +51,8 @@ public final class FayeEventMessagesBinder {
                 if let snap = snapshot as? [Dictionary<String, Any>] {
                     let roomRecrData = try? JSONSerialization.data(withJSONObject: snap, options: .prettyPrinted)
 
-                    guard let roomRecr = try? JSONDecoder().decode([RoomRecreateSchema].self, from: roomRecrData!) else { print("blya"); return }
+                    guard let roomRecr =
+                        try? JSONDecoder().decode([RoomRecreateSchema].self, from: roomRecrData!) else { print("blya"); return }
 
                     self.storage?.async.setObject(roomRecr, forKey: self.roomId, completion: { (_) in })
                     let mess = roomRecr.toGittkerMessages(isLoading: false)

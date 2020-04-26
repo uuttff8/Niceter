@@ -57,11 +57,13 @@ class TextFieldNodeCell: ASCellNode {
     }
     
     private var textFieldTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }()
     
     private var textFieldPlaceholderAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
     }()
     
     // MARK: - Build node hierarchy

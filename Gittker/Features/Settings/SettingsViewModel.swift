@@ -67,11 +67,17 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSettingsSection>, AS
     func numberOfSections(in tableNode: ASTableNode) -> Int {
         return self.data.value.count
     }
-    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+    func tableNode(
+        _ tableNode: ASTableNode,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return self.data.value[section].items.count
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+    func tableNode(
+        _ tableNode: ASTableNode,
+        nodeBlockForRowAt indexPath: IndexPath
+    ) -> ASCellNodeBlock {
         return {
             var cell: ASCellNode
             
@@ -83,7 +89,8 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSettingsSection>, AS
                 guard let item2 = item as? TableGroupedProfile else { return ASCellNode() }
                 cell = ProfileMainNodeCell(with: item2.user)
             case .logout:
-                cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: item.text), state: .destructive)
+                let content = SettingsButtonNodeCell.Content(title: item.text)
+                cell = SettingsButtonNodeCell(with: content, state: .destructive)
                 
             }
             
@@ -117,9 +124,7 @@ class SettingsTableDelegates: GenericDataSource<TableGroupedSettingsSection>, AS
         case .logout:
             self.logoutAction?()
             tableNode.deselectRow(at: indexPath, animated: true)
-            
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

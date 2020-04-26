@@ -62,31 +62,36 @@ class RoomTableNode: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.room.title, attributes: self.titleTextAttributes())
+        self.titleNode.attributedText = NSAttributedString(string: self.room.title,
+                                                           attributes: self.titleTextAttributes())
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
     
     private var titleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.label, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.label,
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
     }
     
     private func setupSubtitleNode() {
-        self.subtitleNode.attributedText = NSAttributedString(string: self.room.subtitle, attributes: self.subtitleTextAttributes())
+        self.subtitleNode.attributedText = NSAttributedString(string: self.room.subtitle,
+                                                              attributes: self.subtitleTextAttributes())
         self.subtitleNode.maximumNumberOfLines = 2
         self.subtitleNode.truncationMode = .byTruncatingTail
     }
     
     private func setupUnread() {
         if room.unreadItems > 0 {
-            self.unreadNodeText.attributedText = NSAttributedString(string: String(self.room.unreadItems), attributes: [.foregroundColor: UIColor.label])
+            self.unreadNodeText.attributedText = NSAttributedString(string: String(self.room.unreadItems),
+                                                                    attributes: [.foregroundColor: UIColor.label])
             self.unreadNode.cornerRadius = 10
             self.unreadNode.backgroundColor = UIColor.tertiarySystemFill
         }
     }
     
     private var subtitleTextAttributes = {
-        return [NSAttributedString.Key.foregroundColor: UIColor.systemGray, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
+        return [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]
     }
     
     // MARK: - Build node hierarchy
@@ -108,7 +113,10 @@ class RoomTableNode: ASCellNode {
     override func layout() {
         super.layout()
         let separatorHeight = 1 / UIScreen.main.scale
-        self.separatorNode.frame = CGRect(x: 0.0, y: 0.0, width: self.calculatedSize.width, height: separatorHeight)
+        self.separatorNode.frame = CGRect(x: 0.0,
+                                          y: 0.0,
+                                          width: self.calculatedSize.width,
+                                          height: separatorHeight)
         self.separatorNode.backgroundColor = UIColor.separator
     }
     

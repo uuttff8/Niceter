@@ -85,7 +85,8 @@ class ProfileMainNodeCell: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.content?.displayName ?? "", attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.content?.displayName ?? "",
+                                                           attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
@@ -96,7 +97,8 @@ class ProfileMainNodeCell: ASCellNode {
     }()
     
     private func setupSubtitle() {
-        self.subtitleNode.attributedText = NSAttributedString(string: self.content?.username ?? "", attributes: self.subtitleTextAttributes)
+        self.subtitleNode.attributedText = NSAttributedString(string: self.content?.username ?? "",
+                                                              attributes: self.subtitleTextAttributes)
         self.subtitleNode.maximumNumberOfLines = 1
         self.subtitleNode.truncationMode = .byTruncatingTail
     }
@@ -137,7 +139,10 @@ class ProfileMainNodeCell: ASCellNode {
     override func layout() {
         super.layout()
         let separatorHeight = 1 / UIScreen.main.scale
-        self.separatorNode.frame = CGRect(x: 0.0, y: 0.0, width: self.calculatedSize.width, height: separatorHeight)
+        self.separatorNode.frame = CGRect(x: 0.0,
+                                          y: 0.0,
+                                          width: self.calculatedSize.width,
+                                          height: separatorHeight)
         self.separatorNode.backgroundColor = UIColor.separator
     }
     

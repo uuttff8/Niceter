@@ -120,7 +120,8 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
             messageInputBar.sendButton.isEnabled = false
             messageInputBar.inputTextView.delegate = self
             
-            topStackView.insertArrangedSubview(editingMessagePlugin.editingMessageView, at: topStackView.arrangedSubviews.count)
+            topStackView.insertArrangedSubview(editingMessagePlugin.editingMessageView,
+                                               at: topStackView.arrangedSubviews.count)
             topStackView.layoutIfNeeded()
             
         } else if !shouldBecomeVisible && topStackView.arrangedSubviews.contains(editingMessagePlugin.editingMessageView) {

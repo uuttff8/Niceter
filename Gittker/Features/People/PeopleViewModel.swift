@@ -60,7 +60,10 @@ class PeopleDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
         data.value.count
     }
     
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+    func tableNode(
+        _ tableNode: ASTableNode,
+        nodeBlockForRowAt indexPath: IndexPath
+    ) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
             let cell = RoomTableNode(with: RoomTableNode.Content(avatarUrl: room.avatarUrl ?? "",
@@ -72,7 +75,11 @@ class PeopleDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         if editingStyle == .delete {
             guard let userId = ShareData().userdata?.id else { return }
             let room = data.value[indexPath.row]
@@ -113,16 +120,20 @@ class PeopleTableViewDelegate: NSObject, ASTableDelegate {
         tableNode.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
         guard let room = dataSource?[indexPath.row] else { return nil }
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
             return self.coordinator!.previewChat(roomSchema: room)
         }) { _ -> UIMenu? in
-            let action = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+            let copyAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
                 RoomsService.share(room: room, in: self.vc)
             }
-            return UIMenu(title: "", children: [action])
+            return UIMenu(title: "", children: [copyAction])
         }
         return configuration
     }

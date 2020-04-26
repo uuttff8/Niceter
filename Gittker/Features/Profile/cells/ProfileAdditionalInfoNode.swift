@@ -53,7 +53,8 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
     }
     
     private func setupTitleNode() {
-        self.titleNode.attributedText = NSAttributedString(string: self.infoTitle, attributes: self.titleTextAttributes)
+        self.titleNode.attributedText = NSAttributedString(string: self.infoTitle,
+                                                           attributes: self.titleTextAttributes)
         self.titleNode.maximumNumberOfLines = 1
         self.titleNode.truncationMode = .byTruncatingTail
     }
