@@ -14,15 +14,14 @@ class RoomsViewController: ASViewController<ASTableNode> {
     weak var coordinator: RoomsCoordinator?
     
     private let refreshControl = UIRefreshControl()
-    private lazy var dataSource = RoomsDataSource()
-    private lazy var tableDelegate = RoomsTableViewDelegate(with: self)
+    private lazy var tableManager = RoomsTableViewManager(with: self)
     
     private var tableNode: ASTableNode {
         return node
     }
     
     lazy var viewModel: RoomsViewModel = {
-        return RoomsViewModel(dataSource: self.dataSource)
+        return RoomsViewModel(dataSource: self.tableManager)
     }()
     
     init(coordinator: RoomsCoordinator) {
@@ -30,8 +29,8 @@ class RoomsViewController: ASViewController<ASTableNode> {
         super.init(node: ASTableNode())
         
         refreshControl.addTarget(self, action: #selector(reloadRooms(_:)), for: .valueChanged)
-        self.tableNode.delegate = self.tableDelegate
-        self.tableNode.dataSource = self.dataSource
+        self.tableNode.delegate = self.tableManager
+        self.tableNode.dataSource = self.tableManager
         self.tableNode.view.refreshControl = self.refreshControl
         
         tableNode.view.separatorStyle = .none
@@ -48,11 +47,11 @@ class RoomsViewController: ASViewController<ASTableNode> {
         self.setupSearchBar()
         self.setupNavigationBar()
         
-        self.dataSource.data.addAndNotify(observer: self) { [weak self] in
+        self.tableManager.data.addAndNotify(observer: self) { [weak self] in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.tableDelegate.coordinator = self.coordinator
-                self.tableDelegate.dataSource = self.dataSource.data.value
+                self.tableManager.coordinator = self.coordinator
+                self.tableManager.dataSource = self.tableManager.data.value
                 self.tableNode.reloadData()
             }
         }
@@ -166,6 +165,7 @@ extension RoomsViewController {
                     if let newUnreadedItems = room.unreadItems {
                         self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                        self.viewModel.dataSource?.data.value.move(from: index, to: 0)
                         self.tableNode.moveRow(at: IndexPath(row: index, section: 0), to: IndexPath(row: 0, section: 0))
                     }
                     

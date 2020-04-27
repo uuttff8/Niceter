@@ -18,8 +18,8 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    increment_build_number(xcodeproj: "Gittker.xcodeproj")
-    build_app(workspace: "Gittker.xcworkspace", scheme: "Gittker")
+    increment_build_number(xcodeproj: "Niceter.xcodeproj")
+    build_app(workspace: "Niceter.xcworkspace", scheme: "Niceter")
     upload_to_testflight
   end
 end
