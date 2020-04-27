@@ -11,7 +11,7 @@
 #import "FayeWrapper.h"
 #import "TRConnectionMonitor.h"
 #import "FayeClient.h"
-#import "Gittker-Swift.h"
+#import "Niceter-Swift.h"
 
 typedef enum {
     kConnected,                     // Intend to be connected

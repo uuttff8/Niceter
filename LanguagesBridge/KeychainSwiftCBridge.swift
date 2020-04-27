@@ -1,6 +1,6 @@
 //
 //  KeychainSwiftCBridge.swift
-//  Gittker
+//  Niceter
 //
 //  Created by uuttff8 on 3/16/20.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
