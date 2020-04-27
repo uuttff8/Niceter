@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class RoomsCoordinator: Coordinator {
+class RoomsCoordinator: NSObject, Coordinator {
     
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
@@ -21,6 +21,7 @@ class RoomsCoordinator: Coordinator {
     init(with navigationController: ASNavigationController?, user: UserSchema) {
         self.navigationController = navigationController
         self.userdata = user
+        super.init()
         
         currentController = RoomsViewController(coordinator: self)
         childCoordinators.append(self)
@@ -37,6 +38,7 @@ class RoomsCoordinator: Coordinator {
                                         flow: .full)
         childCoordinators.append(coord)
         coord.start()
+        navigationController?.delegate = self
     }
     
     func previewChat(roomSchema: RoomSchema) -> RoomChatViewController {
@@ -48,17 +50,48 @@ class RoomsCoordinator: Coordinator {
     }
     
     func showSuggestedRoom(with rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema]) {
-        self.currentController?.view = SuggestedRoomsCoordinator(
+        let coord = SuggestedRoomsCoordinator(
             with: navigationController,
             rooms: rooms,
             currentlyJoinedRooms: currentlyJoinedRooms,
             flow: SuggestedRoomsCoordinator.SuggestedFlow.chat
-        ).currentController?.view
+        )
+        childCoordinators.append(coord)
+        coord.start()
+        
+        self.currentController?.view = coord.currentController?.view
+    }
+    
+    func removeSuggestedCoordinator() {
+        self.childCoordinators.removeLast()
     }
     
     func showCreateRoom() {
         let coord = CreateRoomCoordinator(with: navigationController)
         childCoordinators.append(coord)
         coord.start()
+    }
+}
+
+extension RoomsCoordinator: UINavigationControllerDelegate {
+    func navigationController(
+        _ navigationController: UINavigationController,
+        didShow viewController: UIViewController,
+        animated: Bool
+    ) {
+        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+            return
+        }
+
+        // Check whether our view controller array already contains that view controller. If it does it means we’re pushing a different view controller on top rather than popping it, so exit.
+        if navigationController.viewControllers.contains(fromViewController) {
+            return
+        }
+
+        // We’re still here – it means we’re popping the view controller, so we can check whether it’s a buy view controller
+        if let roomChatController = fromViewController as? RoomChatViewController {
+            // We're popping a buy view controller; end its coordinator
+            self.removeDependency(roomChatController.coordinator)
+        }
     }
 }

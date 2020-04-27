@@ -45,11 +45,15 @@ class PeopleCoordinator: Coordinator {
     }
     
     func showSuggestedRoom(with rooms: [UserSchema]?, currentlyJoinedRooms: [RoomSchema]) {
-        self.currentController?.view = SuggestedRoomsCoordinator(
+        let coord = SuggestedRoomsCoordinator(
             with: navigationController,
             rooms: rooms?.convertToRoomSchema(),
             currentlyJoinedRooms: currentlyJoinedRooms,
             flow: SuggestedRoomsCoordinator.SuggestedFlow.user
-        ).currentController?.view
+        )
+        childCoordinators.append(coord)
+        coord.start()
+        
+        self.currentController?.view = coord.currentController?.view
     }
 }

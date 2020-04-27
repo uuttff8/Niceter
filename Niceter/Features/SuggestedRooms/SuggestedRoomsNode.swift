@@ -59,6 +59,10 @@ class SuggestedRoomsNode: ASDisplayNode {
         self.viewModel.fetchRooms()
     }
     
+    override func didExitDisplayState() {
+        coordinator?.removeDependency(coordinator)
+    }
+    
     // MARK: - Layout
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

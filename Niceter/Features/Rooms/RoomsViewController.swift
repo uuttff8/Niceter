@@ -207,6 +207,10 @@ extension RoomsViewController: UISearchBarDelegate {
                                                object: searchBar)
         self.perform(#selector(reload(_:)), with: searchBar, afterDelay: 0.5)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.coordinator?.removeSuggestedCoordinator()
+    }
 }
 
 extension RoomsViewController: TabBarReselectHandling {
