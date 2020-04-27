@@ -16,22 +16,28 @@ class SuggestedRoomsCoordinator: Coordinator {
     
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
+    var currentlyJoinedRooms: [RoomSchema]
     
     var currentController: SuggestedRoomsNode?
     var rooms: Array<RoomSchema>?
     var currentFlow: SuggestedFlow
     
-    init(with navigationController: ASNavigationController?, rooms: Array<RoomSchema>?, currentlyJoinedRooms: [RoomSchema], flow: SuggestedFlow) {
+    init(
+        with navigationController: ASNavigationController?,
+        rooms: Array<RoomSchema>?,
+        currentlyJoinedRooms: [RoomSchema],
+        flow: SuggestedFlow
+    ) {
         self.navigationController = navigationController
         self.rooms = rooms
         self.currentFlow = flow
-        
-        currentController = SuggestedRoomsNode(rooms: rooms, coordinator: self, currentlyJoinedRooms: currentlyJoinedRooms)
-        currentController?.coordinator = self
-        childCoordinators.append(self)
+        self.currentlyJoinedRooms = currentlyJoinedRooms
     }
     
     func start() {
+        self.currentController = SuggestedRoomsNode(rooms: rooms,
+                                               coordinator: self,
+                                               currentlyJoinedRooms: currentlyJoinedRooms)
 //        navigationController?.pushViewController(currentController!, animated: true)
     }
     
