@@ -99,9 +99,10 @@ class PeopleViewController: ASViewController<ASTableNode> {
     }
     
     @objc func reloadPeople(_ sender: Any) {
-        self.viewModel.fetchRooms()
-        if refreshControl.isRefreshing {
-            refreshControl.endRefreshing()
+        self.viewModel.fetchRooms() { [unowned self] in            
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
+            }
         }
     }
 }
