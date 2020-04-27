@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class PeopleCoordinator: Coordinator {
+class PeopleCoordinator: NSObject, Coordinator {
     
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
@@ -18,13 +18,14 @@ class PeopleCoordinator: Coordinator {
 
     init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
+        super.init()
         
         currentController = PeopleViewController(coordinator: self)
         childCoordinators.append(self)
     }
     
     func start() {
-        navigationController?.pushViewController(currentController!, animated: true)
+        navigationController?.delegate = self
     }
     
     func showChat(roomSchema: RoomSchema) {
@@ -59,5 +60,25 @@ class PeopleCoordinator: Coordinator {
     
     func removeSuggestedCoordinator() {
         self.childCoordinators.removeLast()
+    }
+}
+
+extension PeopleCoordinator: UINavigationControllerDelegate {
+    func navigationController(
+        _ navigationController: UINavigationController,
+        didShow viewController: UIViewController,
+        animated: Bool
+    ) {
+        guard let fromViewController = navigationController.transitionCoordinator?.viewController(forKey: .from) else {
+            return
+        }
+
+        if navigationController.viewControllers.contains(fromViewController) {
+            return
+        }
+
+        if let userChatController = fromViewController as? UserChatViewController {
+            self.removeDependency(userChatController.coordinator)
+        }
     }
 }

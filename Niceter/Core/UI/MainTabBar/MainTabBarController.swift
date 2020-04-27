@@ -46,6 +46,7 @@ class MainTabBarController: ASTabBarController {
         coordinator?.childCoordinators.append(peopleCoordinator)
         let peopleNavigationController = ASNavigationController(rootViewController: peopleCoordinator.currentController!)
         peopleCoordinator.navigationController = peopleNavigationController
+        peopleCoordinator.start()
         peopleCoordinator.tabController = self
         peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People".localized(),
                                                                   image: UIImage(systemName: "person"),

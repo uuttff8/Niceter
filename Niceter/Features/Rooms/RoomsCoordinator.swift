@@ -88,9 +88,9 @@ extension RoomsCoordinator: UINavigationControllerDelegate {
             return
         }
 
-        // We’re still here – it means we’re popping the view controller, so we can check whether it’s a buy view controller
+        // We’re still here – it means we’re popping the view controller, so we can check whether it’s a view controller
         if let roomChatController = fromViewController as? RoomChatViewController {
-            // We're popping a buy view controller; end its coordinator
+            // We're popping a view controller; end its coordinator
             self.removeDependency(roomChatController.coordinator)
             print(childCoordinators)
         }

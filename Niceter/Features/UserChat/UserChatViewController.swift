@@ -152,7 +152,6 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fayeClient.cancel()
-        coordinator?.removeDependency(coordinator)
     }
     
     #warning("refactor")
