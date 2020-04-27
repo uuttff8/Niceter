@@ -56,7 +56,18 @@ class RoomsViewModel {
     }
 }
 
-class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
+
+// MARK: - TableView Delegate
+class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, ASTableDataSource {
+    var dataSource: [RoomSchema]?
+    weak var coordinator: RoomsCoordinator?
+    
+    private var vc: UIViewController
+    
+    init(with vc: UIViewController) {
+        self.vc = vc
+    }
+    
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         data.value.count
     }
@@ -73,43 +84,30 @@ class RoomsDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
         }
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        commit editingStyle: UITableViewCell.EditingStyle,
-        forRowAt indexPath: IndexPath
-    ) {
-        if editingStyle == .delete {
-            guard let userId = ShareData().userdata?.id else { return }
-            let room = data.value[indexPath.row]
-            
-            data.value.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .left)
-            
-            leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
-                print(suc)
-            }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
-    }
+    //    func tableView(
+    //        _ tableView: UITableView,
+    //        commit editingStyle: UITableViewCell.EditingStyle,
+    //        forRowAt indexPath: IndexPath
+    //    ) {
+    //        if editingStyle == .delete {
+    //            guard let userId = ShareData().userdata?.id else { return }
+    //            let room = data.value[indexPath.row]
+    //
+    //            data.value.remove(at: indexPath.row)
+    //            tableView.deleteRows(at: [indexPath], with: .left)
+    //
+    //            leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
+    //                print(suc)
+    //            }
+    //        }
+    //    }
     
     func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
         GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
             completion(res)
         }
     }
-}
-
-// MARK: - TableView Delegate
-class RoomsTableViewDelegate: NSObject, ASTableDelegate {
-    var dataSource: [RoomSchema]?
-    weak var coordinator: RoomsCoordinator?
     
-    private var vc: UIViewController
-    
-    init(with vc: UIViewController) {
-        self.vc = vc
-    }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if let room = dataSource?[indexPath.item] {
@@ -134,5 +132,25 @@ class RoomsTableViewDelegate: NSObject, ASTableDelegate {
             return UIMenu(title: "", children: [action])
         }
         return configuration
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
+            guard let userId = ShareData().userdata?.id else { return }
+            let room = self.data.value[indexPath.row]
+            
+            self.leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
+                print(suc)
+            }
+            
+            self.data.value.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            completion(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
