@@ -57,14 +57,8 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
         viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
                 self?.messageList = gittMessages
-                if self!.cached > 0 {
-                    self?.messagesCollectionView.reloadData()
-                    let _ = self!.cached - 1
-                }
-                
-                CATransaction.disableAnimations {
-                    self?.configureScrollAndPaginate()
-                }
+                self?.messagesCollectionView.reloadData()
+                self?.configureScrollAndPaginate()
             }
         }
     }
