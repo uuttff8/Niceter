@@ -138,7 +138,7 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete".localized()) { (_, _, completion) in
             guard let userId = ShareData().userdata?.id else { return }
             let room = self.data.value[indexPath.row]
             
