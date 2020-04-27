@@ -28,7 +28,8 @@ class RoomsCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        navigationController?.pushViewController(currentController!, animated: true)
+//        navigationController?.pushViewController(currentController!, animated: true)
+        navigationController?.delegate = self
     }
     
     func showChat(roomSchema: RoomSchema) {
@@ -38,7 +39,6 @@ class RoomsCoordinator: NSObject, Coordinator {
                                         flow: .full)
         childCoordinators.append(coord)
         coord.start()
-        navigationController?.delegate = self
     }
     
     func previewChat(roomSchema: RoomSchema) -> RoomChatViewController {
@@ -92,6 +92,7 @@ extension RoomsCoordinator: UINavigationControllerDelegate {
         if let roomChatController = fromViewController as? RoomChatViewController {
             // We're popping a buy view controller; end its coordinator
             self.removeDependency(roomChatController.coordinator)
+            print(childCoordinators)
         }
     }
 }
