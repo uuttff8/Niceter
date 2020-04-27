@@ -211,14 +211,7 @@ extension RoomChatBaseViewController: MessagesDisplayDelegate {
     }
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-        return .custom { (messageView) in
-            if self.isFromCurrentSender(message: message) {
-                messageView.roundCorners(corners: [.topLeft, .topRight, .bottomLeft], radius: Constants.messageCornerRadius)
-            } else {
-                messageView.roundCorners(corners: [.topLeft, .topRight, .bottomRight], radius: Constants.messageCornerRadius)
-            }
-        }
-        
+        return isFromCurrentSender(message: message) ? .bubbleTail(.bottomRight, .curved) : .bubbleTail(.bottomLeft, .curved)
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
