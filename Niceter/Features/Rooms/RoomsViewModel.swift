@@ -11,6 +11,8 @@ import AsyncDisplayKit
 class RoomsViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
     
+    var updateFirstly: (() -> Void)?
+    
     var suggestedRoomsData: Array<RoomSchema>?
     
     init(dataSource : GenericDataSource<RoomSchema>?) {
@@ -33,6 +35,7 @@ class RoomsViewModel {
                 let filteredRooms = rooms.filterByChats().sortByUnreadAndFavourite()
                 self.dataSource?.data.value = filteredRooms
                 ShareData().currentlyJoinedChats = filteredRooms
+                self.updateFirstly?()
         }
     }
     
@@ -83,31 +86,12 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
             return cell
         }
     }
-    
-    //    func tableView(
-    //        _ tableView: UITableView,
-    //        commit editingStyle: UITableViewCell.EditingStyle,
-    //        forRowAt indexPath: IndexPath
-    //    ) {
-    //        if editingStyle == .delete {
-    //            guard let userId = ShareData().userdata?.id else { return }
-    //            let room = data.value[indexPath.row]
-    //
-    //            data.value.remove(at: indexPath.row)
-    //            tableView.deleteRows(at: [indexPath], with: .left)
-    //
-    //            leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
-    //                print(suc)
-    //            }
-    //        }
-    //    }
-    
+        
     func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
         GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
             completion(res)
         }
     }
-    
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if let room = dataSource?[indexPath.item] {
@@ -152,5 +136,26 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let readMessagesAction = UIContextualAction(style: .normal, title: "Read".localized()) { (_, _, completion) in
+            guard let userId = ShareData().userdata?.id else { return }
+            let room = self.data.value[indexPath.row]
+            
+            self.leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
+                print(suc)
+            }
+            
+            completion(true)
+        }
+        
+        readMessagesAction.image = UIImage(systemName: "envelope.open")
+        
+        return UISwipeActionsConfiguration(actions: [readMessagesAction])
+
     }
 }
