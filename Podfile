@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '13.0'
 
-target 'Gittker' do
+target 'Niceter' do
   use_frameworks!
   inhibit_all_warnings!
   
@@ -12,12 +12,12 @@ target 'Gittker' do
   pod 'TextureSwiftSupport', '~> 1.5.0'
   pod 'Firebase/Analytics'
 
-  target 'GittkerTests' do
+  target 'NiceterTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
-  target 'GittkerUITests' do
+  target 'NiceterUITests' do
     # Pods for testing
   end
 

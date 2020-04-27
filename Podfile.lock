@@ -1,6 +1,5 @@
 PODS:
   - Cache (5.2.0)
-  - EZCustomNavigation (1.0.0)
   - Firebase/Analytics (6.22.0):
     - Firebase/Core
   - Firebase/Core (6.22.0):
@@ -111,7 +110,6 @@ PODS:
 
 DEPENDENCIES:
   - Cache
-  - EZCustomNavigation (= 1.0.0)
   - Firebase/Analytics
   - MessageKit
   - SocketRocket
@@ -121,7 +119,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Cache
-    - EZCustomNavigation
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -145,7 +142,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
-  EZCustomNavigation: 2dace365253490442ff721e12e2694fb24c3ba8a
   Firebase: 32f9520684e87c7af3f0704f7f88042626d6b536
   FirebaseAnalytics: 83f822fd0d33a46f49f89b8c3ab16ab4d89df08a
   FirebaseCore: 9aca0f1fffb405176ba15311a5621fcde4106fcf
@@ -167,6 +163,6 @@ SPEC CHECKSUMS:
   Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
   TextureSwiftSupport: ff4052c7ba9c78b10849b06cee09a0ee33b00997
 
-PODFILE CHECKSUM: 4412a7c27ada9d102c5a368e3dad355c3283879e
+PODFILE CHECKSUM: 6bd3985fb52810d41697456dcc97c8ad919daf0e
 
 COCOAPODS: 1.9.1
