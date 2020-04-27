@@ -47,9 +47,8 @@ class RoomsViewController: ASViewController<ASTableNode> {
         self.setupSearchBar()
         self.setupNavigationBar()
         
-        self.tableManager.data.addAndNotify(observer: self) { [weak self] in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+        self.viewModel.updateFirstly = {
+            DispatchQueue.main.async { [unowned self] in
                 self.tableManager.coordinator = self.coordinator
                 self.tableManager.dataSource = self.tableManager.data.value
                 self.tableNode.reloadData()
@@ -161,19 +160,17 @@ extension RoomsViewController {
             room.id == roomSchema.id
         }) {
             ASPerformBlockOnMainThread {
-                self.tableNode.performBatch(animated: true, updates: {
+//                self.tableNode.performBatch(animated: true, updates: {
                     if let newUnreadedItems = room.unreadItems {
-                        self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
+                        self.tableManager.data.value[index].unreadItems = newUnreadedItems
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                        self.viewModel.dataSource?.data.value.move(from: index, to: 0)
-                        self.tableNode.moveRow(at: IndexPath(row: index, section: 0), to: IndexPath(row: 0, section: 0))
                     }
                     
                     if let newTopic = room.topic {
-                        self.viewModel.dataSource?.data.value[index].topic = newTopic
+                        self.tableManager.data.value[index].topic = newTopic
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                     }
-                }, completion: nil)
+//                }, completion: nil)
             }
         }
     }
