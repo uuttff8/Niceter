@@ -56,4 +56,8 @@ class PeopleCoordinator: Coordinator {
         
         self.currentController?.view = coord.currentController?.view
     }
+    
+    func removeSuggestedCoordinator() {
+        self.childCoordinators.removeLast()
+    }
 }

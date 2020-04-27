@@ -187,6 +187,10 @@ extension PeopleViewController: UISearchBarDelegate {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(reload(_:)), object: searchBar)
         self.perform(#selector(reload(_:)), with: searchBar, afterDelay: 0.5)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.coordinator?.removeSuggestedCoordinator()
+    }
 }
 
 extension PeopleViewController: TabBarReselectHandling {

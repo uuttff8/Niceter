@@ -35,6 +35,7 @@ class MainTabBarController: ASTabBarController {
         coordinator?.childCoordinators.append(homeCoordinator)
         let homeNavigationController = ASNavigationController(rootViewController: homeCoordinator.currentController!)
         homeCoordinator.navigationController = homeNavigationController
+        homeCoordinator.start()
         homeCoordinator.tabController = self
         homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms".localized(),
                                                                   image: UIImage(systemName: "message"),
