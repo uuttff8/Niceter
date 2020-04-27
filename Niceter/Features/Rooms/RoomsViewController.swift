@@ -50,7 +50,6 @@ class RoomsViewController: ASViewController<ASTableNode> {
         self.viewModel.updateFirstly = {
             DispatchQueue.main.async { [unowned self] in
                 self.tableManager.coordinator = self.coordinator
-                self.tableManager.dataSource = self.tableManager.data.value
                 self.tableNode.reloadData()
             }
         }

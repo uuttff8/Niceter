@@ -62,7 +62,6 @@ class RoomsViewModel {
 
 // MARK: - TableView Delegate
 class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, ASTableDataSource {
-    var dataSource: [RoomSchema]?
     weak var coordinator: RoomsCoordinator?
     
     private var vc: UIViewController
@@ -94,9 +93,8 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        if let room = dataSource?[indexPath.item] {
-            coordinator?.showChat(roomSchema: room)
-        }
+        let room = data.value[indexPath.item]
+        coordinator?.showChat(roomSchema: room)
         tableNode.deselectRow(at: indexPath, animated: true)
     }
     
@@ -105,7 +103,7 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
         contextMenuConfigurationForRowAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        guard let room = dataSource?[indexPath.row] else { return nil }
+        let room = data.value[indexPath.row] 
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
             return self.coordinator!.previewChat(roomSchema: room)

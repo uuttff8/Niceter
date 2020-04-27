@@ -50,13 +50,8 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         viewModel.loadFirstMessages() { (gittMessages) in
             DispatchQueue.main.async { [weak self] in
                 self?.messageList = gittMessages
-                if self!.cached > 0 {
-                    self?.messagesCollectionView.reloadData()
-                    let _ = self!.cached - 1
-                }
-                CATransaction.disableAnimations {
-                    self?.configureScrollAndPaginate()
-                }
+                self?.messagesCollectionView.reloadData()
+                self?.configureScrollAndPaginate()
             }
         }
     }
@@ -166,7 +161,6 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         fayeClient.cancel()
-        coordinator?.removeDependency(coordinator)
     }
     
     
