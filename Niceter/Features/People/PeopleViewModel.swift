@@ -91,8 +91,6 @@ class PeopleDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
             leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
                 print(suc)
             }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
     
