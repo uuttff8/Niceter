@@ -17,12 +17,13 @@ class PeopleViewModel {
         self.dataSource = dataSource
     }
     
-    func fetchRooms() {
+    func fetchRooms(completion: @escaping () -> Void) {
         CachedPeopleLoader.init(cacheKey: Config.CacheKeys.peopleKey)
             .fetchNewAndCache { (rooms) in
                 let filteredRooms = rooms.filterByPeople().sortByUnreadAndFavourite()
                 self.dataSource?.data.value = filteredRooms
                 ShareData().currentlyJoinedUsers = filteredRooms
+                completion()
         }
     }
     
