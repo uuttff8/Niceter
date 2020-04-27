@@ -160,7 +160,7 @@ extension RoomsViewController {
             room.id == roomSchema.id
         }) {
             ASPerformBlockOnMainThread {
-//                self.tableNode.performBatch(animated: true, updates: {
+                self.tableNode.performBatch(animated: true, updates: {
                     if let newUnreadedItems = room.unreadItems {
                         self.tableManager.data.value[index].unreadItems = newUnreadedItems
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
@@ -170,7 +170,7 @@ extension RoomsViewController {
                         self.tableManager.data.value[index].topic = newTopic
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                     }
-//                }, completion: nil)
+                }, completion: nil)
             }
         }
     }
