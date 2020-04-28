@@ -10,11 +10,22 @@ import AsyncDisplayKit
 
 class PeopleViewModel {
     weak var dataSource : GenericDataSource<RoomSchema>?
+    var updateFirstly: (() -> Void)?
     
     var suggestedRoomsData: Array<UserSchema>?
     
     init(dataSource : GenericDataSource<RoomSchema>?) {
         self.dataSource = dataSource
+    }
+    
+    func numberOfFavourites() -> Int {
+        var index = 0
+        dataSource?.data.value.forEach({ (room) in
+            if room.favourite != nil {
+                index += 1
+            }
+        })
+        return index
     }
     
     func fetchRooms(completion: @escaping () -> Void) {
@@ -33,6 +44,7 @@ class PeopleViewModel {
                 let filteredRooms = rooms.filterByPeople().sortByUnreadAndFavourite()
                 self.dataSource?.data.value = filteredRooms
                 ShareData().currentlyJoinedUsers = filteredRooms
+                self.updateFirstly?()
         }
     }
     
@@ -56,7 +68,17 @@ class PeopleViewModel {
     }
 }
 
-class PeopleDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
+// MARK: - TableView Delegate
+class PeopleTableManager: GenericDataSource<RoomSchema>, ASTableDataSource, ASTableDelegate {
+    weak var coordinator: PeopleCoordinator?
+    
+    private weak var vc: UIViewController?
+    
+    init(with vc: UIViewController) {
+        self.vc = vc
+    }
+    
+    // data source
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         data.value.count
     }
@@ -99,23 +121,12 @@ class PeopleDataSource: GenericDataSource<RoomSchema>, ASTableDataSource {
             completion(res)
         }
     }
-}
-
-// MARK: - TableView Delegate
-class PeopleTableViewDelegate: NSObject, ASTableDelegate {
-    var dataSource: [RoomSchema]?
-    weak var coordinator: PeopleCoordinator?
     
-    private var vc: UIViewController
-    
-    init(with vc: UIViewController) {
-        self.vc = vc
-    }
-    
+    // delegate
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        if let room = dataSource?[indexPath.item] {
-            coordinator?.showChat(roomSchema: room)
-        }
+        let room = data.value[indexPath.item]
+        coordinator?.showChat(roomSchema: room)
+        
         tableNode.deselectRow(at: indexPath, animated: true)
     }
     
@@ -124,13 +135,13 @@ class PeopleTableViewDelegate: NSObject, ASTableDelegate {
         contextMenuConfigurationForRowAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        guard let room = dataSource?[indexPath.row] else { return nil }
+        let room = data.value[indexPath.row]
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
             return self.coordinator!.previewChat(roomSchema: room)
         }) { _ -> UIMenu? in
             let copyAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
-                RoomsService.share(room: room, in: self.vc)
+                RoomsService.share(room: room, in: self.vc!)
             }
             return UIMenu(title: "", children: [copyAction])
         }

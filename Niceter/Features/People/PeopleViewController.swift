@@ -9,19 +9,18 @@
 import AsyncDisplayKit
 
 class PeopleViewController: ASViewController<ASTableNode> {
-
+    
     weak var coordinator: PeopleCoordinator?
     
     private let refreshControl = UIRefreshControl()
-    private lazy var dataSource = PeopleDataSource()
-    private lazy var tableDelegate = PeopleTableViewDelegate(with: self)
+    private lazy var tableManager = PeopleTableManager(with: self)
     
     private var tableNode: ASTableNode {
         return node
     }
     
     lazy var viewModel: PeopleViewModel = {
-        return PeopleViewModel(dataSource: self.dataSource)
+        return PeopleViewModel(dataSource: self.tableManager)
     }()
     
     init(coordinator: PeopleCoordinator) {
@@ -29,8 +28,8 @@ class PeopleViewController: ASViewController<ASTableNode> {
         super.init(node: ASTableNode())
         
         refreshControl.addTarget(self, action: #selector(reloadPeople(_:)), for: .valueChanged)
-        self.tableNode.delegate = self.tableDelegate
-        self.tableNode.dataSource = self.dataSource
+        self.tableNode.delegate = self.tableManager
+        self.tableNode.dataSource = self.tableManager
         self.tableNode.view.refreshControl = self.refreshControl
         
         tableNode.view.separatorStyle = .none
@@ -45,15 +44,13 @@ class PeopleViewController: ASViewController<ASTableNode> {
         title = "People".localized()
         self.setupSearchBar()
         
-        self.dataSource.data.addAndNotify(observer: self) { [weak self] in
+        self.viewModel.updateFirstly = {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.tableDelegate.coordinator = self.coordinator
-                self.tableDelegate.dataSource = self.dataSource.data.value
+                self.tableManager.coordinator = self.coordinator
                 self.tableNode.reloadData()
             }
         }
-        
         self.viewModel.fetchRoomsCached()
         
         subscribeOnEvents()
@@ -83,7 +80,7 @@ class PeopleViewController: ASViewController<ASTableNode> {
             }
         )
     }
-        
+    
     // MARK: - Objc Action
     @objc func reload(_ searchBar: UISearchBar) {
         if let text = searchBar.text, text != "" {
@@ -99,7 +96,9 @@ class PeopleViewController: ASViewController<ASTableNode> {
     }
     
     @objc func reloadPeople(_ sender: Any) {
-        self.viewModel.fetchRooms() { [unowned self] in            
+        self.viewModel.fetchRooms() { [unowned self] in
+            self.tableNode.reloadData()
+            
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
             }
@@ -135,7 +134,7 @@ extension PeopleViewController {
             } else {
                 self?.tableNode.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
             }
-        }, completion: nil)
+            }, completion: nil)
     }
     
     private func diffRoomById(with room: RoomSchema) {
@@ -145,14 +144,16 @@ extension PeopleViewController {
             room.id == roomSchema.id
         }) {
             
-            if let newLastAccessTime = room.lastAccessTime {
-                self.viewModel.dataSource?.data.value[index].lastAccessTime = newLastAccessTime
-                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-            }
-                        
             if let newUnreadedItems = room.unreadItems {
-                self.viewModel.dataSource?.data.value[index].unreadItems = newUnreadedItems
-                self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                if let newUnreadedItems = room.unreadItems {
+                    self.tableManager.data.value[index].unreadItems = newUnreadedItems
+                    self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    self.tableManager.data.value.move(from: index, to: self.viewModel.numberOfFavourites())
+                    CATransaction.disableAnimations {
+                        self.tableNode.moveRow(at: IndexPath(row: index, section: 0),
+                                               to: IndexPath(row: self.viewModel.numberOfFavourites(), section: 0))
+                    }
+                }
             }
             
             if let newTopic = room.topic {
