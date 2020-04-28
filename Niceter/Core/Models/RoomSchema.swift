@@ -103,11 +103,7 @@ public struct RoomSchema: Codable, Equatable {
 // MARK: - Sorting Array
 extension Array where Element == RoomSchema {
     func sortByUnreadAndFavourite() -> [RoomSchema] {
-        let rooms = self.sorted { (a, b) -> Bool in
-            if a.favourite != nil {
-                return true
-            }
-            
+        var rooms = self.sorted { (a, b) -> Bool in
             if let a = a.unreadItems, let b = b.unreadItems {
                 if a > 0 || b > 0 {
                     return a > b
@@ -115,6 +111,12 @@ extension Array where Element == RoomSchema {
             }
             
             return false
+        }
+        
+        rooms.forEach { (room) in
+            if room.favourite != nil {
+                rooms.move(room, to: 0)
+            }
         }
         
         return rooms

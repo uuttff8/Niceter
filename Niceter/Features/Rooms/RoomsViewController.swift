@@ -96,8 +96,8 @@ class RoomsViewController: ASViewController<ASTableNode> {
     
     // Objc Action
     @objc func reloadRooms(_ sender: Any) {
-        self.viewModel.fetchRooms() { [weak self] in
-            guard let self = self else { return }
+        self.viewModel.fetchRooms() { [unowned self] in
+            self.tableNode.reloadData()
             
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
@@ -159,17 +159,22 @@ extension RoomsViewController {
             room.id == roomSchema.id
         }) {
             ASPerformBlockOnMainThread {
-                self.tableNode.performBatch(animated: true, updates: {
+//                self.tableNode.performBatch(animated: true, updates: {
                     if let newUnreadedItems = room.unreadItems {
                         self.tableManager.data.value[index].unreadItems = newUnreadedItems
                         self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                        self.tableManager.data.value.move(from: index, to: self.viewModel.numberOfFavourites())
+                        CATransaction.disableAnimations {
+                            self.tableNode.moveRow(at: IndexPath(row: index, section: 0),
+                                                   to: IndexPath(row: self.viewModel.numberOfFavourites(), section: 0))
+                        }
                     }
                     
                     if let newTopic = room.topic {
                         self.tableManager.data.value[index].topic = newTopic
-                        self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                        self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
                     }
-                }, completion: nil)
+//                }, completion: nil)
             }
         }
     }

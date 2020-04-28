@@ -19,6 +19,16 @@ class RoomsViewModel {
         self.dataSource = dataSource
     }
     
+    func numberOfFavourites() -> Int {
+        var index = 0
+        dataSource?.data.value.forEach({ (room) in
+            if room.favourite != nil {
+                index += 1
+            }
+        })
+        return index
+    }
+    
     func fetchRooms(completion: @escaping () -> Void) {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
             .fetchNewAndCache { (rooms) in // fetch new here and cache
