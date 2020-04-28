@@ -98,11 +98,10 @@ class RoomsViewController: ASViewController<ASTableNode> {
     // Objc Action
     @objc func reloadRooms(_ sender: Any) {
         self.viewModel.fetchRooms() { [unowned self] newRooms in
-            guard let oldRooms = self.viewModel.dataSource?.data.value else { return }
-
+            let oldRooms = self.tableManager.data.value
             let changes = diff(old: oldRooms, new: newRooms)
 
-            self.tableNode.view.reload(changes: changes, updateData: {
+            self.tableNode.reload(changes: changes, replacementAnimation: .fade, completion: { _ in
                 self.tableManager.data.value = newRooms
             })
             
@@ -169,9 +168,10 @@ extension RoomsViewController {
 //                self.tableNode.performBatch(animated: true, updates: {
                     if let newUnreadedItems = room.unreadItems {
                         self.tableManager.data.value[index].unreadItems = newUnreadedItems
-                        self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                         self.tableManager.data.value.move(from: index, to: self.viewModel.numberOfFavourites())
-                        CATransaction.disableAnimations {
+                        
+                        self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                        UIView.performWithoutAnimation {
                             self.tableNode.moveRow(at: IndexPath(row: index, section: 0),
                                                    to: IndexPath(row: self.viewModel.numberOfFavourites(), section: 0))
                         }

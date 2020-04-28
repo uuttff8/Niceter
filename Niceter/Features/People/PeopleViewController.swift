@@ -102,7 +102,7 @@ class PeopleViewController: ASViewController<ASTableNode> {
 
             let changes = diff(old: oldRooms, new: newRooms)
 
-            self.tableNode.view.reload(changes: changes, updateData: {
+            self.tableNode.reload(changes: changes, replacementAnimation: .fade, completion: { _ in
                 self.tableManager.data.value = newRooms
             })
 
@@ -155,7 +155,7 @@ extension PeopleViewController {
                 self.tableManager.data.value[index].unreadItems = newUnreadedItems
                 self.tableNode.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                 self.tableManager.data.value.move(from: index, to: self.viewModel.numberOfFavourites())
-                CATransaction.disableAnimations {
+                UIView.performWithoutAnimation {
                     self.tableNode.moveRow(at: IndexPath(row: index, section: 0),
                                            to: IndexPath(row: self.viewModel.numberOfFavourites(), section: 0))
                 }
