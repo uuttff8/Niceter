@@ -197,7 +197,7 @@ extension RoomChatBaseViewController: MessagesDisplayDelegate {
     }
     
     func detectorAttributes(for detector: DetectorType, and message: MessageType, at indexPath: IndexPath) -> [NSAttributedString.Key: Any] {
-        return [.foregroundColor: UIColor.secondaryLabel]
+        return [.foregroundColor: UIColor.systemBlue]
     }
     
     func enabledDetectors(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> [DetectorType] {
