@@ -213,7 +213,7 @@ class ChatViewController: MessagesViewController {
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
             var actionList = [UIMenuElement]()
             
-            let copyAction = UIAction(title: "Copy", image: UIImage(systemName: "doc.on.doc")) { (_) in
+            let copyAction = UIAction(title: "Copy".localized(), image: UIImage(systemName: "doc.on.doc")) { (_) in
                 if case MessageKind.attributedText(let text) = message.kind {
                     UIPasteboard.general.string = text.string
                 }
@@ -236,14 +236,14 @@ class ChatViewController: MessagesViewController {
     ) -> UIMenu {
                                                     // 5 min
         if Date() < message.sentDate.addingTimeInterval(300) {
-            let editAction = UIAction(title: "Edit",
+            let editAction = UIAction(title: "Edit".localized(),
                                       image: UIImage(systemName: "square.and.pencil")) { _ in
                 self.editMessageUI(message: message)
             }
             actionList.append(editAction)
         }
         
-        let deleteAction = UIAction(title: "Delete",
+        let deleteAction = UIAction(title: "Delete".localized(),
                                     image: UIImage(systemName: "trash")) { _ in
             self.deleteMessage(message: message)
         }
@@ -256,7 +256,7 @@ class ChatViewController: MessagesViewController {
         message: MockMessage,
         default actionList: inout [UIMenuElement]
     ) -> UIMenu {
-        let reportAction = UIAction(title: "Report",
+        let reportAction = UIAction(title: "Report".localized(),
                                     image: UIImage(systemName: "exclamationmark.bubble")) { (_) in
             self.reportMessage(message: message)
         }
@@ -281,7 +281,7 @@ extension ChatViewController: MessagesDataSource {
     
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         return NSAttributedString(
-            string: "Read",
+            string: "Read".localized(),
             attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
                          NSAttributedString.Key.foregroundColor: UIColor.darkGray]
         )
