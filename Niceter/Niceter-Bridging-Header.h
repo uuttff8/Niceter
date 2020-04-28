@@ -11,5 +11,6 @@
 
 #import "FayeClient.h"
 #import "FayeWrapper.h"
+#import "ExceptionCatcher.h"
 
 #endif /* Niceter_Bridging_Header_h */

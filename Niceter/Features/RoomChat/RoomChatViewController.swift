@@ -7,6 +7,7 @@
 //
 
 import MessageKit
+import Differ
 
 extension BidirectionalCollection where Element : Equatable {
   public func difference<C: BidirectionalCollection>(

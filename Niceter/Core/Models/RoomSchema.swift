@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DeepDiff
 
 // https://developer.gitter.im/docs/rooms-resource
 @frozen
@@ -98,6 +99,24 @@ public struct RoomSchema: Codable, Equatable {
                                     avatarUrl: self.avatarUrl,
                                     uri: self.uri)
     }
+}
+
+extension RoomSchema: DiffAware {
+    public typealias DiffId = String
+    
+    public var diffId: String {
+        self.id
+    }
+    
+    public static func compareContent(_ a: RoomSchema, _ b: RoomSchema) -> Bool {
+        return a.groupId == b.groupId &&
+            a.githubType == b.githubType &&
+            a.uri == b.uri &&
+            a.url == b.url &&
+            a.lastAccessTime == b.lastAccessTime &&
+            a.unreadItems == b.unreadItems
+    }
+
 }
 
 // MARK: - Sorting Array

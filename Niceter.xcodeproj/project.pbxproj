@@ -52,6 +52,7 @@
 		4E2A7A2324154E7E0025F39C /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */; };
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
+		4E2D1A2624584B03005646A3 /* DeepDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2D1A2524584B03005646A3 /* DeepDiff */; };
 		4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */; };
 		4E4F7D612443A817009287D8 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */; };
 		4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */; };
@@ -209,6 +210,7 @@
 		4E2A7A1A2411792C0025F39C /* ShareData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareData.swift; sourceTree = "<group>"; };
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		4E2D1A1D24583BB9005646A3 /* ExceptionCatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSchema.swift; sourceTree = "<group>"; };
 		4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCoordinator.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				4EE0CF892420DDC6005BDE24 /* WebKit.framework in Frameworks */,
 				4EE25DB224544E0D00055A5E /* SnapKit in Frameworks */,
 				4E1181202443506A001F6D2D /* SwiftyMarkdown in Frameworks */,
+				4E2D1A2624584B03005646A3 /* DeepDiff in Frameworks */,
 				357BF4474CE639349CC647E7 /* Pods_Niceter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,6 +549,7 @@
 			children = (
 				4E09AC30240D906F0028229C /* ClearCookies.swift */,
 				4EE25D9B245351CE00055A5E /* GittkerLog.swift */,
+				4E2D1A1D24583BB9005646A3 /* ExceptionCatcher.h */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -1002,6 +1006,7 @@
 				4E2A7A2F2416B23C0025F39C /* Nuke */,
 				4E11811F2443506A001F6D2D /* SwiftyMarkdown */,
 				4EE25DB124544E0D00055A5E /* SnapKit */,
+				4E2D1A2524584B03005646A3 /* DeepDiff */,
 			);
 			productName = Gittker;
 			productReference = 4E09ABDF240D7FA70028229C /* Niceter.app */;
@@ -1084,6 +1089,7 @@
 				4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */,
 				4E11811E2443506A001F6D2D /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 				4EE25DB024544E0D00055A5E /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4E2D1A2424584B03005646A3 /* XCRemoteSwiftPackageReference "DeepDiff" */,
 			);
 			productRefGroup = 4E09ABE0240D7FA70028229C /* Products */;
 			projectDirPath = "";
@@ -1731,6 +1737,14 @@
 				minimumVersion = 8.4.0;
 			};
 		};
+		4E2D1A2424584B03005646A3 /* XCRemoteSwiftPackageReference "DeepDiff" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onmyway133/DeepDiff.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.1;
+			};
+		};
 		4EE25DB024544E0D00055A5E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1756,6 +1770,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E2A7A2E2416B23C0025F39C /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
+		};
+		4E2D1A2524584B03005646A3 /* DeepDiff */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E2D1A2424584B03005646A3 /* XCRemoteSwiftPackageReference "DeepDiff" */;
+			productName = DeepDiff;
 		};
 		4EE25DB124544E0D00055A5E /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

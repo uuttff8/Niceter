@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import DeepDiff
 
 class RoomsViewController: ASViewController<ASTableNode> {
     
@@ -96,8 +97,14 @@ class RoomsViewController: ASViewController<ASTableNode> {
     
     // Objc Action
     @objc func reloadRooms(_ sender: Any) {
-        self.viewModel.fetchRooms() { [unowned self] in
-            self.tableNode.reloadData()
+        self.viewModel.fetchRooms() { [unowned self] newRooms in
+            guard let oldRooms = self.viewModel.dataSource?.data.value else { return }
+
+            let changes = diff(old: oldRooms, new: newRooms)
+
+            self.tableNode.view.reload(changes: changes, updateData: {
+                self.tableManager.data.value = newRooms
+            })
             
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()
