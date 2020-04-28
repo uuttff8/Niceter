@@ -125,7 +125,7 @@ class ChatViewController: MessagesViewController {
     func configureMessageCollectionView() {
         guard let flowLayout =
             messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else {
-            return
+                return
         }
         flowLayout.collectionView?.backgroundColor = .systemBackground
         
@@ -203,7 +203,7 @@ class ChatViewController: MessagesViewController {
             }
         }
     }
-            
+    
     func collectionView(
         _ collectionView: UICollectionView,
         contextMenuConfigurationForItemAt indexPath: IndexPath,
@@ -235,18 +235,18 @@ class ChatViewController: MessagesViewController {
         message: MockMessage,
         default actionList: inout [UIMenuElement]
     ) -> UIMenu {
-                                                    // 5 min
+        // 5 min
         if Date() < message.sentDate.addingTimeInterval(300) {
             let editAction = UIAction(title: "Edit".localized(),
                                       image: UIImage(systemName: "square.and.pencil")) { _ in
-                self.editMessageUI(message: message)
+                                        self.editMessageUI(message: message)
             }
             actionList.append(editAction)
         }
         
         let deleteAction = UIAction(title: "Delete".localized(),
                                     image: UIImage(systemName: "trash")) { _ in
-            self.deleteMessage(message: message)
+                                        self.deleteMessage(message: message)
         }
         actionList.append(deleteAction)
         
@@ -259,7 +259,7 @@ class ChatViewController: MessagesViewController {
     ) -> UIMenu {
         let reportAction = UIAction(title: "Report".localized(),
                                     image: UIImage(systemName: "exclamationmark.bubble")) { (_) in
-            self.reportMessage(message: message)
+                                        self.reportMessage(message: message)
         }
         actionList.append(reportAction)
         
@@ -427,14 +427,12 @@ extension ChatViewController: MessageInputBarDelegate {
     
     func addToMessageMap(message: NiceterMessage, isFirstly: Bool) {
         if isFirstly {
-            if case let MessageKind.attributedText(text) = message.message.kind {
-                let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId,
-                                                                                          text: message.message.originalText)
-                
-                self.updateMessageUIAndAvoidMessageResend(tmpId: tmpId, message: message)
-                // if not return, new message will appear again
-                return
-            }
+            let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId,
+                                                                                      text: message.message.originalText)
+            
+            self.updateMessageUIAndAvoidMessageResend(tmpId: tmpId, message: message)
+            // if not return, new message will appear again
+            return
         }
         
         self.insertMessageUI(message)

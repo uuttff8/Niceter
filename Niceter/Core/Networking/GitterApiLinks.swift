@@ -115,21 +115,18 @@ enum GitterApiLinks {
     
     var method: String {
         switch self {
-        case .hideRoom(userId: _, roomId: _):
+        case .joinUserRoom,
+             .joinRoom(userId: _, roomId: _),
+             .reportMessage(roomId: _, messageId: _):
+            return "POST"
+        case .removeUser(userId: _, roomId: _),
+             .readAllMessages(_, _),
+             .hideRoom(userId: _, roomId: _):
             return "DELETE"
-        case .joinUserRoom:
-            return "POST"
-        case .removeUser(userId: _, roomId: _):
-            return "DELETE"
-        case .joinRoom(userId: _, roomId: _):
-            return "POST"
-        case .reportMessage(roomId: _, messageId: _):
-            return "POST"
         case .updateMessage(roomId: _, messageId: _):
             return "PUT"
-        case .readAllMessages(_):
-            return "DELETE"
         default: return "GET"
         }
     }
 }
+

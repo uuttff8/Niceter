@@ -54,7 +54,7 @@ class CachedRoomMessagesLoader: CachedLoader {
         self.storage?.async.object(forKey: self.cacheKey, completion: { (res) in
             switch res {
             case .value(var rooms):
-                rooms.append(message.toRoomRecreate()!)
+                rooms.append(message.toRoomRecreate())
                 self.storage?.async.setObject(rooms, forKey: self.cacheKey, completion: { (_) in })
             case .error(let error):
                 NiceterLog.logCacheError(title: "Failed to fetch adding messages cache", error: error)
