@@ -37,8 +37,10 @@ class UserChatViewModel {
         }
     }
     
-    func sendMessage(text: String,
-                     completion: @escaping (Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>) -> Void) {
+    func sendMessage(
+        text: String,
+        completion: @escaping (Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>) -> Void
+    ) {
         GitterApi.shared.sendGitterMessage(roomId: self.roomSchema.id, text: text) { (res) in
             guard let result = res else { return }
             completion(result)

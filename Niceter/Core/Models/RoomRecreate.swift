@@ -41,6 +41,7 @@ extension RoomRecreateSchema {
                                   user: user,
                                   messageId: self.id,
                                   date: Date.toGittkerDate(str: self.sent!),
+                                  originalText: self.text ?? "",
                                   unread: unread ?? false)
 //        let message = MockMessage(text: self.text ?? "",
 //                                  user: user,
