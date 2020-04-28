@@ -70,6 +70,10 @@ class RoomsCoordinator: NSObject, Coordinator {
         let coord = CreateRoomCoordinator(with: navigationController)
         childCoordinators.append(coord)
         coord.start()
+        
+        coord.onDismissed = {
+            self.removeDependency(coord)
+        }
     }
 }
 
