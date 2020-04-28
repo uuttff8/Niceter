@@ -16,10 +16,13 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Push a new beta build to TestFlight"
+  desc "Description of what the lane does"
+
   lane :beta do
+    # sync_code_signing(type: "appstore")    # see code signing guide for more information
     increment_build_number(xcodeproj: "Niceter.xcodeproj")
     build_app(workspace: "Niceter.xcworkspace", scheme: "Niceter")
-    upload_to_testflight
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+    # slack(message: "Successfully distributed a new beta build")
   end
 end
