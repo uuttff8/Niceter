@@ -9,6 +9,7 @@
 import UIKit
 import MessageKit
 import SafariServices
+import MarkdownKit
 
 private class ConversationTemporaryMessageAdapter {
     static func generateChildMessageTmpId(userId: String, text: String) -> String {
@@ -409,8 +410,15 @@ extension ChatViewController: MessageInputBarDelegate {
     }
     
     private func insertMessages(_ text: String) {
+        let mdParser = MarkdownParser()
+        
         let tmpMessId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
-        let tmpMessage = MockMessage(text: text, user: userdata, messageId: tmpMessId, date: Date(), unread: false)
+        let tmpMessage = MockMessage(attributedText: mdParser.parse(text),
+                                     user: userdata,
+                                     messageId: tmpMessId,
+                                     date: Date(),
+                                     originalText: text,
+                                     unread: false)
         let gittMess = NiceterMessage(message: tmpMessage, avatarUrl: nil, isLoading: true)
         
         addToMessageMap(message: gittMess, isFirstly: false)
@@ -421,7 +429,7 @@ extension ChatViewController: MessageInputBarDelegate {
         if isFirstly {
             if case let MessageKind.attributedText(text) = message.message.kind {
                 let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId,
-                                                                                          text: text.string)
+                                                                                          text: message.message.originalText)
                 
                 self.updateMessageUIAndAvoidMessageResend(tmpId: tmpId, message: message)
                 // if not return, new message will appear again

@@ -96,13 +96,10 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     }
             
     override func sendMessage(tmpMessage: MockMessage) {
-        if case let MessageKind.attributedText(text) = tmpMessage.kind {
-            
-            viewModel.sendMessage(text: text.string) { (result) in
-                switch result {
-                case .success(_): break
-                case .failure(_): break
-                }
+        viewModel.sendMessage(text: tmpMessage.originalText) { (result) in
+            switch result {
+            case .success(_): break
+            case .failure(_): break
             }
         }
     }
