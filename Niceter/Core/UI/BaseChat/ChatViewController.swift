@@ -214,8 +214,8 @@ class ChatViewController: MessagesViewController {
             var actionList = [UIMenuElement]()
             
             let copyAction = UIAction(title: "Copy", image: UIImage(systemName: "doc.on.doc")) { (_) in
-                if case .text(let text) = message.kind {
-                    UIPasteboard.general.string = text
+                if case MessageKind.attributedText(let text) = message.kind {
+                    UIPasteboard.general.string = text.string
                 }
             }
             actionList.append(copyAction)
