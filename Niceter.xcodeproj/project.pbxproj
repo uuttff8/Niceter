@@ -53,6 +53,7 @@
 		4E2A7A2524154EDF0025F39C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A7A2424154EDF0025F39C /* Config.swift */; };
 		4E2A7A302416B23C0025F39C /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2A7A2F2416B23C0025F39C /* Nuke */; };
 		4E2D1A2624584B03005646A3 /* DeepDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2D1A2524584B03005646A3 /* DeepDiff */; };
+		4E2D1A2824585192005646A3 /* ASTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D1A2724585192005646A3 /* ASTableNode.swift */; };
 		4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */; };
 		4E4F7D612443A817009287D8 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */; };
 		4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */; };
@@ -211,6 +212,7 @@
 		4E2A7A2224154E7E0025F39C /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		4E2A7A2424154EDF0025F39C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		4E2D1A1D24583BB9005646A3 /* ExceptionCatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
+		4E2D1A2724585192005646A3 /* ASTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTableNode.swift; sourceTree = "<group>"; };
 		4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSchema.swift; sourceTree = "<group>"; };
 		4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCoordinator.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 				4EE0CF8C2420FD2E005BDE24 /* UIViewController+Ext.swift */,
 				4EFC4FC62423746200295EB1 /* Swift+Ext.swift */,
 				4E22A01124351EFB0096371C /* Extensions.swift */,
+				4E2D1A2724585192005646A3 /* ASTableNode.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1242,6 +1245,7 @@
 			files = (
 				4EB3FBFE24298E7A00F3BF88 /* HomeSearchController.swift in Sources */,
 				4E4F7D652443ABAC009287D8 /* CreateRoomViewModel.swift in Sources */,
+				4E2D1A2824585192005646A3 /* ASTableNode.swift in Sources */,
 				4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */,
 				4E09AC4C240EA68D0028229C /* NetModels.swift in Sources */,
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
