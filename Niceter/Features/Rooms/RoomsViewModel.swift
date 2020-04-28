@@ -29,13 +29,12 @@ class RoomsViewModel {
         return index
     }
     
-    func fetchRooms(completion: @escaping () -> Void) {
+    func fetchRooms(completion: @escaping ([RoomSchema]) -> Void) {
         CachedRoomLoader.init(cacheKey: Config.CacheKeys.roomsKey)
             .fetchNewAndCache { (rooms) in // fetch new here and cache
                 let filteredRooms = rooms.filterByChats().sortByUnreadAndFavourite()
-                self.dataSource?.data.value = filteredRooms
                 ShareData().currentlyJoinedChats = filteredRooms
-                completion()
+                completion(filteredRooms)
         }
     }
     

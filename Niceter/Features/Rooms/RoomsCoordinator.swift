@@ -96,7 +96,6 @@ extension RoomsCoordinator: UINavigationControllerDelegate {
         if let roomChatController = fromViewController as? RoomChatViewController {
             // We're popping a view controller; end its coordinator
             self.removeDependency(roomChatController.coordinator)
-            print(childCoordinators)
         }
     }
 }
