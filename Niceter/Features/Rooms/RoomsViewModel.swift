@@ -162,6 +162,7 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
         }
         
         readMessagesAction.image = UIImage(systemName: "envelope.open")
+        readMessagesAction.backgroundColor = UIColor.systemBlue
         
         return UISwipeActionsConfiguration(actions: [readMessagesAction])
 
