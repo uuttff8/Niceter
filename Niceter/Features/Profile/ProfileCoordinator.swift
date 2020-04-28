@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 
 class ProfileCoordinator: Coordinator {
-    enum ProfileFlow {
+    enum Flow {
         case fromChat
         case fromSearch
     }
@@ -19,9 +19,9 @@ class ProfileCoordinator: Coordinator {
     
     var currentController: ProfileViewController?
     var username: String
-    var currentFlow: ProfileFlow
+    var currentFlow: Flow
     
-    init(with navigationController: ASNavigationController?, username: String, flow: ProfileFlow) {
+    init(with navigationController: ASNavigationController?, username: String, flow: Flow) {
         self.navigationController = navigationController
         self.username = username
         self.currentFlow = flow

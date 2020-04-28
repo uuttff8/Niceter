@@ -50,7 +50,7 @@ class PeopleCoordinator: NSObject, Coordinator {
             with: navigationController,
             rooms: rooms?.convertToRoomSchema(),
             currentlyJoinedRooms: currentlyJoinedRooms,
-            flow: SuggestedRoomsCoordinator.SuggestedFlow.user
+            flow: SuggestedRoomsCoordinator.Flow.user
         )
         childCoordinators.append(coord)
         coord.start()
