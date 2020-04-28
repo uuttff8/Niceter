@@ -34,13 +34,13 @@ extension NiceterMessage {
 //                                  date: Date.toGittkerDate(str: self.sent!),
 //                                  unread: unread ?? false)
 //        return GittkerMessage(message: message, avatarUrl: self.fromUser?.avatarURLMedium, isLoading: isLoading)
-        if case let MessageKind.text(text) = message.kind {
+        if case let MessageKind.attributedText(text) = message.kind {
             
             let date = Date.strFromDate(message.sentDate)
             let user = UserSchema(id: message.user.senderId, username: message.user.username, displayName: message.user.displayName, url: nil, website: nil, avatarURL: nil, avatarURLSmall: nil, avatarURLMedium: avatarUrl, company: nil, location: nil, email: nil, github: nil, profile: nil, providers: nil, v: nil)
             
             
-            return RoomRecreateSchema(id: message.messageId, text: text, html: nil, sent: date, fromUser: user, unread: false, readBy: nil, urls: nil, meta: nil, v: nil)
+            return RoomRecreateSchema(id: message.messageId, text: text.string, html: nil, sent: date, fromUser: user, unread: false, readBy: nil, urls: nil, meta: nil, v: nil)
             
         } else {
             return nil

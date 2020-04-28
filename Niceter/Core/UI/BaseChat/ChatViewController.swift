@@ -419,8 +419,9 @@ extension ChatViewController: MessageInputBarDelegate {
     
     func addToMessageMap(message: NiceterMessage, isFirstly: Bool) {
         if isFirstly {
-            if case let MessageKind.text(text) = message.message.kind {
-                let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
+            if case let MessageKind.attributedText(text) = message.message.kind {
+                let tmpId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId,
+                                                                                          text: text.string)
                 
                 self.updateMessageUIAndAvoidMessageResend(tmpId: tmpId, message: message)
                 // if not return, new message will appear again

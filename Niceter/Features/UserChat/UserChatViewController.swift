@@ -90,9 +90,9 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     }
     
     override func sendMessage(tmpMessage: MockMessage) {
-        if case let MessageKind.text(text) = tmpMessage.kind {
+        if case let MessageKind.attributedText(text) = tmpMessage.kind {
             
-            viewModel.sendMessage(text: text) { (result) in
+            viewModel.sendMessage(text: text.string) { (result) in
                 switch result {
                 case .success(_):
                     print("All is ok")

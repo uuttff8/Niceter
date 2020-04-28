@@ -7,7 +7,6 @@
 //
 
 import MessageKit
-import Differ
 
 extension BidirectionalCollection where Element : Equatable {
   public func difference<C: BidirectionalCollection>(
@@ -97,9 +96,9 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     }
             
     override func sendMessage(tmpMessage: MockMessage) {
-        if case let MessageKind.text(text) = tmpMessage.kind {
+        if case let MessageKind.attributedText(text) = tmpMessage.kind {
             
-            viewModel.sendMessage(text: text) { (result) in
+            viewModel.sendMessage(text: text.string) { (result) in
                 switch result {
                 case .success(_): break
                 case .failure(_): break
@@ -128,8 +127,8 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     }
     
     override func editMessage(message: MockMessage) {
-        guard case .text(let messageText) = message.kind else { return }
-        self.viewModel.editMessage(text: messageText, messageId: message.messageId) { (roomRecrSchema) in
+        guard case MessageKind.attributedText(let messageText) = message.kind else { return }
+        self.viewModel.editMessage(text: messageText.string, messageId: message.messageId) { (roomRecrSchema) in
 //            print(roomRecrSchema)
             self.editingMessage(self.editingMessagePlugin, shouldBecomeVisible: false)
         }

@@ -105,18 +105,18 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
         self.message = message
         self.previousTextInTextView = messageInputBar.inputTextView.text
         
-        guard case .text(let messageText) = self.message?.kind else { return }
-        self.previousText = messageText
-        editingMessagePlugin.showEditingMessage(message: messageText)
+        guard case .attributedText(let messageText) = self.message?.kind else { return }
+        self.previousText = messageText.string
+        editingMessagePlugin.showEditingMessage(message: messageText.string)
     }
     
     func editingMessage(_ manager: EditingMessageInputPlugin, shouldBecomeVisible: Bool) {
         let topStackView = messageInputBar.topStackView
-        guard case .text(let messageText) = self.message?.kind else { return }
+        guard case .attributedText(let messageText) = self.message?.kind else { return }
         
         if shouldBecomeVisible && !topStackView.arrangedSubviews.contains(editingMessagePlugin.editingMessageView) {
             self.isEditingEnabled = true
-            messageInputBar.inputTextView.text = messageText
+            messageInputBar.inputTextView.text = messageText.string
             messageInputBar.sendButton.isEnabled = false
             messageInputBar.inputTextView.delegate = self
             
@@ -141,7 +141,7 @@ class RoomChatEditingMessageExtend: RoomChatBaseViewController, EditingMessagePl
         if isEditingEnabled {
             // if editing enabled then message is not nil
             guard var message = message else { return }
-            message.kind = MessageKind.text(messageInputBar.inputTextView.text)
+            message.kind = MessageKind.attributedText(messageInputBar.inputTextView.attributedText)
             editMessage(message: message)
         } else {
             super.inputBar(inputBar, didPressSendButtonWith: text)
