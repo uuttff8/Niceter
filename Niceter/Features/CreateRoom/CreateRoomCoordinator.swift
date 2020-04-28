@@ -8,17 +8,19 @@
 
 import AsyncDisplayKit
 
-class CreateRoomCoordinator: Coordinator {
+class CreateRoomCoordinator: NSObject, Coordinator {
+    
+    var onDismissed: (() -> Void)?
+    
     weak var navigationController: ASNavigationController?
     var modalNavigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     
     var currentController: CreateRoomViewController?
     
-    
     init(with navigationController: ASNavigationController?) {
         self.navigationController = navigationController
-        
+        super.init()
         self.currentController = CreateRoomViewController(coordinator: self)
         self.modalNavigationController = ASNavigationController(rootViewController: currentController!)
     }
@@ -26,6 +28,7 @@ class CreateRoomCoordinator: Coordinator {
     func start() {
         guard let modalNavController = modalNavigationController else { return }
         self.navigationController?.present(modalNavController, animated: true, completion: nil)
+        modalNavigationController?.presentationController?.delegate = self
     }
     
     func showEnteringName(ghRepoEnabled: Bool, completion: @escaping (String) -> Void) {
@@ -47,5 +50,11 @@ class CreateRoomCoordinator: Coordinator {
         vc.completionHandler = { (group, ghRepoEnabled) in
             completion(group, ghRepoEnabled)
         }
+    }
+}
+
+extension CreateRoomCoordinator: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        onDismissed?()
     }
 }
