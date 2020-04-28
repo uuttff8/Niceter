@@ -35,6 +35,7 @@ enum GitterApiLinks {
     case searchRooms(_ query: String)
     case createRoom(_ groupId: String)
     case listUsers(roomId: String, skip: Int)
+    case readAllMessages(_ roomId: String, _ userId: String)
     
     // Messages
     case firstMessages(String)
@@ -81,6 +82,8 @@ enum GitterApiLinks {
             return "v1/groups/\(groupId)/rooms"
         case .listUsers(roomId: let roomId, skip: let skip):
             return "v1/rooms/\(roomId)/users?skip=\(skip)"
+        case .readAllMessages(let roomId, let userId):
+            return "v1/user/\(userId)/rooms/\(roomId)/unreadItems/all"
             
         case .firstMessages(let roomId): return "v1/rooms/\(roomId)/chatMessages?limit=\(GitterApiLinks.limitMessages)"
         case .olderMessages(messageId: let messageId, roomId: let roomId):
@@ -124,6 +127,8 @@ enum GitterApiLinks {
             return "POST"
         case .updateMessage(roomId: _, messageId: _):
             return "PUT"
+        case .readAllMessages(_):
+            return "DELETE"
         default: return "GET"
         }
     }

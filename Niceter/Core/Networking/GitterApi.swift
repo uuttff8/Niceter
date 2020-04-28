@@ -241,6 +241,17 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func markAllMessagesAsRead(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
+        let endpoint = GitterApiLinks.readAllMessages(roomId, userId)
+        
+        genericRequestData(url: endpoint,
+                           method: endpoint.method,
+                           body: nil)
+        { (data) in
+            completion(data)
+        }
+    }
 }
 
 // MARK: - Messages

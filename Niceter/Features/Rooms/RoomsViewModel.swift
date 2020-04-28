@@ -67,6 +67,12 @@ class RoomsViewModel {
             completion(res)
         }
     }
+    
+    func markAllMessagesAsRead(roomId: String, userId: String) {
+        GitterApi.shared.markAllMessagesAsRead(roomId: roomId, userId: userId) { (_) in
+            
+        }
+    }
 }
 
 
@@ -99,6 +105,12 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
     func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
         GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
             completion(res)
+        }
+    }
+    
+    func markAllMessagesAsRead(roomId: String, userId: String) {
+        GitterApi.shared.markAllMessagesAsRead(roomId: roomId, userId: userId) { (_) in
+            
         }
     }
     
@@ -154,9 +166,7 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
             guard let userId = ShareData().userdata?.id else { return }
             let room = self.data.value[indexPath.row]
             
-            self.leaveFromRoom(roomId: room.id, userId: userId) { (suc) in
-                print(suc)
-            }
+            self.markAllMessagesAsRead(roomId: room.id, userId: userId)
             
             completion(true)
         }
