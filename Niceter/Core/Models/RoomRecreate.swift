@@ -6,8 +6,8 @@
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
 //
 
-import Foundation
 import MessageKit
+import MarkdownKit
 
 @frozen
 public struct UrlSchema: Codable {
@@ -35,11 +35,18 @@ extension RoomRecreateSchema {
         let user = MockUser(senderId: fromUser?.id ?? "",
                             displayName: fromUser?.displayName ?? "",
                             username: fromUser?.username ?? "")
-        let message = MockMessage(text: self.text ?? "",
+        
+        let md = MarkdownParser(font : UIFont.systemFont(ofSize: UIFont.systemFontSize))
+        let message = MockMessage(attributedText: md.parse(self.text ?? ""),
                                   user: user,
                                   messageId: self.id,
                                   date: Date.toGittkerDate(str: self.sent!),
                                   unread: unread ?? false)
+//        let message = MockMessage(text: self.text ?? "",
+//                                  user: user,
+//                                  messageId: self.id,
+//                                  date: Date.toGittkerDate(str: self.sent!),
+//                                  unread: unread ?? false)
         return NiceterMessage(message: message, avatarUrl: self.fromUser?.avatarURLMedium, isLoading: isLoading)
     }
 }

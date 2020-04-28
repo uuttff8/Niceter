@@ -61,6 +61,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
   - InputBarAccessoryView (4.2.2)
+  - MarkdownKit (1.6)
   - MessageKit (3.0.0):
     - InputBarAccessoryView (~> 4.2.2)
   - nanopb (0.3.9011):
@@ -111,6 +112,7 @@ PODS:
 DEPENDENCIES:
   - Cache
   - Firebase/Analytics
+  - MarkdownKit (~> 1.6.0)
   - MessageKit
   - SocketRocket
   - Texture
@@ -130,6 +132,7 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
     - InputBarAccessoryView
+    - MarkdownKit
     - MessageKit
     - nanopb
     - PINCache
@@ -153,6 +156,7 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 12f02e5c8f09c055615de90bcd5ba2c375546051
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
   InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  MarkdownKit: 6aa4aee263c7efae3de570cded0767f85c38fc78
   MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
@@ -163,6 +167,6 @@ SPEC CHECKSUMS:
   Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
   TextureSwiftSupport: ff4052c7ba9c78b10849b06cee09a0ee33b00997
 
-PODFILE CHECKSUM: 6bd3985fb52810d41697456dcc97c8ad919daf0e
+PODFILE CHECKSUM: dd80adafd6f79431a55a0d4f2d43df0cc1bb2fa1
 
 COCOAPODS: 1.9.1

@@ -11,6 +11,7 @@ target 'Niceter' do
   pod 'Cache'
   pod 'TextureSwiftSupport', '~> 1.5.0'
   pod 'Firebase/Analytics'
+  pod 'MarkdownKit', '~> 1.6.0'
 
   target 'NiceterTests' do
     inherit! :search_paths

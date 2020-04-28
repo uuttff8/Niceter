@@ -105,9 +105,9 @@ struct MockMessage: MessageType {
     func toUserSchema() -> UserSchema {
         UserSchema(id: self.messageId, username: self.user.username, displayName: self.user.displayName, url: nil, website: nil, avatarURL: nil, avatarURLSmall: nil, avatarURLMedium: nil, company: nil, location: nil, email: nil, github: nil, profile: nil, providers: nil, v: nil)
     }
-//    init(attributedText: NSAttributedString, user: MockUser, messageId: String, date: Date, unread: Bool) {
-//        self.init(kind: .attributedText(attributedText), user: user, messageId: messageId, date: date, unread: unread)
-//    }
+    init(attributedText: NSAttributedString, user: MockUser, messageId: String, date: Date, unread: Bool) {
+        self.init(kind: .attributedText(attributedText), user: user, messageId: messageId, date: date, unread: unread)
+    }
 }
 
 extension MessageKind: Equatable {
