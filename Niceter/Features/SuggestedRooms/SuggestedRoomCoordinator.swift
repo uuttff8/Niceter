@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 
 class SuggestedRoomsCoordinator: Coordinator {
-    enum SuggestedFlow {
+    enum Flow {
         case chat
         case user
     }
@@ -20,13 +20,13 @@ class SuggestedRoomsCoordinator: Coordinator {
     
     var currentController: SuggestedRoomsNode?
     var rooms: Array<RoomSchema>?
-    var currentFlow: SuggestedFlow
+    var currentFlow: Flow
     
     init(
         with navigationController: ASNavigationController?,
         rooms: Array<RoomSchema>?,
         currentlyJoinedRooms: [RoomSchema],
-        flow: SuggestedFlow
+        flow: Flow
     ) {
         self.navigationController = navigationController
         self.rooms = rooms

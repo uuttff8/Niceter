@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 
 class RoomChatCoordinator: Coordinator {
-    enum RoomChatControllerFlow {
+    enum Flow {
         case full
         case preview
     }
@@ -17,12 +17,12 @@ class RoomChatCoordinator: Coordinator {
     weak var navigationController: ASNavigationController?
     var childCoordinators = [Coordinator]()
     var currentController: RoomChatViewController?
-    let currentFlow: RoomChatCoordinator.RoomChatControllerFlow
+    let currentFlow: RoomChatCoordinator.Flow
     
     private var roomSchema: RoomSchema
     private var isJoined: Bool
     
-    init(with navigationController: ASNavigationController?, roomSchema: RoomSchema, isJoined: Bool, flow: RoomChatControllerFlow) {
+    init(with navigationController: ASNavigationController?, roomSchema: RoomSchema, isJoined: Bool, flow: Flow) {
         self.navigationController = navigationController
         self.isJoined = isJoined
         self.roomSchema = roomSchema
@@ -38,7 +38,7 @@ class RoomChatCoordinator: Coordinator {
     func showProfileScreen(username: String) {
         let coord = ProfileCoordinator(with: navigationController,
                                        username: username,
-                                       flow: ProfileCoordinator.ProfileFlow.fromSearch)
+                                       flow: ProfileCoordinator.Flow.fromSearch)
         childCoordinators.append(coord)
         coord.start()
     }

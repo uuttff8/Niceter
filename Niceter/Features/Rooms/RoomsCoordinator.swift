@@ -54,7 +54,7 @@ class RoomsCoordinator: NSObject, Coordinator {
             with: navigationController,
             rooms: rooms,
             currentlyJoinedRooms: currentlyJoinedRooms,
-            flow: SuggestedRoomsCoordinator.SuggestedFlow.chat
+            flow: SuggestedRoomsCoordinator.Flow.chat
         )
         childCoordinators.append(coord)
         coord.start()
