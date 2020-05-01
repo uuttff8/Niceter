@@ -468,7 +468,6 @@
 		4E09AC19240D81770028229C /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4E2D1A292458571F005646A3 /* GitterMarkdown */,
 				4ED5398B242BA7D9000874F3 /* Cache */,
 				4ED5398A242BA7B9000874F3 /* Chat */,
 				4ED53989242BA797000874F3 /* UI */,
@@ -677,14 +676,6 @@
 				4E9D17AB241E46800066362D /* TRConnectionMonitor.m */,
 			);
 			path = Faye;
-			sourceTree = "<group>";
-		};
-		4E2D1A292458571F005646A3 /* GitterMarkdown */ = {
-			isa = PBXGroup;
-			children = (
-				4E2D1A2A24585735005646A3 /* GitterMarkdown.swift */,
-			);
-			path = GitterMarkdown;
 			sourceTree = "<group>";
 		};
 		4E2D1A2F245C5B5E005646A3 /* Sync */ = {
@@ -966,6 +957,7 @@
 		4ED5398A242BA7B9000874F3 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				4E2D1A2A24585735005646A3 /* GitterMarkdown.swift */,
 				4E9D1826241FF89B0066362D /* Faye */,
 			);
 			path = Chat;
@@ -1564,7 +1556,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Niceter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Niceter/Resources/Info.plist;
@@ -1589,7 +1581,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Niceter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Niceter/Resources/Info.plist;

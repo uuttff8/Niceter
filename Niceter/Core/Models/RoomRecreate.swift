@@ -36,7 +36,7 @@ extension RoomRecreateSchema {
                             displayName: fromUser?.displayName ?? "",
                             username: fromUser?.username ?? "")
         
-        let md = MarkdownParser(font : UIFont.systemFont(ofSize: UIFont.systemFontSize), color: UIColor.label)
+        let md = GitterMarkdown()
         let message = MockMessage(attributedText: md.parse(self.text ?? ""),
                                   user: user,
                                   messageId: self.id,
