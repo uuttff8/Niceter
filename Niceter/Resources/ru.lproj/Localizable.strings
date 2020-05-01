@@ -21,7 +21,7 @@
 "Members can join this room" = "Участники могут присоединяться";
 "Enter a room name" = "Введите название комнаты";
 "Enter a topic (optional)" = "Введите топик (опционально)";
-"When private, only people added to the room can join." = "Когда приват, только люди добавленные в комнату могут присоединяться.";
+"When private, only people added to the room can join." = "Когда приват, только люди, добавленные в комнату, могут присоединиться.";
 "Create new community" = "Создать новое комьюнити";
 "Rooms" = "Чаты";
 "People" = "Люди";
