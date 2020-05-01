@@ -90,7 +90,8 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         if self.data.value.count == 0 {
             ASPerformBlockOnMainThread {
-                tableNode.view.setEmptyView(title: "You don't have any contact.", message: "Your contacts will be in here.")
+                tableNode.view.setEmptyView(title: "You don't have any chats now.".localized(),
+                                            message: "Your chats will be in here.".localized())
             }
         } else {
             ASPerformBlockOnMainThread {

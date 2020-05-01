@@ -81,7 +81,8 @@ class PeopleTableManager: GenericDataSource<RoomSchema>, ASTableDataSource, ASTa
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         if self.data.value.count == 0 {
             ASPerformBlockOnMainThread {
-                tableNode.view.setEmptyView(title: "You don't have any chats now.", message: "Your chats will be in here.")
+                tableNode.view.setEmptyView(title: "You don't have any chats now.".localized(),
+                                            message: "Your chats will be in here.".localized())
             }
         } else {
             ASPerformBlockOnMainThread {
