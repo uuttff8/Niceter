@@ -87,11 +87,26 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
         self.vc = vc
     }
     
+    func isAllChatsIsHidden() -> Bool {
+        if let _ = self.data.value.firstIndex(where: { (roomSchema) -> Bool in
+            roomSchema.lastAccessTime != nil
+        }) {
+            return false
+        }
+        
+        return true
+    }
+    
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         if self.data.value.count == 0 {
             ASPerformBlockOnMainThread {
-                tableNode.view.setEmptyView(title: "You don't have any chats now.".localized(),
-                                            message: "Your chats will be in here.".localized())
+                tableNode.view.setEmptyView(title: "You don't have any chats now".localized(),
+                                            message: "Your chats will be in here".localized())
+            }
+        } else if isAllChatsIsHidden() {
+            ASPerformBlockOnMainThread {
+                tableNode.view.setEmptyView(title: "You don't have any chats now".localized(),
+                                            message: "Your chats will be in here".localized())
             }
         } else {
             ASPerformBlockOnMainThread {
@@ -107,6 +122,12 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             let room = self.data.value[indexPath.row]
+            
+            // room is hidden
+            if room.lastAccessTime == nil {
+                return ASCellNode()
+            }
+            
             let cell = RoomTableNode(with: RoomTableNode.Content(avatarUrl: room.avatarUrl ?? "",
                                                                  title: room.name ?? "",
                                                                  subtitle: room.topic ?? "",
@@ -139,7 +160,7 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
         contextMenuConfigurationForRowAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        let room = data.value[indexPath.row] 
+        let room = data.value[indexPath.row]
         
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: { () -> UIViewController? in
             return self.coordinator!.previewChat(roomSchema: room)
