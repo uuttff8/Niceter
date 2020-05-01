@@ -359,7 +359,9 @@ extension GitterApi {
                 switch res {
                 case .success(let data):
                     guard let room = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
-                    completion(room)
+                    DispatchQueue.main.async {
+                        completion(room)
+                    }
                 default: break
                 }
             }
@@ -376,7 +378,9 @@ extension GitterApi {
                 switch res {
                 case .success(let data):
                     guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
-                    completion(decoded)
+                    DispatchQueue.main.async {
+                        completion(decoded)
+                    }
                 default: break
                 }
             }
@@ -397,7 +401,9 @@ extension GitterApi {
                 switch res {
                 case .success(let data):
                     guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
-                    completion(type)
+                    DispatchQueue.main.async {
+                        completion(type)
+                    }
                 default: break
                 }
             }
@@ -417,12 +423,14 @@ extension GitterApi {
         ntRequest.async {
             self.httpClient.postAuth(url: url, bodyObject: body)
             { (res) in
-                switch res {
-                case .success(let data):
-                    guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
-                    completion(.success(type))
-                case .failure(.fail):
-                    completion(.failure(.sendFailed))
+                DispatchQueue.main.async {
+                    switch res {
+                    case .success(let data):
+                        guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
+                        completion(.success(type))
+                    case .failure(.fail):
+                        completion(.failure(.sendFailed))
+                    }
                 }
             }
         }
@@ -437,7 +445,9 @@ extension GitterApi {
             { (res) in
                 switch res {
                 case .success(_):
-                    completion(())
+                    DispatchQueue.main.async {
+                        completion(())
+                    }
                 case .failure(_): break
                 }
             }
@@ -453,17 +463,19 @@ extension GitterApi {
             { (res) in
                 switch res {
                 case .success(let data):
-                    if let decoded = try? self.jsonDecoder.decode(ErrorSchema.self, from: data) {
-                        
-                        // error handling
-                        if decoded.error == "Conflict" {
-                            completion(.failure(.conflict))
+                    DispatchQueue.main.async {
+                        if let decoded = try? self.jsonDecoder.decode(ErrorSchema.self, from: data) {
+                            
+                            // error handling
+                            if decoded.error == "Conflict" {
+                                completion(.failure(.conflict))
+                            } else {
+                                completion(.failure(.unknown))
+                            }
+                            
                         } else {
-                            completion(.failure(.unknown))
+                            completion(.success(()))
                         }
-                        
-                    } else {
-                        completion(.success(()))
                     }
                 default: break
                 }
