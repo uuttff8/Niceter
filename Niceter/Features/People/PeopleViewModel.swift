@@ -77,6 +77,7 @@ class PeopleTableManager: GenericDataSource<RoomSchema>, ASTableDataSource, ASTa
         self.vc = vc
     }
     
+    // helper
     func isAllChatsIsHidden() -> Bool {
         if let _ = self.data.value.firstIndex(where: { (roomSchema) -> Bool in
             roomSchema.lastAccessTime != nil
