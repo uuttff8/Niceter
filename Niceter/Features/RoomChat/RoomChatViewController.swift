@@ -106,7 +106,9 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     
     override func joinButtonHandlder() {
         viewModel.joinToChat(userId: userdata.senderId, roomId: roomSchema.id) { (success) in
-            self.configureMessageInputBarForChat()
+            DispatchQueue.main.async {
+                self.configureMessageInputBarForChat()
+            }
         }
     }
     
@@ -127,7 +129,9 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         guard case MessageKind.attributedText(let messageText) = message.kind else { return }
         self.viewModel.editMessage(text: messageText.string, messageId: message.messageId) { (roomRecrSchema) in
 //            print(roomRecrSchema)
-            self.editingMessage(self.editingMessagePlugin, shouldBecomeVisible: false)
+            DispatchQueue.main.async {
+                self.editingMessage(self.editingMessagePlugin, shouldBecomeVisible: false)
+            }
         }
     }
     

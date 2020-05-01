@@ -54,6 +54,7 @@
 		4E2D1A2624584B03005646A3 /* DeepDiff in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2D1A2524584B03005646A3 /* DeepDiff */; };
 		4E2D1A2824585192005646A3 /* ASTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D1A2724585192005646A3 /* ASTableNode.swift */; };
 		4E2D1A2B24585735005646A3 /* GitterMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D1A2A24585735005646A3 /* GitterMarkdown.swift */; };
+		4E2D1A31245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D1A30245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift */; };
 		4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */; };
 		4E4F7D612443A817009287D8 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */; };
 		4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */; };
@@ -214,6 +215,7 @@
 		4E2D1A1D24583BB9005646A3 /* ExceptionCatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		4E2D1A2724585192005646A3 /* ASTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTableNode.swift; sourceTree = "<group>"; };
 		4E2D1A2A24585735005646A3 /* GitterMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterMarkdown.swift; sourceTree = "<group>"; };
+		4E2D1A30245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchSemaphoreWrapper.swift; sourceTree = "<group>"; };
 		4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSchema.swift; sourceTree = "<group>"; };
 		4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCoordinator.swift; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 		4E09AC1E240D82840028229C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4E2D1A2F245C5B5E005646A3 /* Sync */,
 				4E2A7A2124154E700025F39C /* Extensions */,
 				4E09AC2F240D90640028229C /* Logic */,
 				4E09AC21240D82A30028229C /* Protocols */,
@@ -682,6 +685,14 @@
 				4E2D1A2A24585735005646A3 /* GitterMarkdown.swift */,
 			);
 			path = GitterMarkdown;
+			sourceTree = "<group>";
+		};
+		4E2D1A2F245C5B5E005646A3 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				4E2D1A30245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift */,
+			);
+			path = Sync;
 			sourceTree = "<group>";
 		};
 		4E4F7D5A2443A27F009287D8 /* CreateRoom */ = {
@@ -1256,6 +1267,7 @@
 				4E09AC2B240D8B240028229C /* RoundButton.swift in Sources */,
 				4E09AC4C240EA68D0028229C /* NetModels.swift in Sources */,
 				4E09AC75240FFF9D0028229C /* LoginAuthViewModel.swift in Sources */,
+				4E2D1A31245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift in Sources */,
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E4F7D8124447835009287D8 /* CreateRoomCommunityViewModel.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
