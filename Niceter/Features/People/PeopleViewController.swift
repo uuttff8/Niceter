@@ -98,13 +98,7 @@ class PeopleViewController: ASViewController<ASTableNode> {
     
     @objc func reloadPeople(_ sender: Any) {
         self.viewModel.fetchRooms() { [unowned self] newRooms in
-            guard let oldRooms = self.viewModel.dataSource?.data.value else { return }
-
-            let changes = diff(old: oldRooms, new: newRooms)
-
-            self.tableNode.reload(changes: changes, replacementAnimation: .fade, completion: { _ in
-                self.tableManager.data.value = newRooms
-            })
+            self.tableNode.reloadData()
 
             if self.refreshControl.isRefreshing {
                 self.refreshControl.endRefreshing()

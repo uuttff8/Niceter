@@ -88,8 +88,20 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        data.value.count
+        if self.data.value.count == 0 {
+            ASPerformBlockOnMainThread {
+                tableNode.view.setEmptyView(title: "You don't have any contact.", message: "Your contacts will be in here.")
+            }
+        } else {
+            ASPerformBlockOnMainThread {
+                tableNode.view.restore()
+            }
+        }
+        
+        return data.value.count
+        
     }
+    
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
@@ -102,7 +114,7 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
             return cell
         }
     }
-        
+    
     func leaveFromRoom(roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
         GitterApi.shared.removeUserFromRoom(userId: userId, roomId: roomId) { (res) in
             completion(res)
@@ -176,6 +188,6 @@ class RoomsTableViewManager: GenericDataSource<RoomSchema>, ASTableDelegate, AST
         readMessagesAction.backgroundColor = UIColor.systemBlue
         
         return UISwipeActionsConfiguration(actions: [readMessagesAction])
-
+        
     }
 }

@@ -50,7 +50,7 @@ class PeopleViewModel {
     func fetchSuggestedRooms() {
         CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey)
             .fetchData { (rooms) in
-//                self.suggestedRoomsData = rooms
+                //                self.suggestedRoomsData = rooms
         }
     }
     
@@ -79,7 +79,17 @@ class PeopleTableManager: GenericDataSource<RoomSchema>, ASTableDataSource, ASTa
     
     // data source
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        data.value.count
+        if self.data.value.count == 0 {
+            ASPerformBlockOnMainThread {
+                tableNode.view.setEmptyView(title: "You don't have any chats now.", message: "Your chats will be in here.")
+            }
+        } else {
+            ASPerformBlockOnMainThread {
+                tableNode.view.restore()
+            }
+        }
+        
+        return data.value.count
     }
     
     func tableNode(

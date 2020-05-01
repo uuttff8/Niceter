@@ -64,7 +64,8 @@ class LoginAuthViewController: PortaitViewController, Storyboarded {
     private var acceptAttributedString: NSMutableAttributedString = {
         let plainAttributedString = NSMutableAttributedString(
             string: "By signing in you accept our ".localized(),
-            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+                         NSAttributedString.Key.foregroundColor: UIColor.white]
         )
         
         let attributedLinkStringTerms = NSMutableAttributedString(
@@ -75,7 +76,8 @@ class LoginAuthViewController: PortaitViewController, Storyboarded {
         
         let attributeAnd = NSMutableAttributedString(
             string: " and ".localized(),
-            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+            attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+                         NSAttributedString.Key.foregroundColor: UIColor.white]
         )
         let attributedLinkStringPrivacy = NSMutableAttributedString(
             string: "Privacy Policy",
