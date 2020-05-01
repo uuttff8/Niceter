@@ -370,6 +370,20 @@ extension ChatViewController: MessageCellDelegate {
 extension ChatViewController: MessageLabelDelegate {
     func didSelectURL(_ url: URL) {
         print("URL Selected: \(url)")
+        
+        // Logic for URL Selected: https://files.gitter.im/gitterHQ/api/9TNg/thumb/Screen-Shot-2020-04-26-at-5.49.34-PM.png)%5D(https://files.gitter.im/gitterHQ/api/9TNg/Screen-Shot-2020-04-26-at-5.49.34-PM.png
+
+        var url = url
+        var screenStr = url.absoluteString
+        while screenStr.contains(")%5D(") {
+            screenStr = String(screenStr.dropFirst())
+        }
+        
+        if screenStr.contains("%5D(") {
+            screenStr = String(screenStr.dropFirst(4))
+            url = URL(string: screenStr)!
+        }
+        
         openUrlInsideApp(url: url)
     }
     
@@ -410,7 +424,7 @@ extension ChatViewController: MessageInputBarDelegate {
     }
     
     private func insertMessages(_ text: String) {
-        let mdParser = MarkdownParser()
+        let mdParser = GitterMarkdown()
         
         let tmpMessId = ConversationTemporaryMessageAdapter.generateChildMessageTmpId(userId: userdata.senderId, text: text)
         let tmpMessage = MockMessage(attributedText: mdParser.parse(text),
