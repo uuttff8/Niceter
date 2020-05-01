@@ -1,6 +1,6 @@
 /* 
   Localizable.strings
-  Gittker
+  Niceter
 
   Created by uuttff8 on 4/26/20.
   Copyright © 2020 Anton Kuzmin. All rights reserved.
@@ -41,3 +41,5 @@
 "Delete" = "Delete";
 "Share" = "Share";
 "Report" = "Report";
+"Copy" = "Copy";
+"Edit" = "Edit";

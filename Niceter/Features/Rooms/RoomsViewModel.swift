@@ -34,7 +34,9 @@ class RoomsViewModel {
             .fetchNewAndCache { (rooms) in // fetch new here and cache
                 let filteredRooms = rooms.filterByChats().sortByUnreadAndFavourite()
                 ShareData().currentlyJoinedChats = filteredRooms
-                completion(filteredRooms)
+                DispatchQueue.main.async {
+                    completion(filteredRooms)
+                }
         }
     }
     

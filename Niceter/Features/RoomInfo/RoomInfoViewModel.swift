@@ -29,8 +29,10 @@ class RoomInfoViewModel: NSObject {
         GitterApi.shared
             .listUsersInRoom(roomId: roomSchema.id, skip: roomSchemaPeople.count) { userSchemaList in
                 self.roomSchemaPeople.insert(contentsOf: userSchemaList, at: self.roomSchemaPeople.count)
-                self.updateTableNode?(userSchemaList)
-                completion()
+                DispatchQueue.main.async {
+                    self.updateTableNode?(userSchemaList)
+                    completion()
+                }
         }
     }
 }

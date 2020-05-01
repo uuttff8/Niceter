@@ -11,6 +11,8 @@ import Foundation
 class GitterApi {
     static let shared = GitterApi()
     
+    let syncSemaphore = DispatchSemaphore(value: 1)
+    let ntRequest = DispatchQueue(label: "com.NTRequest")
     private let appSettings = AppSettingsSecret()
     private let httpClient = HTTPClient()
     private let jsonDecoder: JSONDecoder = {
@@ -129,8 +131,15 @@ extension GitterApi {
 // MARK: - Rooms
 extension GitterApi {
     func getRooms(completion: @escaping ([RoomSchema]) -> Void) {
-        requestData(url: GitterApiLinks.rooms) { (data) in
-            completion(data)
+        print("\(#function) Wait")
+        
+        ntRequest.async {
+            self.syncSemaphore.wait()
+            self.requestData(url: GitterApiLinks.rooms) { (data: [RoomSchema]) in
+                completion(data)
+                print("\(#function) Signal")
+                self.syncSemaphore.signal()
+            }
         }
     }
     
@@ -162,11 +171,17 @@ extension GitterApi {
     func removeUserFromRoom(userId: String, roomId: String, completion: @escaping (SuccessSchema) -> Void) {
         let endpoint = GitterApiLinks.removeUser(userId: userId, roomId: roomId)
         
-        genericRequestData(url: GitterApiLinks.removeUser(userId: userId, roomId: roomId),
-                           method: endpoint.method,
-                           body: nil)
-        { (data) in
-            completion(data)
+        print("\(#function) Wait")
+        ntRequest.async {
+            self.syncSemaphore.wait()
+            self.genericRequestData(url: GitterApiLinks.removeUser(userId: userId, roomId: roomId),
+                                    method: endpoint.method,
+                                    body: nil)
+            { (data: SuccessSchema) in
+                completion(data)
+                print("\(#function) Signal")
+                self.syncSemaphore.signal()
+            }
         }
     }
     
@@ -336,30 +351,34 @@ extension GitterApi {
 extension GitterApi {
     private func requestData<T: Codable>(url: GitterApiLinks, completion: @escaping (T) -> ()) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
-        print(String(describing: url))
+        print("GET " +  String(describing: url))
         
-        self.httpClient.getAuth(url: url)
-        { (res) in
-            switch res {
-            case .success(let data):
-                guard let room = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
-                completion(room)
-            default: break
+        ntRequest.async {
+            self.httpClient.getAuth(url: url)
+            { (res) in
+                switch res {
+                case .success(let data):
+                    guard let room = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
+                    completion(room)
+                default: break
+                }
             }
         }
     }
     
     private func genericRequestData<T: Codable>(url: GitterApiLinks, method: String, body: [String: Any]?, completion: @escaping (T) -> ()) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
-        print(String(describing: url))
+        print(String(method) + " " +  String(describing: url))
         
-        self.httpClient.genericRequest(url: url, method: method, bodyObject: body)
-        { (res) in
-            switch res {
-            case .success(let data):
-                guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
-                completion(decoded)
-            default: break
+        ntRequest.async {
+            self.httpClient.genericRequest(url: url, method: method, bodyObject: body)
+            { (res) in
+                switch res {
+                case .success(let data):
+                    guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
+                    completion(decoded)
+                default: break
+                }
             }
         }
     }
@@ -370,15 +389,17 @@ extension GitterApi {
     private func postDataReadMessages<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> Void) {
         //                                     changed link
         let url = URL(string: "\(GitterApiLinks.baseUrlApi2)\(url.encode())".encodeUrl)!
-        print(String(describing: url))
+        print("POST " +  String(describing: url))
         
-        self.httpClient.postAuth(url: url, bodyObject: body)
-        { (res) in
-            switch res {
-            case .success(let data):
-                guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
-                completion(type)
-            default: break
+        ntRequest.async {
+            self.httpClient.postAuth(url: url, bodyObject: body)
+            { (res) in
+                switch res {
+                case .success(let data):
+                    guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
+                    completion(type)
+                default: break
+                }
             }
         }
     }
@@ -393,53 +414,59 @@ extension GitterApi {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(describing: url))
         
-        self.httpClient.postAuth(url: url, bodyObject: body)
-        { (res) in
-            switch res {
-            case .success(let data):
-                guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
-                completion(.success(type))
-            case .failure(.fail):
-                completion(.failure(.sendFailed))
+        ntRequest.async {
+            self.httpClient.postAuth(url: url, bodyObject: body)
+            { (res) in
+                switch res {
+                case .success(let data):
+                    guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
+                    completion(.success(type))
+                case .failure(.fail):
+                    completion(.failure(.sendFailed))
+                }
             }
         }
     }
     
     private func deleteMessageRequest(url: GitterApiLinks, completion: @escaping (()) -> Void) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
-        print(String(describing: url))
+        print("DELETE" + String() +  String(describing: url))
         
-        self.httpClient.deleteRequest(url: url, method: "DELETE")
-        { (res) in
-            switch res {
-            case .success(_):
-                completion(())
-            case .failure(_): break
+        ntRequest.async {
+            self.httpClient.deleteRequest(url: url, method: "DELETE")
+            { (res) in
+                switch res {
+                case .success(_):
+                    completion(())
+                case .failure(_): break
+                }
             }
         }
     }
     
     private func createRoomRequest(url: GitterApiLinks, body: [String : AnyHashable], completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
-        print(String(describing: url))
+        print("POST" + String() +  String(describing: url))
         
-        self.httpClient.genericRequest(url: url, method: "POST", bodyObject: body)
-        { (res) in
-            switch res {
-            case .success(let data):
-                if let decoded = try? self.jsonDecoder.decode(ErrorSchema.self, from: data) {
-                    
-                    // error handling
-                    if decoded.error == "Conflict" {
-                        completion(.failure(.conflict))
+        ntRequest.async {
+            self.httpClient.genericRequest(url: url, method: "POST", bodyObject: body)
+            { (res) in
+                switch res {
+                case .success(let data):
+                    if let decoded = try? self.jsonDecoder.decode(ErrorSchema.self, from: data) {
+                        
+                        // error handling
+                        if decoded.error == "Conflict" {
+                            completion(.failure(.conflict))
+                        } else {
+                            completion(.failure(.unknown))
+                        }
+                        
                     } else {
-                        completion(.failure(.unknown))
+                        completion(.success(()))
                     }
-                    
-                } else {
-                    completion(.success(()))
+                default: break
                 }
-            default: break
             }
         }
     }

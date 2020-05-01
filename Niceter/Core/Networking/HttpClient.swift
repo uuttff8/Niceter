@@ -33,7 +33,7 @@ final class HTTPClient: HTTPClientProvider {
     
     func getAuth(url: URL, completion: @escaping ((Result<Data, CustomHttpError>) -> ())) {
         guard let accessToken = LoginData.shared.accessToken else {
-            print("Access Token is not provided")
+            print("Access Token is not provided \(#file) \(#line)")
             return
         }
         
