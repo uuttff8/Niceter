@@ -13,7 +13,7 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     
     // MARK: - Private Elements
     private lazy var viewModel = UserChatViewModel(roomSchema: intermediate)
-    private var fayeClient: FayeEventMessagesBinder
+    private var fayeClient: FayeEventMessagesBinder?
     
     private var isJoined: Bool
     private var intermediate: UserRoomIntermediate
@@ -28,7 +28,12 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
         self.coordinator = coordinator
         self.intermediate = intermediate
         self.isJoined = isJoined
-        self.fayeClient = FayeEventMessagesBinder(roomId: intermediate.id)
+        print(isJoined)
+        if !isJoined {
+            self.fayeClient = nil
+        } else {
+            self.fayeClient = FayeEventMessagesBinder(roomId: intermediate.id) // if !isJoined then it will be wrong
+        }
         
         super.init(rightBarImage: intermediate.avatarUrl ?? "")
     }
@@ -39,26 +44,35 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     
     // MARK: - Faye
     override func subscribeOnMessagesEvent() {
-        fayeClient
-            .subscribe(
-                onNew: { [weak self] (message: NiceterMessage) in
-                    self?.viewModel.addNewMessageToCache(message: message)
-                    self?.addToMessageMap(message: message, isFirstly: true)
-                }, onDeleted: { [weak self] (id) in
-                    self?.deleteMessageUI(by: id)
-                }, onUpdate: { [weak self] (message: NiceterMessage) in
-                    self?.updateMessageUI(message)
-                }
-        )
+        if !isJoined {
+            return
+        } else {
+            guard let fayeClient = fayeClient else { return }
+            fayeClient
+                .subscribe(
+                    onNew: { [weak self] (message: NiceterMessage) in
+                        self?.viewModel.addNewMessageToCache(message: message)
+                        self?.addToMessageMap(message: message, isFirstly: true)
+                    }, onDeleted: { [weak self] (id) in
+                        self?.deleteMessageUI(by: id)
+                    }, onUpdate: { [weak self] (message: NiceterMessage) in
+                        self?.updateMessageUI(message)
+                    }
+            )
+        }
     }
 
     //MARK: - Message actions
     override func loadFirstMessages() {
-        viewModel.loadFirstMessages() { (gittMessages) in
-            DispatchQueue.main.async { [weak self] in
-                self?.messageList = gittMessages
-                self?.messagesCollectionView.reloadData()
-                self?.configureScrollAndPaginate()
+        if !isJoined {
+            return
+        } else {
+            viewModel.loadFirstMessages() { (gittMessages) in
+                DispatchQueue.main.async { [weak self] in
+                    self?.messageList = gittMessages
+                    self?.messagesCollectionView.reloadData()
+                    self?.configureScrollAndPaginate()
+                }
             }
         }
     }
@@ -96,7 +110,7 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
                 switch result {
                 case .success(_):
                     print("All is ok")
-                case .failure(_):
+                case .failure:
                     print("All is bad")
                 }
             }
@@ -105,8 +119,15 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     }
     
     override func joinButtonHandlder() {        
-        viewModel.joinToChat(userId: userdata.senderId, roomId: intermediate.id) { (success) in
-            super.configureMessageInputBarForChat()
+        viewModel.joinToChat(userId: userdata.senderId, roomId: intermediate.id) { (roomSchema) in
+            self.fayeClient = FayeEventMessagesBinder(roomId: roomSchema.id)
+            self.isJoined = true
+            self.intermediate.id = roomSchema.id
+            self.viewModel.roomSchema.id = roomSchema.id
+            self.loadFirstMessages()
+            self.subscribeOnMessagesEvent()
+            
+            self.configureMessageInputBarForChat()
         }
     }
     
@@ -141,10 +162,11 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
         } else {
             super.configureMessageInputBarForChat()
         }
-    }    
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        guard let fayeClient = fayeClient else { return }
         fayeClient.cancel()
     }
     
