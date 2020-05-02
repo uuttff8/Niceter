@@ -106,9 +106,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     
     override func joinButtonHandlder() {
         viewModel.joinToChat(userId: userdata.senderId, roomId: roomSchema.id) { (success) in
-            DispatchQueue.main.async {
-                self.configureMessageInputBarForChat()
-            }
+            self.configureMessageInputBarForChat()
         }
     }
     

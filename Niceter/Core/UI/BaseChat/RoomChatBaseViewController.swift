@@ -143,6 +143,7 @@ class RoomChatBaseViewController: ChatViewController {
     
     func configureMessageInputBarForChat() {
         super.configureMessageInputBar()
+        messageInputBar.separatorLine.isHidden = false
         messageInputBar.setMiddleContentView(messageInputBar.inputTextView, animated: false)
         messageInputBar.sendButton
             .onSelected { item in
