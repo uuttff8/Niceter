@@ -377,7 +377,6 @@ extension GitterApi {
             { (res) in
                 switch res {
                 case .success(let data):
-                    print(data.prettyPrintedJSONString)
                     guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                     DispatchQueue.main.async {
                         completion(decoded)
@@ -427,7 +426,6 @@ extension GitterApi {
                 DispatchQueue.main.async {
                     switch res {
                     case .success(let data):
-                        print(data.prettyPrintedJSONString)
                         guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
                         completion(.success(type))
                     case .failure(.fail):

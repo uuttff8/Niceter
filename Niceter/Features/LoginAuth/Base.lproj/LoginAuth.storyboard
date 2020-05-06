@@ -49,7 +49,7 @@
                                                     <constraint firstAttribute="height" constant="44" id="VQ7-Ld-0V6"/>
                                                 </constraints>
                                                 <state key="normal" title="Sign in with GitHub">
-                                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
