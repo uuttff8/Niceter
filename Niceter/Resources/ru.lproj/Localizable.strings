@@ -27,7 +27,7 @@
 "People" = "Люди";
 "Settings" = "Настройки";
 "Please, specify community" = "Пожалуйста, укажите сообщество";
-"Room name is not valid" = "Имя комнаты неправильное";
+"Room name is not entered" = "Имя комнаты не введенно";
 "Names must be alphanumeric with no spaces. Dashes are allowed" = "Имя должно содержать буквы и цифры без пробелов. Тире можно.";
 "Create" = "Создать";
 "Create Room" = "Создать комнату";

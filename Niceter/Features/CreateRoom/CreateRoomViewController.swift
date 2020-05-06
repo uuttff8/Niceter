@@ -61,29 +61,21 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     }
     
     @objc private func doneButtonAction(_ sender: UIBarButtonItem) {
-        guard let community = self.tableDelegates.selectedCommunity else {
-            self.showOkAlert(config: .init(title: "Please, specify community".localized(),
-                                           subtitle: nil))
+        guard let createRoom = CreateRoomType(community: self.tableDelegates.selectedCommunity,
+                                        roomName: self.tableDelegates.roomName,
+                                        failure: { error in
+            let error = error as? CreateRoomType.Errors
+            self.showOkAlert(config: .init(title: error?.localizedDescription, subtitle: nil))
+        }) else {
             return
         }
         
-        guard let text = self.tableDelegates.roomName else {
-            self.showOkAlert(config: .init(title: "Room name is not valid".localized(),
-                                           subtitle: nil))
-            return
-        }
-        
-        guard text.rangeOfCharacter(from: CharacterSet.gitterValidRoomName.inverted) == nil else {
-            self.showOkAlert(config: .init(title: "Names must be alphanumeric with no spaces. Dashes are allowed".localized(),
-                                           subtitle: nil))
-            return
-        }
         
         sender.isEnabled = false
         
-        self.viewModel.createRoom(roomName: text,
+        self.viewModel.createRoom(roomName: createRoom.roomName,
                                   topic: self.tableDelegates.topicDescription,
-                                  community: community,
+                                  community: createRoom.community,
                                   securityPrivate: self.tableDelegates.isPrivateSwitchActive,
                                   privateMembers:  self.tableDelegates.isPrivateMemberSwitchActive)
         { (res) in
@@ -108,14 +100,5 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
             self.showOkAlert(config: .init(title: "Unknown Error happen. Try again Later", subtitle: nil))
         }
     }
-
-}
-
-private extension CharacterSet {
-    static var gitterValidRoomName: NSMutableCharacterSet {
-        let validRoomNameCharacters = NSMutableCharacterSet()
-        validRoomNameCharacters.formUnion(with: CharacterSet.alphanumerics)
-        validRoomNameCharacters.addCharacters(in: "-")
-        return validRoomNameCharacters
-    }
+    
 }

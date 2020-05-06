@@ -28,7 +28,7 @@
 "People" = "People";
 "Settings" = "Settings";
 "Please, specify community" = "Please, specify community";
-"Room name is not valid" = "Room name is not valid";
+"Room name is not valid" = "Room name is not entered";
 "Names must be alphanumeric with no spaces. Dashes are allowed" = "Names must be alphanumeric with no spaces. Dashes are allowed";
 "Create" = "Create";
 "Create Room" = "Create Room";
