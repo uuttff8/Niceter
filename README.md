@@ -1,6 +1,6 @@
 # Niceter
 
-Niceter is a unofficial client to [Gitter](gitter.im)
+Niceter is a unofficial client to [Gitter](https://gitter.im)
 
 How to compile and generate .xcworkspace file
 
