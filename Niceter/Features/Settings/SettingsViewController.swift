@@ -87,7 +87,9 @@ class SettingsViewController: ASViewController<ASTableNode> {
                     CachedSuggestedRoomLoader.init(cacheKey: Config.CacheKeys.suggestedRoomsKey).deleteAllData()
             })
         }))
-        alert.addAction(UIAlertAction(title: "No".localized(), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: { (_) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
         self.present(alert, animated: true, completion: nil)
     }
 }
