@@ -1,5 +1,7 @@
 # Niceter
 
+Niceter is a unofficial client to [Gitter](gitter.im)
+
 How to compile and generate .xcworkspace file
 
 1. Clone repo and cd
