@@ -1,6 +1,6 @@
 # Niceter
 
-![Alt text](Niceter/design/screenshots/readme/readme_scr.png  "")
+![Alt text](design/screenshots/readme/readme_scr.png  "")
 
 Niceter is a unofficial client to [Gitter](https://gitter.im) for iOS
 
