@@ -52,6 +52,7 @@ enum TableGroupedType: String {
     case publicPrivate
     case privateMembers
     case ownedCommunities
+    case createNewComm
     case enterName
     case enterTopic
 }

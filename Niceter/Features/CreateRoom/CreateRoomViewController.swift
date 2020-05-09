@@ -13,7 +13,7 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     
     lazy var viewModel: CreateRoomViewModel = CreateRoomViewModel(dataSource: self.tableDelegates)
     
-    private lazy var tableDelegates = CreateRoomTableDelegates(with: self.coordinator!)
+    private lazy var tableDelegates = CreateRoomTableDelegates(self, with: self.coordinator!)
     private var tableNode: ASTableNode {
         return node
     }

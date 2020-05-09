@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import SafariServices
 
 class CreateRoomViewModel {
     weak var dataSource : GenericDataSource<TableGroupedCreateRoomSection>?
@@ -43,9 +44,12 @@ class CreateRoomViewModel {
         GitterApi.shared.getAdminGroups { (groupSchema) in
             self.adminGroupsData.value = groupSchema
             
-            let owned = groupSchema.map { (group) in
+            let createNewComm = TableGroupedItem(text: "", type: .createNewComm, value: "")
+            
+            var owned = groupSchema.map { (group) in
                 TableGroupedItem(text: "", type: .ownedCommunities, value: "")
             }
+            owned.insert(createNewComm, at: 0)
             
             let ownedCommunities = TableGroupedCreateRoomSection(section: .ownedCommunities,
                                                                  items: owned,
@@ -77,6 +81,7 @@ final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSe
     
     // MARK: - Properties
     private weak var coordinator: CreateRoomCoordinator?
+    private weak var vc: CreateRoomViewController?
     
     public var adminGroups: [GroupSchema] = [GroupSchema]()
     public var selectedCommunity: GroupSchema?
@@ -90,8 +95,14 @@ final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSe
     private var topicTextField: ASEditableTextNode?
     
     // MARK: - Init
-    init(with coord: CreateRoomCoordinator) {
+    init(_ vc: CreateRoomViewController, with coord: CreateRoomCoordinator) {
         self.coordinator = coord
+        self.vc = vc
+    }
+    
+    private func openUrlInsideApp(url: URL) {
+        let safari = SFSafariViewController(url: url)
+        vc?.present(safari, animated: true, completion: nil)
     }
 
     // MARK: Delegate And DataSource
@@ -116,7 +127,7 @@ final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSe
             case .permissions:
                 return self.createPermissionCells(item, tableNode: tableNode)
             case .ownedCommunities:
-                return self.createOwnedCommunites(at: indexPath)
+                return self.createOwnedCommunites(item, at: indexPath)
             }
         }
     }
@@ -135,14 +146,24 @@ final class CreateRoomTableDelegates: GenericDataSource<TableGroupedCreateRoomSe
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         let section = self.data.value[indexPath.section]
+        let item = section.items[indexPath.row]
         
         switch section.section {
         case .permissions:
             tableNode.deselectRow(at: indexPath, animated: true)
         case .ownedCommunities:
-            let model = self.adminGroups[indexPath.row]
-            selectedCommunity = model
-            tableNode.reloadSections(IndexSet([2]), with: .none)
+            
+            switch item.type {
+            case .ownedCommunities:
+                let model = self.adminGroups[indexPath.row - 1] // -1 bo of create new comm
+                selectedCommunity = model
+                tableNode.reloadSections(IndexSet([2]), with: .none)
+            case .createNewComm:
+                guard let url = URL(string: "https://gitter.im/home/explore#createcommunity") else { return }
+                openUrlInsideApp(url: url)
+                tableNode.deselectRow(at: indexPath, animated: true)
+            default: break
+            }
         case .entername:
             tableNode.deselectRow(at: indexPath, animated: true)
         }
@@ -199,13 +220,21 @@ extension CreateRoomTableDelegates {
         }
     }
     
-    private func createOwnedCommunites(at indexPath: IndexPath) -> ASCellNode {
-        let model = self.adminGroups[indexPath.row]
-        let content = CreateRoomMarkedNodeCell.Content(title: model.name,
-                                                       isSelected: self.selectedCommunity?.id == model.id)
-        let cell = CreateRoomMarkedNodeCell(with: content)
-        cell.selectionStyle = .none
-        return cell
+    private func createOwnedCommunites(_ item: TableGroupedItemProtocol, at indexPath: IndexPath) -> ASCellNode {
+        switch item.type {
+        case .ownedCommunities:
+            let model = self.adminGroups[indexPath.row - 1] // // -1 bo of create new comm
+            let content = CreateRoomMarkedNodeCell.Content(title: model.name,
+                                                           isSelected: self.selectedCommunity?.id == model.id)
+            let cell = CreateRoomMarkedNodeCell(with: content)
+            cell.selectionStyle = .none
+            return cell
+        case .createNewComm:
+            let cell = SettingsButtonNodeCell(with: SettingsButtonNodeCell.Content(title: "Create new community".localized()), state: .default)
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        default: return ASCellNode()
+        }
     }
 }
 
