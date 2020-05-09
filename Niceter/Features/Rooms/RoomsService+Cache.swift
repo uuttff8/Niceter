@@ -103,7 +103,7 @@ class CachedRoomLoader: CachedLoader {
     }
     
     func fetchNewAndCache(then handler: @escaping Handler) {
-        GitterApi.shared.getRooms { (roomsSchema) in
+        GitterApi.shared.syncedGetRooms { (roomsSchema) in
             self.storage?.async.setObject(roomsSchema, forKey: self.cacheKey, completion: { (_) in })
             handler(roomsSchema)
         }

@@ -11,8 +11,8 @@ import Foundation
 class GitterApi {
     static let shared = GitterApi()
     
-    let syncSemaphore = DispatchSemaphore(value: 1)
-    let ntRequest = DispatchQueue(label: "com.NTRequest")
+    private let syncSemaphore = DispatchSemaphore(value: 1)
+    private let ntRequest = DispatchQueue(label: "com.NTRequest")
     private let appSettings = AppSettingsSecret()
     private let httpClient = HTTPClient()
     private let jsonDecoder: JSONDecoder = {
@@ -131,15 +131,23 @@ extension GitterApi {
 // MARK: - Rooms
 extension GitterApi {
     func getRooms(completion: @escaping ([RoomSchema]) -> Void) {
+        ntRequest.async {
+            self.requestData(url: GitterApiLinks.rooms) { (data: [RoomSchema]) in
+                completion(data)
+            }
+        }
+    }
+    
+    func syncedGetRooms(completion: @escaping ([RoomSchema]) -> Void) {
         print("\(#function) Wait")
         
         ntRequest.async {
-            self.syncSemaphore.wait()
             self.requestData(url: GitterApiLinks.rooms) { (data: [RoomSchema]) in
                 completion(data)
                 print("\(#function) Signal")
                 self.syncSemaphore.signal()
             }
+            self.syncSemaphore.wait()
         }
     }
     
