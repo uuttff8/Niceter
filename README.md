@@ -4,6 +4,9 @@
 
 Niceter is a unofficial client to [Gitter](https://gitter.im) for iOS
 
+testflight link :
+https://testflight.apple.com/join/NrRu6exn
+
 How to compile and generate .xcworkspace file
 
 1. Clone repo and cd
