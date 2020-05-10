@@ -28,7 +28,10 @@ extension GitterApi {
         print(dataToken)
         let body = try? JSONEncoder().encode(dataToken)
         
-        self.httpClient.post(url: URL(string: "\(GitterApiLinks.baseUrl + GitterApiLinks.exchangeToken.encode())")!, params: body!) { (res) in
+        self.httpClient.post(
+            url: URL(string: "\(GitterApiLinks.baseUrl + GitterApiLinks.exchangeToken.encode())")!,
+            params: body!
+        ) { (res) in
             switch res {
             case .success(let data):
                 let accessToken = try? self.jsonDecoder.decode(AccessTokenSchema.self, from: data).accessToken
@@ -163,7 +166,12 @@ extension GitterApi {
         }
     }
     
-    func markMessagesAsRead(messagesId: [String], roomId: String, userId: String, completion: @escaping (SuccessSchema) -> Void) {
+    func markMessagesAsRead(
+        messagesId: [String],
+        roomId: String,
+        userId: String,
+        completion: @escaping (SuccessSchema) -> Void
+    ) {
         guard let body =
             """
                 {
@@ -171,7 +179,10 @@ extension GitterApi {
                 }
                 """.convertToDictionary() else { return }
         
-        postDataReadMessages(url: GitterApiLinks.readMessages(userId: userId, roomId: roomId), body: body) { (data: SuccessSchema) in
+        postDataReadMessages(
+            url: GitterApiLinks.readMessages(userId: userId, roomId: roomId),
+            body: body
+        ) { (data: SuccessSchema) in
             completion(data)
         }
     }
@@ -285,7 +296,11 @@ extension GitterApi {
         }
     }
     
-    func loadOlderMessage(messageId: String, roomId: String, completion: @escaping ([RoomRecreateSchema]?) -> Void) {
+    func loadOlderMessage(
+        messageId: String,
+        roomId: String,
+        completion: @escaping ([RoomRecreateSchema]?) -> Void
+    ) {
         requestData(url: GitterApiLinks.olderMessages(messageId: messageId, roomId: roomId)) { (data) in
             completion(data)
         }
@@ -307,7 +322,11 @@ extension GitterApi {
         }
     }
     
-    func listMessagesAround(messageId: String, roomId: String, completion: @escaping ([RoomRecreateSchema]?) -> Void) {
+    func listMessagesAround(
+        messageId: String,
+        roomId: String,
+        completion: @escaping ([RoomRecreateSchema]?) -> Void
+    ) {
         requestData(url: GitterApiLinks.listMessagesAround(roomId: roomId, messageId: messageId))
         { (data: [RoomRecreateSchema]?) in
             completion(data)
@@ -339,7 +358,12 @@ extension GitterApi {
         }
     }
     
-    func updateMessage(text: String, roomId: String, messageId: String, completion: @escaping (RoomRecreateSchema) -> Void) {
+    func updateMessage(
+        text: String,
+        roomId: String,
+        messageId: String,
+        completion: @escaping (RoomRecreateSchema) -> Void
+    ) {
         let endpoint = GitterApiLinks.updateMessage(roomId: roomId, messageId: messageId)
         
         let bodyObject: [String : Any] = [
@@ -366,7 +390,8 @@ extension GitterApi {
             { (res) in
                 switch res {
                 case .success(let data):
-                    guard let room = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
+                    guard let room = try? self.jsonDecoder.decode(T.self, from: data)
+                        else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                     DispatchQueue.main.async {
                         completion(room)
                     }
@@ -376,7 +401,12 @@ extension GitterApi {
         }
     }
     
-    private func genericRequestData<T: Codable>(url: GitterApiLinks, method: String, body: [String: Any]?, completion: @escaping (T) -> ()) {
+    private func genericRequestData<T: Codable>(
+        url: GitterApiLinks,
+        method: String,
+        body: [String: Any]?,
+        completion: @escaping (T) -> ()
+    ) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print(String(method) + " " +  String(describing: url))
         
@@ -385,7 +415,8 @@ extension GitterApi {
             { (res) in
                 switch res {
                 case .success(let data):
-                    guard let decoded = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
+                    guard let decoded = try? self.jsonDecoder.decode(T.self, from: data)
+                        else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                     DispatchQueue.main.async {
                         completion(decoded)
                     }
@@ -398,7 +429,11 @@ extension GitterApi {
 
 // MARK: - Specific Requests
 extension GitterApi {
-    private func postDataReadMessages<T: Codable>(url: GitterApiLinks, body: [String : Any], completion: @escaping (T) -> Void) {
+    private func postDataReadMessages<T: Codable>(
+        url: GitterApiLinks,
+        body: [String : Any],
+        completion: @escaping (T) -> Void
+    ) {
         //                                     changed link
         let url = URL(string: "\(GitterApiLinks.baseUrlApi2)\(url.encode())".encodeUrl)!
         print("POST " +  String(describing: url))
@@ -408,7 +443,8 @@ extension GitterApi {
             { (res) in
                 switch res {
                 case .success(let data):
-                    guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
+                    guard let type = try? self.jsonDecoder.decode(T.self, from: data)
+                        else { print("Can't Decode \(T.self) in \(#file) \(#line)"); return }
                     DispatchQueue.main.async {
                         completion(type)
                     }
@@ -434,7 +470,8 @@ extension GitterApi {
                 DispatchQueue.main.async {
                     switch res {
                     case .success(let data):
-                        guard let type = try? self.jsonDecoder.decode(T.self, from: data) else { completion(.failure(.sendFailed)); return }
+                        guard let type = try? self.jsonDecoder.decode(T.self, from: data)
+                            else { completion(.failure(.sendFailed)); return }
                         completion(.success(type))
                     case .failure(.fail):
                         completion(.failure(.sendFailed))
@@ -462,7 +499,11 @@ extension GitterApi {
         }
     }
     
-    private func createRoomRequest(url: GitterApiLinks, body: [String : AnyHashable], completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void) {
+    private func createRoomRequest(
+        url: GitterApiLinks,
+        body: [String : AnyHashable],
+        completion: @escaping (Result<(), GitterApiErrors.CreateRoomError>) -> Void
+    ) {
         let url = URL(string: "\(GitterApiLinks.baseUrlApi)\(url.encode())".encodeUrl)!
         print("POST" + String() +  String(describing: url))
         
