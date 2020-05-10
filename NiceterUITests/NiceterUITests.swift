@@ -22,16 +22,34 @@ class NiceterUITests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // UI tests must launch the application that they test.
+    
+    func testCreatingRoom() {
+        
         let app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        app.navigationBars["Rooms"].buttons["Add"].tap()
+        
+        let tablesQuery2 = app.tables
+        let textView = tablesQuery2.children(matching: .cell).element(boundBy: 0).children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .textView).element
+        textView.tap()
+        textView.tap()
+        textView.typeText("RoomName")
+        
+        let textView2 = tablesQuery2.children(matching: .cell).element(boundBy: 1).children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .textView).element
+        textView2.tap()
+        textView2.tap()
+        textView2.typeText("Topic")
+        
+        let tablesQuery = tablesQuery2
+        tablesQuery/*@START_MENU_TOKEN@*/.cells.staticTexts["Members can join this room"]/*[[".cells.staticTexts[\"Members can join this room\"]",".staticTexts[\"Members can join this room\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.tap()
+        tablesQuery/*@START_MENU_TOKEN@*/.cells.staticTexts["GittkerTest"]/*[[".cells.staticTexts[\"GittkerTest\"]",".staticTexts[\"GittkerTest\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.tap()
+        app.navigationBars["Create Room"].buttons["Create"].tap()
+        
+        
+        tablesQuery.staticTexts["GittkerTest/Aasdad"].swipeUp()
+        tablesQuery.staticTexts["GittkerTest/RoomName"].tap()
     }
-
+    
     func testLaunchPerformance() {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
             // This measures how long it takes to launch your application.
