@@ -1,6 +1,6 @@
 //
-//  GittkerUITests.swift
-//  GittkerUITests
+//  NiceterUITests.swift
+//  NiceterUITests
 //
 //  Created by uuttff8 on 3/2/20.
 //  Copyright © 2020 Anton Kuzmin. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class GittkerUITests: XCTestCase {
+class NiceterUITests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

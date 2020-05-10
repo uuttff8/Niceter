@@ -14,8 +14,8 @@
 		4E09ABED240D7FA70028229C /* Gittker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABEB240D7FA70028229C /* Gittker.xcdatamodeld */; };
 		4E09ABEF240D7FA90028229C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E09ABEE240D7FA90028229C /* Assets.xcassets */; };
 		4E09ABF2240D7FA90028229C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E09ABF0240D7FA90028229C /* LaunchScreen.storyboard */; };
-		4E09ABFD240D7FA90028229C /* GittkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABFC240D7FA90028229C /* GittkerTests.swift */; };
-		4E09AC08240D7FA90028229C /* GittkerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC07240D7FA90028229C /* GittkerUITests.swift */; };
+		4E09ABFD240D7FA90028229C /* NiceterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09ABFC240D7FA90028229C /* NiceterTests.swift */; };
+		4E09AC08240D7FA90028229C /* NiceterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC07240D7FA90028229C /* NiceterUITests.swift */; };
 		4E09AC18240D81270028229C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC17240D81270028229C /* AppCoordinator.swift */; };
 		4E09AC1B240D81800028229C /* DynamicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC1A240D81800028229C /* DynamicValue.swift */; };
 		4E09AC1D240D81920028229C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09AC1C240D81920028229C /* Coordinator.swift */; };
@@ -174,10 +174,10 @@
 		4E09ABF1240D7FA90028229C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E09ABF3240D7FA90028229C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E09ABF8240D7FA90028229C /* NiceterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiceterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E09ABFC240D7FA90028229C /* GittkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerTests.swift; sourceTree = "<group>"; };
+		4E09ABFC240D7FA90028229C /* NiceterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceterTests.swift; sourceTree = "<group>"; };
 		4E09ABFE240D7FA90028229C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E09AC03240D7FA90028229C /* NiceterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiceterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E09AC07240D7FA90028229C /* GittkerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GittkerUITests.swift; sourceTree = "<group>"; };
+		4E09AC07240D7FA90028229C /* NiceterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiceterUITests.swift; sourceTree = "<group>"; };
 		4E09AC09240D7FA90028229C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E09AC17240D81270028229C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4E09AC1A240D81800028229C /* DynamicValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicValue.swift; sourceTree = "<group>"; };
@@ -435,7 +435,7 @@
 		4E09ABFB240D7FA90028229C /* NiceterTests */ = {
 			isa = PBXGroup;
 			children = (
-				4E09ABFC240D7FA90028229C /* GittkerTests.swift */,
+				4E09ABFC240D7FA90028229C /* NiceterTests.swift */,
 				4E09ABFE240D7FA90028229C /* Info.plist */,
 			);
 			path = NiceterTests;
@@ -444,7 +444,7 @@
 		4E09AC06240D7FA90028229C /* NiceterUITests */ = {
 			isa = PBXGroup;
 			children = (
-				4E09AC07240D7FA90028229C /* GittkerUITests.swift */,
+				4E09AC07240D7FA90028229C /* NiceterUITests.swift */,
 				4E09AC09240D7FA90028229C /* Info.plist */,
 			);
 			path = NiceterUITests;
@@ -1388,7 +1388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E09ABFD240D7FA90028229C /* GittkerTests.swift in Sources */,
+				4E09ABFD240D7FA90028229C /* NiceterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1396,7 +1396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E09AC08240D7FA90028229C /* GittkerUITests.swift in Sources */,
+				4E09AC08240D7FA90028229C /* NiceterUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1619,14 +1619,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
-				INFOPLIST_FILE = GittkerTests/Info.plist;
+				INFOPLIST_FILE = NiceterTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.NiceterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1642,14 +1642,14 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
-				INFOPLIST_FILE = GittkerTests/Info.plist;
+				INFOPLIST_FILE = NiceterTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.NiceterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1664,17 +1664,17 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
-				INFOPLIST_FILE = GittkerUITests/Info.plist;
+				INFOPLIST_FILE = NiceterUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.NiceterUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Gittker;
+				TEST_TARGET_NAME = Niceter;
 			};
 			name = Debug;
 		};
@@ -1685,17 +1685,17 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
-				INFOPLIST_FILE = GittkerUITests/Info.plist;
+				INFOPLIST_FILE = NiceterUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.GittkerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.uuttff8.NiceterUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Gittker;
+				TEST_TARGET_NAME = Niceter;
 			};
 			name = Release;
 		};

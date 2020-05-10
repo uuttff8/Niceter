@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import Gittker
+@testable import Niceter
 
-class GittkerTests: XCTestCase {
+class NiceterTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
