@@ -38,3 +38,12 @@ extension UIViewController {
     }
 }
 
+
+extension UIViewController {
+    func showOkAlert(config: SystemAlertConfiguration, completion: ((UIAlertAction) -> Void)? = nil) {
+        let alert = UIAlertController(title: config.title, message: config.subtitle, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: completion))
+        let topViewController = UIApplication.shared.windows.last!.rootViewController!
+        topViewController.present(alert, animated: true)
+    }
+}

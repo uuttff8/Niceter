@@ -133,7 +133,10 @@ class RoomChatBaseViewController: ChatViewController {
         return messageList[indexPath.section].message.user == messageList[indexPath.section + 1].message.user
     }
     
-    func setTypingIndicatorViewHidden(_ isHidden: Bool, performUpdates updates: (() -> Void)? = nil) {
+    func setTypingIndicatorViewHidden(
+        _ isHidden: Bool,
+        performUpdates updates: (() -> Void)? = nil
+    ) {
         setTypingIndicatorViewHidden(isHidden, animated: true, whilePerforming: updates) { [weak self] success in
             if success, self?.isLastSectionVisible() == true {
                 self?.messagesCollectionView.scrollToBottom(animated: true)
@@ -153,11 +156,18 @@ class RoomChatBaseViewController: ChatViewController {
         }
     }
     
-    override func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    override func messageTopLabelAttributedText(
+        for message: MessageType,
+        at indexPath: IndexPath
+    ) -> NSAttributedString? {
+        
         if !isPreviousMessageSameSender(at: indexPath) {
             let name = message.sender.displayName
-            return NSAttributedString(string: name,
-                                      attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+            
+            return NSAttributedString(
+                string: name,
+                attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)]
+            )
         }
         return nil
     }
@@ -193,29 +203,54 @@ extension RoomChatBaseViewController: MessagesDisplayDelegate {
     
     // MARK: - Text Messages
     
-    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+    func textColor(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> UIColor {
         return .label
     }
     
-    func detectorAttributes(for detector: DetectorType, and message: MessageType, at indexPath: IndexPath) -> [NSAttributedString.Key: Any] {
+    func detectorAttributes(
+        for detector: DetectorType,
+        and message: MessageType,
+        at indexPath: IndexPath
+    ) -> [NSAttributedString.Key: Any] {
         return [.foregroundColor: UIColor.systemBlue]
     }
     
-    func enabledDetectors(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> [DetectorType] {
+    func enabledDetectors(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> [DetectorType] {
         return [.url, .mention, .hashtag]
     }
     
     // MARK: - All Messages
     
-    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+    func backgroundColor(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> UIColor {
         return .secondarySystemBackground
     }
     
-    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+    func messageStyle(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> MessageStyle {
         return isFromCurrentSender(message: message) ? .bubbleTail(.bottomRight, .curved) : .bubbleTail(.bottomLeft, .curved)
     }
     
-    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+    func configureAvatarView(
+        _ avatarView: AvatarView,
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) {
         // nil when message from yourself
         guard let avatarUrl = messageList[indexPath.section].avatarUrl else { return }
                 
@@ -229,14 +264,22 @@ extension RoomChatBaseViewController: MessagesDisplayDelegate {
 
 extension RoomChatBaseViewController: MessagesLayoutDelegate {
     
-    func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    func cellTopLabelHeight(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> CGFloat {
         if isTimeLabelVisible(at: indexPath) {
             return 18
         }
         return 0
     }
     
-    func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    func messageTopLabelHeight(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> CGFloat {
         if isFromCurrentSender(message: message) {
             return !isPreviousMessageSameSender(at: indexPath) ? 20 : 0
         } else {
@@ -244,16 +287,12 @@ extension RoomChatBaseViewController: MessagesLayoutDelegate {
         }
     }
     
-    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    func messageBottomLabelHeight(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> CGFloat {
         return (!isNextMessageSameSender(at: indexPath)) ? 16 : 0
     }
 }
 
-extension UIViewController {
-    func showOkAlert(config: SystemAlertConfiguration, completion: ((UIAlertAction) -> Void)? = nil) {
-        let alert = UIAlertController(title: config.title, message: config.subtitle, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: completion))
-        let topViewController = UIApplication.shared.windows.last!.rootViewController!
-        topViewController.present(alert, animated: true)
-    }
-}

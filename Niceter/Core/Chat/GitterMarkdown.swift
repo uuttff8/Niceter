@@ -12,6 +12,4 @@ class GitterMarkdown: MarkdownParser {
     init() {
         super.init(font : UIFont.systemFont(ofSize: UIFont.systemFontSize), color: UIColor.label)
     }
-    
-    
 }

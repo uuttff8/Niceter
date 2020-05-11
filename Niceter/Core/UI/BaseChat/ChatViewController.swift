@@ -272,7 +272,10 @@ extension ChatViewController: MessagesDataSource {
         return userdata
     }
     
-    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
+    func messageForItem(
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView
+    ) -> MessageType {
         return messageList[indexPath.section].message
     }
     
@@ -280,7 +283,10 @@ extension ChatViewController: MessagesDataSource {
         messageList.count
     }
     
-    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    func cellBottomLabelAttributedText(
+        for message: MessageType,
+        at indexPath: IndexPath
+    ) -> NSAttributedString? {
         return NSAttributedString(
             string: "Read".localized(),
             attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),

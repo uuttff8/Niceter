@@ -471,7 +471,6 @@
 			isa = PBXGroup;
 			children = (
 				4ECC511E2463005400FF906E /* Types */,
-				4ED5398B242BA7D9000874F3 /* Cache */,
 				4ED5398A242BA7B9000874F3 /* Chat */,
 				4ED53989242BA797000874F3 /* UI */,
 				4E2A7A1724116C8E0025F39C /* Data */,
@@ -973,13 +972,6 @@
 				4E9D1826241FF89B0066362D /* Faye */,
 			);
 			path = Chat;
-			sourceTree = "<group>";
-		};
-		4ED5398B242BA7D9000874F3 /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cache;
 			sourceTree = "<group>";
 		};
 		4ED5398E242BB390000874F3 /* cells */ = {

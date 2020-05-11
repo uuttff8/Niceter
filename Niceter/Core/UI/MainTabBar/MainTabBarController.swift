@@ -31,17 +31,6 @@ class MainTabBarController: ASTabBarController {
         super.viewDidLoad()
         self.delegate = self
         
-        let homeCoordinator = RoomsCoordinator(with: nil, user: userdata)
-        coordinator?.childCoordinators.append(homeCoordinator)
-        let homeNavigationController = ASNavigationController(rootViewController: homeCoordinator.currentController!)
-        homeCoordinator.navigationController = homeNavigationController
-        homeCoordinator.start()
-        homeCoordinator.tabController = self
-        homeCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms".localized(),
-                                                                  image: UIImage(systemName: "message"),
-                                                                  tag: 0)
-
-        
         let peopleCoordinator = PeopleCoordinator(with: nil)
         coordinator?.childCoordinators.append(peopleCoordinator)
         let peopleNavigationController = ASNavigationController(rootViewController: peopleCoordinator.currentController!)
@@ -49,8 +38,18 @@ class MainTabBarController: ASTabBarController {
         peopleCoordinator.start()
         peopleCoordinator.tabController = self
         peopleCoordinator.currentController?.tabBarItem = UITabBarItem(title: "People".localized(),
-                                                                  image: UIImage(systemName: "person"),
-                                                                  tag: 1)
+                                                                       image: UIImage(systemName: "person"),
+                                                                       tag: 0)
+        
+        let roomsCoordinator = RoomsCoordinator(with: nil, user: userdata)
+        coordinator?.childCoordinators.append(roomsCoordinator)
+        let homeNavigationController = ASNavigationController(rootViewController: roomsCoordinator.currentController!)
+        roomsCoordinator.navigationController = homeNavigationController
+        roomsCoordinator.start()
+        roomsCoordinator.tabController = self
+        roomsCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Rooms".localized(),
+                                                                      image: UIImage(systemName: "message"),
+                                                                      tag: 1)
 
         
         let commCoordinator = SettingsCoordinator(with: nil)
@@ -59,8 +58,8 @@ class MainTabBarController: ASTabBarController {
         commCoordinator.navigationController = commNavigationController
         commCoordinator.tabController = self
         commCoordinator.currentController?.tabBarItem = UITabBarItem(title: "Settings".localized(),
-                                                                  image: UIImage(systemName: "gear"),
-                                                                  tag: 2)
+                                                                     image: UIImage(systemName: "gear"),
+                                                                     tag: 2)
         
 
         viewControllers = [

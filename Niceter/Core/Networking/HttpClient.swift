@@ -16,7 +16,10 @@ enum CustomHttpError: Error {
 
 protocol HTTPClientProvider {
     func get(url: URL, completion: @escaping ((Result<Data, CustomHttpError>) -> ()))
-    func post(url: URL, params: Data, completion: @escaping ((Result<Data, CustomHttpError>)-> ())) 
+    func post(url: URL, params: Data, completion: @escaping ((Result<Data, CustomHttpError>)-> ()))
+    func getAuth(url: URL, completion: @escaping ((Result<Data, CustomHttpError>) -> ()))
+    func postAuth(url: URL, bodyObject: [String : Any], completion: @escaping (Result<Data, CustomHttpError>) -> Void)
+    func genericRequest(url: URL, method: String, bodyObject: [String: Any]?, completion: @escaping (Result<Data, CustomHttpError>) -> Void)
 }
 
 final class HTTPClient: HTTPClientProvider {
@@ -74,7 +77,11 @@ final class HTTPClient: HTTPClientProvider {
         }.resume()
     }
     
-    func postAuth(url: URL, bodyObject: [String : Any],  completion: @escaping (Result<Data, CustomHttpError>) -> Void) {
+    func postAuth(
+        url: URL,
+        bodyObject: [String : Any],
+        completion: @escaping (Result<Data, CustomHttpError>) -> Void
+    ) {
         guard let accessToken = LoginData.shared.accessToken else {
             print("Access Token is not provided")
             return
@@ -101,7 +108,12 @@ final class HTTPClient: HTTPClientProvider {
         }.resume()
     }
     
-    func genericRequest(url: URL, method: String, bodyObject: [String: Any]?, completion: @escaping (Result<Data, CustomHttpError>) -> Void) {
+    func genericRequest(
+        url: URL,
+        method: String,
+        bodyObject: [String: Any]?,
+        completion: @escaping (Result<Data, CustomHttpError>) -> Void
+    ) {
         guard let accessToken = LoginData.shared.accessToken else {
             print("Access Token is not provided")
             return

@@ -16,9 +16,8 @@ class ShareData {
     
     var userdata: UserSchema? {
         get {
-            guard let data = userDefaults.data(forKey: ShareDataConstants.userdata) else {
-                return nil
-            }
+            guard let data = userDefaults.data(forKey: ShareDataConstants.userdata)
+                else { return nil }
             return try? JSONDecoder().decode(UserSchema.self, from: data)
         } set {
             let data = try? JSONEncoder().encode(newValue)
@@ -28,9 +27,8 @@ class ShareData {
     
     var currentlyJoinedUsers: [RoomSchema]? {
         get {
-            guard let data = userDefaults.data(forKey: ShareDataConstants.currentlyJoinedUsers) else {
-                return nil
-            }
+            guard let data = userDefaults.data(forKey: ShareDataConstants.currentlyJoinedUsers)
+                else { return nil }
             return try? JSONDecoder().decode([RoomSchema].self, from: data)
         } set {
             let data = try? JSONEncoder().encode(newValue)
@@ -40,9 +38,8 @@ class ShareData {
     
     var currentlyJoinedChats: [RoomSchema]? {
         get {
-            guard let data = userDefaults.data(forKey: ShareDataConstants.currentlyJoinedChats) else {
-                return nil
-            }
+            guard let data = userDefaults.data(forKey: ShareDataConstants.currentlyJoinedChats)
+                else { return nil }
             return try? JSONDecoder().decode([RoomSchema].self, from: data)
         } set {
             let data = try? JSONEncoder().encode(newValue)
