@@ -20,7 +20,7 @@ class AppCoordinator: Coordinator {
     }
 
     func start() {
-        if let userdata = LoginData.shared.getCurrentUser() {
+        if let userdata = LoginData.shared.currentUser {
             let tabBar = MainTabBarCoordinator(navigationController: nil, with: userdata)
             window.rootViewController = tabBar.currentController
             childCoordinators.append(tabBar)

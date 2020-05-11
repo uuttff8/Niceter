@@ -42,7 +42,7 @@ class LoginData {
         self.userId = userId
     }
     
-    func getCurrentUser() -> UserSchema? {
+    var currentUser: UserSchema? {
         ShareData().userdata
     }
     

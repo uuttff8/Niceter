@@ -61,24 +61,22 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
     }
     
     @objc private func doneButtonAction(_ sender: UIBarButtonItem) {
-        guard let createRoom = CreateRoomType(community: self.tableDelegates.selectedCommunity,
-                                        roomName: self.tableDelegates.roomName,
-                                        failure: { error in
-            let error = error as? CreateRoomType.Errors
-            self.showOkAlert(config: .init(title: error?.localizedDescription, subtitle: nil))
-        }) else {
-            return
-        }
+        guard let createRoom = ParsedCreateRoom(
+            community: self.tableDelegates.selectedCommunity,
+            roomName: self.tableDelegates.roomName,
+            onError: handleInternalError)
+            else { return }
         
         
         sender.isEnabled = false
         
-        self.viewModel.createRoom(roomName: createRoom.roomName,
-                                  topic: self.tableDelegates.topicDescription,
-                                  community: createRoom.community,
-                                  securityPrivate: self.tableDelegates.isPrivateSwitchActive,
-                                  privateMembers:  self.tableDelegates.isPrivateMemberSwitchActive)
-        { (res) in
+        self.viewModel.createRoom(
+            roomName: createRoom.roomName,
+            topic: self.tableDelegates.topicDescription,
+            community: createRoom.community,
+            securityPrivate: self.tableDelegates.isPrivateSwitchActive,
+            privateMembers:  self.tableDelegates.isPrivateMemberSwitchActive
+        ) { (res) in
             switch res {
             case .success(_):
                 // on success, room automatically appears in rooms
@@ -88,6 +86,12 @@ class CreateRoomViewController: ASViewController<ASTableNode> {
                 
                 sender.isEnabled = true
             }
+        }
+    }
+    
+    private func handleInternalError(error: Error) {
+        if let error = error as? ParsedCreateRoom.Errors {
+            self.showOkAlert(config: .init(title: error.localizedDescription, subtitle: nil))
         }
     }
     

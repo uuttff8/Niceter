@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CreateRoomType {
+struct ParsedCreateRoom {
     enum Errors: Error {
         case noCommunity
         case noName
@@ -29,19 +29,19 @@ struct CreateRoomType {
     let community: GroupSchema
     let roomName: String
     
-    init?(community: GroupSchema?, roomName: String?, failure: (Error) -> Void) {
+    init?(community: GroupSchema?, roomName: String?, onError: (Error) -> Void) {
         guard let community = community else {
-            failure(Self.Errors.noCommunity)
+            onError(Self.Errors.noCommunity)
             return nil
         }
         
         guard let text = roomName else {
-            failure(Self.Errors.noName)
+            onError(Self.Errors.noName)
             return nil
         }
         
         guard text.rangeOfCharacter(from: CharacterSet.gitterValidRoomName.inverted) == nil else {
-            failure(Self.Errors.wrongName)
+            onError(Self.Errors.wrongName)
             return nil
         }
         
