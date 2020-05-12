@@ -19,9 +19,16 @@ class NiceterTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testParseCreateRoom() {
+        let group = GroupSchema(id: "11", name: "name", uri: "uri", homeUri: "homeUri",
+                                backedBy: .init(type: "type", linkPath: "linkPath"),
+                                avatarUrl: "avatarUrl")
+        
+        let crNonNil = ParsedCreateRoom(community: group, roomName: "Room-Name") { (_) in }
+        XCTAssertNotNil(crNonNil)
+        
+        let crNil = ParsedCreateRoom(community: group, roomName: "Room Name") { (_) in }
+        XCTAssertNil(crNil)
     }
 
     func testPerformanceExample() {

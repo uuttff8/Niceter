@@ -117,7 +117,7 @@
 		4EC70C7E243FA6240063F323 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC70C7D243FA6240063F323 /* ProfileCoordinator.swift */; };
 		4EC70C81243FA8D80063F323 /* SettingsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC70C80243FA8D80063F323 /* SettingsCache.swift */; };
 		4EC70C83243FACBD0063F323 /* CachedLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC70C82243FACBD0063F323 /* CachedLoaderProtocol.swift */; };
-		4ECC51202463008A00FF906E /* CreateRoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC511F2463008A00FF906E /* CreateRoomType.swift */; };
+		4ECC51202463008A00FF906E /* ParsedCreateRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC511F2463008A00FF906E /* ParsedCreateRoom.swift */; };
 		4ED1E5DB2456EAA600B56FD0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4ED1E5DA2456EAA600B56FD0 /* GoogleService-Info.plist */; };
 		4ED5398D242BB37F000874F3 /* ProfileMainNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5398C242BB37F000874F3 /* ProfileMainNodeCell.swift */; };
 		4ED53991242BB60E000874F3 /* TableGrouped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED53990242BB60E000874F3 /* TableGrouped.swift */; };
@@ -293,7 +293,7 @@
 		4EC70C7D243FA6240063F323 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		4EC70C80243FA8D80063F323 /* SettingsCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCache.swift; sourceTree = "<group>"; };
 		4EC70C82243FACBD0063F323 /* CachedLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedLoaderProtocol.swift; sourceTree = "<group>"; };
-		4ECC511F2463008A00FF906E /* CreateRoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomType.swift; sourceTree = "<group>"; };
+		4ECC511F2463008A00FF906E /* ParsedCreateRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedCreateRoom.swift; sourceTree = "<group>"; };
 		4ED1E5DA2456EAA600B56FD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4ED5398C242BB37F000874F3 /* ProfileMainNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMainNodeCell.swift; sourceTree = "<group>"; };
 		4ED53990242BB60E000874F3 /* TableGrouped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableGrouped.swift; sourceTree = "<group>"; };
@@ -949,7 +949,7 @@
 		4ECC511E2463005400FF906E /* Types */ = {
 			isa = PBXGroup;
 			children = (
-				4ECC511F2463008A00FF906E /* CreateRoomType.swift */,
+				4ECC511F2463008A00FF906E /* ParsedCreateRoom.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1329,7 +1329,7 @@
 				4E09AC27240D837D0028229C /* LoginAuthCoordinator.swift in Sources */,
 				4E4F7D7524445F31009287D8 /* CreateRoomRepoNodeCell.swift in Sources */,
 				4EB082ED244B35E5004F0696 /* RoomInfoGeneralInfoNode.swift in Sources */,
-				4ECC51202463008A00FF906E /* CreateRoomType.swift in Sources */,
+				4ECC51202463008A00FF906E /* ParsedCreateRoom.swift in Sources */,
 				4E09AC58240EE5E60028229C /* MainTabBarController.swift in Sources */,
 				4EB082EA244B2DA5004F0696 /* GitterApiLinks.swift in Sources */,
 				4E2A7A0D241153C70025F39C /* RoomSchema.swift in Sources */,
