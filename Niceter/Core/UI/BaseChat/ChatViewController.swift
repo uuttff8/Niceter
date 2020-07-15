@@ -122,6 +122,12 @@ class ChatViewController: MessagesViewController {
         return messagesCollectionView.indexPathsForVisibleItems.contains(lastIndexPath)
     }
     
+    func isMessageHasReplies(at indexPath: IndexPath) -> Bool {
+        guard indexPath.section < messageList.count else { return false }
+        let message = messageList[indexPath.section].message
+        return (message.threadMessageCount != nil && (message.threadMessageCount ?? 0) > 0) ? true : false
+    }
+    
     func configureMessageCollectionView() {
         guard let flowLayout =
             messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else {
@@ -223,12 +229,23 @@ class ChatViewController: MessagesViewController {
         
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
             var actionList = [UIMenuElement]()
+            let message = self.messageList[indexPath.section].message
             
             let copyAction = UIAction(title: "Copy".localized(), image: UIImage(systemName: "doc.on.doc")) { (_) in
                 if case MessageKind.attributedText(let text) = message.kind {
                     UIPasteboard.general.string = text.string
                 }
             }
+            
+            if self.isMessageHasReplies(at: indexPath) {
+                let seeRepliesAction = UIAction(title: "Show \(message.threadMessageCount!) replies",
+                                                image: UIImage(systemName: "rectangle.expand.vertical")) { (_) in
+                    print("See replies");
+                }
+                
+                actionList.append(seeRepliesAction)
+            }
+            
             actionList.append(copyAction)
             
             if self.isFromCurrentSender(message: message) {

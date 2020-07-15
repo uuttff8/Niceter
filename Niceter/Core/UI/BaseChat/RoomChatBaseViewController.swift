@@ -133,12 +133,6 @@ class RoomChatBaseViewController: ChatViewController {
         return messageList[indexPath.section].message.user == messageList[indexPath.section + 1].message.user
     }
     
-    func isMessageHasReplies(at indexPath: IndexPath) -> Bool {
-        guard indexPath.section < messageList.count else { return false }
-        let message = messageList[indexPath.section].message
-        return (message.threadMessageCount != nil && (message.threadMessageCount ?? 0) > 0) ? true : false
-    }
-    
     func setTypingIndicatorViewHidden(
         _ isHidden: Bool,
         performUpdates updates: (() -> Void)? = nil
