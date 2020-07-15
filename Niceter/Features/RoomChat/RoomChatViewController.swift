@@ -133,6 +133,12 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         }
     }
     
+    override func showReplies(messageId: String) {
+        self.viewModel.loadMessageThread(messageId: messageId) { (roomRecr) in
+            print(roomRecr.count)
+        }
+    }
+    
     // MARK: - Navigating
     override func showProfileScreen(username: String) {
         coordinator?.showProfileScreen(username: username)

@@ -85,6 +85,8 @@ class ChatViewController: MessagesViewController {
     // for use in editing message extend
     func editMessageUI(message: MockMessage) { }
     
+    func showReplies(messageId: String) {  }
+    
     // MARK: - Helpers
     private func configureBackroundMessageReading() {
         // unread messages every 2 second
@@ -225,7 +227,6 @@ class ChatViewController: MessagesViewController {
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-        let message = messageList[indexPath.section].message
         
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
             var actionList = [UIMenuElement]()
@@ -239,8 +240,9 @@ class ChatViewController: MessagesViewController {
             
             if self.isMessageHasReplies(at: indexPath) {
                 let seeRepliesAction = UIAction(title: "Show \(message.threadMessageCount!) replies",
-                                                image: UIImage(systemName: "rectangle.expand.vertical")) { (_) in
-                    print("See replies");
+                                                image: UIImage(systemName: "rectangle.expand.vertical"))
+                { (_) in
+                    self.showReplies(messageId: message.messageId)
                 }
                 
                 actionList.append(seeRepliesAction)

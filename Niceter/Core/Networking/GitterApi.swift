@@ -377,6 +377,12 @@ extension GitterApi {
             completion(data)
         }
     }
+    
+    func loadMessageThread(roomId: String, messageId: String, completion: @escaping ([RoomRecreateSchema]) -> Void) {
+        let endpoint = GitterApiLinks.messageThread(roomId: roomId, messageId: messageId)
+        
+        genericRequestData(url: endpoint, method: endpoint.method, body: nil, completion: completion) // new syntax
+    }
 }
 
 // MARK: - Private -

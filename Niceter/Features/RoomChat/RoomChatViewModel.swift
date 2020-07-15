@@ -90,6 +90,10 @@ class RoomChatViewModel {
         GitterApi.shared.updateMessage(text: text, roomId: roomSchema.id, messageId: messageId, completion: completion)
     }
     
+    func loadMessageThread(messageId: String, completion: @escaping ([RoomRecreateSchema]) -> Void) {
+        GitterApi.shared.loadMessageThread(roomId: self.roomSchema.id, messageId: messageId, completion: completion)
+    }
+    
     // To implement it correct, we should better use caching to loading part of messages to cache
     func findFirstUnreadMessage() -> IndexPath? {
         guard let messages = messagesListInfo else { return nil }
