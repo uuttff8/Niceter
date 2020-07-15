@@ -87,24 +87,32 @@ struct MockMessage: MessageType {
     var sentDate: Date
     var unread: Bool
     var user: MockUser
-
+    
     var kind: MessageKind
     var originalText: String
+    var threadMessageCount: Int?
     
-    private init(kind: MessageKind, user: MockUser, messageId: String, date: Date, originalText: String, unread: Bool) {
+    private init(kind: MessageKind, user: MockUser, messageId: String, date: Date, originalText: String, unread: Bool, threadMessageCount: Int?) {
         self.kind = kind
         self.user = user
         self.messageId = messageId
         self.sentDate = date
         self.unread = unread
         self.originalText = originalText
+        self.threadMessageCount = threadMessageCount
     }
     
     func toUserSchema() -> UserSchema {
         UserSchema(id: self.messageId, username: self.user.username, displayName: self.user.displayName, url: nil, website: nil, avatarURL: nil, avatarURLSmall: nil, avatarURLMedium: nil, company: nil, location: nil, email: nil, github: nil, profile: nil, providers: nil, v: nil)
     }
-    init(attributedText: NSAttributedString, user: MockUser, messageId: String, date: Date, originalText: String, unread: Bool) {
-        self.init(kind: .attributedText(attributedText), user: user, messageId: messageId, date: date, originalText: originalText, unread: unread)
+    init(attributedText: NSAttributedString, user: MockUser, messageId: String, date: Date, originalText: String, unread: Bool, threadMessageCount: Int?) {
+        self.init(kind: .attributedText(attributedText),
+                  user: user,
+                  messageId: messageId,
+                  date: date,
+                  originalText: originalText,
+                  unread: unread,
+                  threadMessageCount: threadMessageCount)
     }
 }
 

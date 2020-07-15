@@ -160,6 +160,16 @@ class ChatViewController: MessagesViewController {
         at indexPath: IndexPath
     ) -> NSAttributedString? {
         let dateString = dateFormatter.string(from: message.sentDate)
+        let message = messageList[indexPath.section].message
+        
+        if let threadMessageCount = message.threadMessageCount, threadMessageCount > 0 {
+            print(threadMessageCount)
+            return NSAttributedString(
+                string: "\(dateString), \(threadMessageCount) replies",
+                attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)]
+            )
+        }
+        
         return NSAttributedString(
             string: dateString,
             attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)]
@@ -281,17 +291,6 @@ extension ChatViewController: MessagesDataSource {
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         messageList.count
-    }
-    
-    func cellBottomLabelAttributedText(
-        for message: MessageType,
-        at indexPath: IndexPath
-    ) -> NSAttributedString? {
-        return NSAttributedString(
-            string: "Read".localized(),
-            attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
-                         NSAttributedString.Key.foregroundColor: UIColor.darkGray]
-        )
     }
 }
 
@@ -438,7 +437,8 @@ extension ChatViewController: MessageInputBarDelegate {
                                      messageId: tmpMessId,
                                      date: Date(),
                                      originalText: text,
-                                     unread: false)
+                                     unread: false,
+                                     threadMessageCount: nil)
         let gittMess = NiceterMessage(message: tmpMessage, avatarUrl: nil, isLoading: true)
         
         addToMessageMap(message: gittMess, isFirstly: false)

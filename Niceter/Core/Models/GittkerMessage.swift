@@ -44,10 +44,12 @@ extension NiceterMessage {
                               company: nil, location: nil, email: nil, github: nil, profile: nil, providers: nil, v: nil)
         
         
-        return RoomRecreateSchema(id: message.messageId, text: message.originalText,
+        return RoomRecreateSchema(id: message.messageId,
+                                  text: message.originalText,
                                   html: nil,
-                                  sent: date, fromUser: user, unread: false,
-                                  readBy: nil, urls: nil, meta: nil, v: nil)
+                                  sent: date, fromUser: user,
+                                  unread: false,
+                                  readBy: nil, urls: nil, meta: nil, v: nil, threadMessageCount: nil)
         
     }
 }

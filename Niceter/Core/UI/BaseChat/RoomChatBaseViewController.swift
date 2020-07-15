@@ -133,6 +133,12 @@ class RoomChatBaseViewController: ChatViewController {
         return messageList[indexPath.section].message.user == messageList[indexPath.section + 1].message.user
     }
     
+    func isMessageHasReplies(at indexPath: IndexPath) -> Bool {
+        guard indexPath.section < messageList.count else { return false }
+        let message = messageList[indexPath.section].message
+        return (message.threadMessageCount != nil && (message.threadMessageCount ?? 0) > 0) ? true : false
+    }
+    
     func setTypingIndicatorViewHidden(
         _ isHidden: Bool,
         performUpdates updates: (() -> Void)? = nil
@@ -292,7 +298,21 @@ extension RoomChatBaseViewController: MessagesLayoutDelegate {
         at indexPath: IndexPath,
         in messagesCollectionView: MessagesCollectionView
     ) -> CGFloat {
-        return (!isNextMessageSameSender(at: indexPath)) ? 16 : 0
+//        return (!isNextMessageSameSender(at: indexPath)) ? 16 : 0
+        
+        if isMessageHasReplies(at: indexPath) {
+            return 16
+        }
+        
+        if (!isNextMessageSameSender(at: indexPath) && isMessageHasReplies(at: indexPath)) {
+            return 16
+        }
+        
+        if !isNextMessageSameSender(at: indexPath) {
+            return 16
+        }
+        
+        return 0
     }
 }
 

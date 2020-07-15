@@ -28,6 +28,7 @@ public struct RoomRecreateSchema: Codable {
 //    let issues: [String]?
     let meta: [String]?
     let v: Int?
+    let threadMessageCount: Int?
 }
 
 extension RoomRecreateSchema {
@@ -42,7 +43,8 @@ extension RoomRecreateSchema {
                                   messageId: self.id,
                                   date: Date.toGittkerDate(str: self.sent!),
                                   originalText: self.text ?? "",
-                                  unread: unread ?? false)
+                                  unread: unread ?? false,
+                                  threadMessageCount: self.threadMessageCount)
 //        let message = MockMessage(text: self.text ?? "",
 //                                  user: user,
 //                                  messageId: self.id,
