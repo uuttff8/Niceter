@@ -33,24 +33,21 @@ public struct RoomRecreateSchema: Codable {
 }
 
 extension RoomRecreateSchema {
-    func toGittkerMessage(isLoading: Bool) -> NiceterMessage {
+    func toNiceterMessage(isLoading: Bool) -> NiceterMessage {
         let user = MockUser(senderId: fromUser?.id ?? "",
                             displayName: fromUser?.displayName ?? "",
                             username: fromUser?.username ?? "")
         
         let md = GitterMarkdown()
+        
         let message = MockMessage(attributedText: md.parse(self.text ?? ""),
                                   user: user,
                                   messageId: self.id,
                                   date: Date.toGittkerDate(str: self.sent!),
                                   originalText: self.text ?? "",
                                   unread: unread ?? false,
-                                  threadMessageCount: self.threadMessageCount)
-//        let message = MockMessage(text: self.text ?? "",
-//                                  user: user,
-//                                  messageId: self.id,
-//                                  date: Date.toGittkerDate(str: self.sent!),
-//                                  unread: unread ?? false)
+                                  threadMessageCount: self.threadMessageCount,
+                                  parentId: self.parentId)
         return NiceterMessage(message: message, avatarUrl: self.fromUser?.avatarURLMedium, isLoading: isLoading)
     }
 }
@@ -59,7 +56,7 @@ extension RoomRecreateSchema {
 extension Array where Element == RoomRecreateSchema {
     func toNiceterMessages(isLoading: Bool) -> Array<NiceterMessage> {
         return self.map { (roomRecrObject) in
-            roomRecrObject.toGittkerMessage(isLoading: isLoading)
+            roomRecrObject.toNiceterMessage(isLoading: isLoading)
         }
     }
 }

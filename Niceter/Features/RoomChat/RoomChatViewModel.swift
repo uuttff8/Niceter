@@ -23,11 +23,6 @@ class RoomChatViewModel {
     
     func loadFirstMessages(completion: @escaping (([NiceterMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
-            //            self.cachedMessageLoader
-            //                .fetchData { (roomRecrList) in
-            //                    self.messagesListInfo = roomRecrList
-            //                    completion(roomRecrList.toGittkerMessages(isLoading: false))
-            //            }
             GitterApi.shared.listMessagesUnread(roomId: self.roomSchema.id) { (roomRecrList) in
                 guard let messages = roomRecrList else { return }
                 completion(messages.toNiceterMessages(isLoading: false))

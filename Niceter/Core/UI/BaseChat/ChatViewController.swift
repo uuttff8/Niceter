@@ -356,6 +356,7 @@ extension ChatViewController {
         
         if let index = index {
             messageList[index].message = newMessage.message
+            messageList[index].message.threadMessageCount = newMessage.message.threadMessageCount
             messagesCollectionView.reloadDataAndKeepOffset()
         }
     }
@@ -458,7 +459,8 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
                                      date: Date(),
                                      originalText: text,
                                      unread: false,
-                                     threadMessageCount: nil)
+                                     threadMessageCount: nil,
+                                     parentId: nil)
         let gittMess = NiceterMessage(message: tmpMessage, avatarUrl: nil, isLoading: true)
         
         addToMessageMap(message: gittMess, isFirstly: false)

@@ -73,12 +73,15 @@ public final class FayeEventMessagesBinder {
             guard let data = dict.jsonData else { return }
             guard let event = try? JSONDecoder().decode(MessagesEventSchema.self, from: data) else { return }
             
+            print(event)
+            
             switch event.operation {
             case .create:
-                let message = event.model.toGittkerMessage(isLoading: false)
+                let message = event.model.toNiceterMessage(isLoading: false)
+                print(message.message.parentId)
                 onNew?(message)
             case .update:
-                let message = event.model.toGittkerMessage(isLoading: false)
+                let message = event.model.toNiceterMessage(isLoading: false)
                 onUpdate?(message)
             case .remove:
                 let id = event.model.id

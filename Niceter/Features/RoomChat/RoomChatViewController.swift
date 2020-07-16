@@ -57,8 +57,12 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
         fayeClient
             .subscribe(
                 onNew: { [weak self] (message: NiceterMessage) in
-                    self?.viewModel.addNewMessageToCache(message: message)
-                    self?.addToMessageMap(message: message, isFirstly: true)
+                      
+                    if let parentIdMessage = message.message.parentId {
+                    } else {
+                        self?.viewModel.addNewMessageToCache(message: message)
+                        self?.addToMessageMap(message: message, isFirstly: true)
+                    }
                 }, onDeleted: { [weak self] (id) in
                     self?.deleteMessageUI(by: id)
                 }, onUpdate: { [weak self] (message: NiceterMessage) in
