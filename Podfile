@@ -9,7 +9,7 @@ target 'Niceter' do
   pod 'SocketRocket'
   pod 'MessageKit'
   pod 'Cache'
-  pod 'TextureSwiftSupport', '~> 1.5.0'
+  pod 'TextureSwiftSupport', '~> 2.0.0'
   pod 'Firebase/Analytics'
   pod 'MarkdownKit', '~> 1.6.0'
 

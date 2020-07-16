@@ -10,6 +10,7 @@ import UIKit
 import MessageKit
 import SafariServices
 import MarkdownKit
+import InputBarAccessoryView
 
 private class ConversationTemporaryMessageAdapter {
     static func generateChildMessageTmpId(userId: String, text: String) -> String {
@@ -422,9 +423,9 @@ extension ChatViewController: MessageLabelDelegate {
 
 // MARK: - MessageInputBarDelegate
 
-extension ChatViewController: MessageInputBarDelegate {
+extension ChatViewController: InputBarAccessoryViewDelegate {
     
-    @objc func inputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+    @objc func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         
         // Here we can parse for which substrings were autocompleted
         let attributedText = messageInputBar.inputTextView.attributedText!
