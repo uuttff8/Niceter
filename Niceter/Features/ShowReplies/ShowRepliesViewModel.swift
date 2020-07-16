@@ -19,7 +19,13 @@ class ShowRepliesViewModel {
         self.roomId = roomId
     }
     
-    func sendMessageInThread(text: String) {
-        
+    func sendMessageInThread(
+        text: String,
+        completion: @escaping (Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>) -> Void
+    ) {
+        GitterApi.shared.sendMessageInThread(roomId: roomId, text: text, parentId: parentId, completion: { (res) in
+            guard let res = res else { return }
+            completion(res)
+        })
     }
 }
