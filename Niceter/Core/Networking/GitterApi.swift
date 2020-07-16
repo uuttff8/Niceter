@@ -310,8 +310,8 @@ extension GitterApi {
         roomId: String,
         text: String,
         status: Bool = false,
-        completion: @escaping (Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>?) -> Void)
-    {
+        completion: @escaping (Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>?) -> Void
+    ) {
         let bodyObject: [String : Any] = [
             "status": "\(status)",
             "text": "\(text)"
@@ -320,6 +320,21 @@ extension GitterApi {
         postDataSendMessage(url: GitterApiLinks.sendMessage(roomId: roomId), body: bodyObject) { (data) in
             completion(data)
         }
+    }
+    
+    func sendMessageInThread(
+        roomId: String,
+        text: String,
+        parentId: String,
+        completion: @escaping (Result<RoomRecreateSchema, GitterApiErrors.MessageFailedError>?) -> Void
+    ) {
+        let bodyObject: [String : Any] = [
+//            "status": "\(status)",
+            "text": "\(text)",
+            "parentId": parentId,
+        ]
+        
+        postDataSendMessage(url: GitterApiLinks.sendMessage(roomId: roomId), body: bodyObject, completion: completion)
     }
     
     func listMessagesAround(

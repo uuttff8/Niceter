@@ -72,6 +72,7 @@
 		4E5650A42447977E00B9BBFE /* RoomChatAutocompleteExtend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */; };
 		4E62583D24C0322100CB9D39 /* ShowRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62583C24C0322100CB9D39 /* ShowRepliesViewController.swift */; };
 		4E62583F24C0322C00CB9D39 /* ShowRepliesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62583E24C0322C00CB9D39 /* ShowRepliesCoordinator.swift */; };
+		4E62584124C0383000CB9D39 /* ShowRepliesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62584024C0383000CB9D39 /* ShowRepliesViewModel.swift */; };
 		4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */; };
 		4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */; };
 		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
@@ -236,6 +237,7 @@
 		4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatAutocompleteExtend.swift; sourceTree = "<group>"; };
 		4E62583C24C0322100CB9D39 /* ShowRepliesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRepliesViewController.swift; sourceTree = "<group>"; };
 		4E62583E24C0322C00CB9D39 /* ShowRepliesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRepliesCoordinator.swift; sourceTree = "<group>"; };
+		4E62584024C0383000CB9D39 /* ShowRepliesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRepliesViewModel.swift; sourceTree = "<group>"; };
 		4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeopleService+Cache.swift"; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
@@ -755,6 +757,7 @@
 		4E62583B24C0320000CB9D39 /* ShowReplies */ = {
 			isa = PBXGroup;
 			children = (
+				4E62584024C0383000CB9D39 /* ShowRepliesViewModel.swift */,
 				4E62583C24C0322100CB9D39 /* ShowRepliesViewController.swift */,
 				4E62583E24C0322C00CB9D39 /* ShowRepliesCoordinator.swift */,
 			);
@@ -1308,6 +1311,7 @@
 				4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */,
 				4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */,
 				4E2D1A2B24585735005646A3 /* GitterMarkdown.swift in Sources */,
+				4E62584124C0383000CB9D39 /* ShowRepliesViewModel.swift in Sources */,
 				4EFC4FC524236B1B00295EB1 /* GittkerMessage.swift in Sources */,
 				4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */,
 				4EB082E8244B26B7004F0696 /* RoomInfoViewModel.swift in Sources */,

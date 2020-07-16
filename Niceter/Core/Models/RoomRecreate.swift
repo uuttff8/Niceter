@@ -29,6 +29,7 @@ public struct RoomRecreateSchema: Codable {
     let meta: [String]?
     let v: Int?
     let threadMessageCount: Int?
+    let parentId: String?
 }
 
 extension RoomRecreateSchema {

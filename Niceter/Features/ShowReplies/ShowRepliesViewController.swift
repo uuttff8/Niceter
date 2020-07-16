@@ -11,6 +11,8 @@ import MessageKit
 final class ShowRepliesViewController: RoomChatBaseViewController {
     weak var coordinator: ShowRepliesCoordinator?
     
+    // MARK: - Private Elements
+    private lazy var viewModel = ShowRepliesViewModel(roomRecreates: self.roomRecreates)
     private var roomRecreates: [RoomRecreateSchema]
     
     init(coordinator: ShowRepliesCoordinator, roomRecreates: [RoomRecreateSchema]) {

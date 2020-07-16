@@ -114,7 +114,6 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
                     print("All is bad")
                 }
             }
-            
         }
     }
     

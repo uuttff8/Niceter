@@ -49,7 +49,7 @@ extension NiceterMessage {
                                   html: nil,
                                   sent: date, fromUser: user,
                                   unread: false,
-                                  readBy: nil, urls: nil, meta: nil, v: nil, threadMessageCount: nil)
+                                  readBy: nil, urls: nil, meta: nil, v: nil, threadMessageCount: nil, parentId: nil)
         
     }
 }
