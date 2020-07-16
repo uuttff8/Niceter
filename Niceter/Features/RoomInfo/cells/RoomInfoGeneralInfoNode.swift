@@ -83,7 +83,7 @@ class RoomInfoGeneralInfoNode: ASCellNode {
                 titleNode
                     .flexShrink(1.0)
             }
-            .padding(UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
+            .padding(Edge.Set.all, 10.0)
         }
     }
 }

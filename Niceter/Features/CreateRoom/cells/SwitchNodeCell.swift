@@ -77,7 +77,7 @@ final class SwitchNodeCell: ASCellNode {
                 InsetLayout(insets: UIEdgeInsets(top: 0.0, left: 10.0, bottom: 30.0, right: 56.0)) {
                     switchNode
                 }
-            }.padding(UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0))
+            }.padding(Edge.Set.all, 16.0)
         }
     }
 }

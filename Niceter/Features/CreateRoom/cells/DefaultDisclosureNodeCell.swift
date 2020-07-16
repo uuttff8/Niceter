@@ -67,7 +67,7 @@ class DefaultDisclosureNodeCell: ASCellNode {
                 ASLayoutSpec()
                     .flexGrow(1.0)
                 subtitleNode
-            }.padding(UIEdgeInsets(top: 14.0, left: 16.0, bottom: 14.0, right: 16.0))
+            }.padding(Edge.Set.all, 16.0)
         }
     }
 }

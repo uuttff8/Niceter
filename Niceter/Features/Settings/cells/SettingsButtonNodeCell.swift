@@ -77,7 +77,7 @@ class SettingsButtonNodeCell: ASCellNode {
             HStackLayout(spacing: 10.0, justifyContent: .start, alignItems: .center) {
                 titleNode
                     .flexShrink(1.0)
-            }.padding(UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0))
+            }.padding(Edge.Set.all, 16.0)
         }
     }
 }

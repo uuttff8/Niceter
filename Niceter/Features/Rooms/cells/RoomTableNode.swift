@@ -144,7 +144,7 @@ class RoomTableNode: ASCellNode {
                         }
                     }
                 }
-            }.padding(UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 16.0))
+            }.padding(Edge.Set.all, 10.0)
         }
     }
 }
