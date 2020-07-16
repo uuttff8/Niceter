@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 import DeepDiff
 
-class PeopleViewController: ASViewController<ASTableNode> {
+class PeopleViewController: ASDKViewController<ASTableNode> {
     
     weak var coordinator: PeopleCoordinator?
     

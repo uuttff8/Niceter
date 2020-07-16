@@ -59,7 +59,7 @@ class ProfileMainNodeCell: ASCellNode {
         setupNodes()
     }
     
-    override func asyncTraitCollectionDidChange() {
+    override func asyncTraitCollectionDidChange(withPreviousTraitCollection previousTraitCollection: ASPrimitiveTraitCollection) {
         locationNode.imageNode.image = Config.Images.profileLocation
         emailNode.imageNode.image = Config.Images.profileEnvelope
         linkNode.imageNode.image = Config.Images.profileLink

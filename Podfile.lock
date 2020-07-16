@@ -68,45 +68,45 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
-  - PINCache (3.0.1-beta.6):
-    - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
-    - PINCache/Core (= 3.0.1-beta.6)
-  - PINCache/Arc-exception-safe (3.0.1-beta.6):
+  - PINCache (3.0.1-beta.8):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.8)
+    - PINCache/Core (= 3.0.1-beta.8)
+  - PINCache/Arc-exception-safe (3.0.1-beta.8):
     - PINCache/Core
-  - PINCache/Core (3.0.1-beta.6):
-    - PINOperation (~> 1.1.0)
+  - PINCache/Core (3.0.1-beta.8):
+    - PINOperation (~> 1.1.1)
   - PINOperation (1.1.2)
-  - PINRemoteImage/Core (3.0.0-beta.13):
+  - PINRemoteImage/Core (3.0.0):
     - PINOperation
-  - PINRemoteImage/iOS (3.0.0-beta.13):
+  - PINRemoteImage/iOS (3.0.0):
     - PINRemoteImage/Core
-  - PINRemoteImage/PINCache (3.0.0-beta.13):
-    - PINCache (= 3.0.1-beta.6)
+  - PINRemoteImage/PINCache (3.0.0):
+    - PINCache (= 3.0.1-beta.8)
     - PINRemoteImage/Core
   - PromisesObjC (1.2.9)
   - SocketRocket (0.5.1)
-  - Texture (2.8.1):
-    - Texture/AssetsLibrary (= 2.8.1)
-    - Texture/Core (= 2.8.1)
-    - Texture/MapKit (= 2.8.1)
-    - Texture/Photos (= 2.8.1)
-    - Texture/PINRemoteImage (= 2.8.1)
-    - Texture/Video (= 2.8.1)
-  - Texture/AssetsLibrary (2.8.1):
+  - Texture (3.0.0):
+    - Texture/AssetsLibrary (= 3.0.0)
+    - Texture/Core (= 3.0.0)
+    - Texture/MapKit (= 3.0.0)
+    - Texture/Photos (= 3.0.0)
+    - Texture/PINRemoteImage (= 3.0.0)
+    - Texture/Video (= 3.0.0)
+  - Texture/AssetsLibrary (3.0.0):
     - Texture/Core
-  - Texture/Core (2.8.1)
-  - Texture/MapKit (2.8.1):
+  - Texture/Core (3.0.0)
+  - Texture/MapKit (3.0.0):
     - Texture/Core
-  - Texture/Photos (2.8.1):
+  - Texture/Photos (3.0.0):
     - Texture/Core
-  - Texture/PINRemoteImage (2.8.1):
-    - PINRemoteImage/iOS (= 3.0.0-beta.13)
+  - Texture/PINRemoteImage (3.0.0):
+    - PINRemoteImage/iOS (~> 3.0.0)
     - PINRemoteImage/PINCache
     - Texture/Core
-  - Texture/Video (2.8.1):
+  - Texture/Video (3.0.0):
     - Texture/Core
-  - TextureSwiftSupport (1.5.1):
-    - Texture/Core (~> 2.8)
+  - TextureSwiftSupport (2.0.0):
+    - Texture/Core (~> 3)
 
 DEPENDENCIES:
   - Cache
@@ -115,7 +115,7 @@ DEPENDENCIES:
   - MessageKit
   - SocketRocket
   - Texture
-  - TextureSwiftSupport (~> 1.5.0)
+  - TextureSwiftSupport (~> 2.0.0)
 
 SPEC REPOS:
   trunk:
@@ -154,14 +154,14 @@ SPEC CHECKSUMS:
   MarkdownKit: 6aa4aee263c7efae3de570cded0767f85c38fc78
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
-  PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
+  PINCache: 534fd41d358d828dfdf227a0d327f3673a65e20b
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
-  PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
+  PINRemoteImage: e2b89e19fb6e77ffc099f9d9f3b3fe1745e3f9f9
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
-  Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
-  TextureSwiftSupport: b47866a865559974d25367862a768049bb99b13c
+  Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
+  TextureSwiftSupport: 0bd4158143ec6898cfcb24ab19cc578d3d59d9b1
 
-PODFILE CHECKSUM: dd80adafd6f79431a55a0d4f2d43df0cc1bb2fa1
+PODFILE CHECKSUM: d724ce672ddc41a8c4ae3fbf5895af9e68cb8d46
 
 COCOAPODS: 1.9.1

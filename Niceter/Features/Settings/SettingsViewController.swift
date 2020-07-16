@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class SettingsViewController: ASViewController<ASTableNode> {
+class SettingsViewController: ASDKViewController<ASTableNode> {
     
     var coordinator: SettingsCoordinator
     

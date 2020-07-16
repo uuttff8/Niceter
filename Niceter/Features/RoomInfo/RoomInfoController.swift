@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class RoomInfoController: ASViewController<ASTableNode> {
+class RoomInfoController: ASDKViewController<ASTableNode> {
     weak var coordinator: RoomInfoCoordinator?
     let viewModel: RoomInfoViewModel
     

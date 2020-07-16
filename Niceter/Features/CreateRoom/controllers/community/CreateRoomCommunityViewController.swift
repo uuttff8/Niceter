@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 import SafariServices
 
-class CreateRoomCommunityViewController: ASViewController<ASTableNode> {
+class CreateRoomCommunityViewController: ASDKViewController<ASTableNode> {
     let viewModel: CreateRoomCommunityViewModel = CreateRoomCommunityViewModel()
     
     weak var coordinator: CreateRoomCoordinator?

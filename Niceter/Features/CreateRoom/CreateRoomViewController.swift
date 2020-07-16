@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class CreateRoomViewController: ASViewController<ASTableNode> {
+class CreateRoomViewController: ASDKViewController<ASTableNode> {
     weak var coordinator: CreateRoomCoordinator?
     
     lazy var viewModel: CreateRoomViewModel = CreateRoomViewModel(dataSource: self.tableDelegates)

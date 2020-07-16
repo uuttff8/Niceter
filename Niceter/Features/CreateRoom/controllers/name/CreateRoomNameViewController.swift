@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class CreateRoomNameViewController: ASViewController<ASTableNode> {
+class CreateRoomNameViewController: ASDKViewController<ASTableNode> {
     let viewModel: CreateRoomNameViewModel = CreateRoomNameViewModel()
     
     weak var coordinator: CreateRoomCoordinator?

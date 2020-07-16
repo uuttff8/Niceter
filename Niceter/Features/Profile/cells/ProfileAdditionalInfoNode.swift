@@ -80,7 +80,7 @@ public final class ProfileAdditionalInfoNode: ASCellNode {
                 imageNode
                 titleNode
                     .flexShrink(1.0)
-            }.padding(UIEdgeInsets(top: 5.0, left: 0.0, bottom: 0.0, right: 0.0))
+            }.padding(Edge.Set.top, 5.0)
         }
     }
 }

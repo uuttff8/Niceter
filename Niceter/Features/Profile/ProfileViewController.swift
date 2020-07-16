@@ -8,7 +8,7 @@
 
 import AsyncDisplayKit
 
-class ProfileViewController: ASViewController<ASTableNode> {
+class ProfileViewController: ASDKViewController<ASTableNode> {
     weak var coordinator: ProfileCoordinator?
         
     private var profileList = [UserSchema]()

@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 import DeepDiff
 
-class RoomsViewController: ASViewController<ASTableNode> {
+class RoomsViewController: ASDKViewController<ASTableNode> {
     
     // MARK: - Variables
     weak var coordinator: RoomsCoordinator?
