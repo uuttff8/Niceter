@@ -28,9 +28,6 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     
     private var cached = 1
     
-    private var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
-    private var panGestureRecognizer: UIPanGestureRecognizer!
-
     //MARK: - Init
     init(coordinator: RoomChatCoordinator, roomSchema: RoomSchema, isJoined: Bool) {
         self.coordinator = coordinator
@@ -135,7 +132,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     
     override func showReplies(messageId: String) {
         self.viewModel.loadMessageThread(messageId: messageId) { (roomRecr) in
-            print(roomRecr.count)
+            self.coordinator?.showReplies(roomRecreates: roomRecr)
         }
     }
     

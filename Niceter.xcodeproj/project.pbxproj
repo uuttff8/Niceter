@@ -70,6 +70,8 @@
 		4E4F7D8124447835009287D8 /* CreateRoomCommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D8024447835009287D8 /* CreateRoomCommunityViewModel.swift */; };
 		4E4F7D832444854B009287D8 /* CreateRoomMarkedNodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */; };
 		4E5650A42447977E00B9BBFE /* RoomChatAutocompleteExtend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */; };
+		4E62583D24C0322100CB9D39 /* ShowRepliesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62583C24C0322100CB9D39 /* ShowRepliesViewController.swift */; };
+		4E62583F24C0322C00CB9D39 /* ShowRepliesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E62583E24C0322C00CB9D39 /* ShowRepliesCoordinator.swift */; };
 		4E83DF1A243A34F2006FDD15 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */; };
 		4E83DF1C243A3881006FDD15 /* PeopleService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */; };
 		4E9D179C241E42A60066362D /* NSDate-UTC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D1785241E42A60066362D /* NSDate-UTC.m */; };
@@ -232,6 +234,8 @@
 		4E4F7D8024447835009287D8 /* CreateRoomCommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCommunityViewModel.swift; sourceTree = "<group>"; };
 		4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomMarkedNodeCell.swift; sourceTree = "<group>"; };
 		4E5650A32447977E00B9BBFE /* RoomChatAutocompleteExtend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomChatAutocompleteExtend.swift; sourceTree = "<group>"; };
+		4E62583C24C0322100CB9D39 /* ShowRepliesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRepliesViewController.swift; sourceTree = "<group>"; };
+		4E62583E24C0322C00CB9D39 /* ShowRepliesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRepliesCoordinator.swift; sourceTree = "<group>"; };
 		4E83DF19243A34F2006FDD15 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
 		4E83DF1B243A3881006FDD15 /* PeopleService+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeopleService+Cache.swift"; sourceTree = "<group>"; };
 		4E9D1780241E42A50066362D /* FayeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FayeMessage.h; sourceTree = "<group>"; };
@@ -453,6 +457,7 @@
 		4E09AC15240D80F50028229C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4E62583B24C0320000CB9D39 /* ShowReplies */,
 				4EB082E2244B10C7004F0696 /* RoomInfo */,
 				4E4F7D5A2443A27F009287D8 /* CreateRoom */,
 				4EC70C7A243FA5E70063F323 /* Profile */,
@@ -745,6 +750,15 @@
 				4E4F7D822444854B009287D8 /* CreateRoomMarkedNodeCell.swift */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		4E62583B24C0320000CB9D39 /* ShowReplies */ = {
+			isa = PBXGroup;
+			children = (
+				4E62583C24C0322100CB9D39 /* ShowRepliesViewController.swift */,
+				4E62583E24C0322C00CB9D39 /* ShowRepliesCoordinator.swift */,
+			);
+			path = ShowReplies;
 			sourceTree = "<group>";
 		};
 		4E9D177E241E42890066362D /* Libraries */ = {
@@ -1266,6 +1280,7 @@
 				4E09AC2E240D8CDE0028229C /* LoginWebViewController.swift in Sources */,
 				4E4F7D8124447835009287D8 /* CreateRoomCommunityViewModel.swift in Sources */,
 				4E09AC68240EE69D0028229C /* PeopleViewController.swift in Sources */,
+				4E62583D24C0322100CB9D39 /* ShowRepliesViewController.swift in Sources */,
 				4E229FFE24325FBD0096371C /* RoomsService+Cache.swift in Sources */,
 				4EC70C7C243FA5F40063F323 /* ProfileViewController.swift in Sources */,
 				4E9D17A5241E42A60066362D /* FayeClient.m in Sources */,
@@ -1340,6 +1355,7 @@
 				4E4F7D732444594C009287D8 /* TextFieldNodeCell.swift in Sources */,
 				4EB3FC01242991AC00F3BF88 /* SuggestedRoomsNode.swift in Sources */,
 				4E09AC4E240EAADB0028229C /* HttpClient.swift in Sources */,
+				4E62583F24C0322C00CB9D39 /* ShowRepliesCoordinator.swift in Sources */,
 				4EFC4FC2242250C500295EB1 /* CachedRoomMessagesLoader.swift in Sources */,
 				4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */,
 				4E09ABE3240D7FA70028229C /* AppDelegate.swift in Sources */,

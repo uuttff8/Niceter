@@ -23,7 +23,7 @@ class UserChatViewModel {
         DispatchQueue.global(qos: .userInitiated).async {
             GitterApi.shared.listMessagesUnread(roomId: self.roomSchema.id) { (roomRecrList) in
                 guard let messages = roomRecrList else { return }
-                completion(messages.toGittkerMessages(isLoading: false))
+                completion(messages.toNiceterMessages(isLoading: false))
             }
         }
     }
@@ -31,7 +31,7 @@ class UserChatViewModel {
     func loadOlderMessages(messageId: String, completion: @escaping (([NiceterMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: self.roomSchema.id) { (roomRecrList) in
-                guard let messages = roomRecrList?.toGittkerMessages(isLoading: false) else { return }
+                guard let messages = roomRecrList?.toNiceterMessages(isLoading: false) else { return }
                 completion(messages)
             }
         }
@@ -73,6 +73,10 @@ class UserChatViewModel {
         DispatchQueue.global(qos: .default).async {
             self.cachedMessageLoader.addNewMessage(message: message)
         }
+    }
+    
+    func loadMessageThread(messageId: String, completion: @escaping ([RoomRecreateSchema]) -> Void) {
+        GitterApi.shared.loadMessageThread(roomId: self.roomSchema.id, messageId: messageId, completion: completion)
     }
     
     // To implement it correct, we should better use caching to loading part of messages to cache

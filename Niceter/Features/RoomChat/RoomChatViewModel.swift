@@ -30,7 +30,7 @@ class RoomChatViewModel {
             //            }
             GitterApi.shared.listMessagesUnread(roomId: self.roomSchema.id) { (roomRecrList) in
                 guard let messages = roomRecrList else { return }
-                completion(messages.toGittkerMessages(isLoading: false))
+                completion(messages.toNiceterMessages(isLoading: false))
             }
         }
     }
@@ -38,7 +38,7 @@ class RoomChatViewModel {
     func loadOlderMessages(messageId: String, completion: @escaping (([NiceterMessage]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             GitterApi.shared.loadOlderMessage(messageId: messageId, roomId: self.roomSchema.id) { (roomRecrList) in
-                guard let messages = roomRecrList?.toGittkerMessages(isLoading: false) else { return }
+                guard let messages = roomRecrList?.toNiceterMessages(isLoading: false) else { return }
                 completion(messages)
             }
         }

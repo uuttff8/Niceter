@@ -56,7 +56,7 @@ extension RoomRecreateSchema {
 
 
 extension Array where Element == RoomRecreateSchema {
-    func toGittkerMessages(isLoading: Bool) -> Array<NiceterMessage> {
+    func toNiceterMessages(isLoading: Bool) -> Array<NiceterMessage> {
         return self.map { (roomRecrObject) in
             roomRecrObject.toGittkerMessage(isLoading: isLoading)
         }

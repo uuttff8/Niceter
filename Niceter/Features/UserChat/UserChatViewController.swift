@@ -118,6 +118,12 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
         }
     }
     
+    override func showReplies(messageId: String) {
+        self.viewModel.loadMessageThread(messageId: messageId) { (roomRecr) in
+            self.coordinator?.showReplies(roomRecreates: roomRecr)
+        }
+    }
+    
     override func joinButtonHandlder() {        
         viewModel.joinToChat(userId: userdata.senderId, roomId: intermediate.id) { (roomSchema) in
             self.fayeClient = FayeEventMessagesBinder(roomId: roomSchema.id)

@@ -40,7 +40,7 @@ public final class FayeEventMessagesBinder {
             self.storage?.async.object(forKey: self.roomId) { res in
                 switch res {
                 case .value(let user):
-                    loadedMessages(user.toGittkerMessages(isLoading: false))
+                    loadedMessages(user.toNiceterMessages(isLoading: false))
                 case .error(let error):
                     NiceterLog.logCacheError(title: "Failed to fetch loading messages cache", error: error)
                     break
@@ -55,7 +55,7 @@ public final class FayeEventMessagesBinder {
                         try? JSONDecoder().decode([RoomRecreateSchema].self, from: roomRecrData!) else { print("blya"); return }
 
                     self.storage?.async.setObject(roomRecr, forKey: self.roomId, completion: { (_) in })
-                    let mess = roomRecr.toGittkerMessages(isLoading: false)
+                    let mess = roomRecr.toNiceterMessages(isLoading: false)
                     
                     loadedMessages(mess)
                 }
