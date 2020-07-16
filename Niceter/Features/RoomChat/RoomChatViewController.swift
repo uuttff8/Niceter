@@ -132,7 +132,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     
     override func showReplies(messageId: String) {
         self.viewModel.loadMessageThread(messageId: messageId) { (roomRecr) in
-            self.coordinator?.showReplies(roomRecreates: roomRecr)
+            self.coordinator?.showReplies(roomRecreates: roomRecr, roomId: self.roomSchema.id)
         }
     }
     

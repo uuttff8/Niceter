@@ -42,8 +42,8 @@ class UserChatCoordinator: Coordinator {
         coord.start()
     }
     
-    func showReplies(roomRecreates: [RoomRecreateSchema]) {
-        let coord = ShowRepliesCoordinator(with: navigationController, roomRecreates: roomRecreates)
+    func showReplies(roomRecreates: [RoomRecreateSchema], roomId: String) {
+        let coord = ShowRepliesCoordinator(with: navigationController, roomRecreates: roomRecreates, roomId: roomId)
         self.childCoordinators.append(coord)
         coord.start()
     }

@@ -11,9 +11,15 @@ import AsyncDisplayKit
 class ShowRepliesViewModel {
     private let parentId: String
     private let roomRecreates: [RoomRecreateSchema]
+    private let roomId: String
     
-    init (roomRecreates: [RoomRecreateSchema]) {
+    init (roomRecreates: [RoomRecreateSchema], roomId: String) {
         self.roomRecreates = roomRecreates
         self.parentId = roomRecreates[0].parentId ?? ""
+        self.roomId = roomId
+    }
+    
+    func sendMessageInThread(text: String) {
+        
     }
 }

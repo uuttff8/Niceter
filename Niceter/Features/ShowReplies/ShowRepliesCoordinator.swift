@@ -13,10 +13,10 @@ class ShowRepliesCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var currentController: ShowRepliesViewController?
     
-    init(with navigationController: ASNavigationController?, roomRecreates: [RoomRecreateSchema]) {
+    init(with navigationController: ASNavigationController?, roomRecreates: [RoomRecreateSchema], roomId: String) {
         self.navigationController = navigationController
         
-        currentController = ShowRepliesViewController(coordinator: self, roomRecreates: roomRecreates)
+        currentController = ShowRepliesViewController(coordinator: self, roomRecreates: roomRecreates, roomId: roomId)
     }
     
     func start() {

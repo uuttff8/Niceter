@@ -12,12 +12,14 @@ final class ShowRepliesViewController: RoomChatBaseViewController {
     weak var coordinator: ShowRepliesCoordinator?
     
     // MARK: - Private Elements
-    private lazy var viewModel = ShowRepliesViewModel(roomRecreates: self.roomRecreates)
-    private var roomRecreates: [RoomRecreateSchema]
+    private lazy var viewModel = ShowRepliesViewModel(roomRecreates: self.roomRecreates, roomId: self.roomId)
+    private let roomRecreates: [RoomRecreateSchema]
+    private let roomId: String
     
-    init(coordinator: ShowRepliesCoordinator, roomRecreates: [RoomRecreateSchema]) {
+    init(coordinator: ShowRepliesCoordinator, roomRecreates: [RoomRecreateSchema], roomId: String) {
         self.coordinator = coordinator
         self.roomRecreates = roomRecreates
+        self.roomId = roomId
         
         super.init(rightBarImage: "")
     }
