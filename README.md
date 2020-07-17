@@ -2,10 +2,9 @@
 
 ![Alt text](/design/screenshots/readme/readme_scr.png  "")
 
-Niceter is a unofficial client to [Gitter](https://gitter.im) for iOS
+Niceter - Native client to [Gitter](https://gitter.im) for iOS
 
-testflight link :
-https://testflight.apple.com/join/NrRu6exn
+TestFlight link : https://testflight.apple.com/join/NrRu6exn
 
 How to compile and generate .xcworkspace file
 
