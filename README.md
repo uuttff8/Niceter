@@ -6,6 +6,7 @@ Niceter - Native client to [Gitter](https://gitter.im) for iOS
 
 TestFlight link : https://testflight.apple.com/join/NrRu6exn
 
+## Compiling 
 How to compile and generate .xcworkspace file
 
 1. Clone repo and cd
