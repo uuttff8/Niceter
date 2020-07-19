@@ -113,16 +113,33 @@ struct MockMessage: MessageType {
     }
     
     func toUserSchema() -> UserSchema {
-        UserSchema(id: self.messageId, username: self.user.username, displayName: self.user.displayName, url: nil, website: nil, avatarURL: nil, avatarURLSmall: nil, avatarURLMedium: nil, company: nil, location: nil, email: nil, github: nil, profile: nil, providers: nil, v: nil)
+        UserSchema(
+            id: self.messageId,
+            username: self.user.username,
+            displayName: self.user.displayName,
+            url: nil,
+            website: nil,
+            avatarURL: nil,
+            avatarURLSmall: nil,
+            avatarURLMedium: nil,
+            company: nil,
+            location: nil,
+            email: nil,
+            github: nil,
+            profile: nil,
+            providers: nil,
+            v: nil
+        )
     }
-    init(attributedText: NSAttributedString,
-         user: MockUser,
-         messageId: String,
-         date: Date,
-         originalText: String,
-         unread: Bool,
-         threadMessageCount: Int?,
-         parentId: String?
+    init(
+        attributedText: NSAttributedString,
+        user: MockUser,
+        messageId: String,
+        date: Date,
+        originalText: String,
+        unread: Bool,
+        threadMessageCount: Int?,
+        parentId: String?
     ) {
         self.init(kind: .attributedText(attributedText),
                   user: user,

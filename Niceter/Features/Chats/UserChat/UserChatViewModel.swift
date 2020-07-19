@@ -11,7 +11,7 @@ import AsyncDisplayKit
 
 class UserChatViewModel {
     
-    open var roomSchema: UserRoomIntermediate
+    public var roomSchema: UserRoomIntermediate
     private var messagesListInfo: [RoomRecreateSchema]?
     private lazy var cachedMessageLoader = CachedRoomMessagesLoader(cacheKey: self.roomSchema.id)
     

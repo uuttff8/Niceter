@@ -78,7 +78,6 @@ public final class FayeEventMessagesBinder {
             switch event.operation {
             case .create:
                 let message = event.model.toNiceterMessage(isLoading: false)
-                print(message.message.parentId)
                 onNew?(message)
             case .update:
                 let message = event.model.toNiceterMessage(isLoading: false)

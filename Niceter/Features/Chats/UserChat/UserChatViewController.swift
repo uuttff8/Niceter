@@ -12,17 +12,13 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     weak var coordinator: UserChatCoordinator?
     
     // MARK: - Private Elements
-    private lazy var viewModel = UserChatViewModel(roomSchema: intermediate)
+    private lazy var viewModel = ChatsViewModel(roomSchema: intermediate)
     private var fayeClient: FayeEventMessagesBinder?
     
     private var isJoined: Bool
     private var intermediate: UserRoomIntermediate
     
-    private var cached = 2
-    
-    private var percentDrivenInteractiveTransition: UIPercentDrivenInteractiveTransition!
-    private var panGestureRecognizer: UIPanGestureRecognizer!
-    
+        
     // MARK: - Init
     init(coordinator: UserChatCoordinator, intermediate: UserRoomIntermediate, isJoined: Bool) {
         self.coordinator = coordinator
@@ -98,9 +94,7 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     }
     
     override func deleteMessage(message: MockMessage) {
-        self.viewModel.deleteMessage(messageId: message.messageId) { (res) in
-            print(res)
-        }
+        self.viewModel.deleteMessage(messageId: message.messageId) { () in }
     }
     
     override func sendMessage(tmpMessage: MockMessage) {
@@ -117,6 +111,15 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
         }
     }
     
+        override func editMessage(message: MockMessage) {
+            guard case MessageKind.attributedText(let messageText) = message.kind else { return }
+            self.viewModel.editMessage(text: messageText.string, messageId: message.messageId) { (roomRecrSchema) in
+                DispatchQueue.main.async {
+                    self.editingMessage(self.editingMessagePlugin, shouldBecomeVisible: false)
+                }
+            }
+        }
+    
     override func showReplies(messageId: String) {
         self.viewModel.loadMessageThread(messageId: messageId) { (roomRecr) in
             self.coordinator?.showReplies(roomRecreates: roomRecr, roomId: self.intermediate.id)
@@ -124,7 +127,7 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     }
     
     override func joinButtonHandlder() {        
-        viewModel.joinToChat(userId: userdata.senderId, roomId: intermediate.id) { (roomSchema) in
+        viewModel.joinToUserChat(userId: userdata.senderId, roomId: intermediate.id) { (roomSchema) in
             self.fayeClient = FayeEventMessagesBinder(roomId: roomSchema.id)
             self.isJoined = true
             self.intermediate.id = roomSchema.id
@@ -137,7 +140,7 @@ final class UserChatViewController: RoomChatEditingMessageExtend {
     }
     
     override func markMessagesAsRead(messagesId: [String]) {
-        self.viewModel.markMessagesAsRead(userId: userdata.senderId, messagesId: messagesId)
+        self.viewModel.markMessagesAsRead(userId: userdata.senderId, messagesId: messagesId, completion: nil)
     }
     
     override func reportMessage(message: MockMessage) {

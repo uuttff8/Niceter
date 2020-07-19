@@ -20,7 +20,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     weak var coordinator: RoomChatCoordinator?
     
     //MARK: -  Private Elements
-    private lazy var viewModel = RoomChatViewModel(roomSchema: roomSchema)
+    private lazy var viewModel = ChatsViewModel(roomSchema: roomSchema.toIntermediate(isUser: false))
     private var fayeClient: FayeEventMessagesBinder
     
     private var isJoined: Bool
@@ -106,13 +106,13 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
     }
     
     override func joinButtonHandlder() {
-        viewModel.joinToChat(userId: userdata.senderId, roomId: roomSchema.id) { (success) in
+        viewModel.joinToRoomChat(userId: userdata.senderId, roomId: roomSchema.id) { (success) in
             self.configureMessageInputBarForChat()
         }
     }
     
     override func markMessagesAsRead(messagesId: [String]) {
-        self.viewModel.markMessagesAsRead(userId: userdata.senderId, messagesId: messagesId)
+        self.viewModel.markMessagesAsRead(userId: userdata.senderId, messagesId: messagesId, completion: nil)
     }
     
     

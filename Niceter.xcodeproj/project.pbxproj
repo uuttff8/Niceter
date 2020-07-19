@@ -55,6 +55,7 @@
 		4E2D1A2824585192005646A3 /* ASTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D1A2724585192005646A3 /* ASTableNode.swift */; };
 		4E2D1A2B24585735005646A3 /* GitterMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D1A2A24585735005646A3 /* GitterMarkdown.swift */; };
 		4E2D1A31245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2D1A30245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift */; };
+		4E3CA2AC24C44E68001643C3 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3CA2AB24C44E68001643C3 /* ChatsViewModel.swift */; };
 		4E4F7D5F2443A6E4009287D8 /* GroupSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */; };
 		4E4F7D612443A817009287D8 /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */; };
 		4E4F7D632443ABA0009287D8 /* CreateRoomCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */; };
@@ -220,6 +221,7 @@
 		4E2D1A2724585192005646A3 /* ASTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTableNode.swift; sourceTree = "<group>"; };
 		4E2D1A2A24585735005646A3 /* GitterMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitterMarkdown.swift; sourceTree = "<group>"; };
 		4E2D1A30245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchSemaphoreWrapper.swift; sourceTree = "<group>"; };
+		4E3CA2AB24C44E68001643C3 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 		4E4F7D5E2443A6E4009287D8 /* GroupSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSchema.swift; sourceTree = "<group>"; };
 		4E4F7D602443A817009287D8 /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		4E4F7D622443ABA0009287D8 /* CreateRoomCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomCoordinator.swift; sourceTree = "<group>"; };
@@ -459,13 +461,12 @@
 		4E09AC15240D80F50028229C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				4E3CA2AA24C44DD6001643C3 /* Chats */,
 				4E62583B24C0320000CB9D39 /* ShowReplies */,
 				4EB082E2244B10C7004F0696 /* RoomInfo */,
 				4E4F7D5A2443A27F009287D8 /* CreateRoom */,
 				4EC70C7A243FA5E70063F323 /* Profile */,
 				4EB3FBFF2429919200F3BF88 /* SuggestedRooms */,
-				4EC70C6C243DC4730063F323 /* UserChat */,
-				4E9D17B0241E7FDA0066362D /* RoomChat */,
 				4E09AC55240EB6760028229C /* Settings */,
 				4E09AC25240D83630028229C /* LoginAuth */,
 				4E09AC54240EB66F0028229C /* People */,
@@ -693,6 +694,16 @@
 				4E2D1A30245C5B6B005646A3 /* DispatchSemaphoreWrapper.swift */,
 			);
 			path = Sync;
+			sourceTree = "<group>";
+		};
+		4E3CA2AA24C44DD6001643C3 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+				4E9D17B0241E7FDA0066362D /* RoomChat */,
+				4EC70C6C243DC4730063F323 /* UserChat */,
+				4E3CA2AB24C44E68001643C3 /* ChatsViewModel.swift */,
+			);
+			path = Chats;
 			sourceTree = "<group>";
 		};
 		4E4F7D5A2443A27F009287D8 /* CreateRoom */ = {
@@ -1391,6 +1402,7 @@
 				4E9D17A3241E42A60066362D /* NSObject+PropertySupport.m in Sources */,
 				4EC70C7E243FA6240063F323 /* ProfileCoordinator.swift in Sources */,
 				4EE0CF8D2420FD2E005BDE24 /* UIViewController+Ext.swift in Sources */,
+				4E3CA2AC24C44E68001643C3 /* ChatsViewModel.swift in Sources */,
 				4E9D179D241E42A60066362D /* NSString+FayeInflectionSupport.m in Sources */,
 				4E22A00424334B480096371C /* ProfileAdditionalInfoNode.swift in Sources */,
 			);
@@ -1580,7 +1592,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Niceter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Niceter/Resources/Info.plist;
@@ -1605,7 +1617,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Niceter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Niceter/Resources/Info.plist;
