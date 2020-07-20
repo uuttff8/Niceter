@@ -58,7 +58,7 @@ final class RoomChatViewController: RoomChatAutocompleteExtend {
             .subscribe(
                 onNew: { [weak self] (message: NiceterMessage) in
                       
-                    if let parentIdMessage = message.message.parentId {
+                    if let _ = message.message.parentId {
                     } else {
                         self?.viewModel.addNewMessageToCache(message: message)
                         self?.addToMessageMap(message: message, isFirstly: true)

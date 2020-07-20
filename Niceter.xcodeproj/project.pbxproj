@@ -695,9 +695,9 @@
 		4E3CA2AA24C44DD6001643C3 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				4E3CA2AB24C44E68001643C3 /* ChatsViewModel.swift */,
 				4E9D17B0241E7FDA0066362D /* RoomChat */,
 				4EC70C6C243DC4730063F323 /* UserChat */,
-				4E3CA2AB24C44E68001643C3 /* ChatsViewModel.swift */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -1584,7 +1584,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Niceter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Niceter/Resources/Info.plist;
@@ -1609,7 +1609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Niceter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = Niceter/Resources/Info.plist;

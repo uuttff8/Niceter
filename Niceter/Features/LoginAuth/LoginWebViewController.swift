@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SnapKit
 
 class LoginWebViewController: UIViewController {
     typealias JsonObject = [String : Any]
@@ -37,8 +38,13 @@ class LoginWebViewController: UIViewController {
             webView.scrollView.bounces = false
             webView.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(webView)
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[webView]|", options: [], metrics: nil, views: ["webView": webView]))
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide][webView]|", options: [], metrics: nil, views: ["topLayoutGuide": self.topLayoutGuide, "webView": webView]))
+            NSLayoutConstraint.activate([
+                webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+                webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            ])
+            
             webView.navigationDelegate = self
             webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
             self.webView = webView
