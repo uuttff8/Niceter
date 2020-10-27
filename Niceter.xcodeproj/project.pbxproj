@@ -1631,7 +1631,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 78B0A735EB52BA6DCC8D2E04 /* Pods-NiceterTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
@@ -1654,7 +1654,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2003D9DEE6E8280ECFE9FB1F /* Pods-NiceterTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
@@ -1677,7 +1677,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8E8F4871EE3519DF6A598DAD /* Pods-Niceter-NiceterUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = NiceterUITests/Info.plist;
@@ -1698,7 +1698,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 67420D98CB13DFBF4655892A /* Pods-Niceter-NiceterUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75BBTA9VPU;
 				INFOPLIST_FILE = NiceterUITests/Info.plist;
