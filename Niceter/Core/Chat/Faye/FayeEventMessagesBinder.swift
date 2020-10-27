@@ -14,7 +14,7 @@ public final class FayeEventMessagesBinder {
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<[RoomRecreateSchema]>?
+    var storage: Storage<String, [RoomRecreateSchema]>?
 
     public var roomId: String
     
@@ -26,7 +26,7 @@ public final class FayeEventMessagesBinder {
         memoryConfig = MemoryConfig(expiry: .never, countLimit: 10, totalCostLimit: 10)
         
         
-        storage = try? Storage<[RoomRecreateSchema]>(
+        storage = try? Storage<String, [RoomRecreateSchema]>(
           diskConfig: diskConfig,
           memoryConfig: memoryConfig,
           transformer: TransformerFactory.forCodable(ofType: [RoomRecreateSchema].self)

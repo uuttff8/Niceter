@@ -15,7 +15,7 @@ class CachedRoomMessagesLoader: CachedLoader {
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<[RoomRecreateSchema]>?
+    var storage: Storage<String, [RoomRecreateSchema]>?
     
     var cacheKey: String
 
@@ -24,7 +24,7 @@ class CachedRoomMessagesLoader: CachedLoader {
         self.diskConfig = DiskConfig(name: cacheKey, expiry: .never)
         self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
         
-        self.storage = try? Storage<[RoomRecreateSchema]>(
+        self.storage = try? Storage<String, [RoomRecreateSchema]>(
             diskConfig: diskConfig,
             memoryConfig: memoryConfig,
             transformer: TransformerFactory.forCodable(ofType: [RoomRecreateSchema].self)

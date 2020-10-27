@@ -5,10 +5,10 @@ target 'Niceter' do
   use_frameworks!
   inhibit_all_warnings!
   
-  pod "Texture"
-  pod 'SocketRocket'
-  pod 'MessageKit'
-  pod 'Cache'
+  pod "Texture", '~> 3.0.0'
+  pod 'SocketRocket', '~> 0.5.1'
+  pod 'MessageKit', '~> 3.4.2'
+  pod 'Cache', '~> 6.0.0'
   pod 'TextureSwiftSupport', '~> 2.0.0'
   pod 'Firebase/Analytics'
   pod 'MarkdownKit', '~> 1.6.0'
@@ -23,3 +23,4 @@ target 'Niceter' do
   end
 
 end
+

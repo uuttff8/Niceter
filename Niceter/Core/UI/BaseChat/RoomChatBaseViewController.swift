@@ -69,7 +69,7 @@ class RoomChatBaseViewController: ChatViewController {
                 ImageProcessor.Circle()
             ])
             
-            ImagePipeline.shared.loadImage(with: request) { result in
+            ImagePipeline.shared.loadImage(with: request, completion: { result in
                 switch result {
                 case .success(let response):
                     DispatchQueue.main.async {
@@ -77,7 +77,7 @@ class RoomChatBaseViewController: ChatViewController {
                     }
                 default: break
                 }
-            }
+            })
         }
         
         self.navigationItem.rightBarButtonItem = self.rightImageBarButton

@@ -15,7 +15,7 @@ protocol CachedLoader {
     
     var diskConfig: DiskConfig { get set }
     var memoryConfig: MemoryConfig { get set }
-    var storage: Storage<CodeType>? { get set }
+    var storage: Storage<String, CodeType>? { get set }
     
     var cacheKey: String { get set }
     

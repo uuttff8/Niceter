@@ -15,7 +15,7 @@ class CachedUserLoader: CachedLoader {
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<UserSchema>?
+    var storage: Storage<String, UserSchema>?
     
     var cacheKey: String
 
@@ -24,7 +24,7 @@ class CachedUserLoader: CachedLoader {
         self.diskConfig = DiskConfig(name: self.cacheKey, expiry: .seconds(86400))
         self.memoryConfig = MemoryConfig(expiry: .seconds(86400), countLimit: 10, totalCostLimit: 10) // 24 hours
         
-        self.storage = try? Storage<UserSchema>(
+        self.storage = try? Storage<String, UserSchema>(
             diskConfig: diskConfig,
             memoryConfig: memoryConfig,
             transformer: TransformerFactory.forCodable(ofType: UserSchema.self)

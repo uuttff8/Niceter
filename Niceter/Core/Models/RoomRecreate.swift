@@ -43,7 +43,7 @@ extension RoomRecreateSchema {
         let message = MockMessage(attributedText: md.parse(self.text ?? ""),
                                   user: user,
                                   messageId: self.id,
-                                  date: Date.toGittkerDate(str: self.sent!),
+                                  date: Date.toNiceterDate(str: self.sent!),
                                   originalText: self.text ?? "",
                                   unread: unread ?? false,
                                   threadMessageCount: self.threadMessageCount,
@@ -62,7 +62,7 @@ extension Array where Element == RoomRecreateSchema {
 }
 
 extension Date {
-    static func toGittkerDate(str: String?) -> Date {
+    static func toNiceterDate(str: String?) -> Date {
         guard let str = str else { return Date() }
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]

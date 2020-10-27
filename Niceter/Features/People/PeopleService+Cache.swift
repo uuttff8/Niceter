@@ -15,7 +15,7 @@ class CachedPeopleLoader: CachedLoader {
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<[RoomSchema]>?
+    var storage: Storage<String, [RoomSchema]>?
     
     var cacheKey: String
 
@@ -24,7 +24,7 @@ class CachedPeopleLoader: CachedLoader {
         self.diskConfig = DiskConfig(name: self.cacheKey, expiry: .never)
         self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
         
-        self.storage = try? Storage<[RoomSchema]>(
+        self.storage = try? Storage<String, [RoomSchema]>(
             diskConfig: diskConfig,
             memoryConfig: memoryConfig,
             transformer: TransformerFactory.forCodable(ofType: [RoomSchema].self)

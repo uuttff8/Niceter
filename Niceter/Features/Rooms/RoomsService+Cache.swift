@@ -28,7 +28,7 @@ class CachedSuggestedRoomLoader: CachedLoader {
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<[RoomSchema]>?
+    var storage: Storage<String, [RoomSchema]>?
     
     var cacheKey: String
 
@@ -37,7 +37,7 @@ class CachedSuggestedRoomLoader: CachedLoader {
         self.diskConfig = DiskConfig(name: self.cacheKey, expiry: .never)
         self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
         
-        self.storage = try? Storage<[RoomSchema]>(
+        self.storage = try? Storage<String, [RoomSchema]>(
             diskConfig: diskConfig,
             memoryConfig: memoryConfig,
             transformer: TransformerFactory.forCodable(ofType: [RoomSchema].self)
@@ -69,7 +69,7 @@ class CachedRoomLoader: CachedLoader {
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<[RoomSchema]>?
+    var storage: Storage<String, [RoomSchema]>?
     
     var cacheKey: String
 
@@ -78,7 +78,7 @@ class CachedRoomLoader: CachedLoader {
         self.diskConfig = DiskConfig(name: self.cacheKey, expiry: .never)
         self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
         
-        self.storage = try? Storage<[RoomSchema]>(
+        self.storage = try? Storage<String, [RoomSchema]>(
             diskConfig: diskConfig,
             memoryConfig: memoryConfig,
             transformer: TransformerFactory.forCodable(ofType: [RoomSchema].self)
@@ -116,7 +116,7 @@ class CachedPrefetchRoomUsers: CachedLoader {
     
     var diskConfig: DiskConfig
     var memoryConfig: MemoryConfig
-    var storage: Storage<[UserSchema]>?
+    var storage: Storage<String, [UserSchema]>?
     
     var cacheKey: String
     var roomId: String
@@ -127,7 +127,7 @@ class CachedPrefetchRoomUsers: CachedLoader {
         self.diskConfig = DiskConfig(name: self.cacheKey, expiry: .never)
         self.memoryConfig = MemoryConfig(expiry: .never, countLimit: 100, totalCostLimit: 100)
         
-        self.storage = try? Storage<[UserSchema]>(
+        self.storage = try? Storage<String, [UserSchema]>(
             diskConfig: diskConfig,
             memoryConfig: memoryConfig,
             transformer: TransformerFactory.forCodable(ofType: [UserSchema].self)
